@@ -1,11 +1,5 @@
-//
-//  LumiApp.swift
-//  Lumi
-//
-//  Created by LIMA DESENVOLVIMENTO DE PROGRAMAS LTDA on 08/01/26.
-//
-
 import SwiftUI
+import SwiftData
 
 @main
 struct LumiApp: App {
@@ -13,5 +7,10 @@ struct LumiApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: [
+            Child.self,
+            Session.self,
+            DailyAdventureCount.self
+        ])
     }
 }

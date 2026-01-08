@@ -1,22 +1,26 @@
-//
-//  ContentView.swift
-//  Lumi
-//
-//  Created by LIMA DESENVOLVIMENTO DE PROGRAMAS LTDA on 08/01/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var navigationPath = NavigationPath()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack(path: $navigationPath) {
+            HomeView(navigationPath: $navigationPath)
+                .navigationDestination(for: AppDestination.self) { destination in
+                    switch destination {
+                    case .adventure:
+                        AdventureView(navigationPath: $navigationPath)
+                    case .parentZone:
+                        ParentDashboardView()
+                    }
+                }
         }
-        .padding()
     }
+}
+
+enum AppDestination: Hashable {
+    case adventure
+    case parentZone
 }
 
 #Preview {
