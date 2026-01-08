@@ -51,3 +51,9 @@ Lumi/
 
 - Start at level 1, move UP after 3 correct, DOWN after 2 incorrect
 - Range: 1-4
+
+## Testing (REQUIRED)
+
+- **Always run tests before delivering work**
+- **Update tests when changing code** (add for features, update for changes, remove for deletions)
+- See `/testing` skill for commands and patterns

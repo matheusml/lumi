@@ -102,7 +102,9 @@ open Lumi.xcodeproj
 
 ### Run Tests
 ```bash
-xcodebuild -project Lumi.xcodeproj -scheme Lumi test
+xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  -only-testing:LumiTests
 ```
 
 ## Design System

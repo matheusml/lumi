@@ -11,8 +11,10 @@ description: Build commands, file locations, and development workflow for Lumi. 
 # Build the project
 xcodebuild -project Lumi.xcodeproj -scheme Lumi -configuration Debug build
 
-# Run tests
-xcodebuild -project Lumi.xcodeproj -scheme Lumi test
+# Run unit tests
+xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  -only-testing:LumiTests
 
 # Clean build folder
 xcodebuild -project Lumi.xcodeproj -scheme Lumi clean
