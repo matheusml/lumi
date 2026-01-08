@@ -57,17 +57,19 @@ struct AdventureView: View {
                         }
                     )
                     .id(problem.id)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     // Loading or error state
                     VStack {
+                        Spacer()
                         ProgressView()
                         Text("Carregando...")
                             .font(LumiTypography.bodyMedium)
                             .foregroundStyle(LumiColors.textSecondary)
+                        Spacer()
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-
-                Spacer()
             }
         }
         .navigationBarHidden(true)

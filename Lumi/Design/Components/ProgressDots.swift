@@ -28,7 +28,7 @@ struct ProgressDots: View {
         if index < completed {
             return LumiColors.success
         } else if index == current {
-            return LumiColors.primary
+            return LumiColors.secondary
         } else {
             return LumiColors.textTertiary.opacity(0.3)
         }

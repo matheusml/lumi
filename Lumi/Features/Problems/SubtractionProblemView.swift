@@ -22,59 +22,70 @@ struct SubtractionProblemView: View {
     }
 
     var body: some View {
-        VStack(spacing: LumiSpacing.xl) {
-            // Visual representation
-            VStack(spacing: LumiSpacing.md) {
-                // Objects with some flying away
-                HStack(spacing: LumiSpacing.sm) {
-                    // Remaining objects
-                    ForEach(0..<(startCount - subtractCount), id: \.self) { _ in
-                        Text(emoji)
-                            .font(.system(size: 40))
-                    }
+        GeometryReader { geometry in
+            let availableWidth = geometry.size.width - (LumiSpacing.screenHorizontal * 2) - (LumiSpacing.xl * 2)
+            let elementCount = CGFloat(startCount)
+            let totalSpacing = LumiSpacing.sm * (elementCount - 1)
+            let elementSize = min(40, (availableWidth - totalSpacing) / elementCount)
+            let fontSize = elementSize * 0.9
 
-                    // Objects that "fly away"
-                    ForEach(0..<subtractCount, id: \.self) { index in
-                        Text(emoji)
-                            .font(.system(size: 40))
-                            .opacity(showSubtraction ? 0.3 : 1.0)
-                            .offset(y: showSubtraction ? -50 : 0)
-                            .animation(
-                                .easeOut(duration: 0.5).delay(Double(index) * 0.1),
-                                value: showSubtraction
-                            )
-                    }
-                }
-            }
-            .padding(LumiSpacing.xl)
-            .background(
-                RoundedRectangle(cornerRadius: LumiSpacing.radiusLarge)
-                    .fill(LumiColors.cardBackground)
-            )
-            .padding(.horizontal, LumiSpacing.screenHorizontal)
+            VStack(spacing: LumiSpacing.xl) {
+                // Visual representation
+                VStack(spacing: LumiSpacing.md) {
+                    // Objects with some flying away
+                    HStack(spacing: LumiSpacing.sm) {
+                        // Remaining objects
+                        ForEach(0..<(startCount - subtractCount), id: \.self) { _ in
+                            Text(emoji)
+                                .font(.system(size: fontSize))
+                                .frame(width: elementSize, height: elementSize)
+                        }
 
-            // Equation
-            Text(problem.prompt.localized())
-                .font(LumiTypography.numberLarge)
-                .foregroundStyle(LumiColors.textPrimary)
-
-            Spacer()
-
-            // Answer choices
-            HStack(spacing: LumiSpacing.md) {
-                ForEach(problem.answerChoices ?? [], id: \.self) { choice in
-                    if let number = choice.intValue {
-                        NumberChoice(
-                            number: number,
-                            state: choiceState(for: choice)
-                        ) {
-                            selectAnswer(choice)
+                        // Objects that "fly away"
+                        ForEach(0..<subtractCount, id: \.self) { index in
+                            Text(emoji)
+                                .font(.system(size: fontSize))
+                                .frame(width: elementSize, height: elementSize)
+                                .opacity(showSubtraction ? 0.3 : 1.0)
+                                .offset(y: showSubtraction ? -50 : 0)
+                                .animation(
+                                    .easeOut(duration: 0.5).delay(Double(index) * 0.1),
+                                    value: showSubtraction
+                                )
                         }
                     }
                 }
-            }
+                .padding(LumiSpacing.xl)
+                .background(
+                    RoundedRectangle(cornerRadius: LumiSpacing.radiusLarge)
+                        .fill(LumiColors.cardBackground)
+                )
+                .padding(.horizontal, LumiSpacing.screenHorizontal)
 
-            Spacer()
+                // Equation
+                Text(problem.prompt.localized())
+                    .font(LumiTypography.numberLarge)
+                    .foregroundStyle(LumiColors.textPrimary)
+
+                Spacer()
+
+                // Answer choices
+                HStack(spacing: LumiSpacing.md) {
+                    ForEach(problem.answerChoices ?? [], id: \.self) { choice in
+                        if let number = choice.intValue {
+                            NumberChoice(
+                                number: number,
+                                state: choiceState(for: choice)
+                            ) {
+                                selectAnswer(choice)
+                            }
+                        }
+                    }
+                }
+
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .onAppear {
             // Animate subtraction after a short delay

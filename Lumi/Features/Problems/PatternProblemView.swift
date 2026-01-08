@@ -16,64 +16,71 @@ struct PatternProblemView: View {
     }
 
     var body: some View {
-        VStack(spacing: LumiSpacing.xl) {
-            // Prompt
-            Text(problem.prompt.localized())
-                .font(LumiTypography.prompt)
-                .foregroundStyle(LumiColors.textPrimary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, LumiSpacing.screenHorizontal)
+        GeometryReader { geometry in
+            let availableWidth = geometry.size.width - (LumiSpacing.screenHorizontal * 2) - (LumiSpacing.lg * 2)
+            let elementCount = CGFloat(patternElements.count)
+            let totalSpacing = LumiSpacing.md * (elementCount - 1)
+            let elementSize = min(60, (availableWidth - totalSpacing) / elementCount)
 
-            // Pattern display
-            ScrollView(.horizontal, showsIndicators: false) {
+            VStack(spacing: LumiSpacing.xl) {
+                // Prompt
+                Text(problem.prompt.localized())
+                    .font(LumiTypography.prompt)
+                    .foregroundStyle(LumiColors.textPrimary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, LumiSpacing.screenHorizontal)
+
+                // Pattern display
                 HStack(spacing: LumiSpacing.md) {
                     ForEach(Array(patternElements.enumerated()), id: \.offset) { index, element in
-                        patternElement(element, isUnknown: element == "unknown")
+                        patternElement(element, isUnknown: element == "unknown", size: elementSize)
                     }
                 }
                 .padding(LumiSpacing.lg)
-            }
-            .background(
-                RoundedRectangle(cornerRadius: LumiSpacing.radiusLarge)
-                    .fill(LumiColors.cardBackground)
-            )
-            .padding(.horizontal, LumiSpacing.screenHorizontal)
+                .background(
+                    RoundedRectangle(cornerRadius: LumiSpacing.radiusLarge)
+                        .fill(LumiColors.cardBackground)
+                )
+                .padding(.horizontal, LumiSpacing.screenHorizontal)
 
-            Spacer()
+                Spacer()
 
-            // Answer choices
-            VStack(spacing: LumiSpacing.md) {
-                Text("O que vem no lugar de ❓?")
-                    .font(LumiTypography.bodyLarge)
-                    .foregroundStyle(LumiColors.textSecondary)
+                // Answer choices
+                VStack(spacing: LumiSpacing.md) {
+                    Text("O que vem no lugar de ❓?")
+                        .font(LumiTypography.bodyLarge)
+                        .foregroundStyle(LumiColors.textSecondary)
 
-                HStack(spacing: LumiSpacing.md) {
-                    ForEach(problem.answerChoices ?? [], id: \.self) { choice in
-                        if let object = choice.stringValue {
-                            patternChoiceButton(object: object, choice: choice)
+                    HStack(spacing: LumiSpacing.md) {
+                        ForEach(problem.answerChoices ?? [], id: \.self) { choice in
+                            if let object = choice.stringValue {
+                                patternChoiceButton(object: object, choice: choice)
+                            }
                         }
                     }
                 }
-            }
 
-            Spacer()
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
     @ViewBuilder
-    private func patternElement(_ object: String, isUnknown: Bool) -> some View {
+    private func patternElement(_ object: String, isUnknown: Bool, size: CGFloat) -> some View {
+        let fontSize = size * 0.83 // Proportional font size
         if isUnknown {
             Text("❓")
-                .font(.system(size: 50))
-                .frame(width: 60, height: 60)
+                .font(.system(size: fontSize))
+                .frame(width: size, height: size)
                 .background(
                     Circle()
                         .stroke(LumiColors.textTertiary, style: StrokeStyle(lineWidth: 2, dash: [5]))
                 )
         } else {
             Text(ObjectEmoji.emoji(for: object))
-                .font(.system(size: 50))
-                .frame(width: 60, height: 60)
+                .font(.system(size: fontSize))
+                .frame(width: size, height: size)
         }
     }
 

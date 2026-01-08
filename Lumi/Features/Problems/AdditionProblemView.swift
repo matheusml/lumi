@@ -24,17 +24,20 @@ struct AdditionProblemView: View {
     var body: some View {
         VStack(spacing: LumiSpacing.xl) {
             // Visual representation
-            HStack(spacing: LumiSpacing.lg) {
+            HStack(spacing: LumiSpacing.md) {
                 // Left group
                 objectGroup(emoji: leftGroup.emoji, count: leftGroup.count)
+                    .frame(maxWidth: .infinity)
 
                 // Plus sign
                 Text("+")
                     .font(LumiTypography.numberLarge)
                     .foregroundStyle(LumiColors.textPrimary)
+                    .layoutPriority(1)
 
                 // Right group
                 objectGroup(emoji: rightGroup.emoji, count: rightGroup.count)
+                    .frame(maxWidth: .infinity)
             }
             .padding(LumiSpacing.lg)
             .background(
@@ -70,19 +73,16 @@ struct AdditionProblemView: View {
 
     @ViewBuilder
     private func objectGroup(emoji: String, count: Int) -> some View {
-        VStack(spacing: LumiSpacing.xs) {
-            LazyVGrid(columns: [
-                GridItem(.fixed(40)),
-                GridItem(.fixed(40)),
-                GridItem(.fixed(40))
-            ], spacing: LumiSpacing.xs) {
-                ForEach(0..<count, id: \.self) { _ in
-                    Text(emoji)
-                        .font(.system(size: 32))
-                }
+        LazyVGrid(columns: [
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ], spacing: LumiSpacing.xs) {
+            ForEach(0..<count, id: \.self) { _ in
+                Text(emoji)
+                    .font(.system(size: 32))
             }
         }
-        .frame(minWidth: 120)
     }
 
     private func choiceState(for choice: AnswerValue) -> NumberChoice.ChoiceState {

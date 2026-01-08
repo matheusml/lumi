@@ -4,7 +4,6 @@ struct CountingProblemView: View {
     let problem: Problem
     let onAnswer: (Bool) -> Void
 
-    @State private var countedObjects: Set<Int> = []
     @State private var selectedAnswer: AnswerValue?
     @State private var hasAnswered = false
 
@@ -17,10 +16,6 @@ struct CountingProblemView: View {
         return (emoji, count)
     }
 
-    private var allCounted: Bool {
-        countedObjects.count >= objectInfo.count
-    }
-
     var body: some View {
         VStack(spacing: LumiSpacing.xl) {
             // Prompt
@@ -30,17 +25,11 @@ struct CountingProblemView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, LumiSpacing.screenHorizontal)
 
-            // Countable objects
+            // Objects to count
             LazyVGrid(columns: gridColumns, spacing: LumiSpacing.md) {
-                ForEach(0..<objectInfo.count, id: \.self) { index in
-                    CountableObject(
-                        emoji: objectInfo.emoji,
-                        isCounted: countedObjects.contains(index)
-                    ) {
-                        if !countedObjects.contains(index) {
-                            countedObjects.insert(index)
-                        }
-                    }
+                ForEach(0..<objectInfo.count, id: \.self) { _ in
+                    Text(objectInfo.emoji)
+                        .font(.system(size: 50))
                 }
             }
             .padding(LumiSpacing.lg)
@@ -50,41 +39,24 @@ struct CountingProblemView: View {
             )
             .padding(.horizontal, LumiSpacing.screenHorizontal)
 
-            // Count indicator
-            if !countedObjects.isEmpty {
-                Text("Contados: \(countedObjects.count)")
-                    .font(LumiTypography.bodyMedium)
-                    .foregroundStyle(LumiColors.textSecondary)
-            }
-
             Spacer()
 
-            // Answer choices (show after counting all)
-            if allCounted {
-                VStack(spacing: LumiSpacing.md) {
-                    Text("Qual é o total?")
-                        .font(LumiTypography.bodyLarge)
-                        .foregroundStyle(LumiColors.textSecondary)
-
-                    HStack(spacing: LumiSpacing.md) {
-                        ForEach(problem.answerChoices ?? [], id: \.self) { choice in
-                            if let number = choice.intValue {
-                                NumberChoice(
-                                    number: number,
-                                    state: choiceState(for: choice)
-                                ) {
-                                    selectAnswer(choice)
-                                }
-                            }
+            // Answer choices
+            HStack(spacing: LumiSpacing.md) {
+                ForEach(problem.answerChoices ?? [], id: \.self) { choice in
+                    if let number = choice.intValue {
+                        NumberChoice(
+                            number: number,
+                            state: choiceState(for: choice)
+                        ) {
+                            selectAnswer(choice)
                         }
                     }
                 }
-                .transition(.move(edge: .bottom).combined(with: .opacity))
             }
 
             Spacer()
         }
-        .animation(.easeInOut(duration: 0.3), value: allCounted)
     }
 
     private var gridColumns: [GridItem] {

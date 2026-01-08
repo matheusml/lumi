@@ -7,11 +7,15 @@ struct ProblemContainerView: View {
 
     @State private var showFeedback = false
     @State private var isCorrect = false
+    @State private var attemptId = 0
+    @State private var hasRecordedAnswer = false
 
     var body: some View {
         ZStack {
             // Problem view
             problemView
+                .id(attemptId)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .opacity(showFeedback ? 0.3 : 1.0)
 
             // Feedback overlay
@@ -20,6 +24,7 @@ struct ProblemContainerView: View {
                     .transition(.scale.combined(with: .opacity))
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .animation(.easeInOut(duration: 0.3), value: showFeedback)
     }
 
@@ -55,6 +60,7 @@ struct ProblemContainerView: View {
             } else {
                 TryAgainView {
                     showFeedback = false
+                    attemptId += 1
                 }
             }
         }
@@ -62,8 +68,13 @@ struct ProblemContainerView: View {
 
     private func handleAnswer(correct: Bool) {
         isCorrect = correct
-        onAnswer(correct)
         showFeedback = true
+
+        // Only record the answer once per problem (when correct, or we could record first attempt)
+        if correct && !hasRecordedAnswer {
+            hasRecordedAnswer = true
+            onAnswer(true)
+        }
     }
 }
 
