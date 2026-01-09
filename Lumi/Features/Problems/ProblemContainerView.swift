@@ -100,16 +100,19 @@ struct ProblemContainerView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.showFeedback = false
 
-            if correct {
-                if !self.hasRecordedAnswer {
-                    self.hasRecordedAnswer = true
-                    self.onAnswer(true)
+            // Wait for fade animation (0.3s) to complete before transitioning
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                if correct {
+                    if !self.hasRecordedAnswer {
+                        self.hasRecordedAnswer = true
+                        self.onAnswer(true)
+                    }
+                    self.onNext()
+                } else {
+                    // Reset for retry
+                    self.hasProcessedAnswer = false
+                    self.attemptId += 1
                 }
-                self.onNext()
-            } else {
-                // Reset for retry
-                self.hasProcessedAnswer = false
-                self.attemptId += 1
             }
         }
     }

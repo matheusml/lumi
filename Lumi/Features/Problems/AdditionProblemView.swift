@@ -74,9 +74,9 @@ struct AdditionProblemView: View {
     @ViewBuilder
     private func objectGroup(emoji: String, count: Int, alignment: HorizontalAlignment) -> some View {
         LazyVGrid(columns: [
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible())
+            GridItem(.fixed(40)),
+            GridItem(.fixed(40)),
+            GridItem(.fixed(40))
         ], alignment: alignment, spacing: LumiSpacing.xs) {
             ForEach(0..<count, id: \.self) { _ in
                 Text(emoji)

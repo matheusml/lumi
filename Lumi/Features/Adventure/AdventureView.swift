@@ -84,6 +84,12 @@ struct AdventureView: View {
             viewModel.configure(with: modelContext)
             viewModel.startAdventure()
         }
+        .onChange(of: showCompletion) { wasShowing, isShowing in
+            // When completion screen dismisses (user chose "Mais uma aventura"), start fresh
+            if wasShowing && !isShowing {
+                viewModel.startAdventure()
+            }
+        }
     }
 }
 
