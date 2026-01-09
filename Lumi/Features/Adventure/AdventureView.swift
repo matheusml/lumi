@@ -4,9 +4,14 @@ import SwiftData
 struct AdventureView: View {
     @Binding var navigationPath: NavigationPath
     @Environment(\.modelContext) private var modelContext
+    @Query private var children: [Child]
 
     @State private var viewModel = AdventureViewModel()
     @State private var showCompletion = false
+
+    private var autoVoiceOverEnabled: Bool {
+        children.first?.autoVoiceOverEnabled ?? false
+    }
 
     var body: some View {
         ZStack {
@@ -45,6 +50,7 @@ struct AdventureView: View {
                 if let problem = viewModel.currentProblem {
                     ProblemContainerView(
                         problem: problem,
+                        autoVoiceOverEnabled: autoVoiceOverEnabled,
                         onAnswer: { correct in
                             viewModel.recordAnswer(correct: correct)
                         },

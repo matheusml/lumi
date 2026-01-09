@@ -37,6 +37,7 @@ final class SwiftDataModelTests: XCTestCase {
 
         XCTAssertEqual(child.dailyAdventureLimit, 3)
         XCTAssertEqual(child.preferredLanguage, "pt-BR")
+        XCTAssertFalse(child.autoVoiceOverEnabled)
         XCTAssertTrue(child.activityProgress.isEmpty)
         XCTAssertTrue(child.sessions.isEmpty)
     }
@@ -45,12 +46,14 @@ final class SwiftDataModelTests: XCTestCase {
         let child = Child(
             name: "Custom Child",
             dailyAdventureLimit: 5,
-            preferredLanguage: "en"
+            preferredLanguage: "en",
+            autoVoiceOverEnabled: true
         )
 
         XCTAssertEqual(child.name, "Custom Child")
         XCTAssertEqual(child.dailyAdventureLimit, 5)
         XCTAssertEqual(child.preferredLanguage, "en")
+        XCTAssertTrue(child.autoVoiceOverEnabled)
     }
 
     // MARK: - Session Tests

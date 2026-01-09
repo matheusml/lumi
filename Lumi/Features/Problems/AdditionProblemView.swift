@@ -46,10 +46,16 @@ struct AdditionProblemView: View {
             )
             .padding(.horizontal, LumiSpacing.screenHorizontal)
 
-            // Equation
-            Text(problem.prompt.localized())
-                .font(LumiTypography.numberLarge)
-                .foregroundStyle(LumiColors.textPrimary)
+            // Equation with speaker button
+            HStack(spacing: LumiSpacing.md) {
+                Text(problem.prompt.localized())
+                    .font(LumiTypography.numberLarge)
+                    .foregroundStyle(LumiColors.textPrimary)
+
+                SpeakerButton {
+                    SpeechService.shared.speak(problem.prompt.localized())
+                }
+            }
 
             Spacer()
 

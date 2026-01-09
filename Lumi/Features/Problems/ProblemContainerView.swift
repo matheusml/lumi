@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ProblemContainerView: View {
     let problem: Problem
+    let autoVoiceOverEnabled: Bool
     let onAnswer: (Bool) -> Void
     let onNext: () -> Void
 
@@ -28,8 +29,14 @@ struct ProblemContainerView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .animation(.easeInOut(duration: 0.3), value: showFeedback)
         .onAppear {
-            SpeechService.shared.speak(problem.prompt.localized())
+            if autoVoiceOverEnabled {
+                speakPrompt()
+            }
         }
+    }
+
+    private func speakPrompt() {
+        SpeechService.shared.speak(problem.prompt.localized())
     }
 
     @ViewBuilder
@@ -89,11 +96,13 @@ struct ProblemContainerView: View {
         isCorrect = correct
         showFeedback = true
 
-        // Play spoken feedback
-        if correct {
-            SpeechService.shared.speakSuccess()
-        } else {
-            SpeechService.shared.speakTryAgain()
+        // Play spoken feedback (only if auto voice-over is enabled)
+        if autoVoiceOverEnabled {
+            if correct {
+                SpeechService.shared.speakSuccess()
+            } else {
+                SpeechService.shared.speakTryAgain()
+            }
         }
 
         // Auto-advance after delay
@@ -135,6 +144,7 @@ struct ProblemContainerView: View {
 
     ProblemContainerView(
         problem: sampleProblem,
+        autoVoiceOverEnabled: false,
         onAnswer: { _ in },
         onNext: {}
     )

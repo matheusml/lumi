@@ -10,6 +10,7 @@ final class Child {
     // Settings
     var dailyAdventureLimit: Int
     var preferredLanguage: String
+    var autoVoiceOverEnabled: Bool
 
     // Progress tracking per activity type
     @Relationship(deleteRule: .cascade)
@@ -28,13 +29,15 @@ final class Child {
         name: String = "",
         createdAt: Date = Date(),
         dailyAdventureLimit: Int = 3,
-        preferredLanguage: String = "pt-BR"
+        preferredLanguage: String = "pt-BR",
+        autoVoiceOverEnabled: Bool = false
     ) {
         self.id = id
         self.name = name
         self.createdAt = createdAt
         self.dailyAdventureLimit = dailyAdventureLimit
         self.preferredLanguage = preferredLanguage
+        self.autoVoiceOverEnabled = autoVoiceOverEnabled
         self.activityProgress = []
         self.sessions = []
         self.seenProblems = []

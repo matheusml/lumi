@@ -23,12 +23,18 @@ struct PatternProblemView: View {
             let elementSize = min(60, (availableWidth - totalSpacing) / elementCount)
 
             VStack(spacing: LumiSpacing.xl) {
-                // Prompt
-                Text(problem.prompt.localized())
-                    .font(LumiTypography.prompt)
-                    .foregroundStyle(LumiColors.textPrimary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, LumiSpacing.screenHorizontal)
+                // Prompt with speaker button
+                HStack(spacing: LumiSpacing.md) {
+                    Text(problem.prompt.localized())
+                        .font(LumiTypography.prompt)
+                        .foregroundStyle(LumiColors.textPrimary)
+                        .multilineTextAlignment(.center)
+
+                    SpeakerButton {
+                        SpeechService.shared.speak(problem.prompt.localized())
+                    }
+                }
+                .padding(.horizontal, LumiSpacing.screenHorizontal)
 
                 // Pattern display
                 HStack(spacing: LumiSpacing.md) {

@@ -7,9 +7,14 @@ struct SettingsView: View {
 
     @Bindable var adventureLimitService: AdventureLimitService
 
+    @Query private var children: [Child]
+
     @State private var isLimitEnabled: Bool = false
     @State private var dailyLimit: Int = 3
     @State private var showResetConfirmation = false
+    @State private var autoVoiceOverEnabled: Bool = false
+
+    private var child: Child? { children.first }
 
     var body: some View {
         NavigationStack {
@@ -82,6 +87,22 @@ struct SettingsView: View {
                     }
                 }
 
+                // Voice-over section
+                Section {
+                    Toggle(isOn: $autoVoiceOverEnabled) {
+                        Text("Leitura automática")
+                            .font(LumiTypography.bodyMedium)
+                            .foregroundStyle(LumiColors.textPrimary)
+                    }
+                    .onChange(of: autoVoiceOverEnabled) { _, enabled in
+                        child?.autoVoiceOverEnabled = enabled
+                    }
+                } header: {
+                    Text("Áudio")
+                } footer: {
+                    Text("Quando ativado, os problemas são lidos em voz alta automaticamente")
+                }
+
                 // About section
                 Section {
                     VStack(alignment: .leading, spacing: LumiSpacing.sm) {
@@ -121,6 +142,7 @@ struct SettingsView: View {
             .onAppear {
                 isLimitEnabled = adventureLimitService.isLimitEnabled
                 dailyLimit = adventureLimitService.dailyLimit ?? 3
+                autoVoiceOverEnabled = child?.autoVoiceOverEnabled ?? false
             }
         }
     }
