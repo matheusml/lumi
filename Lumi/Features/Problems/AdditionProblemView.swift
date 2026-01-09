@@ -26,8 +26,8 @@ struct AdditionProblemView: View {
             // Visual representation
             HStack(spacing: LumiSpacing.md) {
                 // Left group
-                objectGroup(emoji: leftGroup.emoji, count: leftGroup.count)
-                    .frame(maxWidth: .infinity)
+                objectGroup(emoji: leftGroup.emoji, count: leftGroup.count, alignment: .trailing)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
 
                 // Plus sign
                 Text("+")
@@ -36,8 +36,8 @@ struct AdditionProblemView: View {
                     .layoutPriority(1)
 
                 // Right group
-                objectGroup(emoji: rightGroup.emoji, count: rightGroup.count)
-                    .frame(maxWidth: .infinity)
+                objectGroup(emoji: rightGroup.emoji, count: rightGroup.count, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(LumiSpacing.lg)
             .background(
@@ -72,12 +72,12 @@ struct AdditionProblemView: View {
     }
 
     @ViewBuilder
-    private func objectGroup(emoji: String, count: Int) -> some View {
+    private func objectGroup(emoji: String, count: Int, alignment: HorizontalAlignment) -> some View {
         LazyVGrid(columns: [
             GridItem(.flexible()),
             GridItem(.flexible()),
             GridItem(.flexible())
-        ], spacing: LumiSpacing.xs) {
+        ], alignment: alignment, spacing: LumiSpacing.xs) {
             ForEach(0..<count, id: \.self) { _ in
                 Text(emoji)
                     .font(.system(size: 32))
