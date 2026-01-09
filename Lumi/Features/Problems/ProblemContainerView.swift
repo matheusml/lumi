@@ -9,6 +9,7 @@ struct ProblemContainerView: View {
     @State private var isCorrect = false
     @State private var attemptId = 0
     @State private var hasRecordedAnswer = false
+    @State private var hasProcessedAnswer = false  // Prevent duplicate processing
 
     var body: some View {
         ZStack {
@@ -27,27 +28,33 @@ struct ProblemContainerView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .animation(.easeInOut(duration: 0.3), value: showFeedback)
         .onAppear {
-            speakPrompt()
+            SpeechService.shared.speak(problem.prompt.localized())
         }
-    }
-
-    private func speakPrompt() {
-        SpeechService.shared.speak(problem.prompt.localized())
     }
 
     @ViewBuilder
     private var problemView: some View {
         switch problem.problemType {
         case .counting:
-            CountingProblemView(problem: problem, onAnswer: handleAnswer)
+            CountingProblemView(problem: problem, onAnswer: { correct in
+                handleAnswer(correct: correct)
+            })
         case .addition:
-            AdditionProblemView(problem: problem, onAnswer: handleAnswer)
+            AdditionProblemView(problem: problem, onAnswer: { correct in
+                handleAnswer(correct: correct)
+            })
         case .subtraction:
-            SubtractionProblemView(problem: problem, onAnswer: handleAnswer)
+            SubtractionProblemView(problem: problem, onAnswer: { correct in
+                handleAnswer(correct: correct)
+            })
         case .comparison:
-            ComparisonProblemView(problem: problem, onAnswer: handleAnswer)
+            ComparisonProblemView(problem: problem, onAnswer: { correct in
+                handleAnswer(correct: correct)
+            })
         case .patterns:
-            PatternProblemView(problem: problem, onAnswer: handleAnswer)
+            PatternProblemView(problem: problem, onAnswer: { correct in
+                handleAnswer(correct: correct)
+            })
         case .none:
             // Fallback
             Text("Problema desconhecido")
@@ -75,6 +82,10 @@ struct ProblemContainerView: View {
     }
 
     private func handleAnswer(correct: Bool) {
+        // Prevent duplicate processing
+        guard !hasProcessedAnswer else { return }
+
+        hasProcessedAnswer = true
         isCorrect = correct
         showFeedback = true
 
@@ -87,15 +98,18 @@ struct ProblemContainerView: View {
 
         // Auto-advance after delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            showFeedback = false
+            self.showFeedback = false
+
             if correct {
-                if !hasRecordedAnswer {
-                    hasRecordedAnswer = true
-                    onAnswer(true)
+                if !self.hasRecordedAnswer {
+                    self.hasRecordedAnswer = true
+                    self.onAnswer(true)
                 }
-                onNext()
+                self.onNext()
             } else {
-                attemptId += 1
+                // Reset for retry
+                self.hasProcessedAnswer = false
+                self.attemptId += 1
             }
         }
     }
