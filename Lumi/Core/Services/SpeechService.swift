@@ -38,7 +38,7 @@ final class SpeechService: NSObject {
 
     /// Speaks success feedback
     func speakSuccess() {
-        speak("Isso mesmo!")
+        speak("Muito bem!")
     }
 
     /// Speaks try again feedback

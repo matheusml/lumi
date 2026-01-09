@@ -62,7 +62,7 @@ struct ProblemContainerView: View {
             Text(isCorrect ? "✨" : "🤔")
                 .font(.system(size: 80))
 
-            Text(isCorrect ? "Isso mesmo!" : "Tente de novo!")
+            Text(isCorrect ? "Muito bem!" : "Tente de novo!")
                 .font(LumiTypography.displayMedium)
                 .foregroundStyle(isCorrect ? LumiColors.success : LumiColors.textPrimary)
         }
