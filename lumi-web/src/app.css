@@ -1,0 +1,182 @@
+/**
+ * Lumi Global Styles
+ *
+ * Design system tokens as CSS custom properties.
+ */
+
+/* Import a rounded font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+:root {
+	/* Colors */
+	--color-primary: #F59E8C;
+	--color-primary-hover: #E88A76;
+	--color-primary-light: #FBD4CC;
+
+	--color-secondary: #8CC7F0;
+	--color-secondary-hover: #6BB5E8;
+	--color-secondary-light: #C5E3F7;
+
+	--color-success: #99D9BF;
+	--color-success-dark: #7CC9A8;
+	--color-try-again: #FFCDB2;
+	--color-try-again-dark: #E5A588;
+
+	--color-background: #FCF8F0;
+	--color-surface: #FFFFFF;
+	--color-surface-hover: #F7F3EB;
+
+	--color-text-primary: #4A4A4A;
+	--color-text-secondary: #7A7A7A;
+	--color-text-muted: #A0A0A0;
+	--color-text-on-primary: #FFFFFF;
+
+	--color-border: #E8E4DC;
+	--color-border-light: #F0EDE6;
+	--color-disabled: #D4D0C8;
+	--color-overlay: rgba(0, 0, 0, 0.3);
+
+	/* Pattern colors */
+	--color-pattern-red: #EF4444;
+	--color-pattern-blue: #3B82F6;
+	--color-pattern-green: #22C55E;
+	--color-pattern-yellow: #EAB308;
+
+	/* Typography */
+	--font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+	--font-family-mono: 'JetBrains Mono', monospace;
+
+	--font-size-display-large: 3rem;
+	--font-size-display-medium: 2.5rem;
+	--font-size-number-large: 3.5rem;
+	--font-size-number-medium: 2.25rem;
+	--font-size-number-small: 1.75rem;
+	--font-size-heading-large: 2rem;
+	--font-size-heading-medium: 1.5rem;
+	--font-size-heading-small: 1.25rem;
+	--font-size-body-large: 1.25rem;
+	--font-size-body-medium: 1rem;
+	--font-size-body-small: 0.875rem;
+	--font-size-button-large: 1.5rem;
+	--font-size-button-medium: 1.125rem;
+
+	/* Spacing */
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+	--spacing-xl: 2rem;
+	--spacing-2xl: 3rem;
+	--spacing-3xl: 4rem;
+
+	--spacing-screen-horizontal: 1.5rem;
+	--spacing-screen-vertical: 2rem;
+	--spacing-card-padding: 1.5rem;
+
+	/* Touch targets */
+	--touch-minimum: 2.75rem;
+	--touch-standard: 3.75rem;
+	--touch-large: 5rem;
+	--touch-choice-button: 5rem;
+
+	/* Border radius */
+	--radius-sm: 0.5rem;
+	--radius-md: 0.75rem;
+	--radius-lg: 1rem;
+	--radius-xl: 1.5rem;
+	--radius-full: 9999px;
+
+	/* Shadows */
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+	--shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1);
+	--shadow-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+	/* Animations */
+	--transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+	--transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+	--transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: var(--font-family);
+	font-size: var(--font-size-body-medium);
+	line-height: 1.4;
+	color: var(--color-text-primary);
+	background-color: var(--color-background);
+	min-height: 100vh;
+	min-height: 100dvh;
+}
+
+/* Prevent text selection during interactions */
+button,
+[role="button"] {
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+	outline: 3px solid var(--color-secondary);
+	outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@keyframes scaleIn {
+	from { transform: scale(0.9); opacity: 0; }
+	to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideUp {
+	from { transform: translateY(20px); opacity: 0; }
+	to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes gentlePulse {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.02); }
+}
+
+/* Utility classes */
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
