@@ -7,6 +7,21 @@ final class SpeechService: NSObject {
 
     private let synthesizer = AVSpeechSynthesizer()
     private let voice: AVSpeechSynthesisVoice?
+    private let languageCode = "pt-BR"
+
+    /// Math operator words by language for speech synthesis
+    private let mathOperatorWords: [String: [String: String]] = [
+        "pt-BR": [
+            " - ": " menos ",
+            " + ": " mais ",
+            " = ?": ", igual a?"
+        ],
+        "en": [
+            " - ": " minus ",
+            " + ": " plus ",
+            " = ?": ", equals?"
+        ]
+    ]
 
     private override init() {
         self.voice = AVSpeechSynthesisVoice(language: "pt-BR")
@@ -21,12 +36,27 @@ final class SpeechService: NSObject {
             synthesizer.stopSpeaking(at: .immediate)
         }
 
-        let utterance = AVSpeechUtterance(string: text)
+        let processedText = preprocessForSpeech(text)
+
+        let utterance = AVSpeechUtterance(string: processedText)
         utterance.voice = voice
         utterance.rate = 0.45  // Slower rate for children
         utterance.pitchMultiplier = 1.1  // Slightly higher pitch for friendliness
 
         synthesizer.speak(utterance)
+    }
+
+    /// Preprocesses text for better speech synthesis of math expressions
+    private func preprocessForSpeech(_ text: String) -> String {
+        guard let operators = mathOperatorWords[languageCode] else {
+            return text
+        }
+
+        var result = text
+        for (symbol, word) in operators {
+            result = result.replacingOccurrences(of: symbol, with: word)
+        }
+        return result
     }
 
     /// Stops any ongoing speech
