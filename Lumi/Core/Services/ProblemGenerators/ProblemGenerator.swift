@@ -66,6 +66,15 @@ enum VisualObject: String, CaseIterable {
         case .fish: return "peixe"
         }
     }
+
+    var quantifierPtBR: String {
+        switch self {
+        case .bird, .heart, .fish: return "Quantos"  // masculinos
+        default: return "Quantas"  // femininos
+        }
+    }
+
+    var quantifierEn: String { "How many" }
 }
 
 /// Pattern colors for pattern problems

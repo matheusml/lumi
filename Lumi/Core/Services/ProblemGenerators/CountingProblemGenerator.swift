@@ -53,8 +53,8 @@ struct CountingProblemGenerator: ProblemGenerator {
                 elements: [VisualElement(object: object.rawValue, count: count, position: nil)]
             ),
             prompt: LocalizedString(
-                ptBR: "Quantas \(object.namePtBR) você vê?",
-                en: "How many \(object.nameEn) do you see?"
+                ptBR: "\(object.quantifierPtBR) \(object.namePtBR) você vê?",
+                en: "\(object.quantifierEn) \(object.nameEn) do you see?"
             ),
             correctAnswer: .number(count),
             answerChoices: generateChoices(correct: count),
