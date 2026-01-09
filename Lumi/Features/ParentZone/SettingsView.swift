@@ -7,6 +7,7 @@ struct SettingsView: View {
 
     @Bindable var adventureLimitService: AdventureLimitService
 
+    @State private var isLimitEnabled: Bool = false
     @State private var dailyLimit: Int = 3
     @State private var showResetConfirmation = false
 
@@ -15,51 +16,70 @@ struct SettingsView: View {
             List {
                 // Daily limit section
                 Section {
-                    VStack(alignment: .leading, spacing: LumiSpacing.sm) {
-                        Text("Limite diário de aventuras")
+                    Toggle(isOn: $isLimitEnabled) {
+                        Text("Limitar aventuras diárias")
                             .font(LumiTypography.bodyMedium)
                             .foregroundStyle(LumiColors.textPrimary)
-
-                        Stepper(
-                            "\(dailyLimit) aventuras por dia",
-                            value: $dailyLimit,
-                            in: 1...10
-                        )
-                        .onChange(of: dailyLimit) { _, newValue in
-                            adventureLimitService.updateLimit(newValue)
+                    }
+                    .onChange(of: isLimitEnabled) { _, enabled in
+                        if enabled {
+                            adventureLimitService.enableLimit(dailyLimit)
+                        } else {
+                            adventureLimitService.disableLimit()
                         }
+                    }
 
-                        Text("Define quantas aventuras a criança pode completar por dia")
-                            .font(LumiTypography.bodySmall)
-                            .foregroundStyle(LumiColors.textSecondary)
+                    if isLimitEnabled {
+                        VStack(alignment: .leading, spacing: LumiSpacing.sm) {
+                            Stepper(
+                                "\(dailyLimit) aventuras por dia",
+                                value: $dailyLimit,
+                                in: 1...10
+                            )
+                            .onChange(of: dailyLimit) { _, newValue in
+                                adventureLimitService.updateLimit(newValue)
+                            }
+
+                            Text("Define quantas aventuras a criança pode completar por dia")
+                                .font(LumiTypography.bodySmall)
+                                .foregroundStyle(LumiColors.textSecondary)
+                        }
                     }
                 } header: {
                     Text("Limites")
+                } footer: {
+                    if !isLimitEnabled {
+                        Text("Sem limite, a criança pode jogar quantas aventuras quiser")
+                    }
                 }
 
-                // Reset section
-                Section {
-                    Button(action: { showResetConfirmation = true }) {
-                        HStack {
-                            Text("Reiniciar contagem de hoje")
-                                .foregroundStyle(LumiColors.primary)
-                            Spacer()
-                            Image(systemName: "arrow.counterclockwise")
-                                .foregroundStyle(LumiColors.primary)
+                // Reset section (only show when limit is enabled)
+                if isLimitEnabled {
+                    Section {
+                        Button(action: { showResetConfirmation = true }) {
+                            HStack {
+                                Text("Reiniciar contagem de hoje")
+                                    .foregroundStyle(LumiColors.primary)
+                                Spacer()
+                                Image(systemName: "arrow.counterclockwise")
+                                    .foregroundStyle(LumiColors.primary)
+                            }
                         }
-                    }
 
-                    VStack(alignment: .leading, spacing: LumiSpacing.xs) {
-                        Text("Aventuras hoje: \(adventureLimitService.todayCount)")
-                            .font(LumiTypography.bodyMedium)
-                            .foregroundStyle(LumiColors.textPrimary)
+                        VStack(alignment: .leading, spacing: LumiSpacing.xs) {
+                            Text("Aventuras hoje: \(adventureLimitService.todayCount)")
+                                .font(LumiTypography.bodyMedium)
+                                .foregroundStyle(LumiColors.textPrimary)
 
-                        Text("Restantes: \(adventureLimitService.adventuresRemaining)")
-                            .font(LumiTypography.bodySmall)
-                            .foregroundStyle(LumiColors.textSecondary)
+                            if let remaining = adventureLimitService.adventuresRemaining {
+                                Text("Restantes: \(remaining)")
+                                    .font(LumiTypography.bodySmall)
+                                    .foregroundStyle(LumiColors.textSecondary)
+                            }
+                        }
+                    } header: {
+                        Text("Hoje")
                     }
-                } header: {
-                    Text("Hoje")
                 }
 
                 // About section
@@ -99,7 +119,8 @@ struct SettingsView: View {
                 Text("Isso permitirá que a criança faça mais aventuras hoje.")
             }
             .onAppear {
-                dailyLimit = adventureLimitService.dailyLimit
+                isLimitEnabled = adventureLimitService.isLimitEnabled
+                dailyLimit = adventureLimitService.dailyLimit ?? 3
             }
         }
     }

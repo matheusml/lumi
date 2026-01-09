@@ -35,10 +35,13 @@ struct HomeView: View {
                             navigationPath.append(AppDestination.adventure)
                         }
 
-                        // Show remaining adventures
-                        Text("Aventuras hoje: \(adventureLimitService.todayCount) de \(adventureLimitService.dailyLimit)")
-                            .font(LumiTypography.bodyMedium)
-                            .foregroundStyle(LumiColors.textSecondary)
+                        // Show remaining adventures only if limit is enabled
+                        if let remaining = adventureLimitService.adventuresRemaining,
+                           let limit = adventureLimitService.dailyLimit {
+                            Text("Aventuras hoje: \(adventureLimitService.todayCount) de \(limit)")
+                                .font(LumiTypography.bodyMedium)
+                                .foregroundStyle(LumiColors.textSecondary)
+                        }
                     } else {
                         // Daily limit reached
                         VStack(spacing: LumiSpacing.md) {
@@ -84,7 +87,7 @@ struct HomeView: View {
             }
         }
         .onAppear {
-            adventureLimitService.configure(with: modelContext, limit: 3)
+            adventureLimitService.configure(with: modelContext)
         }
     }
 }

@@ -6,24 +6,43 @@ import SwiftData
 final class AdventureLimitService {
     private var modelContext: ModelContext?
     private(set) var todayCount: Int = 0
-    private(set) var dailyLimit: Int = 3
+    private(set) var dailyLimit: Int? = nil
+
+    /// Whether a daily limit is enabled
+    var isLimitEnabled: Bool {
+        dailyLimit != nil
+    }
 
     var canStartAdventure: Bool {
-        todayCount < dailyLimit
+        guard let limit = dailyLimit else { return true }
+        return todayCount < limit
     }
 
-    var adventuresRemaining: Int {
-        max(0, dailyLimit - todayCount)
+    var adventuresRemaining: Int? {
+        guard let limit = dailyLimit else { return nil }
+        return max(0, limit - todayCount)
     }
 
-    func configure(with context: ModelContext, limit: Int = 3) {
+    func configure(with context: ModelContext, limit: Int? = nil) {
         self.modelContext = context
         self.dailyLimit = limit
         loadTodayCount()
     }
 
-    func updateLimit(_ newLimit: Int) {
-        dailyLimit = max(1, min(10, newLimit))
+    func updateLimit(_ newLimit: Int?) {
+        if let limit = newLimit {
+            dailyLimit = max(1, min(10, limit))
+        } else {
+            dailyLimit = nil
+        }
+    }
+
+    func enableLimit(_ limit: Int = 3) {
+        dailyLimit = max(1, min(10, limit))
+    }
+
+    func disableLimit() {
+        dailyLimit = nil
     }
 
     private func loadTodayCount() {

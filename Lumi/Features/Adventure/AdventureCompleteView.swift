@@ -63,8 +63,8 @@ struct AdventureCompleteView: View {
                         LumiButton("Tchau por agora!", style: .ghost) {
                             saveAndGoHome()
                         }
-                    } else {
-                        // Daily limit reached
+                    } else if adventureLimitService.isLimitEnabled {
+                        // Daily limit reached (only shown when limit is enabled)
                         VStack(spacing: LumiSpacing.md) {
                             Text("🌙")
                                 .font(.system(size: 60))

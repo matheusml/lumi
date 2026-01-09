@@ -60,7 +60,7 @@ struct ParentDashboardView: View {
                 statItem(
                     title: "Aventuras",
                     value: "\(adventureLimitService.todayCount)",
-                    subtitle: "de \(adventureLimitService.dailyLimit)"
+                    subtitle: adventureLimitService.isLimitEnabled ? "de \(adventureLimitService.dailyLimit ?? 0)" : "hoje"
                 )
 
                 statItem(

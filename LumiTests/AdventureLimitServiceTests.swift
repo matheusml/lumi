@@ -16,7 +16,7 @@ final class AdventureLimitServiceTests: XCTestCase {
         modelContext = ModelContext(modelContainer)
 
         service = AdventureLimitService()
-        service.configure(with: modelContext, limit: 3)
+        service.configure(with: modelContext)
     }
 
     override func tearDown() {
@@ -26,22 +26,23 @@ final class AdventureLimitServiceTests: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - Initial State Tests
+    // MARK: - Initial State Tests (Unlimited by Default)
 
     func testInitialCountIsZero() {
         XCTAssertEqual(service.todayCount, 0)
     }
 
-    func testDefaultDailyLimitIsThree() {
-        XCTAssertEqual(service.dailyLimit, 3)
+    func testDefaultDailyLimitIsUnlimited() {
+        XCTAssertNil(service.dailyLimit, "Default should be unlimited (nil)")
+        XCTAssertFalse(service.isLimitEnabled)
     }
 
     func testCanStartAdventureInitially() {
         XCTAssertTrue(service.canStartAdventure)
     }
 
-    func testAdventuresRemainingInitially() {
-        XCTAssertEqual(service.adventuresRemaining, 3)
+    func testAdventuresRemainingIsNilWhenUnlimited() {
+        XCTAssertNil(service.adventuresRemaining, "Should be nil when unlimited")
     }
 
     // MARK: - Increment Tests
@@ -49,19 +50,26 @@ final class AdventureLimitServiceTests: XCTestCase {
     func testIncrementCount() {
         service.incrementCount()
         XCTAssertEqual(service.todayCount, 1)
-        XCTAssertEqual(service.adventuresRemaining, 2)
     }
 
     func testMultipleIncrements() {
         service.incrementCount()
         service.incrementCount()
         XCTAssertEqual(service.todayCount, 2)
-        XCTAssertEqual(service.adventuresRemaining, 1)
     }
 
-    // MARK: - Limit Enforcement Tests
+    func testCanAlwaysStartWhenUnlimited() {
+        // Increment many times - should still be able to start
+        for _ in 0..<10 {
+            service.incrementCount()
+        }
+        XCTAssertTrue(service.canStartAdventure, "Should always be able to start when unlimited")
+    }
+
+    // MARK: - Limit Enforcement Tests (when limit is enabled)
 
     func testCannotStartAdventureWhenLimitReached() {
+        service.enableLimit(3)
         service.incrementCount()
         service.incrementCount()
         service.incrementCount()
@@ -71,20 +79,33 @@ final class AdventureLimitServiceTests: XCTestCase {
     }
 
     func testAdventuresRemainingNeverNegative() {
+        service.enableLimit(3)
         service.incrementCount()
         service.incrementCount()
         service.incrementCount()
         service.incrementCount() // Over the limit
 
-        XCTAssertGreaterThanOrEqual(service.adventuresRemaining, 0)
+        XCTAssertGreaterThanOrEqual(service.adventuresRemaining ?? 0, 0)
     }
 
-    // MARK: - Update Limit Tests
+    // MARK: - Enable/Disable Limit Tests
 
-    func testUpdateLimit() {
-        service.updateLimit(5)
+    func testEnableLimit() {
+        XCTAssertFalse(service.isLimitEnabled)
+        service.enableLimit(5)
+        XCTAssertTrue(service.isLimitEnabled)
         XCTAssertEqual(service.dailyLimit, 5)
         XCTAssertEqual(service.adventuresRemaining, 5)
+    }
+
+    func testDisableLimit() {
+        service.enableLimit(5)
+        XCTAssertTrue(service.isLimitEnabled)
+
+        service.disableLimit()
+        XCTAssertFalse(service.isLimitEnabled)
+        XCTAssertNil(service.dailyLimit)
+        XCTAssertNil(service.adventuresRemaining)
     }
 
     func testUpdateLimitMinimumBound() {
@@ -97,8 +118,16 @@ final class AdventureLimitServiceTests: XCTestCase {
         XCTAssertEqual(service.dailyLimit, 10, "Maximum limit should be 10")
     }
 
+    func testUpdateLimitToNilDisablesLimit() {
+        service.enableLimit(5)
+        service.updateLimit(nil)
+        XCTAssertNil(service.dailyLimit)
+        XCTAssertFalse(service.isLimitEnabled)
+    }
+
     func testUpdateLimitAffectsCanStartAdventure() {
-        // Use all 3 adventures
+        // Enable limit and use all 3 adventures
+        service.enableLimit(3)
         service.incrementCount()
         service.incrementCount()
         service.incrementCount()
@@ -113,6 +142,7 @@ final class AdventureLimitServiceTests: XCTestCase {
     // MARK: - Reset Tests
 
     func testResetTodayCount() {
+        service.enableLimit(3)
         service.incrementCount()
         service.incrementCount()
         XCTAssertEqual(service.todayCount, 2)
@@ -125,10 +155,22 @@ final class AdventureLimitServiceTests: XCTestCase {
     // MARK: - Custom Limit Configuration Tests
 
     func testConfigureWithCustomLimit() {
-        // Reconfigure the existing service with a different limit
+        // Reconfigure the existing service with a specific limit
         service.configure(with: modelContext, limit: 7)
 
         XCTAssertEqual(service.dailyLimit, 7)
         XCTAssertEqual(service.adventuresRemaining, 7)
+        XCTAssertTrue(service.isLimitEnabled)
+    }
+
+    func testConfigureWithoutLimitIsUnlimited() {
+        // First configure with a limit
+        service.configure(with: modelContext, limit: 5)
+        XCTAssertTrue(service.isLimitEnabled)
+
+        // Then configure without a limit
+        service.configure(with: modelContext)
+        XCTAssertFalse(service.isLimitEnabled)
+        XCTAssertNil(service.dailyLimit)
     }
 }
