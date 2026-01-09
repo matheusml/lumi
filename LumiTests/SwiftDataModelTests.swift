@@ -7,7 +7,7 @@ final class SwiftDataModelTests: XCTestCase {
     var modelContext: ModelContext!
 
     override func setUpWithError() throws {
-        let schema = Schema([Child.self, Session.self, ActivityProgress.self, DailyAdventureCount.self])
+        let schema = Schema([Child.self, Session.self, ActivityProgress.self, DailyAdventureCount.self, SeenProblem.self])
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         modelContainer = try ModelContainer(for: schema, configurations: config)
         modelContext = ModelContext(modelContainer)
@@ -206,5 +206,82 @@ final class SwiftDataModelTests: XCTestCase {
 
         XCTAssertEqual(children.first?.activityProgress.count, 1)
         XCTAssertEqual(children.first?.activityProgress.first?.activityType, "counting")
+    }
+
+    // MARK: - SeenProblem Tests
+
+    func testSeenProblemCreation() throws {
+        let seen = SeenProblem(
+            signature: "counting:d1:5",
+            problemType: "counting",
+            difficulty: 1
+        )
+        modelContext.insert(seen)
+        try modelContext.save()
+
+        let descriptor = FetchDescriptor<SeenProblem>()
+        let results = try modelContext.fetch(descriptor)
+
+        XCTAssertEqual(results.count, 1)
+        XCTAssertEqual(results.first?.signature, "counting:d1:5")
+        XCTAssertEqual(results.first?.problemType, "counting")
+        XCTAssertEqual(results.first?.difficulty, 1)
+    }
+
+    func testSeenProblemHasSeenAtDate() {
+        let before = Date()
+        let seen = SeenProblem(
+            signature: "addition:d2:3+4",
+            problemType: "addition",
+            difficulty: 2
+        )
+        let after = Date()
+
+        XCTAssertGreaterThanOrEqual(seen.seenAt, before)
+        XCTAssertLessThanOrEqual(seen.seenAt, after)
+    }
+
+    func testChildSeenProblemsRelationship() throws {
+        let child = Child(name: "Test")
+        let seen = SeenProblem(
+            signature: "counting:d1:3",
+            problemType: "counting",
+            difficulty: 1
+        )
+
+        modelContext.insert(child)
+        modelContext.insert(seen)
+
+        child.seenProblems.append(seen)
+        try modelContext.save()
+
+        let descriptor = FetchDescriptor<Child>()
+        let children = try modelContext.fetch(descriptor)
+
+        XCTAssertEqual(children.first?.seenProblems.count, 1)
+        XCTAssertEqual(children.first?.seenProblems.first?.signature, "counting:d1:3")
+    }
+
+    func testChildSeenProblemsCascadeDelete() throws {
+        let child = Child(name: "Test")
+        let seen = SeenProblem(
+            signature: "counting:d1:3",
+            problemType: "counting",
+            difficulty: 1
+        )
+
+        modelContext.insert(child)
+        modelContext.insert(seen)
+        child.seenProblems.append(seen)
+        try modelContext.save()
+
+        // Delete child
+        modelContext.delete(child)
+        try modelContext.save()
+
+        // SeenProblem should be deleted too (cascade)
+        let descriptor = FetchDescriptor<SeenProblem>()
+        let results = try modelContext.fetch(descriptor)
+        XCTAssertEqual(results.count, 0)
     }
 }

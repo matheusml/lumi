@@ -30,6 +30,7 @@ final class AdventureViewModel {
 
     func configure(with context: ModelContext) {
         self.modelContext = context
+        problemService.configure(with: context)
         difficultyManager.configure(with: context)
         adventureLimitService.configure(with: context)
     }

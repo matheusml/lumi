@@ -19,6 +19,10 @@ final class Child {
     @Relationship(deleteRule: .cascade)
     var sessions: [Session]
 
+    // Problem history for deduplication
+    @Relationship(deleteRule: .cascade)
+    var seenProblems: [SeenProblem]
+
     init(
         id: UUID = UUID(),
         name: String = "",
@@ -33,6 +37,7 @@ final class Child {
         self.preferredLanguage = preferredLanguage
         self.activityProgress = []
         self.sessions = []
+        self.seenProblems = []
     }
 }
 
