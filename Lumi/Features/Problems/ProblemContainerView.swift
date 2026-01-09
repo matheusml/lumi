@@ -26,6 +26,13 @@ struct ProblemContainerView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .animation(.easeInOut(duration: 0.3), value: showFeedback)
+        .onAppear {
+            speakPrompt()
+        }
+    }
+
+    private func speakPrompt() {
+        SpeechService.shared.speak(problem.prompt.localized())
     }
 
     @ViewBuilder
@@ -52,28 +59,44 @@ struct ProblemContainerView: View {
     @ViewBuilder
     private var feedbackView: some View {
         VStack(spacing: LumiSpacing.lg) {
-            if isCorrect {
-                CorrectAnswerView {
-                    showFeedback = false
-                    onNext()
-                }
-            } else {
-                TryAgainView {
-                    showFeedback = false
-                    attemptId += 1
-                }
-            }
+            Text(isCorrect ? "✨" : "🤔")
+                .font(.system(size: 80))
+
+            Text(isCorrect ? "Isso mesmo!" : "Tente de novo!")
+                .font(LumiTypography.displayMedium)
+                .foregroundStyle(isCorrect ? LumiColors.success : LumiColors.textPrimary)
         }
+        .padding(LumiSpacing.xl)
+        .background(
+            RoundedRectangle(cornerRadius: LumiSpacing.radiusLarge)
+                .fill(LumiColors.contentBackground)
+                .shadow(color: .black.opacity(0.1), radius: 20, y: 10)
+        )
     }
 
     private func handleAnswer(correct: Bool) {
         isCorrect = correct
         showFeedback = true
 
-        // Only record the answer once per problem (when correct, or we could record first attempt)
-        if correct && !hasRecordedAnswer {
-            hasRecordedAnswer = true
-            onAnswer(true)
+        // Play spoken feedback
+        if correct {
+            SpeechService.shared.speakSuccess()
+        } else {
+            SpeechService.shared.speakTryAgain()
+        }
+
+        // Auto-advance after delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            showFeedback = false
+            if correct {
+                if !hasRecordedAnswer {
+                    hasRecordedAnswer = true
+                    onAnswer(true)
+                }
+                onNext()
+            } else {
+                attemptId += 1
+            }
         }
     }
 }
