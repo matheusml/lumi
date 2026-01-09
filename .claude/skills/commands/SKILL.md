@@ -8,10 +8,12 @@ description: Build commands, file locations, and development workflow for Lumi. 
 ## Build & Run
 
 ```bash
-# Build the project
-xcodebuild -project Lumi.xcodeproj -scheme Lumi -configuration Debug build
+# Quick build check (fast, no simulator needed)
+xcodebuild build -project Lumi.xcodeproj -scheme Lumi \
+  -destination generic/platform=iOS \
+  CODE_SIGNING_ALLOWED=NO -quiet
 
-# Run unit tests
+# Run unit tests (slower, requires simulator)
 xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
   -only-testing:LumiTests
@@ -22,6 +24,8 @@ xcodebuild -project Lumi.xcodeproj -scheme Lumi clean
 # Open in Xcode
 open Lumi.xcodeproj
 ```
+
+**Prefer the quick build check** for verifying code compiles. Only run full tests when specifically needed or before delivering work.
 
 ## SwiftLint (if installed)
 

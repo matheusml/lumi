@@ -5,10 +5,22 @@ description: Testing requirements and workflow for Lumi. Use when writing tests,
 
 # Testing in Lumi
 
-## Running Tests
+## Quick Build Check (Preferred)
+
+Use this first to verify code compiles - it's fast and doesn't need a simulator:
 
 ```bash
-# Run all unit tests
+xcodebuild build -project Lumi.xcodeproj -scheme Lumi \
+  -destination generic/platform=iOS \
+  CODE_SIGNING_ALLOWED=NO -quiet
+```
+
+## Running Tests
+
+Only run full tests when specifically needed (e.g., before delivering work, or when tests are relevant to changes):
+
+```bash
+# Run all unit tests (slower, requires simulator)
 xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
   -only-testing:LumiTests
@@ -21,7 +33,7 @@ xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
 
 ## Before Delivering Work
 
-**ALWAYS run tests before completing any task.** If tests fail:
+**Run quick build check first, then tests if needed.** If tests fail:
 1. Fix the failing tests
 2. Run again to confirm all pass
 3. Only then mark work as complete
@@ -35,18 +47,6 @@ xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
 | Change behavior | Update existing tests to match |
 | Remove code | Remove related tests |
 | Refactor | Tests should still pass (no changes needed) |
-
-## Test File Locations
-
-```
-LumiTests/
-├── DifficultyManagerTests.swift      # Core/Services/DifficultyManager
-├── ProblemServiceTests.swift         # Core/Services/ProblemService
-├── AdventureLimitServiceTests.swift  # Core/Services/AdventureLimitService
-├── ProblemModelTests.swift           # Core/Models/Problem (Codable)
-├── SwiftDataModelTests.swift         # Core/Models (SwiftData persistence)
-└── DateExtensionsTests.swift         # Core/Extensions/Date+Extensions
-```
 
 ## Writing Tests
 
