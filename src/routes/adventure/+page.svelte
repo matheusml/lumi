@@ -28,7 +28,12 @@
 		ProblemResult,
 		AdventureCategory
 	} from '$lib/types'
-	import { PROBLEMS_PER_ADVENTURE, MATH_PROBLEM_TYPES, GRAMMAR_PROBLEM_TYPES } from '$lib/types'
+	import {
+		PROBLEMS_PER_ADVENTURE,
+		MATH_PROBLEM_TYPES,
+		GRAMMAR_PROBLEM_TYPES,
+		LOGIC_PROBLEM_TYPES
+	} from '$lib/types'
 
 	// Adventure type from URL
 	const adventureType = $derived(
@@ -97,7 +102,12 @@
 		const difficulties = difficultyManager.getAllDifficulties()
 
 		// Get appropriate problem types for this adventure
-		const problemTypes = adventureType === 'grammar' ? GRAMMAR_PROBLEM_TYPES : MATH_PROBLEM_TYPES
+		const problemTypes =
+			adventureType === 'grammar'
+				? GRAMMAR_PROBLEM_TYPES
+				: adventureType === 'logic'
+					? LOGIC_PROBLEM_TYPES
+					: MATH_PROBLEM_TYPES
 		const problemTypesSet = new Set<string>(problemTypes)
 		const filteredDifficulties = new Map(
 			[...difficulties].filter(([type]) => problemTypesSet.has(type))
@@ -258,6 +268,7 @@
 			return JSON.stringify(a.value) === JSON.stringify(b.value)
 		}
 		if (a.type === 'letter' && b.type === 'letter') return a.value === b.value
+		if (a.type === 'object' && b.type === 'object') return a.value === b.value
 		return false
 	}
 
@@ -266,6 +277,7 @@
 		if (answer.type === 'side') return `side-${answer.value}`
 		if (answer.type === 'pattern') return `pattern-${answer.value.join('-')}`
 		if (answer.type === 'letter') return `letter-${answer.value}`
+		if (answer.type === 'object') return `object-${answer.value}`
 		return 'unknown'
 	}
 
@@ -388,11 +400,27 @@
 						letters={currentProblem.visual.elements.map((e) => e.object)}
 						unknownIndex={currentProblem.visual.elements.findIndex((e) => e.object === '?')}
 					/>
+				{:else if currentProblem.visual.type === 'logic-group'}
+					<div class="logic-group">
+						{#each currentProblem.visual.elements as element}
+							<button
+								class="logic-item"
+								class:correct={getAnswerState({ type: 'object', value: element.object }) ===
+									'correct'}
+								class:incorrect={getAnswerState({ type: 'object', value: element.object }) ===
+									'incorrect'}
+								onclick={() => selectAnswer({ type: 'object', value: element.object })}
+								disabled={hasAnswered}
+							>
+								<span class="logic-emoji">{element.object}</span>
+							</button>
+						{/each}
+					</div>
 				{/if}
 			</div>
 
-			<!-- Answer choices (not for comparison) -->
-			{#if currentProblem.type !== 'comparison'}
+			<!-- Answer choices (not for comparison or logic-group which have inline selection) -->
+			{#if currentProblem.type !== 'comparison' && currentProblem.visual.type !== 'logic-group'}
 				<div class="choices">
 					{#each currentProblem.answerChoices as choice}
 						<ChoiceButton
@@ -567,6 +595,58 @@
 		display: flex;
 		align-items: center;
 		gap: var(--spacing-sm);
+	}
+
+	.logic-group {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-lg);
+	}
+
+	.logic-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		width: 100px;
+		height: 100px;
+
+		border: 3px solid var(--color-border);
+		border-radius: var(--radius-xl);
+		background-color: var(--color-surface);
+
+		cursor: pointer;
+		transition:
+			transform var(--transition-fast),
+			border-color var(--transition-fast),
+			background-color var(--transition-fast);
+	}
+
+	.logic-item:hover:not(:disabled) {
+		border-color: var(--color-primary);
+		transform: scale(1.05);
+	}
+
+	.logic-item:active:not(:disabled) {
+		transform: scale(0.98);
+	}
+
+	.logic-item.correct {
+		border-color: var(--color-success-dark);
+		background-color: var(--color-success);
+	}
+
+	.logic-item.incorrect {
+		border-color: var(--color-try-again-dark);
+		background-color: var(--color-try-again);
+	}
+
+	.logic-item:disabled {
+		cursor: default;
+	}
+
+	.logic-emoji {
+		font-size: 48px;
 	}
 
 	.prompt-row {

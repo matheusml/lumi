@@ -7,7 +7,7 @@
 	 */
 
 	interface Props {
-		variant?: 'primary' | 'secondary' | 'ghost'
+		variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost'
 		size?: 'medium' | 'large'
 		disabled?: boolean
 		fullWidth?: boolean
@@ -83,6 +83,16 @@
 
 	.lumi-button.secondary:hover:not(:disabled) {
 		background-color: var(--color-secondary-hover);
+	}
+
+	.lumi-button.tertiary {
+		background-color: var(--color-success);
+		color: var(--color-text-on-primary);
+		box-shadow: var(--shadow-md);
+	}
+
+	.lumi-button.tertiary:hover:not(:disabled) {
+		background-color: var(--color-success-dark);
 	}
 
 	.lumi-button.ghost {

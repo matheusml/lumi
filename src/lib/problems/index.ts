@@ -17,6 +17,9 @@ export { SubtractionProblemGenerator } from './subtraction-generator'
 export { ComparisonProblemGenerator } from './comparison-generator'
 export { PatternProblemGenerator } from './pattern-generator'
 
+// Logic generators
+export { OddOneOutGenerator } from './logic-generator'
+
 // Grammar generators
 export {
 	LetterRecognitionGenerator,

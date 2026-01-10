@@ -37,6 +37,8 @@
 		subtraction: { difficulty: 1, accuracy: 0 },
 		comparison: { difficulty: 1, accuracy: 0 },
 		patterns: { difficulty: 1, accuracy: 0 },
+		// Logic
+		'odd-one-out': { difficulty: 1, accuracy: 0 },
 		// Grammar
 		'letter-recognition': { difficulty: 1, accuracy: 0 },
 		'alphabet-order': { difficulty: 1, accuracy: 0 },
@@ -129,6 +131,8 @@
 			'subtraction',
 			'comparison',
 			'patterns',
+			// Logic
+			'odd-one-out',
 			// Grammar
 			'letter-recognition',
 			'alphabet-order',
@@ -170,6 +174,8 @@
 		subtraction: 'Subtração',
 		comparison: 'Comparação',
 		patterns: 'Padrões',
+		// Logic
+		'odd-one-out': 'Qual é Diferente',
 		// Grammar
 		'letter-recognition': 'Letras',
 		'alphabet-order': 'Alfabeto',
