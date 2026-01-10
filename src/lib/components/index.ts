@@ -10,3 +10,8 @@ export { default as ProgressDots } from './ProgressDots.svelte'
 export { default as SpeakerButton } from './SpeakerButton.svelte'
 export { default as CountableObject } from './CountableObject.svelte'
 export { default as PatternCircle } from './PatternCircle.svelte'
+
+// Grammar components
+export { default as LetterDisplay } from './LetterDisplay.svelte'
+export { default as WordDisplay } from './WordDisplay.svelte'
+export { default as LetterSequence } from './LetterSequence.svelte'

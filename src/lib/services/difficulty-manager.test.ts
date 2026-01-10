@@ -16,17 +16,24 @@ describe('DifficultyManager', () => {
 
 	describe('initialization', () => {
 		it('should initialize with default difficulty for all problem types', () => {
+			// Math types
 			expect(manager.getDifficulty('counting')).toBe(MIN_DIFFICULTY)
 			expect(manager.getDifficulty('addition')).toBe(MIN_DIFFICULTY)
 			expect(manager.getDifficulty('subtraction')).toBe(MIN_DIFFICULTY)
 			expect(manager.getDifficulty('comparison')).toBe(MIN_DIFFICULTY)
 			expect(manager.getDifficulty('patterns')).toBe(MIN_DIFFICULTY)
+			// Grammar types
+			expect(manager.getDifficulty('letter-recognition')).toBe(MIN_DIFFICULTY)
+			expect(manager.getDifficulty('alphabet-order')).toBe(MIN_DIFFICULTY)
+			expect(manager.getDifficulty('initial-letter')).toBe(MIN_DIFFICULTY)
+			expect(manager.getDifficulty('word-completion')).toBe(MIN_DIFFICULTY)
 		})
 
 		it('should return all difficulties as a map', () => {
 			const difficulties = manager.getAllDifficulties()
-			expect(difficulties.size).toBe(5)
+			expect(difficulties.size).toBe(9) // 5 math + 4 grammar
 			expect(difficulties.get('counting')).toBe(MIN_DIFFICULTY)
+			expect(difficulties.get('letter-recognition')).toBe(MIN_DIFFICULTY)
 		})
 	})
 
@@ -209,6 +216,7 @@ describe('DifficultyManager', () => {
 
 		it('should load progress from storage', () => {
 			const savedProgress = {
+				// Math
 				counting: {
 					activityType: 'counting' as const,
 					currentDifficulty: 3 as const,
@@ -243,6 +251,39 @@ describe('DifficultyManager', () => {
 				},
 				patterns: {
 					activityType: 'patterns' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
+				},
+				// Grammar
+				'letter-recognition': {
+					activityType: 'letter-recognition' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
+				},
+				'alphabet-order': {
+					activityType: 'alphabet-order' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
+				},
+				'initial-letter': {
+					activityType: 'initial-letter' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
+				},
+				'word-completion': {
+					activityType: 'word-completion' as const,
 					currentDifficulty: 1 as const,
 					problemsAttempted: 0,
 					problemsCorrect: 0,

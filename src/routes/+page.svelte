@@ -29,9 +29,15 @@
 		}
 	})
 
-	function startAdventure() {
+	function startMathAdventure() {
 		if (canStart) {
-			goto('/adventure')
+			goto('/adventure?type=math')
+		}
+	}
+
+	function startGrammarAdventure() {
+		if (canStart) {
+			goto('/adventure?type=grammar')
 		}
 	}
 
@@ -55,7 +61,12 @@
 
 		{#if canStart}
 			<div class="action-area">
-				<LumiButton onclick={startAdventure} size="large">Matemática 🔢</LumiButton>
+				<div class="adventure-buttons">
+					<LumiButton onclick={startMathAdventure} size="large">Matemática 🔢</LumiButton>
+					<LumiButton onclick={startGrammarAdventure} size="large" variant="secondary"
+						>Gramática 📖</LumiButton
+					>
+				</div>
 
 				{#if remaining !== Infinity}
 					<p class="remaining">
@@ -128,6 +139,13 @@
 		flex-direction: column;
 		align-items: center;
 		gap: var(--spacing-md);
+	}
+
+	.adventure-buttons {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		width: 100%;
 	}
 
 	.remaining {

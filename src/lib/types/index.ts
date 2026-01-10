@@ -5,7 +5,10 @@
  */
 
 export type {
+	MathProblemType,
+	GrammarProblemType,
 	ProblemType,
+	AdventureCategory,
 	DifficultyLevel,
 	LocalizedString,
 	VisualElement,
@@ -15,6 +18,8 @@ export type {
 	ProblemResult,
 	AnswerState
 } from './problem'
+
+export { MATH_PROBLEM_TYPES, GRAMMAR_PROBLEM_TYPES } from './problem'
 
 export type {
 	Session,

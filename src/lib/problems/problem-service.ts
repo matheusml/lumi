@@ -4,13 +4,20 @@
  * Manages problem generation across all types with deduplication and history management.
  */
 
-import type { Problem, ProblemType, DifficultyLevel } from '$lib/types'
+import type { Problem, ProblemType, DifficultyLevel, AdventureCategory } from '$lib/types'
+import { MATH_PROBLEM_TYPES, GRAMMAR_PROBLEM_TYPES } from '$lib/types'
 import type { ProblemGenerator } from './generator'
 import { CountingProblemGenerator } from './counting-generator'
 import { AdditionProblemGenerator } from './addition-generator'
 import { SubtractionProblemGenerator } from './subtraction-generator'
 import { ComparisonProblemGenerator } from './comparison-generator'
 import { PatternProblemGenerator } from './pattern-generator'
+import {
+	LetterRecognitionGenerator,
+	AlphabetOrderGenerator,
+	InitialLetterGenerator,
+	WordCompletionGenerator
+} from './grammar'
 import { shuffle } from './visual-objects'
 
 /** Saturation threshold for evicting old problems */
@@ -23,11 +30,17 @@ export class ProblemService {
 
 	constructor() {
 		this.generators = {
+			// Math generators
 			counting: new CountingProblemGenerator(),
 			addition: new AdditionProblemGenerator(),
 			subtraction: new SubtractionProblemGenerator(),
 			comparison: new ComparisonProblemGenerator(),
-			patterns: new PatternProblemGenerator()
+			patterns: new PatternProblemGenerator(),
+			// Grammar generators
+			'letter-recognition': new LetterRecognitionGenerator(),
+			'alphabet-order': new AlphabetOrderGenerator(),
+			'initial-letter': new InitialLetterGenerator(),
+			'word-completion': new WordCompletionGenerator()
 		}
 	}
 

@@ -31,11 +31,17 @@
 	// Progress data
 	let todayCount = $state(0)
 	let activityProgress = $state<Record<ProblemType, { difficulty: number; accuracy: number }>>({
+		// Math
 		counting: { difficulty: 1, accuracy: 0 },
 		addition: { difficulty: 1, accuracy: 0 },
 		subtraction: { difficulty: 1, accuracy: 0 },
 		comparison: { difficulty: 1, accuracy: 0 },
-		patterns: { difficulty: 1, accuracy: 0 }
+		patterns: { difficulty: 1, accuracy: 0 },
+		// Grammar
+		'letter-recognition': { difficulty: 1, accuracy: 0 },
+		'alphabet-order': { difficulty: 1, accuracy: 0 },
+		'initial-letter': { difficulty: 1, accuracy: 0 },
+		'word-completion': { difficulty: 1, accuracy: 0 }
 	})
 
 	onMount(() => {
@@ -116,7 +122,19 @@
 		}
 
 		// Get progress for each activity
-		const types: ProblemType[] = ['counting', 'addition', 'subtraction', 'comparison', 'patterns']
+		const types: ProblemType[] = [
+			// Math
+			'counting',
+			'addition',
+			'subtraction',
+			'comparison',
+			'patterns',
+			// Grammar
+			'letter-recognition',
+			'alphabet-order',
+			'initial-letter',
+			'word-completion'
+		]
 		const newProgress: Record<string, { difficulty: number; accuracy: number }> = {}
 		for (const type of types) {
 			newProgress[type] = {
@@ -146,11 +164,17 @@
 	}
 
 	const activityNames: Record<ProblemType, string> = {
+		// Math
 		counting: 'Contagem',
 		addition: 'Adição',
 		subtraction: 'Subtração',
 		comparison: 'Comparação',
-		patterns: 'Padrões'
+		patterns: 'Padrões',
+		// Grammar
+		'letter-recognition': 'Letras',
+		'alphabet-order': 'Alfabeto',
+		'initial-letter': 'Letra Inicial',
+		'word-completion': 'Completar Palavras'
 	}
 </script>
 

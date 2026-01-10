@@ -6,6 +6,7 @@
 	 */
 
 	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
 	import { onMount } from 'svelte'
 	import {
 		LumiButton,
@@ -13,12 +14,18 @@
 		ProgressDots,
 		SpeakerButton,
 		CountableObject,
-		PatternCircle
+		PatternCircle,
+		LetterDisplay,
+		WordDisplay,
+		LetterSequence
 	} from '$lib/components'
 	import { problemService } from '$lib/problems'
 	import { difficultyManager, adventureLimitService, speechService } from '$lib/services'
-	import type { Problem, AnswerValue, AnswerState, ProblemResult } from '$lib/types'
-	import { PROBLEMS_PER_ADVENTURE } from '$lib/types'
+	import type { Problem, AnswerValue, AnswerState, ProblemResult, AdventureCategory } from '$lib/types'
+	import { PROBLEMS_PER_ADVENTURE, MATH_PROBLEM_TYPES, GRAMMAR_PROBLEM_TYPES } from '$lib/types'
+
+	// Adventure type from URL
+	const adventureType = $derived(($page.url.searchParams.get('type') as AdventureCategory) || 'math')
 
 	// Adventure state
 	let problems: Problem[] = $state([])
@@ -70,7 +77,41 @@
 
 	function generateProblems() {
 		const difficulties = difficultyManager.getAllDifficulties()
-		problems = problemService.generateAdventureProblems(PROBLEMS_PER_ADVENTURE, difficulties)
+
+		// Get appropriate problem types for this adventure
+		const problemTypes = adventureType === 'grammar' ? GRAMMAR_PROBLEM_TYPES : MATH_PROBLEM_TYPES
+		const problemTypesSet = new Set<string>(problemTypes)
+		const filteredDifficulties = new Map(
+			[...difficulties].filter(([type]) => problemTypesSet.has(type))
+		)
+
+		// Generate problems using the filtered types
+		const generatedProblems: Problem[] = []
+		const shuffledTypes = shuffle([...problemTypes])
+
+		for (let i = 0; i < PROBLEMS_PER_ADVENTURE; i++) {
+			const type = shuffledTypes[i % shuffledTypes.length]
+			const difficulty = filteredDifficulties.get(type) || 1
+			const problem = problemService.generateProblem(type, difficulty)
+
+			if (problem) {
+				generatedProblems.push(problem)
+			} else {
+				// Fallback: try other types
+				for (const fallbackType of problemTypes) {
+					if (fallbackType !== type) {
+						const fallbackDifficulty = filteredDifficulties.get(fallbackType) || 1
+						const fallbackProblem = problemService.generateProblem(fallbackType, fallbackDifficulty)
+						if (fallbackProblem) {
+							generatedProblems.push(fallbackProblem)
+							break
+						}
+					}
+				}
+			}
+		}
+
+		problems = generatedProblems
 
 		// Auto-speak first problem if voice is enabled
 		if (problems.length > 0) {
@@ -81,6 +122,16 @@
 				}, 500)
 			}
 		}
+	}
+
+	// Shuffle helper
+	function shuffle<T>(array: T[]): T[] {
+		const result = [...array]
+		for (let i = result.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1))
+			;[result[i], result[j]] = [result[j], result[i]]
+		}
+		return result
 	}
 
 	function selectAnswer(answer: AnswerValue) {
@@ -176,6 +227,7 @@
 		if (a.type === 'pattern' && b.type === 'pattern') {
 			return JSON.stringify(a.value) === JSON.stringify(b.value)
 		}
+		if (a.type === 'letter' && b.type === 'letter') return a.value === b.value
 		return false
 	}
 
@@ -183,6 +235,7 @@
 		if (answer.type === 'number') return `num-${answer.value}`
 		if (answer.type === 'side') return `side-${answer.value}`
 		if (answer.type === 'pattern') return `pattern-${answer.value.join('-')}`
+		if (answer.type === 'letter') return `letter-${answer.value}`
 		return 'unknown'
 	}
 
@@ -285,6 +338,20 @@
 							/>
 						{/each}
 					</div>
+				{:else if currentProblem.visual.type === 'letter'}
+					<LetterDisplay letter={currentProblem.visual.displayText || ''} size="large" />
+				{:else if currentProblem.visual.type === 'word'}
+					<WordDisplay
+						word={currentProblem.visual.displayText || ''}
+						emoji={currentProblem.visual.elements[0]?.object}
+						missingIndex={currentProblem.visual.missingIndex}
+						highlightFirst={currentProblem.type === 'initial-letter'}
+					/>
+				{:else if currentProblem.visual.type === 'letter-sequence'}
+					<LetterSequence
+						letters={currentProblem.visual.elements.map((e) => e.object)}
+						unknownIndex={currentProblem.visual.elements.findIndex((e) => e.object === '?')}
+					/>
 				{/if}
 			</div>
 
@@ -307,6 +374,8 @@
 								{choice.value}
 							{:else if choice.type === 'pattern'}
 								<PatternCircle colorId={choice.value[0]} size="small" />
+							{:else if choice.type === 'letter'}
+								{choice.value}
 							{/if}
 						</ChoiceButton>
 					{/each}

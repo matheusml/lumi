@@ -10,9 +10,34 @@ export { generateNumberChoices } from './generator'
 export { visualObjects, patternColors, getRandomObject, shuffle } from './visual-objects'
 export type { VisualObjectInfo, PatternColorId } from './visual-objects'
 
-// Individual generators (for testing)
+// Math generators (for testing)
 export { CountingProblemGenerator } from './counting-generator'
 export { AdditionProblemGenerator } from './addition-generator'
 export { SubtractionProblemGenerator } from './subtraction-generator'
 export { ComparisonProblemGenerator } from './comparison-generator'
 export { PatternProblemGenerator } from './pattern-generator'
+
+// Grammar generators
+export {
+	LetterRecognitionGenerator,
+	AlphabetOrderGenerator,
+	InitialLetterGenerator,
+	WordCompletionGenerator
+} from './grammar'
+
+// Grammar data
+export type { LetterInfo, WordInfo } from './grammar-data'
+export {
+	portugueseAlphabet,
+	vowels,
+	consonants,
+	commonConsonants,
+	getLetterInfo,
+	getLetterIndex,
+	getLetterAtIndex,
+	getLettersForDifficulty,
+	wordBank,
+	getWordsByInitialLetter,
+	getWordsForCompletionDifficulty,
+	getRandomWord
+} from './grammar-data'

@@ -81,11 +81,17 @@ export function createDefaultActivityProgress(activityType: ProblemType): Activi
 /** Create default child profile */
 export function createDefaultChild(name: string = 'Crianca'): Child {
 	const problemTypes: ProblemType[] = [
+		// Math
 		'counting',
 		'addition',
 		'subtraction',
 		'comparison',
-		'patterns'
+		'patterns',
+		// Grammar
+		'letter-recognition',
+		'alphabet-order',
+		'initial-letter',
+		'word-completion'
 	]
 
 	return {

@@ -22,7 +22,19 @@ export class DifficultyManager {
 	}
 
 	private initializeProgress(): void {
-		const types: ProblemType[] = ['counting', 'addition', 'subtraction', 'comparison', 'patterns']
+		const types: ProblemType[] = [
+			// Math
+			'counting',
+			'addition',
+			'subtraction',
+			'comparison',
+			'patterns',
+			// Grammar
+			'letter-recognition',
+			'alphabet-order',
+			'initial-letter',
+			'word-completion'
+		]
 		for (const type of types) {
 			this.progress.set(type, createDefaultActivityProgress(type))
 		}
