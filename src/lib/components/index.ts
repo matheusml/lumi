@@ -15,3 +15,7 @@ export { default as PatternCircle } from './PatternCircle.svelte'
 export { default as LetterDisplay } from './LetterDisplay.svelte'
 export { default as WordDisplay } from './WordDisplay.svelte'
 export { default as LetterSequence } from './LetterSequence.svelte'
+
+// Landing page components
+export { default as Icon } from './Icons.svelte'
+export { default as LumiMascot } from './LumiMascot.svelte'
