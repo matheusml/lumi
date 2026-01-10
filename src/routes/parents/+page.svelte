@@ -341,7 +341,7 @@
 	}
 
 	.gate-input {
-		width: 120px;
+		width: 160px;
 		padding: var(--spacing-md);
 		font-size: var(--font-size-heading-medium);
 		text-align: center;
