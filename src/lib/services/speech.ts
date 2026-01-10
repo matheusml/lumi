@@ -11,19 +11,39 @@ export interface SpeechOptions {
 	pitch?: number;
 }
 
+export interface VoiceInfo {
+	name: string;
+	lang: string;
+	isCloud: boolean;
+}
+
 const DEFAULT_OPTIONS: Required<SpeechOptions> = {
 	lang: 'pt-BR',
 	rate: 0.8,   // Slower for children (0.1 to 10, 1 is normal)
 	pitch: 1.1,  // Slightly higher for friendliness (0 to 2)
 };
 
+const VOICE_STORAGE_KEY = 'lumi-voice-name';
+
+// Known high-quality voice names for Portuguese
+const PREFERRED_VOICE_KEYWORDS = ['google', 'luciana', 'microsoft online', 'natural'];
+
 class SpeechService {
 	private synth: SpeechSynthesis | null = null;
 	private currentUtterance: SpeechSynthesisUtterance | null = null;
+	private voicesLoaded = false;
 
 	constructor() {
 		if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
 			this.synth = window.speechSynthesis;
+			// Voices may load asynchronously
+			this.synth.onvoiceschanged = () => {
+				this.voicesLoaded = true;
+			};
+			// Try to load voices immediately (works in some browsers)
+			if (this.synth.getVoices().length > 0) {
+				this.voicesLoaded = true;
+			}
 		}
 	}
 
@@ -55,6 +75,89 @@ class SpeechService {
 	}
 
 	/**
+	 * Get all available voices for a language
+	 */
+	getVoicesForLanguage(lang: string = 'pt-BR'): VoiceInfo[] {
+		if (!this.synth) return [];
+
+		const langPrefix = lang.split('-')[0];
+		const voices = this.synth.getVoices();
+
+		return voices
+			.filter((v) => v.lang.startsWith(langPrefix))
+			.map((v) => ({
+				name: v.name,
+				lang: v.lang,
+				isCloud: !v.localService,
+			}));
+	}
+
+	/**
+	 * Get the currently selected voice name
+	 */
+	getSelectedVoiceName(): string | null {
+		if (typeof window === 'undefined') return null;
+		return localStorage.getItem(VOICE_STORAGE_KEY);
+	}
+
+	/**
+	 * Set the preferred voice by name
+	 */
+	setVoiceName(name: string | null): void {
+		if (typeof window === 'undefined') return;
+		if (name) {
+			localStorage.setItem(VOICE_STORAGE_KEY, name);
+		} else {
+			localStorage.removeItem(VOICE_STORAGE_KEY);
+		}
+	}
+
+	/**
+	 * Find the best voice for a language
+	 * Priority: 1) Saved preference, 2) Cloud/preferred voices, 3) Any matching voice
+	 */
+	private findBestVoice(lang: string): SpeechSynthesisVoice | null {
+		if (!this.synth) return null;
+
+		const voices = this.synth.getVoices();
+		const langPrefix = lang.split('-')[0];
+		const matchingVoices = voices.filter((v) => v.lang.startsWith(langPrefix));
+
+		if (matchingVoices.length === 0) return null;
+
+		// 1. Check for saved preference
+		const savedName = this.getSelectedVoiceName();
+		if (savedName) {
+			const savedVoice = matchingVoices.find((v) => v.name === savedName);
+			if (savedVoice) return savedVoice;
+		}
+
+		// 2. Prefer cloud-based voices (usually higher quality)
+		const cloudVoices = matchingVoices.filter((v) => !v.localService);
+		if (cloudVoices.length > 0) {
+			// Check for known high-quality voices first
+			for (const keyword of PREFERRED_VOICE_KEYWORDS) {
+				const preferred = cloudVoices.find((v) =>
+					v.name.toLowerCase().includes(keyword)
+				);
+				if (preferred) return preferred;
+			}
+			return cloudVoices[0];
+		}
+
+		// 3. Check local voices for known high-quality ones
+		for (const keyword of PREFERRED_VOICE_KEYWORDS) {
+			const preferred = matchingVoices.find((v) =>
+				v.name.toLowerCase().includes(keyword)
+			);
+			if (preferred) return preferred;
+		}
+
+		// 4. Fall back to first matching voice
+		return matchingVoices[0];
+	}
+
+	/**
 	 * Speak the given text
 	 */
 	speak(text: string, options: SpeechOptions = {}): void {
@@ -74,9 +177,8 @@ class SpeechService {
 		utterance.rate = opts.rate;
 		utterance.pitch = opts.pitch;
 
-		// Try to find a voice for the language
-		const voices = this.synth.getVoices();
-		const voice = voices.find((v) => v.lang.startsWith(opts.lang.split('-')[0]));
+		// Find the best available voice
+		const voice = this.findBestVoice(opts.lang);
 		if (voice) {
 			utterance.voice = voice;
 		}

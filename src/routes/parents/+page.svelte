@@ -9,8 +9,9 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { LumiButton } from '$lib/components';
-	import { difficultyManager, adventureLimitService } from '$lib/services';
+	import { difficultyManager, adventureLimitService, speechService } from '$lib/services';
 	import type { ProblemType } from '$lib/types';
+	import type { VoiceInfo } from '$lib/services/speech';
 	import { DEFAULT_DAILY_LIMIT, MAX_DAILY_LIMIT, MIN_DAILY_LIMIT } from '$lib/types';
 
 	// Gate state
@@ -22,6 +23,10 @@
 	// Settings state
 	let dailyLimit = $state(DEFAULT_DAILY_LIMIT);
 	let limitEnabled = $state(true);
+
+	// Voice settings
+	let availableVoices = $state<VoiceInfo[]>([]);
+	let selectedVoiceName = $state<string | null>(null);
 
 	// Progress data
 	let todayCount = $state(0);
@@ -36,7 +41,35 @@
 	onMount(() => {
 		generateGateQuestion();
 		loadState();
+		loadVoices();
 	});
+
+	function loadVoices() {
+		// Voices may load asynchronously, so we try multiple times
+		const tryLoadVoices = () => {
+			const voices = speechService.getVoicesForLanguage('pt-BR');
+			if (voices.length > 0) {
+				availableVoices = voices;
+				selectedVoiceName = speechService.getSelectedVoiceName();
+			}
+		};
+
+		tryLoadVoices();
+		// Try again after a short delay (voices load async in some browsers)
+		setTimeout(tryLoadVoices, 100);
+		setTimeout(tryLoadVoices, 500);
+	}
+
+	function handleVoiceChange(event: Event) {
+		const select = event.target as HTMLSelectElement;
+		const name = select.value || null;
+		speechService.setVoiceName(name);
+		selectedVoiceName = name;
+	}
+
+	function testVoice() {
+		speechService.speak('Olá! Eu sou a Lumi, sua amiga de aprendizado.', { lang: 'pt-BR' });
+	}
 
 	function generateGateQuestion() {
 		// Generate a multiplication problem (too hard for young children)
@@ -226,6 +259,30 @@
 					</div>
 				{/if}
 			</div>
+
+			{#if availableVoices.length > 0}
+				<div class="card">
+					<h3 class="card-title">Voz</h3>
+					<p class="card-description">Escolha a voz para as instruções faladas.</p>
+					<div class="setting">
+						<select
+							class="voice-select"
+							value={selectedVoiceName ?? ''}
+							onchange={handleVoiceChange}
+						>
+							<option value="">Automático (melhor disponível)</option>
+							{#each availableVoices as voice}
+								<option value={voice.name}>
+									{voice.name}{voice.isCloud ? ' ★' : ''}
+								</option>
+							{/each}
+						</select>
+					</div>
+					<button class="text-button" onclick={testVoice}>
+						▶ Testar voz
+					</button>
+				</div>
+			{/if}
 		</section>
 	{/if}
 </main>
@@ -442,6 +499,36 @@
 	}
 
 	.number-input:focus {
+		outline: none;
+		border-color: var(--color-secondary);
+	}
+
+	.card-title {
+		font-size: var(--font-size-body-medium);
+		font-weight: 600;
+		color: var(--color-text-primary);
+		margin: 0 0 var(--spacing-xs) 0;
+	}
+
+	.card-description {
+		font-size: var(--font-size-body-small);
+		color: var(--color-text-secondary);
+		margin: 0 0 var(--spacing-md) 0;
+	}
+
+	.voice-select {
+		width: 100%;
+		padding: var(--spacing-sm) var(--spacing-md);
+		font-size: var(--font-size-body-medium);
+		font-family: var(--font-family);
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background-color: var(--color-surface);
+		color: var(--color-text-primary);
+		cursor: pointer;
+	}
+
+	.voice-select:focus {
 		outline: none;
 		border-color: var(--color-secondary);
 	}
