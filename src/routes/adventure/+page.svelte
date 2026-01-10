@@ -7,7 +7,7 @@
 
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { onMount } from 'svelte'
+	import { onMount, onDestroy } from 'svelte'
 	import {
 		LumiButton,
 		ChoiceButton,
@@ -38,6 +38,9 @@
 	let hasAnswered = $state(false)
 	let isCorrect = $state(false)
 
+	// Auto-progress timeout (for correct answers)
+	let autoProgressTimeout: ReturnType<typeof setTimeout> | null = null
+
 	// Derived
 	const currentProblem = $derived(problems[currentIndex])
 	const completedCount = $derived(results.length)
@@ -47,6 +50,13 @@
 		// Load state and generate problems
 		loadState()
 		generateProblems()
+	})
+
+	onDestroy(() => {
+		// Clean up auto-progress timeout
+		if (autoProgressTimeout) {
+			clearTimeout(autoProgressTimeout)
+		}
 	})
 
 	function loadState() {
@@ -170,9 +180,21 @@
 		// Update difficulty
 		difficultyManager.recordAnswer(isCorrect, currentProblem.type)
 		saveProgress()
+
+		// Auto-progress to next problem after 1.5s if correct
+		if (isCorrect) {
+			autoProgressTimeout = setTimeout(() => {
+				nextProblem()
+			}, 1500)
+		}
 	}
 
 	function nextProblem() {
+		// Clear any pending auto-progress timeout
+		if (autoProgressTimeout) {
+			clearTimeout(autoProgressTimeout)
+			autoProgressTimeout = null
+		}
 		if (isLastProblem) {
 			// Complete adventure
 			adventureLimitService.recordAdventure()
@@ -389,9 +411,11 @@
 				<p class="feedback-text">
 					{isCorrect ? 'Muito bem! 🎉' : 'Tente novamente da próxima vez! 💪'}
 				</p>
-				<LumiButton onclick={nextProblem} variant={isCorrect ? 'primary' : 'secondary'}>
-					{isLastProblem ? 'Terminar' : 'Próximo'}
-				</LumiButton>
+				{#if !isCorrect}
+					<LumiButton onclick={nextProblem} variant="secondary">
+						{isLastProblem ? 'Terminar' : 'Próximo'}
+					</LumiButton>
+				{/if}
 			</div>
 		{/if}
 	{:else}
