@@ -1,10 +1,10 @@
 # Lumi 🌟
 
-An anti-addictive educational math app for children ages 4-7.
+An anti-addictive educational app for children ages 4-7.
 
 ## Philosophy
 
-Most children's educational apps use dark patterns—points, streaks, leaderboards, notifications—to maximize screen time. Lumi is the opposite: **we respect children's wellbeing** while teaching math effectively.
+Most children's educational apps use dark patterns—points, streaks, leaderboards, notifications—to maximize screen time. Lumi is the opposite: **we respect children's wellbeing** while making learning effective.
 
 ### What We Don't Do
 

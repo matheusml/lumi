@@ -1,7 +1,7 @@
 /**
  * Lumi Web - Main Library Exports
  *
- * Anti-addictive educational math app for children ages 4-7.
+ * Anti-addictive educational app for children ages 4-7.
  */
 
 // Re-export from submodules

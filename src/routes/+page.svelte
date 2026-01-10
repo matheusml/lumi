@@ -42,7 +42,7 @@
 </script>
 
 <svelte:head>
-	<title>Lumi - Aprenda Matemática</title>
+	<title>Lumi - Aprenda Brincando</title>
 </svelte:head>
 
 <main class="home">
@@ -52,12 +52,12 @@
 			<h1 class="logo-text">Lumi</h1>
 		</div>
 
-		<p class="tagline">Vamos aprender matemática!</p>
+		<p class="tagline">Vamos aprender!</p>
 
 		{#if canStart}
 			<div class="action-area">
 				<LumiButton onclick={startAdventure} size="large">
-					Começar Aventura
+					Matemática 🔢
 				</LumiButton>
 
 				{#if remaining !== Infinity}
