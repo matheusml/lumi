@@ -297,6 +297,12 @@
 		</header>
 
 		<div class="problem-area">
+			<!-- Prompt with speaker button -->
+			<div class="prompt-row">
+				<h2 class="prompt">{currentProblem.prompt.ptBR}</h2>
+				<SpeakerButton text={currentProblem.prompt.ptBR} lang="pt-BR" />
+			</div>
+
 			<!-- Visual display -->
 			<div class="visual">
 				{#if currentProblem.visual.type === 'objects'}
@@ -375,12 +381,6 @@
 						unknownIndex={currentProblem.visual.elements.findIndex((e) => e.object === '?')}
 					/>
 				{/if}
-			</div>
-
-			<!-- Prompt with speaker button -->
-			<div class="prompt-row">
-				<p class="prompt">{currentProblem.prompt.ptBR}</p>
-				<SpeakerButton text={currentProblem.prompt.ptBR} lang="pt-BR" />
 			</div>
 
 			<!-- Answer choices (not for comparison) -->
@@ -568,7 +568,8 @@
 	}
 
 	.prompt {
-		font-size: var(--font-size-heading-medium);
+		font-size: var(--font-size-heading-large);
+		font-weight: 600;
 		color: var(--color-text-primary);
 		margin: 0;
 		text-align: center;
