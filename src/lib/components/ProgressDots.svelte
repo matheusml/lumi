@@ -55,7 +55,7 @@
 	}
 
 	.dot.current {
-		background-color: var(--color-primary);
+		background-color: var(--color-secondary);
 		transform: scale(1.2);
 	}
 </style>
