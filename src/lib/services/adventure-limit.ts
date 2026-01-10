@@ -4,7 +4,12 @@
  * Tracks daily adventure counts to enforce healthy usage limits.
  */
 
-import { DEFAULT_DAILY_LIMIT, MAX_DAILY_LIMIT, MIN_DAILY_LIMIT } from '$lib/types'
+import {
+	DEFAULT_DAILY_LIMIT,
+	DEFAULT_LIMIT_ENABLED,
+	MAX_DAILY_LIMIT,
+	MIN_DAILY_LIMIT
+} from '$lib/types'
 
 export interface DailyCount {
 	date: string // ISO date string (YYYY-MM-DD)
@@ -21,7 +26,7 @@ function getTodayString(): string {
 export class AdventureLimitService {
 	private dailyCount: DailyCount = { date: getTodayString(), count: 0 }
 	private dailyLimit: number = DEFAULT_DAILY_LIMIT
-	private limitEnabled: boolean = true
+	private limitEnabled: boolean = DEFAULT_LIMIT_ENABLED
 
 	/**
 	 * Load state from storage

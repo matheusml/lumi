@@ -28,12 +28,12 @@ describe('AdventureLimitService', () => {
 			expect(service.canStartAdventure()).toBe(true)
 		})
 
-		it('should have remaining adventures equal to limit', () => {
-			expect(service.getRemainingAdventures()).toBe(DEFAULT_DAILY_LIMIT)
+		it('should have unlimited remaining adventures by default (limit disabled)', () => {
+			expect(service.getRemainingAdventures()).toBe(Infinity)
 		})
 
-		it('should have limit enabled by default', () => {
-			expect(service.isLimitEnabled()).toBe(true)
+		it('should have limit disabled by default', () => {
+			expect(service.isLimitEnabled()).toBe(false)
 		})
 	})
 
@@ -48,7 +48,8 @@ describe('AdventureLimitService', () => {
 			expect(service.getTodayCount()).toBe(2)
 		})
 
-		it('should decrease remaining adventures', () => {
+		it('should decrease remaining adventures when limit enabled', () => {
+			service.setLimitEnabled(true)
 			expect(service.getRemainingAdventures()).toBe(DEFAULT_DAILY_LIMIT)
 
 			service.recordAdventure()
@@ -64,7 +65,8 @@ describe('AdventureLimitService', () => {
 			expect(service.canStartAdventure()).toBe(true)
 		})
 
-		it('should return false when at limit', () => {
+		it('should return false when at limit (limit enabled)', () => {
+			service.setLimitEnabled(true)
 			for (let i = 0; i < DEFAULT_DAILY_LIMIT; i++) {
 				service.recordAdventure()
 			}
@@ -72,6 +74,9 @@ describe('AdventureLimitService', () => {
 		})
 
 		it('should always return true when limit is disabled', () => {
+			// Enable limit first
+			service.setLimitEnabled(true)
+
 			// Reach the limit
 			for (let i = 0; i < DEFAULT_DAILY_LIMIT; i++) {
 				service.recordAdventure()
@@ -85,7 +90,8 @@ describe('AdventureLimitService', () => {
 	})
 
 	describe('getRemainingAdventures', () => {
-		it('should return correct remaining count', () => {
+		it('should return correct remaining count when limit enabled', () => {
+			service.setLimitEnabled(true)
 			expect(service.getRemainingAdventures()).toBe(3)
 
 			service.recordAdventure()
@@ -98,7 +104,8 @@ describe('AdventureLimitService', () => {
 			expect(service.getRemainingAdventures()).toBe(0)
 		})
 
-		it('should never return negative', () => {
+		it('should never return negative when limit enabled', () => {
+			service.setLimitEnabled(true)
 			for (let i = 0; i < DEFAULT_DAILY_LIMIT + 2; i++) {
 				service.recordAdventure()
 			}
@@ -126,7 +133,8 @@ describe('AdventureLimitService', () => {
 			expect(service.canStartAdventure()).toBe(true)
 		})
 
-		it('should reset remaining adventures on new day', () => {
+		it('should reset remaining adventures on new day when limit enabled', () => {
+			service.setLimitEnabled(true)
 			// Use all adventures
 			for (let i = 0; i < DEFAULT_DAILY_LIMIT; i++) {
 				service.recordAdventure()
@@ -160,6 +168,7 @@ describe('AdventureLimitService', () => {
 		})
 
 		it('should update remaining adventures when limit changes', () => {
+			service.setLimitEnabled(true)
 			service.recordAdventure()
 			expect(service.getRemainingAdventures()).toBe(2) // 3 - 1
 
@@ -170,13 +179,13 @@ describe('AdventureLimitService', () => {
 
 	describe('limit toggle', () => {
 		it('should enable and disable limit', () => {
-			expect(service.isLimitEnabled()).toBe(true)
-
-			service.setLimitEnabled(false)
 			expect(service.isLimitEnabled()).toBe(false)
 
 			service.setLimitEnabled(true)
 			expect(service.isLimitEnabled()).toBe(true)
+
+			service.setLimitEnabled(false)
+			expect(service.isLimitEnabled()).toBe(false)
 		})
 	})
 
@@ -190,7 +199,8 @@ describe('AdventureLimitService', () => {
 			expect(service.getTodayCount()).toBe(0)
 		})
 
-		it('should restore remaining adventures', () => {
+		it('should restore remaining adventures when limit enabled', () => {
+			service.setLimitEnabled(true)
 			for (let i = 0; i < DEFAULT_DAILY_LIMIT; i++) {
 				service.recordAdventure()
 			}
@@ -250,7 +260,7 @@ describe('AdventureLimitService', () => {
 
 			expect(service.getDailyLimit()).toBe(7)
 			expect(service.getTodayCount()).toBe(0) // Unchanged
-			expect(service.isLimitEnabled()).toBe(true) // Unchanged
+			expect(service.isLimitEnabled()).toBe(false) // Unchanged (default is disabled)
 		})
 	})
 })

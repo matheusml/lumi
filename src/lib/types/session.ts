@@ -61,6 +61,7 @@ export interface UserPreferences {
 
 /** Default values */
 export const DEFAULT_DAILY_LIMIT = 3
+export const DEFAULT_LIMIT_ENABLED = false
 export const PROBLEMS_PER_ADVENTURE = 5
 export const MAX_DAILY_LIMIT = 10
 export const MIN_DAILY_LIMIT = 1
