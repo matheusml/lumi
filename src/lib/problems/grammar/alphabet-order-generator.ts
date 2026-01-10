@@ -105,9 +105,7 @@ export class AlphabetOrderGenerator implements ProblemGenerator {
 		}
 
 		const correctLetter = sequence[missingPos]
-		const displayLetters = sequence.map((l, i) =>
-			i === missingPos ? '?' : l.uppercase
-		)
+		const displayLetters = sequence.map((l, i) => (i === missingPos ? '?' : l.uppercase))
 
 		// Generate answer choices (correct + 3 nearby letters)
 		const correctIndex = startIndex + missingPos

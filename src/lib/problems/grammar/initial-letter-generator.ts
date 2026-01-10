@@ -37,9 +37,7 @@ export class InitialLetterGenerator implements ProblemGenerator {
 		switch (difficulty) {
 			case 1:
 				// Words starting with vowels only
-				return wordBank.filter((w) =>
-					vowels.some((v) => v.uppercase === w.word[0].toUpperCase())
-				)
+				return wordBank.filter((w) => vowels.some((v) => v.uppercase === w.word[0].toUpperCase()))
 			case 2: {
 				// Words starting with vowels or common consonants
 				const validLetters = [

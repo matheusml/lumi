@@ -73,8 +73,7 @@ export class LetterRecognitionGenerator implements ProblemGenerator {
 		letterCase: 'upper' | 'lower',
 		difficulty: DifficultyLevel
 	): Problem {
-		const displayLetter =
-			letterCase === 'lower' ? letterInfo.lowercase : letterInfo.uppercase
+		const displayLetter = letterCase === 'lower' ? letterInfo.lowercase : letterInfo.uppercase
 		const letters = getLettersForDifficulty(difficulty)
 
 		// Generate answer choices (4 letters including correct one)

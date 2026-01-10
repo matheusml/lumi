@@ -33,10 +33,7 @@
 			{#if isMissing}
 				<span class="letter missing" aria-label="letra faltando"></span>
 			{:else}
-				<span
-					class="letter"
-					class:highlight={highlightFirst && isFirst}
-				>
+				<span class="letter" class:highlight={highlightFirst && isFirst}>
 					{char}
 				</span>
 			{/if}

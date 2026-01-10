@@ -21,11 +21,19 @@
 	} from '$lib/components'
 	import { problemService } from '$lib/problems'
 	import { difficultyManager, adventureLimitService, speechService } from '$lib/services'
-	import type { Problem, AnswerValue, AnswerState, ProblemResult, AdventureCategory } from '$lib/types'
+	import type {
+		Problem,
+		AnswerValue,
+		AnswerState,
+		ProblemResult,
+		AdventureCategory
+	} from '$lib/types'
 	import { PROBLEMS_PER_ADVENTURE, MATH_PROBLEM_TYPES, GRAMMAR_PROBLEM_TYPES } from '$lib/types'
 
 	// Adventure type from URL
-	const adventureType = $derived(($page.url.searchParams.get('type') as AdventureCategory) || 'math')
+	const adventureType = $derived(
+		($page.url.searchParams.get('type') as AdventureCategory) || 'math'
+	)
 
 	// Adventure state
 	let problems: Problem[] = $state([])
