@@ -74,7 +74,7 @@
 
 		// Auto-speak first problem if voice is enabled
 		if (problems.length > 0) {
-			const autoVoice = localStorage.getItem('lumi-auto-voice') !== 'false';
+			const autoVoice = localStorage.getItem('lumi-auto-voice') === 'true';
 			if (autoVoice) {
 				setTimeout(() => {
 					speechService.speak(problems[0].prompt.ptBR, { lang: 'pt-BR' });
@@ -139,7 +139,7 @@
 			isCorrect = false;
 
 			// Auto-speak next problem
-			const autoVoice = localStorage.getItem('lumi-auto-voice') !== 'false';
+			const autoVoice = localStorage.getItem('lumi-auto-voice') === 'true';
 			if (autoVoice && problems[currentIndex]) {
 				setTimeout(() => {
 					speechService.speak(problems[currentIndex].prompt.ptBR, { lang: 'pt-BR' });
