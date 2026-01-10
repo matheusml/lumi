@@ -7,12 +7,12 @@
 	 */
 
 	interface Props {
-		variant?: 'primary' | 'secondary' | 'ghost';
-		size?: 'medium' | 'large';
-		disabled?: boolean;
-		fullWidth?: boolean;
-		onclick?: () => void;
-		children?: import('svelte').Snippet;
+		variant?: 'primary' | 'secondary' | 'ghost'
+		size?: 'medium' | 'large'
+		disabled?: boolean
+		fullWidth?: boolean
+		onclick?: () => void
+		children?: import('svelte').Snippet
 	}
 
 	let {
@@ -21,16 +21,11 @@
 		disabled = false,
 		fullWidth = false,
 		onclick,
-		children,
-	}: Props = $props();
+		children
+	}: Props = $props()
 </script>
 
-<button
-	class="lumi-button {variant} {size}"
-	class:full-width={fullWidth}
-	{disabled}
-	{onclick}
->
+<button class="lumi-button {variant} {size}" class:full-width={fullWidth} {disabled} {onclick}>
 	{#if children}
 		{@render children()}
 	{/if}
@@ -50,7 +45,8 @@
 		font-family: var(--font-family);
 		font-weight: 600;
 
-		transition: transform var(--transition-fast),
+		transition:
+			transform var(--transition-fast),
 			background-color var(--transition-fast),
 			box-shadow var(--transition-fast);
 	}

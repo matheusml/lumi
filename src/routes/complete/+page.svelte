@@ -5,15 +5,15 @@
 	 * Celebrates completion without emphasizing scores.
 	 */
 
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { LumiButton } from '$lib/components';
+	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
+	import { LumiButton } from '$lib/components'
 
-	const correct = $derived(parseInt($page.url.searchParams.get('correct') ?? '0'));
-	const total = $derived(parseInt($page.url.searchParams.get('total') ?? '5'));
+	const correct = $derived(parseInt($page.url.searchParams.get('correct') ?? '0'))
+	const total = $derived(parseInt($page.url.searchParams.get('total') ?? '5'))
 
 	function goHome() {
-		goto('/');
+		goto('/')
 	}
 </script>
 
@@ -42,9 +42,7 @@
 	</div>
 
 	<div class="actions">
-		<LumiButton onclick={goHome}>
-			Voltar ao Início
-		</LumiButton>
+		<LumiButton onclick={goHome}>Voltar ao Início</LumiButton>
 	</div>
 </main>
 
@@ -125,7 +123,12 @@
 	}
 
 	@keyframes gentlePulse {
-		0%, 100% { transform: scale(1); }
-		50% { transform: scale(1.1); }
+		0%,
+		100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.1);
+		}
 	}
 </style>

@@ -5,19 +5,17 @@
 	 * Colored circle for pattern problems.
 	 */
 
-	import { patternColors } from '$lib/problems';
+	import { patternColors } from '$lib/problems'
 
 	interface Props {
-		colorId: string;
-		size?: 'small' | 'medium' | 'large';
-		isUnknown?: boolean;
+		colorId: string
+		size?: 'small' | 'medium' | 'large'
+		isUnknown?: boolean
 	}
 
-	let { colorId, size = 'medium', isUnknown = false }: Props = $props();
+	let { colorId, size = 'medium', isUnknown = false }: Props = $props()
 
-	const color = $derived(
-		patternColors.find((c) => c.id === colorId)?.color ?? '#888888'
-	);
+	const color = $derived(patternColors.find((c) => c.id === colorId)?.color ?? '#888888')
 </script>
 
 <div

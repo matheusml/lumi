@@ -4,41 +4,41 @@
  * Tracks daily adventure counts to enforce healthy usage limits.
  */
 
-import { DEFAULT_DAILY_LIMIT, MAX_DAILY_LIMIT, MIN_DAILY_LIMIT } from '$lib/types';
+import { DEFAULT_DAILY_LIMIT, MAX_DAILY_LIMIT, MIN_DAILY_LIMIT } from '$lib/types'
 
 export interface DailyCount {
-	date: string;  // ISO date string (YYYY-MM-DD)
-	count: number;
+	date: string // ISO date string (YYYY-MM-DD)
+	count: number
 }
 
 /**
  * Get today's date as ISO string (YYYY-MM-DD)
  */
 function getTodayString(): string {
-	return new Date().toISOString().split('T')[0];
+	return new Date().toISOString().split('T')[0]
 }
 
 export class AdventureLimitService {
-	private dailyCount: DailyCount = { date: getTodayString(), count: 0 };
-	private dailyLimit: number = DEFAULT_DAILY_LIMIT;
-	private limitEnabled: boolean = true;
+	private dailyCount: DailyCount = { date: getTodayString(), count: 0 }
+	private dailyLimit: number = DEFAULT_DAILY_LIMIT
+	private limitEnabled: boolean = true
 
 	/**
 	 * Load state from storage
 	 */
 	loadState(data: { dailyCount?: DailyCount; dailyLimit?: number; limitEnabled?: boolean }): void {
 		if (data.dailyCount) {
-			this.dailyCount = data.dailyCount;
+			this.dailyCount = data.dailyCount
 		}
 		if (data.dailyLimit !== undefined) {
-			this.dailyLimit = data.dailyLimit;
+			this.dailyLimit = data.dailyLimit
 		}
 		if (data.limitEnabled !== undefined) {
-			this.limitEnabled = data.limitEnabled;
+			this.limitEnabled = data.limitEnabled
 		}
 
 		// Reset count if it's a new day
-		this.checkAndResetForNewDay();
+		this.checkAndResetForNewDay()
 	}
 
 	/**
@@ -48,17 +48,17 @@ export class AdventureLimitService {
 		return {
 			dailyCount: this.dailyCount,
 			dailyLimit: this.dailyLimit,
-			limitEnabled: this.limitEnabled,
-		};
+			limitEnabled: this.limitEnabled
+		}
 	}
 
 	/**
 	 * Check if it's a new day and reset count if needed
 	 */
 	private checkAndResetForNewDay(): void {
-		const today = getTodayString();
+		const today = getTodayString()
 		if (this.dailyCount.date !== today) {
-			this.dailyCount = { date: today, count: 0 };
+			this.dailyCount = { date: today, count: 0 }
 		}
 	}
 
@@ -66,79 +66,79 @@ export class AdventureLimitService {
 	 * Check if more adventures are allowed today
 	 */
 	canStartAdventure(): boolean {
-		this.checkAndResetForNewDay();
+		this.checkAndResetForNewDay()
 
 		if (!this.limitEnabled) {
-			return true;
+			return true
 		}
 
-		return this.dailyCount.count < this.dailyLimit;
+		return this.dailyCount.count < this.dailyLimit
 	}
 
 	/**
 	 * Get remaining adventures for today
 	 */
 	getRemainingAdventures(): number {
-		this.checkAndResetForNewDay();
+		this.checkAndResetForNewDay()
 
 		if (!this.limitEnabled) {
-			return Infinity;
+			return Infinity
 		}
 
-		return Math.max(0, this.dailyLimit - this.dailyCount.count);
+		return Math.max(0, this.dailyLimit - this.dailyCount.count)
 	}
 
 	/**
 	 * Record a completed adventure
 	 */
 	recordAdventure(): void {
-		this.checkAndResetForNewDay();
-		this.dailyCount.count += 1;
+		this.checkAndResetForNewDay()
+		this.dailyCount.count += 1
 	}
 
 	/**
 	 * Get today's adventure count
 	 */
 	getTodayCount(): number {
-		this.checkAndResetForNewDay();
-		return this.dailyCount.count;
+		this.checkAndResetForNewDay()
+		return this.dailyCount.count
 	}
 
 	/**
 	 * Get the daily limit
 	 */
 	getDailyLimit(): number {
-		return this.dailyLimit;
+		return this.dailyLimit
 	}
 
 	/**
 	 * Set the daily limit
 	 */
 	setDailyLimit(limit: number): void {
-		this.dailyLimit = Math.max(MIN_DAILY_LIMIT, Math.min(MAX_DAILY_LIMIT, limit));
+		this.dailyLimit = Math.max(MIN_DAILY_LIMIT, Math.min(MAX_DAILY_LIMIT, limit))
 	}
 
 	/**
 	 * Check if limit is enabled
 	 */
 	isLimitEnabled(): boolean {
-		return this.limitEnabled;
+		return this.limitEnabled
 	}
 
 	/**
 	 * Enable or disable the daily limit
 	 */
 	setLimitEnabled(enabled: boolean): void {
-		this.limitEnabled = enabled;
+		this.limitEnabled = enabled
 	}
 
 	/**
 	 * Reset today's count (for parent override)
 	 */
 	resetTodayCount(): void {
-		this.dailyCount = { date: getTodayString(), count: 0 };
+		this.dailyCount = { date: getTodayString(), count: 0 }
 	}
 }
 
 // Singleton instance
-export const adventureLimitService = new AdventureLimitService();
+export const adventureLimitService = new AdventureLimitService()

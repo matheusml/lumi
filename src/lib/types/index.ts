@@ -13,16 +13,16 @@ export type {
 	AnswerValue,
 	Problem,
 	ProblemResult,
-	AnswerState,
-} from './problem';
+	AnswerState
+} from './problem'
 
 export type {
 	Session,
 	ActivityProgress,
 	DailyAdventureCount,
 	Child,
-	UserPreferences,
-} from './session';
+	UserPreferences
+} from './session'
 
 export {
 	DEFAULT_DAILY_LIMIT,
@@ -30,5 +30,5 @@ export {
 	MAX_DAILY_LIMIT,
 	MIN_DAILY_LIMIT,
 	createDefaultActivityProgress,
-	createDefaultChild,
-} from './session';
+	createDefaultChild
+} from './session'

@@ -6,21 +6,16 @@
 	 * Shows different states: default, selected, correct, incorrect.
 	 */
 
-	import type { AnswerState } from '$lib/types';
+	import type { AnswerState } from '$lib/types'
 
 	interface Props {
-		state?: AnswerState;
-		disabled?: boolean;
-		onclick?: () => void;
-		children?: import('svelte').Snippet;
+		state?: AnswerState
+		disabled?: boolean
+		onclick?: () => void
+		children?: import('svelte').Snippet
 	}
 
-	let {
-		state = 'default',
-		disabled = false,
-		onclick,
-		children,
-	}: Props = $props();
+	let { state = 'default', disabled = false, onclick, children }: Props = $props()
 </script>
 
 <button
@@ -53,7 +48,8 @@
 		color: var(--color-text-primary);
 
 		cursor: pointer;
-		transition: transform var(--transition-fast),
+		transition:
+			transform var(--transition-fast),
 			background-color var(--transition-fast),
 			border-color var(--transition-fast),
 			box-shadow var(--transition-fast);
@@ -99,7 +95,12 @@
 	}
 
 	@keyframes gentlePulse {
-		0%, 100% { transform: scale(1); }
-		50% { transform: scale(1.05); }
+		0%,
+		100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.05);
+		}
 	}
 </style>

@@ -5,23 +5,23 @@
 	 * Renders a grid of emoji objects for counting/comparison problems.
 	 */
 
-	import { visualObjects } from '$lib/problems';
+	import { visualObjects } from '$lib/problems'
 
 	interface Props {
-		objectId: string;
-		count: number;
-		maxPerRow?: number;
+		objectId: string
+		count: number
+		maxPerRow?: number
 	}
 
-	let { objectId, count, maxPerRow = 5 }: Props = $props();
+	let { objectId, count, maxPerRow = 5 }: Props = $props()
 
 	// Find the emoji for this object
-	const object = $derived(visualObjects.find((o) => o.id === objectId));
-	const emoji = $derived(object?.emoji ?? '⭐');
+	const object = $derived(visualObjects.find((o) => o.id === objectId))
+	const emoji = $derived(object?.emoji ?? '⭐')
 
 	// Calculate grid layout
-	const rows = $derived(Math.ceil(count / maxPerRow));
-	const itemsInLastRow = $derived(count % maxPerRow || maxPerRow);
+	const rows = $derived(Math.ceil(count / maxPerRow))
+	const itemsInLastRow = $derived(count % maxPerRow || maxPerRow)
 </script>
 
 <div class="countable-objects" role="img" aria-label="{count} {object?.nameEn ?? 'objects'}">
@@ -55,11 +55,21 @@
 	}
 
 	/* Stagger animation for each object */
-	.object:nth-child(1) { animation-delay: 0ms; }
-	.object:nth-child(2) { animation-delay: 50ms; }
-	.object:nth-child(3) { animation-delay: 100ms; }
-	.object:nth-child(4) { animation-delay: 150ms; }
-	.object:nth-child(5) { animation-delay: 200ms; }
+	.object:nth-child(1) {
+		animation-delay: 0ms;
+	}
+	.object:nth-child(2) {
+		animation-delay: 50ms;
+	}
+	.object:nth-child(3) {
+		animation-delay: 100ms;
+	}
+	.object:nth-child(4) {
+		animation-delay: 150ms;
+	}
+	.object:nth-child(5) {
+		animation-delay: 200ms;
+	}
 
 	@keyframes scaleIn {
 		from {

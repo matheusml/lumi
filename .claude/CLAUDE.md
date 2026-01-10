@@ -7,6 +7,7 @@ Web educational app for kids ages 4-7. Learning-focused MVP. Portuguese (Brazil)
 ## Anti-Addiction Principles (CRITICAL)
 
 **NEVER add:**
+
 - Stars, coins, gems, or virtual currencies
 - Streaks or "don't break your streak" mechanics
 - Leaderboards or social comparison
@@ -16,6 +17,7 @@ Web educational app for kids ages 4-7. Learning-focused MVP. Portuguese (Brazil)
 - Variable reward schedules
 
 **ALWAYS:**
+
 - Keep adventures discrete (5 problems each)
 - Respect daily limits (default: 3/day)
 - Celebrate completion, not speed/scores
@@ -43,6 +45,7 @@ src/
 ## Design System Quick Reference
 
 **Colors** (CSS variables):
+
 - `--color-primary` (#F59E8C) - Main actions (coral)
 - `--color-secondary` (#8CC7F0) - Secondary actions (sky blue)
 - `--color-success` (#99D9BF) - Correct answers (mint)

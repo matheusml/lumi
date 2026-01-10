@@ -7,15 +7,21 @@
 	 */
 
 	interface Props {
-		total?: number;
-		current: number;  // 0-indexed current problem
-		completed: number;  // Number of completed problems
+		total?: number
+		current: number // 0-indexed current problem
+		completed: number // Number of completed problems
 	}
 
-	let { total = 5, current, completed }: Props = $props();
+	let { total = 5, current, completed }: Props = $props()
 </script>
 
-<div class="progress-dots" role="progressbar" aria-valuenow={completed} aria-valuemin={0} aria-valuemax={total}>
+<div
+	class="progress-dots"
+	role="progressbar"
+	aria-valuenow={completed}
+	aria-valuemin={0}
+	aria-valuemax={total}
+>
 	{#each Array(total) as _, index}
 		<div
 			class="dot"
@@ -39,7 +45,8 @@
 		height: 12px;
 		border-radius: var(--radius-full);
 		background-color: var(--color-border);
-		transition: background-color var(--transition-normal),
+		transition:
+			background-color var(--transition-normal),
 			transform var(--transition-normal);
 	}
 

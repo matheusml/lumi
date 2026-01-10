@@ -9,38 +9,38 @@
 
 :root {
 	/* Colors */
-	--color-primary: #F59E8C;
-	--color-primary-hover: #E88A76;
-	--color-primary-light: #FBD4CC;
+	--color-primary: #f59e8c;
+	--color-primary-hover: #e88a76;
+	--color-primary-light: #fbd4cc;
 
-	--color-secondary: #8CC7F0;
-	--color-secondary-hover: #6BB5E8;
-	--color-secondary-light: #C5E3F7;
+	--color-secondary: #8cc7f0;
+	--color-secondary-hover: #6bb5e8;
+	--color-secondary-light: #c5e3f7;
 
-	--color-success: #99D9BF;
-	--color-success-dark: #7CC9A8;
-	--color-try-again: #FFCDB2;
-	--color-try-again-dark: #E5A588;
+	--color-success: #99d9bf;
+	--color-success-dark: #7cc9a8;
+	--color-try-again: #ffcdb2;
+	--color-try-again-dark: #e5a588;
 
-	--color-background: #FCF8F0;
-	--color-surface: #FFFFFF;
-	--color-surface-hover: #F7F3EB;
+	--color-background: #fcf8f0;
+	--color-surface: #ffffff;
+	--color-surface-hover: #f7f3eb;
 
-	--color-text-primary: #4A4A4A;
-	--color-text-secondary: #7A7A7A;
-	--color-text-muted: #A0A0A0;
-	--color-text-on-primary: #FFFFFF;
+	--color-text-primary: #4a4a4a;
+	--color-text-secondary: #7a7a7a;
+	--color-text-muted: #a0a0a0;
+	--color-text-on-primary: #ffffff;
 
-	--color-border: #E8E4DC;
-	--color-border-light: #F0EDE6;
-	--color-disabled: #D4D0C8;
+	--color-border: #e8e4dc;
+	--color-border-light: #f0ede6;
+	--color-disabled: #d4d0c8;
 	--color-overlay: rgba(0, 0, 0, 0.3);
 
 	/* Pattern colors */
-	--color-pattern-red: #EF4444;
-	--color-pattern-blue: #3B82F6;
-	--color-pattern-green: #22C55E;
-	--color-pattern-yellow: #EAB308;
+	--color-pattern-red: #ef4444;
+	--color-pattern-blue: #3b82f6;
+	--color-pattern-green: #22c55e;
+	--color-pattern-yellow: #eab308;
 
 	/* Typography */
 	--font-family: 'Nunito', system-ui, -apple-system, sans-serif;
@@ -125,7 +125,7 @@ body {
 
 /* Prevent text selection during interactions */
 button,
-[role="button"] {
+[role='button'] {
 	user-select: none;
 	-webkit-user-select: none;
 	-webkit-tap-highlight-color: transparent;
@@ -144,28 +144,53 @@ html {
 
 /* Keyframe animations */
 @keyframes fadeIn {
-	from { opacity: 0; }
-	to { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 @keyframes fadeOut {
-	from { opacity: 1; }
-	to { opacity: 0; }
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 
 @keyframes scaleIn {
-	from { transform: scale(0.9); opacity: 0; }
-	to { transform: scale(1); opacity: 1; }
+	from {
+		transform: scale(0.9);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
 }
 
 @keyframes slideUp {
-	from { transform: translateY(20px); opacity: 0; }
-	to { transform: translateY(0); opacity: 1; }
+	from {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
 
 @keyframes gentlePulse {
-	0%, 100% { transform: scale(1); }
-	50% { transform: scale(1.02); }
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.02);
+	}
 }
 
 /* Utility classes */

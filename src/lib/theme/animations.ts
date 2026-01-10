@@ -10,7 +10,7 @@ export const animations = {
 	easing: {
 		default: 'cubic-bezier(0.4, 0, 0.2, 1)',
 		gentle: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
-		bounce: 'cubic-bezier(0.68, -0.1, 0.32, 1.1)',
+		bounce: 'cubic-bezier(0.68, -0.1, 0.32, 1.1)'
 	},
 
 	// Durations (slower for calmness)
@@ -18,7 +18,7 @@ export const animations = {
 		fast: '150ms',
 		normal: '250ms',
 		slow: '400ms',
-		gentle: '600ms',
+		gentle: '600ms'
 	},
 
 	// Pre-composed transitions
@@ -27,15 +27,15 @@ export const animations = {
 		fast: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)',
 		scale: 'transform 200ms cubic-bezier(0.25, 0.1, 0.25, 1)',
 		fade: 'opacity 300ms cubic-bezier(0.25, 0.1, 0.25, 1)',
-		color: 'background-color 200ms, border-color 200ms, color 200ms',
+		color: 'background-color 200ms, border-color 200ms, color 200ms'
 	},
 
 	// Scale values for press states
 	scale: {
 		pressed: 0.96,
-		hover: 1.02,
-	},
-} as const;
+		hover: 1.02
+	}
+} as const
 
 // CSS keyframes as strings (to be injected into global styles)
 export const keyframes = {
@@ -68,5 +68,5 @@ export const keyframes = {
 			from { transform: translateY(20px); opacity: 0; }
 			to { transform: translateY(0); opacity: 1; }
 		}
-	`,
-} as const;
+	`
+} as const

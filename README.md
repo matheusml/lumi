@@ -38,6 +38,7 @@ Most children's educational apps use dark patterns—points, streaks, leaderboar
 ### Adaptive Difficulty
 
 Each problem type has 4 difficulty levels. The system:
+
 - Moves **UP** after 3 consecutive correct answers
 - Moves **DOWN** after 2 consecutive incorrect answers
 - Tracks progress independently per activity type
@@ -45,6 +46,7 @@ Each problem type has 4 difficulty levels. The system:
 ### Parent Zone
 
 Protected by a simple math problem (multiplication), parents can:
+
 - View today's adventure count
 - See progress per activity type (level + accuracy)
 - Adjust daily limits (1-10 or unlimited)
@@ -95,13 +97,13 @@ src/
 
 ### Colors
 
-| Token | Value | Use |
-|-------|-------|-----|
-| `--color-primary` | #F59E8C | Main actions (coral) |
-| `--color-secondary` | #8CC7F0 | Secondary actions (sky blue) |
-| `--color-success` | #99D9BF | Correct answers (mint) |
-| `--color-try-again` | #FFCDB2 | Incorrect (soft peach, not red!) |
-| `--color-background` | #FCF8F0 | Warm cream background |
+| Token                | Value   | Use                              |
+| -------------------- | ------- | -------------------------------- |
+| `--color-primary`    | #F59E8C | Main actions (coral)             |
+| `--color-secondary`  | #8CC7F0 | Secondary actions (sky blue)     |
+| `--color-success`    | #99D9BF | Correct answers (mint)           |
+| `--color-try-again`  | #FFCDB2 | Incorrect (soft peach, not red!) |
+| `--color-background` | #FCF8F0 | Warm cream background            |
 
 ### Touch Targets
 
@@ -134,4 +136,4 @@ Built with love for children's healthy development.
 
 ---
 
-*"Learning should be joyful, not addictive."*
+_"Learning should be joyful, not addictive."_

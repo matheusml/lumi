@@ -30,15 +30,15 @@ npm run test:run   # Run tests once (for CI)
 
 ## Key File Locations
 
-| What | Path |
-|------|------|
-| App entry | `src/app.html` |
-| Global styles | `src/app.css` |
-| Layout | `src/routes/+layout.svelte` |
-| Home page | `src/routes/+page.svelte` |
-| Adventure | `src/routes/adventure/+page.svelte` |
-| Completion | `src/routes/complete/+page.svelte` |
-| Parents | `src/routes/parents/+page.svelte` |
+| What          | Path                                |
+| ------------- | ----------------------------------- |
+| App entry     | `src/app.html`                      |
+| Global styles | `src/app.css`                       |
+| Layout        | `src/routes/+layout.svelte`         |
+| Home page     | `src/routes/+page.svelte`           |
+| Adventure     | `src/routes/adventure/+page.svelte` |
+| Completion    | `src/routes/complete/+page.svelte`  |
+| Parents       | `src/routes/parents/+page.svelte`   |
 
 ## Source Structure
 
@@ -79,18 +79,19 @@ src/
 
 All data is stored in `localStorage`:
 
-| Key | Purpose |
-|-----|---------|
-| `lumi-progress` | Difficulty progress per problem type |
-| `lumi-seen` | Seen problem signatures (deduplication) |
-| `lumi-limits` | Daily adventure limits |
-| `lumi-auto-voice` | Voice auto-play setting |
+| Key               | Purpose                                 |
+| ----------------- | --------------------------------------- |
+| `lumi-progress`   | Difficulty progress per problem type    |
+| `lumi-seen`       | Seen problem signatures (deduplication) |
+| `lumi-limits`     | Daily adventure limits                  |
+| `lumi-auto-voice` | Voice auto-play setting                 |
 
 ### Reset Data
 
 Clear localStorage in browser DevTools, or:
+
 ```javascript
-localStorage.clear();
+localStorage.clear()
 ```
 
 ## Localization
@@ -99,15 +100,15 @@ Primary: Portuguese (Brazil) - `pt-BR`
 
 ```typescript
 interface LocalizedString {
-  ptBR: string;
-  en: string;
+	ptBR: string
+	en: string
 }
 
 // Usage
 const prompt: LocalizedString = {
-  ptBR: 'Quantas maçãs?',
-  en: 'How many apples?',
-};
+	ptBR: 'Quantas maçãs?',
+	en: 'How many apples?'
+}
 ```
 
 ## Environment

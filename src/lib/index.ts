@@ -5,7 +5,7 @@
  */
 
 // Re-export from submodules
-export * from './types';
-export * from './services';
-export * from './problems';
-export * from './components';
+export * from './types'
+export * from './services'
+export * from './problems'
+export * from './components'

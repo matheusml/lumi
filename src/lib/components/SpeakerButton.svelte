@@ -5,28 +5,31 @@
 	 * Button to trigger text-to-speech for problem prompts.
 	 */
 
-	import { speechService } from '$lib/services';
+	import { speechService } from '$lib/services'
 
 	interface Props {
-		text: string;
-		lang?: 'pt-BR' | 'en-US';
+		text: string
+		lang?: 'pt-BR' | 'en-US'
 	}
 
-	let { text, lang = 'pt-BR' }: Props = $props();
+	let { text, lang = 'pt-BR' }: Props = $props()
 
-	let isSpeaking = $state(false);
+	let isSpeaking = $state(false)
 
 	function handleClick() {
 		if (isSpeaking) {
-			speechService.stop();
-			isSpeaking = false;
+			speechService.stop()
+			isSpeaking = false
 		} else {
-			isSpeaking = true;
-			speechService.speak(text, { lang });
+			isSpeaking = true
+			speechService.speak(text, { lang })
 			// Reset after approximate speech duration
-			setTimeout(() => {
-				isSpeaking = false;
-			}, text.length * 80 + 500);
+			setTimeout(
+				() => {
+					isSpeaking = false
+				},
+				text.length * 80 + 500
+			)
 		}
 	}
 </script>
@@ -74,7 +77,8 @@
 		color: var(--color-text-secondary);
 		cursor: pointer;
 
-		transition: transform var(--transition-fast),
+		transition:
+			transform var(--transition-fast),
 			background-color var(--transition-fast),
 			border-color var(--transition-fast),
 			color var(--transition-fast);

@@ -6,143 +6,143 @@
 	 * Protected by a simple math problem (adult verification).
 	 */
 
-	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
-	import { LumiButton } from '$lib/components';
-	import { difficultyManager, adventureLimitService, speechService } from '$lib/services';
-	import type { ProblemType } from '$lib/types';
-	import type { VoiceInfo } from '$lib/services/speech';
-	import { DEFAULT_DAILY_LIMIT, MAX_DAILY_LIMIT, MIN_DAILY_LIMIT } from '$lib/types';
+	import { goto } from '$app/navigation'
+	import { onMount } from 'svelte'
+	import { LumiButton } from '$lib/components'
+	import { difficultyManager, adventureLimitService, speechService } from '$lib/services'
+	import type { ProblemType } from '$lib/types'
+	import type { VoiceInfo } from '$lib/services/speech'
+	import { DEFAULT_DAILY_LIMIT, MAX_DAILY_LIMIT, MIN_DAILY_LIMIT } from '$lib/types'
 
 	// Gate state
-	let isUnlocked = $state(false);
-	let gateAnswer = $state('');
-	let gateQuestion = $state({ a: 0, b: 0, answer: 0 });
-	let gateError = $state(false);
+	let isUnlocked = $state(false)
+	let gateAnswer = $state('')
+	let gateQuestion = $state({ a: 0, b: 0, answer: 0 })
+	let gateError = $state(false)
 
 	// Settings state
-	let dailyLimit = $state(DEFAULT_DAILY_LIMIT);
-	let limitEnabled = $state(true);
+	let dailyLimit = $state(DEFAULT_DAILY_LIMIT)
+	let limitEnabled = $state(true)
 
 	// Voice settings
-	let availableVoices = $state<VoiceInfo[]>([]);
-	let selectedVoiceName = $state<string | null>(null);
+	let availableVoices = $state<VoiceInfo[]>([])
+	let selectedVoiceName = $state<string | null>(null)
 
 	// Progress data
-	let todayCount = $state(0);
+	let todayCount = $state(0)
 	let activityProgress = $state<Record<ProblemType, { difficulty: number; accuracy: number }>>({
 		counting: { difficulty: 1, accuracy: 0 },
 		addition: { difficulty: 1, accuracy: 0 },
 		subtraction: { difficulty: 1, accuracy: 0 },
 		comparison: { difficulty: 1, accuracy: 0 },
-		patterns: { difficulty: 1, accuracy: 0 },
-	});
+		patterns: { difficulty: 1, accuracy: 0 }
+	})
 
 	onMount(() => {
-		generateGateQuestion();
-		loadState();
-		loadVoices();
-	});
+		generateGateQuestion()
+		loadState()
+		loadVoices()
+	})
 
 	function loadVoices() {
 		// Voices may load asynchronously, so we try multiple times
 		const tryLoadVoices = () => {
-			const voices = speechService.getVoicesForLanguage('pt-BR');
+			const voices = speechService.getVoicesForLanguage('pt-BR')
 			if (voices.length > 0) {
-				availableVoices = voices;
-				selectedVoiceName = speechService.getSelectedVoiceName();
+				availableVoices = voices
+				selectedVoiceName = speechService.getSelectedVoiceName()
 			}
-		};
+		}
 
-		tryLoadVoices();
+		tryLoadVoices()
 		// Try again after a short delay (voices load async in some browsers)
-		setTimeout(tryLoadVoices, 100);
-		setTimeout(tryLoadVoices, 500);
+		setTimeout(tryLoadVoices, 100)
+		setTimeout(tryLoadVoices, 500)
 	}
 
 	function handleVoiceChange(event: Event) {
-		const select = event.target as HTMLSelectElement;
-		const name = select.value || null;
-		speechService.setVoiceName(name);
-		selectedVoiceName = name;
+		const select = event.target as HTMLSelectElement
+		const name = select.value || null
+		speechService.setVoiceName(name)
+		selectedVoiceName = name
 	}
 
 	function testVoice() {
-		speechService.speak('Olá! Eu sou a Lumi, sua amiga de aprendizado.', { lang: 'pt-BR' });
+		speechService.speak('Olá! Eu sou a Lumi, sua amiga de aprendizado.', { lang: 'pt-BR' })
 	}
 
 	function generateGateQuestion() {
 		// Generate a multiplication problem (too hard for young children)
-		const a = Math.floor(Math.random() * 5) + 5; // 5-9
-		const b = Math.floor(Math.random() * 5) + 5; // 5-9
-		gateQuestion = { a, b, answer: a * b };
+		const a = Math.floor(Math.random() * 5) + 5 // 5-9
+		const b = Math.floor(Math.random() * 5) + 5 // 5-9
+		gateQuestion = { a, b, answer: a * b }
 	}
 
 	function checkGate() {
 		if (parseInt(gateAnswer) === gateQuestion.answer) {
-			isUnlocked = true;
-			gateError = false;
+			isUnlocked = true
+			gateError = false
 		} else {
-			gateError = true;
-			gateAnswer = '';
-			generateGateQuestion();
+			gateError = true
+			gateAnswer = ''
+			generateGateQuestion()
 		}
 	}
 
 	function loadState() {
-		if (typeof window === 'undefined') return;
+		if (typeof window === 'undefined') return
 
 		// Load limits
-		const limitsData = localStorage.getItem('lumi-limits');
+		const limitsData = localStorage.getItem('lumi-limits')
 		if (limitsData) {
 			try {
-				adventureLimitService.loadState(JSON.parse(limitsData));
+				adventureLimitService.loadState(JSON.parse(limitsData))
 			} catch {
 				// Ignore
 			}
 		}
-		dailyLimit = adventureLimitService.getDailyLimit();
-		limitEnabled = adventureLimitService.isLimitEnabled();
-		todayCount = adventureLimitService.getTodayCount();
+		dailyLimit = adventureLimitService.getDailyLimit()
+		limitEnabled = adventureLimitService.isLimitEnabled()
+		todayCount = adventureLimitService.getTodayCount()
 
 		// Load progress
-		const progressData = localStorage.getItem('lumi-progress');
+		const progressData = localStorage.getItem('lumi-progress')
 		if (progressData) {
 			try {
-				difficultyManager.loadProgress(JSON.parse(progressData));
+				difficultyManager.loadProgress(JSON.parse(progressData))
 			} catch {
 				// Ignore
 			}
 		}
 
 		// Get progress for each activity
-		const types: ProblemType[] = ['counting', 'addition', 'subtraction', 'comparison', 'patterns'];
-		const newProgress: Record<string, { difficulty: number; accuracy: number }> = {};
+		const types: ProblemType[] = ['counting', 'addition', 'subtraction', 'comparison', 'patterns']
+		const newProgress: Record<string, { difficulty: number; accuracy: number }> = {}
 		for (const type of types) {
 			newProgress[type] = {
 				difficulty: difficultyManager.getDifficulty(type),
-				accuracy: difficultyManager.getAccuracy(type),
-			};
+				accuracy: difficultyManager.getAccuracy(type)
+			}
 		}
-		activityProgress = newProgress as typeof activityProgress;
+		activityProgress = newProgress as typeof activityProgress
 	}
 
 	function saveSettings() {
-		adventureLimitService.setDailyLimit(dailyLimit);
-		adventureLimitService.setLimitEnabled(limitEnabled);
+		adventureLimitService.setDailyLimit(dailyLimit)
+		adventureLimitService.setLimitEnabled(limitEnabled)
 		if (typeof window !== 'undefined') {
-			localStorage.setItem('lumi-limits', JSON.stringify(adventureLimitService.getState()));
+			localStorage.setItem('lumi-limits', JSON.stringify(adventureLimitService.getState()))
 		}
 	}
 
 	function resetTodayCount() {
-		adventureLimitService.resetTodayCount();
-		todayCount = 0;
-		saveSettings();
+		adventureLimitService.resetTodayCount()
+		todayCount = 0
+		saveSettings()
 	}
 
 	function goHome() {
-		goto('/');
+		goto('/')
 	}
 
 	const activityNames: Record<ProblemType, string> = {
@@ -150,8 +150,8 @@
 		addition: 'Adição',
 		subtraction: 'Subtração',
 		comparison: 'Comparação',
-		patterns: 'Padrões',
-	};
+		patterns: 'Padrões'
+	}
 </script>
 
 <svelte:head>
@@ -163,9 +163,7 @@
 		<!-- Gate -->
 		<div class="gate">
 			<h1 class="gate-title">Área dos Pais</h1>
-			<p class="gate-description">
-				Resolva o problema para entrar:
-			</p>
+			<p class="gate-description">Resolva o problema para entrar:</p>
 			<p class="gate-question">
 				{gateQuestion.a} × {gateQuestion.b} = ?
 			</p>
@@ -181,12 +179,8 @@
 				<p class="gate-error">Resposta incorreta. Tente novamente.</p>
 			{/if}
 			<div class="gate-actions">
-				<LumiButton onclick={checkGate} variant="primary">
-					Entrar
-				</LumiButton>
-				<LumiButton onclick={goHome} variant="ghost">
-					Voltar
-				</LumiButton>
+				<LumiButton onclick={checkGate} variant="primary">Entrar</LumiButton>
+				<LumiButton onclick={goHome} variant="ghost">Voltar</LumiButton>
 			</div>
 		</div>
 	{:else}
@@ -204,9 +198,7 @@
 					<span class="stat-label">aventuras completadas</span>
 				</p>
 				{#if todayCount > 0}
-					<button class="text-button" onclick={resetTodayCount}>
-						Resetar contagem de hoje
-					</button>
+					<button class="text-button" onclick={resetTodayCount}> Resetar contagem de hoje </button>
 				{/if}
 			</div>
 		</section>
@@ -235,11 +227,7 @@
 			<div class="card">
 				<div class="setting">
 					<label class="setting-label">
-						<input
-							type="checkbox"
-							bind:checked={limitEnabled}
-							onchange={saveSettings}
-						/>
+						<input type="checkbox" bind:checked={limitEnabled} onchange={saveSettings} />
 						Limite diário ativado
 					</label>
 				</div>
@@ -278,9 +266,7 @@
 							{/each}
 						</select>
 					</div>
-					<button class="text-button" onclick={testVoice}>
-						▶ Testar voz
-					</button>
+					<button class="text-button" onclick={testVoice}> ▶ Testar voz </button>
 				</div>
 			{/if}
 		</section>

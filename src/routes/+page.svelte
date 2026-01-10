@@ -6,38 +6,37 @@
 	 * Shows remaining adventures and link to parent zone.
 	 */
 
-	import { goto } from '$app/navigation';
-	import { LumiButton } from '$lib/components';
-	import { adventureLimitService } from '$lib/services';
-	import { PROBLEMS_PER_ADVENTURE } from '$lib/types';
+	import { goto } from '$app/navigation'
+	import { LumiButton } from '$lib/components'
+	import { adventureLimitService } from '$lib/services'
 
-	let canStart = $state(true);
-	let remaining = $state(3);
+	let canStart = $state(true)
+	let remaining = $state(3)
 
 	$effect(() => {
 		// Load state from localStorage
 		if (typeof window !== 'undefined') {
-			const stored = localStorage.getItem('lumi-limits');
+			const stored = localStorage.getItem('lumi-limits')
 			if (stored) {
 				try {
-					adventureLimitService.loadState(JSON.parse(stored));
+					adventureLimitService.loadState(JSON.parse(stored))
 				} catch {
 					// Ignore parse errors
 				}
 			}
-			canStart = adventureLimitService.canStartAdventure();
-			remaining = adventureLimitService.getRemainingAdventures();
+			canStart = adventureLimitService.canStartAdventure()
+			remaining = adventureLimitService.getRemainingAdventures()
 		}
-	});
+	})
 
 	function startAdventure() {
 		if (canStart) {
-			goto('/adventure');
+			goto('/adventure')
 		}
 	}
 
 	function openParentZone() {
-		goto('/parents');
+		goto('/parents')
 	}
 </script>
 
@@ -56,32 +55,25 @@
 
 		{#if canStart}
 			<div class="action-area">
-				<LumiButton onclick={startAdventure} size="large">
-					Matemática 🔢
-				</LumiButton>
+				<LumiButton onclick={startAdventure} size="large">Matemática 🔢</LumiButton>
 
 				{#if remaining !== Infinity}
 					<p class="remaining">
-						{remaining} {remaining === 1 ? 'aventura restante' : 'aventuras restantes'} hoje
+						{remaining}
+						{remaining === 1 ? 'aventura restante' : 'aventuras restantes'} hoje
 					</p>
 				{/if}
 			</div>
 		{:else}
 			<div class="limit-reached">
-				<p class="limit-message">
-					Você completou todas as aventuras de hoje! 🎉
-				</p>
-				<p class="encouragement">
-					Que tal brincar lá fora ou ler um livro?
-				</p>
+				<p class="limit-message">Você completou todas as aventuras de hoje! 🎉</p>
+				<p class="encouragement">Que tal brincar lá fora ou ler um livro?</p>
 			</div>
 		{/if}
 	</div>
 
 	<footer class="footer">
-		<button class="parent-link" onclick={openParentZone}>
-			Área dos Pais
-		</button>
+		<button class="parent-link" onclick={openParentZone}> Área dos Pais </button>
 	</footer>
 </main>
 
@@ -180,7 +172,8 @@
 		cursor: pointer;
 		padding: var(--spacing-sm) var(--spacing-md);
 		border-radius: var(--radius-md);
-		transition: color var(--transition-fast),
+		transition:
+			color var(--transition-fast),
 			background-color var(--transition-fast);
 	}
 
@@ -190,7 +183,12 @@
 	}
 
 	@keyframes gentlePulse {
-		0%, 100% { transform: scale(1); }
-		50% { transform: scale(1.05); }
+		0%,
+		100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.05);
+		}
 	}
 </style>

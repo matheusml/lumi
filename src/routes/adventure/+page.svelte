@@ -5,63 +5,63 @@
 	 * The main learning experience - 5 problems per adventure.
 	 */
 
-	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation'
+	import { onMount } from 'svelte'
 	import {
 		LumiButton,
 		ChoiceButton,
 		ProgressDots,
 		SpeakerButton,
 		CountableObject,
-		PatternCircle,
-	} from '$lib/components';
-	import { problemService, patternColors } from '$lib/problems';
-	import { difficultyManager, adventureLimitService, speechService } from '$lib/services';
-	import type { Problem, AnswerValue, AnswerState, ProblemResult } from '$lib/types';
-	import { PROBLEMS_PER_ADVENTURE } from '$lib/types';
+		PatternCircle
+	} from '$lib/components'
+	import { problemService } from '$lib/problems'
+	import { difficultyManager, adventureLimitService, speechService } from '$lib/services'
+	import type { Problem, AnswerValue, AnswerState, ProblemResult } from '$lib/types'
+	import { PROBLEMS_PER_ADVENTURE } from '$lib/types'
 
 	// Adventure state
-	let problems: Problem[] = $state([]);
-	let currentIndex = $state(0);
-	let results: ProblemResult[] = $state([]);
+	let problems: Problem[] = $state([])
+	let currentIndex = $state(0)
+	let results: ProblemResult[] = $state([])
 
 	// Current problem state
-	let selectedAnswer: AnswerValue | null = $state(null);
-	let answerStates: Map<string, AnswerState> = $state(new Map());
-	let hasAnswered = $state(false);
-	let isCorrect = $state(false);
+	let selectedAnswer: AnswerValue | null = $state(null)
+	let answerStates: Map<string, AnswerState> = $state(new Map())
+	let hasAnswered = $state(false)
+	let isCorrect = $state(false)
 
 	// Derived
-	const currentProblem = $derived(problems[currentIndex]);
-	const completedCount = $derived(results.length);
-	const isLastProblem = $derived(currentIndex === problems.length - 1);
+	const currentProblem = $derived(problems[currentIndex])
+	const completedCount = $derived(results.length)
+	const isLastProblem = $derived(currentIndex === problems.length - 1)
 
 	onMount(() => {
 		// Load state and generate problems
-		loadState();
-		generateProblems();
-	});
+		loadState()
+		generateProblems()
+	})
 
 	function loadState() {
-		if (typeof window === 'undefined') return;
+		if (typeof window === 'undefined') return
 
 		// Load difficulty progress
-		const progressData = localStorage.getItem('lumi-progress');
+		const progressData = localStorage.getItem('lumi-progress')
 		if (progressData) {
 			try {
-				difficultyManager.loadProgress(JSON.parse(progressData));
+				difficultyManager.loadProgress(JSON.parse(progressData))
 			} catch {
 				// Ignore
 			}
 		}
 
 		// Load seen signatures
-		const seenData = localStorage.getItem('lumi-seen');
+		const seenData = localStorage.getItem('lumi-seen')
 		if (seenData) {
 			try {
-				const parsed = JSON.parse(seenData);
-				const map = new Map(Object.entries(parsed).map(([k, v]) => [k, new Date(v as string)]));
-				problemService.loadSeenSignatures(map);
+				const parsed = JSON.parse(seenData)
+				const map = new Map(Object.entries(parsed).map(([k, v]) => [k, new Date(v as string)]))
+				problemService.loadSeenSignatures(map)
 			} catch {
 				// Ignore
 			}
@@ -69,42 +69,42 @@
 	}
 
 	function generateProblems() {
-		const difficulties = difficultyManager.getAllDifficulties();
-		problems = problemService.generateAdventureProblems(PROBLEMS_PER_ADVENTURE, difficulties);
+		const difficulties = difficultyManager.getAllDifficulties()
+		problems = problemService.generateAdventureProblems(PROBLEMS_PER_ADVENTURE, difficulties)
 
 		// Auto-speak first problem if voice is enabled
 		if (problems.length > 0) {
-			const autoVoice = localStorage.getItem('lumi-auto-voice') === 'true';
+			const autoVoice = localStorage.getItem('lumi-auto-voice') === 'true'
 			if (autoVoice) {
 				setTimeout(() => {
-					speechService.speak(problems[0].prompt.ptBR, { lang: 'pt-BR' });
-				}, 500);
+					speechService.speak(problems[0].prompt.ptBR, { lang: 'pt-BR' })
+				}, 500)
 			}
 		}
 	}
 
 	function selectAnswer(answer: AnswerValue) {
-		if (hasAnswered) return;
+		if (hasAnswered) return
 
-		selectedAnswer = answer;
-		hasAnswered = true;
+		selectedAnswer = answer
+		hasAnswered = true
 
 		// Check if correct
-		isCorrect = answersMatch(answer, currentProblem.correctAnswer);
+		isCorrect = answersMatch(answer, currentProblem.correctAnswer)
 
 		// Update answer states
-		const newStates = new Map<string, AnswerState>();
+		const newStates = new Map<string, AnswerState>()
 		for (const choice of currentProblem.answerChoices) {
-			const key = answerKey(choice);
+			const key = answerKey(choice)
 			if (answersMatch(choice, currentProblem.correctAnswer)) {
-				newStates.set(key, 'correct');
+				newStates.set(key, 'correct')
 			} else if (answersMatch(choice, answer)) {
-				newStates.set(key, 'incorrect');
+				newStates.set(key, 'incorrect')
 			} else {
-				newStates.set(key, 'default');
+				newStates.set(key, 'default')
 			}
 		}
-		answerStates = newStates;
+		answerStates = newStates
 
 		// Record result
 		const result: ProblemResult = {
@@ -112,79 +112,82 @@
 			problemType: currentProblem.type,
 			difficulty: currentProblem.difficulty,
 			isCorrect,
-			answeredAt: new Date(),
-		};
-		results = [...results, result];
+			answeredAt: new Date()
+		}
+		results = [...results, result]
 
 		// Update difficulty
-		difficultyManager.recordAnswer(isCorrect, currentProblem.type);
-		saveProgress();
+		difficultyManager.recordAnswer(isCorrect, currentProblem.type)
+		saveProgress()
 	}
 
 	function nextProblem() {
 		if (isLastProblem) {
 			// Complete adventure
-			adventureLimitService.recordAdventure();
-			saveLimits();
-			goto('/complete?' + new URLSearchParams({
-				correct: results.filter(r => r.isCorrect).length.toString(),
-				total: results.length.toString(),
-			}));
+			adventureLimitService.recordAdventure()
+			saveLimits()
+			goto(
+				'/complete?' +
+					new URLSearchParams({
+						correct: results.filter((r) => r.isCorrect).length.toString(),
+						total: results.length.toString()
+					})
+			)
 		} else {
 			// Move to next problem
-			currentIndex += 1;
-			selectedAnswer = null;
-			answerStates = new Map();
-			hasAnswered = false;
-			isCorrect = false;
+			currentIndex += 1
+			selectedAnswer = null
+			answerStates = new Map()
+			hasAnswered = false
+			isCorrect = false
 
 			// Auto-speak next problem
-			const autoVoice = localStorage.getItem('lumi-auto-voice') === 'true';
+			const autoVoice = localStorage.getItem('lumi-auto-voice') === 'true'
 			if (autoVoice && problems[currentIndex]) {
 				setTimeout(() => {
-					speechService.speak(problems[currentIndex].prompt.ptBR, { lang: 'pt-BR' });
-				}, 300);
+					speechService.speak(problems[currentIndex].prompt.ptBR, { lang: 'pt-BR' })
+				}, 300)
 			}
 		}
 	}
 
 	function saveProgress() {
-		if (typeof window === 'undefined') return;
-		localStorage.setItem('lumi-progress', JSON.stringify(difficultyManager.getAllProgress()));
+		if (typeof window === 'undefined') return
+		localStorage.setItem('lumi-progress', JSON.stringify(difficultyManager.getAllProgress()))
 
 		// Save seen signatures
-		const seen = problemService.getSeenSignatures();
-		const seenObj: Record<string, string> = {};
+		const seen = problemService.getSeenSignatures()
+		const seenObj: Record<string, string> = {}
 		for (const [k, v] of seen) {
-			seenObj[k] = v.toISOString();
+			seenObj[k] = v.toISOString()
 		}
-		localStorage.setItem('lumi-seen', JSON.stringify(seenObj));
+		localStorage.setItem('lumi-seen', JSON.stringify(seenObj))
 	}
 
 	function saveLimits() {
-		if (typeof window === 'undefined') return;
-		localStorage.setItem('lumi-limits', JSON.stringify(adventureLimitService.getState()));
+		if (typeof window === 'undefined') return
+		localStorage.setItem('lumi-limits', JSON.stringify(adventureLimitService.getState()))
 	}
 
 	function answersMatch(a: AnswerValue, b: AnswerValue): boolean {
-		if (a.type !== b.type) return false;
-		if (a.type === 'number' && b.type === 'number') return a.value === b.value;
-		if (a.type === 'side' && b.type === 'side') return a.value === b.value;
+		if (a.type !== b.type) return false
+		if (a.type === 'number' && b.type === 'number') return a.value === b.value
+		if (a.type === 'side' && b.type === 'side') return a.value === b.value
 		if (a.type === 'pattern' && b.type === 'pattern') {
-			return JSON.stringify(a.value) === JSON.stringify(b.value);
+			return JSON.stringify(a.value) === JSON.stringify(b.value)
 		}
-		return false;
+		return false
 	}
 
 	function answerKey(answer: AnswerValue): string {
-		if (answer.type === 'number') return `num-${answer.value}`;
-		if (answer.type === 'side') return `side-${answer.value}`;
-		if (answer.type === 'pattern') return `pattern-${answer.value.join('-')}`;
-		return 'unknown';
+		if (answer.type === 'number') return `num-${answer.value}`
+		if (answer.type === 'side') return `side-${answer.value}`
+		if (answer.type === 'pattern') return `pattern-${answer.value.join('-')}`
+		return 'unknown'
 	}
 
 	function getAnswerState(answer: AnswerValue): AnswerState {
-		return answerStates.get(answerKey(answer)) ?? 'default';
+		return answerStates.get(answerKey(answer)) ?? 'default'
 	}
 </script>
 
@@ -195,7 +198,11 @@
 <main class="adventure">
 	{#if currentProblem}
 		<header class="header">
-			<ProgressDots total={PROBLEMS_PER_ADVENTURE} current={currentIndex} completed={completedCount} />
+			<ProgressDots
+				total={PROBLEMS_PER_ADVENTURE}
+				current={currentIndex}
+				completed={completedCount}
+			/>
 		</header>
 
 		<div class="problem-area">
@@ -364,7 +371,8 @@
 		border-radius: var(--radius-xl);
 		background-color: var(--color-surface);
 		cursor: pointer;
-		transition: transform var(--transition-fast),
+		transition:
+			transform var(--transition-fast),
 			border-color var(--transition-fast),
 			background-color var(--transition-fast);
 	}

@@ -22,19 +22,20 @@ npm run test:run   # Run tests once (CI mode)
 
 ## When to Update Tests
 
-| Code Change | Test Action |
-|-------------|-------------|
-| Add feature | Add tests for new functionality |
-| Fix bug | Add test that reproduces bug, then fix |
-| Change behavior | Update existing tests to match |
-| Remove code | Remove related tests |
-| Refactor | Tests should still pass |
+| Code Change     | Test Action                            |
+| --------------- | -------------------------------------- |
+| Add feature     | Add tests for new functionality        |
+| Fix bug         | Add test that reproduces bug, then fix |
+| Change behavior | Update existing tests to match         |
+| Remove code     | Remove related tests                   |
+| Refactor        | Tests should still pass                |
 
 ## Writing Tests
 
 ### File Location
 
 Tests go next to source files with `.test.ts` suffix:
+
 ```
 src/lib/services/
 ├── difficulty-manager.ts
@@ -44,61 +45,61 @@ src/lib/services/
 ### Basic Test Structure
 
 ```typescript
-import { describe, it, expect, beforeEach } from 'vitest';
-import { DifficultyManager } from './difficulty-manager';
+import { describe, it, expect, beforeEach } from 'vitest'
+import { DifficultyManager } from './difficulty-manager'
 
 describe('DifficultyManager', () => {
-  let manager: DifficultyManager;
+	let manager: DifficultyManager
 
-  beforeEach(() => {
-    manager = new DifficultyManager();
-  });
+	beforeEach(() => {
+		manager = new DifficultyManager()
+	})
 
-  it('starts at minimum difficulty', () => {
-    expect(manager.getDifficulty('counting')).toBe(1);
-  });
+	it('starts at minimum difficulty', () => {
+		expect(manager.getDifficulty('counting')).toBe(1)
+	})
 
-  it('increases difficulty after 3 correct', () => {
-    manager.recordAnswer(true, 'counting');
-    manager.recordAnswer(true, 'counting');
-    manager.recordAnswer(true, 'counting');
-    expect(manager.getDifficulty('counting')).toBe(2);
-  });
-});
+	it('increases difficulty after 3 correct', () => {
+		manager.recordAnswer(true, 'counting')
+		manager.recordAnswer(true, 'counting')
+		manager.recordAnswer(true, 'counting')
+		expect(manager.getDifficulty('counting')).toBe(2)
+	})
+})
 ```
 
 ### Testing with Mocks
 
 ```typescript
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 describe('Service with time', () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
+	beforeEach(() => {
+		vi.useFakeTimers()
+	})
 
-  afterEach(() => {
-    vi.useRealTimers();
-  });
+	afterEach(() => {
+		vi.useRealTimers()
+	})
 
-  it('resets on new day', () => {
-    // Advance time by 24 hours
-    vi.advanceTimersByTime(24 * 60 * 60 * 1000);
-    // Test behavior
-  });
-});
+	it('resets on new day', () => {
+		// Advance time by 24 hours
+		vi.advanceTimersByTime(24 * 60 * 60 * 1000)
+		// Test behavior
+	})
+})
 ```
 
 ## Common Matchers
 
 ```typescript
-expect(value).toBe(expected);           // Strict equality
-expect(value).toEqual(expected);        // Deep equality
-expect(value).toBeTruthy();
-expect(value).toBeGreaterThan(3);
-expect(array).toContain(item);
-expect(array).toHaveLength(3);
-expect(() => fn()).toThrow();
+expect(value).toBe(expected) // Strict equality
+expect(value).toEqual(expected) // Deep equality
+expect(value).toBeTruthy()
+expect(value).toBeGreaterThan(3)
+expect(array).toContain(item)
+expect(array).toHaveLength(3)
+expect(() => fn()).toThrow()
 ```
 
 ## What to Test

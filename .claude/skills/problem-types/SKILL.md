@@ -8,6 +8,7 @@ description: Math problem types and TypeScript types for Lumi. Use when working 
 ## Problem Type Reference
 
 ### Counting (type: "counting")
+
 - Display N objects, child selects total count
 - Difficulty 1: 1-5 objects
 - Difficulty 2: 1-10 objects
@@ -15,6 +16,7 @@ description: Math problem types and TypeScript types for Lumi. Use when working 
 - Difficulty 4: 1-20 objects
 
 ### Addition (type: "addition")
+
 - Two groups of objects with equation "X + Y = ?"
 - Difficulty 1: sums ≤ 5
 - Difficulty 2: sums ≤ 10
@@ -22,11 +24,13 @@ description: Math problem types and TypeScript types for Lumi. Use when working 
 - Difficulty 4: sums ≤ 20
 
 ### Subtraction (type: "subtraction")
+
 - Objects with some "leaving", equation "X - Y = ?"
 - Result always ≥ 0
 - Same difficulty progression as addition
 
 ### Comparison (type: "comparison")
+
 - Two groups side by side
 - Prompt: "Qual lado tem mais?" / "Qual é maior?"
 - Returns "left" or "right"
@@ -34,6 +38,7 @@ description: Math problem types and TypeScript types for Lumi. Use when working 
 - Difficulty 2-4: progressively closer values
 
 ### Patterns (type: "patterns")
+
 - Sequence with missing element (marked as "unknown")
 - Prompt: "O que vem depois?"
 - Difficulty 1: AB patterns
@@ -45,46 +50,46 @@ description: Math problem types and TypeScript types for Lumi. Use when working 
 
 ```typescript
 // Problem types
-type ProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison' | 'patterns';
-type DifficultyLevel = 1 | 2 | 3 | 4;
+type ProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison' | 'patterns'
+type DifficultyLevel = 1 | 2 | 3 | 4
 
 // Localized string
 interface LocalizedString {
-  ptBR: string;
-  en: string;
+	ptBR: string
+	en: string
 }
 
 // Visual elements
 interface VisualElement {
-  object: string;  // Emoji or image identifier
-  count: number;
-  position?: 'left' | 'right';  // For comparison problems
+	object: string // Emoji or image identifier
+	count: number
+	position?: 'left' | 'right' // For comparison problems
 }
 
 interface ProblemVisual {
-  type: 'objects' | 'equation' | 'pattern' | 'comparison';
-  elements: VisualElement[];
-  operator?: '+' | '-';  // For equations
+	type: 'objects' | 'equation' | 'pattern' | 'comparison'
+	elements: VisualElement[]
+	operator?: '+' | '-' // For equations
 }
 
 // Answer types
 type AnswerValue =
-  | { type: 'number'; value: number }
-  | { type: 'side'; value: 'left' | 'right' }
-  | { type: 'pattern'; value: string[] };
+	| { type: 'number'; value: number }
+	| { type: 'side'; value: 'left' | 'right' }
+	| { type: 'pattern'; value: string[] }
 
 // Problem structure
 interface Problem {
-  id: string;
-  type: ProblemType;
-  difficulty: DifficultyLevel;
-  signature: string;  // Unique identifier for deduplication
+	id: string
+	type: ProblemType
+	difficulty: DifficultyLevel
+	signature: string // Unique identifier for deduplication
 
-  visual: ProblemVisual;
-  prompt: LocalizedString;
+	visual: ProblemVisual
+	prompt: LocalizedString
 
-  correctAnswer: AnswerValue;
-  answerChoices: AnswerValue[];
+	correctAnswer: AnswerValue
+	answerChoices: AnswerValue[]
 }
 ```
 
@@ -104,6 +109,7 @@ interface Problem {
 
 1. Add type to `ProblemType` union in `src/lib/types/problem.ts`
 2. Create generator in `src/lib/problems/new-type-generator.ts`:
+
    ```typescript
    import type { Problem, DifficultyLevel } from '$lib/types';
 
@@ -121,6 +127,7 @@ interface Problem {
      };
    }
    ```
+
 3. Export from `src/lib/problems/index.ts`
 4. Update `ProblemService` in `problem-service.ts` to include the generator
 5. Update adventure view to handle new visual type if needed
@@ -128,6 +135,7 @@ interface Problem {
 ## Visual Object Emojis
 
 Common objects defined in `visual-objects.ts`:
+
 - Fruits: apple, banana, orange, strawberry
 - Animals: dog, cat, bird, fish
 - Objects: star, heart, ball, flower
@@ -135,24 +143,27 @@ Common objects defined in `visual-objects.ts`:
 ## Pattern Circle Colors
 
 For pattern problems, use these color IDs:
+
 - `circle_red`, `circle_blue`, `circle_green`
 - `circle_yellow`, `circle_purple`
 - `unknown` - Placeholder (renders as question mark)
 
 Colors are defined in `src/lib/problems/pattern-generator.ts`:
+
 ```typescript
 export const patternColors = {
-  circle_red: '#E57373',
-  circle_blue: '#64B5F6',
-  circle_green: '#81C784',
-  circle_yellow: '#FFD54F',
-  circle_purple: '#BA68C8',
-};
+	circle_red: '#E57373',
+	circle_blue: '#64B5F6',
+	circle_green: '#81C784',
+	circle_yellow: '#FFD54F',
+	circle_purple: '#BA68C8'
+}
 ```
 
 ## Problem ID Convention
 
 Format: `{type}_d{difficulty}_{timestamp}`
+
 - `counting_d1_1704067200000`
 - `add_d2_1704067200001`
 - `sub_d1_1704067200002`
