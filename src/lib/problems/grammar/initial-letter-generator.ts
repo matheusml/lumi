@@ -1,7 +1,7 @@
 /**
  * Initial Letter Problem Generator
  *
- * Generates initial letter problems: "Com qual letra comeca?"
+ * Generates initial letter problems: "Com qual letra começa?"
  * Shows a word with emoji, child selects the starting letter.
  *
  * Signature format: initial-letter:d{difficulty}:{word}
@@ -105,7 +105,7 @@ export class InitialLetterGenerator implements ProblemGenerator {
 				displayText: wordInfo.word
 			},
 			prompt: {
-				ptBR: `Com qual letra comeca "${wordInfo.namePtBR}"?`,
+				ptBR: `Com qual letra começa "${wordInfo.namePtBR}"?`,
 				en: `What letter does "${wordInfo.nameEn}" start with?`
 			},
 			correctAnswer: { type: 'letter', value: correctLetter },

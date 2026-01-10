@@ -1,7 +1,7 @@
 /**
  * Letter Recognition Problem Generator
  *
- * Generates letter recognition problems: "Qual e a letra?"
+ * Generates letter recognition problems: "Qual é a letra?"
  * Shows a letter, child selects which letter it is.
  *
  * Signature format: letter-recognition:d{difficulty}:{letter}:{case}
@@ -98,7 +98,7 @@ export class LetterRecognitionGenerator implements ProblemGenerator {
 				letterCase
 			},
 			prompt: {
-				ptBR: 'Qual e a letra?',
+				ptBR: 'Qual é a letra?',
 				en: 'What letter is this?'
 			},
 			correctAnswer: { type: 'letter', value: letterInfo.uppercase },
