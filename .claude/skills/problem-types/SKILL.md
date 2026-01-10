@@ -1,6 +1,6 @@
 ---
 name: problem-types
-description: Math problem types and JSON structure for Lumi. Use when working with problems, adding new problem types, editing problems_pt-BR.json, or working with counting, addition, subtraction, comparison, or pattern problems.
+description: Math problem types and TypeScript types for Lumi. Use when working with problems, adding new problem types, or working with counting, addition, subtraction, comparison, or pattern problems.
 ---
 
 # Working with Problem Types
@@ -8,7 +8,7 @@ description: Math problem types and JSON structure for Lumi. Use when working wi
 ## Problem Type Reference
 
 ### Counting (type: "counting")
-- Display N objects, child taps to count, selects total
+- Display N objects, child selects total count
 - Difficulty 1: 1-5 objects
 - Difficulty 2: 1-10 objects
 - Difficulty 3: 1-15 objects
@@ -41,61 +41,120 @@ description: Math problem types and JSON structure for Lumi. Use when working wi
 - Difficulty 3: number sequences
 - Difficulty 4: complex patterns
 
-## JSON Structure
+## TypeScript Types
 
-```json
-{
-  "id": "count_d1_001",
-  "type": "counting",
-  "difficulty": 1,
-  "visual": {
-    "type": "objects",
-    "elements": [{ "object": "apple", "count": 3 }]
-  },
-  "prompt": { "ptBR": "Quantas maçãs?", "en": "How many apples?" },
-  "correctAnswer": { "number": 3 },
-  "answerChoices": [{ "number": 2 }, { "number": 3 }, { "number": 4 }]
+```typescript
+// Problem types
+type ProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison' | 'patterns';
+type DifficultyLevel = 1 | 2 | 3 | 4;
+
+// Localized string
+interface LocalizedString {
+  ptBR: string;
+  en: string;
+}
+
+// Visual elements
+interface VisualElement {
+  object: string;  // Emoji or image identifier
+  count: number;
+  position?: 'left' | 'right';  // For comparison problems
+}
+
+interface ProblemVisual {
+  type: 'objects' | 'equation' | 'pattern' | 'comparison';
+  elements: VisualElement[];
+  operator?: '+' | '-';  // For equations
+}
+
+// Answer types
+type AnswerValue =
+  | { type: 'number'; value: number }
+  | { type: 'side'; value: 'left' | 'right' }
+  | { type: 'pattern'; value: string[] };
+
+// Problem structure
+interface Problem {
+  id: string;
+  type: ProblemType;
+  difficulty: DifficultyLevel;
+  signature: string;  // Unique identifier for deduplication
+
+  visual: ProblemVisual;
+  prompt: LocalizedString;
+
+  correctAnswer: AnswerValue;
+  answerChoices: AnswerValue[];
 }
 ```
 
-### Visual Types
-- `objects` - Grid of countable objects
-- `equation` - Two groups with operator
-- `comparison` - Side-by-side groups
-- `pattern` - Sequence of elements
-
-### Answer Value Types
-- `{ "number": 5 }` - Numeric answer
-- `{ "object": "left" }` - String/object answer
-- `{ "pattern": ["a", "b"] }` - Pattern array
-
-### Pattern Circle Colors
-- `circle_red` → `LumiColors.circleRed`
-- `circle_blue` → `LumiColors.circleBlue`
-- `circle_green` → `LumiColors.circleGreen`
-- `circle_yellow` → `LumiColors.circleYellow`
-- `circle_purple` → `LumiColors.circlePurple`
-- `unknown` → Placeholder (question mark)
-
-### Problem ID Convention
-Format: `{type}_d{difficulty}_{index}`
-- `count_d1_001` - Counting, difficulty 1, problem 1
-- `add_d2_003` - Addition, difficulty 2, problem 3
-- `sub_d1_002` - Subtraction
-- `comp_d3_001` - Comparison
-- `pat_d1_004` - Patterns
-
 ## File Locations
 
-- Problem JSON: `Lumi/Resources/Content/Math/problems_pt-BR.json`
-- Problem model: `Lumi/Core/Models/Problem.swift`
-- Problem service: `Lumi/Core/Services/ProblemService.swift`
-- Problem views: `Lumi/Features/Problems/`
+- Problem types: `src/lib/types/problem.ts`
+- Problem generators: `src/lib/problems/`
+  - `counting-generator.ts`
+  - `addition-generator.ts`
+  - `subtraction-generator.ts`
+  - `comparison-generator.ts`
+  - `pattern-generator.ts`
+- Problem service: `src/lib/problems/problem-service.ts`
+- Visual objects (emojis): `src/lib/problems/visual-objects.ts`
 
 ## Adding a New Problem Type
 
-1. Add case to `ProblemType` enum in `Subject.swift`
-2. Create `NewTypeProblemView.swift` in `Features/Problems/`
-3. Add routing in `ProblemContainerView.swift`
-4. Add problems to `problems_pt-BR.json`
-5. Update `ProblemService` generation if needed
+1. Add type to `ProblemType` union in `src/lib/types/problem.ts`
+2. Create generator in `src/lib/problems/new-type-generator.ts`:
+   ```typescript
+   import type { Problem, DifficultyLevel } from '$lib/types';
+
+   export function generateNewTypeProblem(difficulty: DifficultyLevel): Problem {
+     // Generate problem based on difficulty
+     return {
+       id: `new_d${difficulty}_${Date.now()}`,
+       type: 'newType',
+       difficulty,
+       signature: '...', // Unique signature for deduplication
+       visual: { type: 'objects', elements: [...] },
+       prompt: { ptBR: '...', en: '...' },
+       correctAnswer: { type: 'number', value: 0 },
+       answerChoices: [...],
+     };
+   }
+   ```
+3. Export from `src/lib/problems/index.ts`
+4. Update `ProblemService` in `problem-service.ts` to include the generator
+5. Update adventure view to handle new visual type if needed
+
+## Visual Object Emojis
+
+Common objects defined in `visual-objects.ts`:
+- Fruits: apple, banana, orange, strawberry
+- Animals: dog, cat, bird, fish
+- Objects: star, heart, ball, flower
+
+## Pattern Circle Colors
+
+For pattern problems, use these color IDs:
+- `circle_red`, `circle_blue`, `circle_green`
+- `circle_yellow`, `circle_purple`
+- `unknown` - Placeholder (renders as question mark)
+
+Colors are defined in `src/lib/problems/pattern-generator.ts`:
+```typescript
+export const patternColors = {
+  circle_red: '#E57373',
+  circle_blue: '#64B5F6',
+  circle_green: '#81C784',
+  circle_yellow: '#FFD54F',
+  circle_purple: '#BA68C8',
+};
+```
+
+## Problem ID Convention
+
+Format: `{type}_d{difficulty}_{timestamp}`
+- `counting_d1_1704067200000`
+- `add_d2_1704067200001`
+- `sub_d1_1704067200002`
+- `comp_d3_1704067200003`
+- `pat_d1_1704067200004`

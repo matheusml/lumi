@@ -7,153 +7,305 @@ description: Step-by-step guides for adding new features to Lumi. Use when addin
 
 ## Adding a New Problem Type
 
-### 1. Update ProblemType Enum
-In `Lumi/Core/Models/Subject.swift`:
-```swift
-enum ProblemType: String, CaseIterable, Codable {
-    case counting
-    case addition
-    case subtraction
-    case comparison
-    case patterns
-    case newType  // Add new case
+### 1. Update ProblemType Type
+In `src/lib/types/problem.ts`:
+```typescript
+export type ProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison' | 'patterns' | 'newType';
+```
+
+### 2. Create Problem Generator
+Create `src/lib/problems/new-type-generator.ts`:
+```typescript
+import type { Problem, DifficultyLevel } from '$lib/types';
+import { getRandomObjects } from './visual-objects';
+
+export function generateNewTypeProblem(difficulty: DifficultyLevel): Problem {
+  const objects = getRandomObjects(1);
+
+  return {
+    id: `newtype_d${difficulty}_${Date.now()}`,
+    type: 'newType',
+    difficulty,
+    signature: `newtype_${difficulty}_...`,  // Unique signature
+
+    visual: {
+      type: 'objects',
+      elements: [{ object: objects[0], count: 5 }],
+    },
+
+    prompt: {
+      ptBR: 'Pergunta em português?',
+      en: 'Question in English?',
+    },
+
+    correctAnswer: { type: 'number', value: 5 },
+    answerChoices: [
+      { type: 'number', value: 4 },
+      { type: 'number', value: 5 },
+      { type: 'number', value: 6 },
+    ],
+  };
 }
 ```
 
-### 2. Create Problem View
-Create `Lumi/Features/Problems/NewTypeProblemView.swift`:
-```swift
-import SwiftUI
-
-struct NewTypeProblemView: View {
-    let problem: Problem
-    let onAnswer: (Bool) -> Void
-
-    @State private var selectedAnswer: AnswerValue?
-    @State private var showResult = false
-
-    var body: some View {
-        VStack(spacing: LumiSpacing.xl) {
-            // Visual based on problem.visual
-
-            Text(problem.prompt.localized())
-                .font(LumiTypography.headingMedium)
-                .foregroundStyle(LumiColors.textPrimary)
-
-            HStack(spacing: LumiSpacing.md) {
-                ForEach(problem.answerChoices ?? [], id: \.self) { choice in
-                    ChoiceButton(
-                        content: choice.displayValue,
-                        isSelected: selectedAnswer == choice,
-                        isCorrect: showResult ? (choice == problem.correctAnswer) : nil
-                    ) {
-                        selectAnswer(choice)
-                    }
-                }
-            }
-        }
-    }
-
-    private func selectAnswer(_ choice: AnswerValue) {
-        selectedAnswer = choice
-        showResult = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            onAnswer(choice == problem.correctAnswer)
-        }
-    }
-}
+### 3. Export and Register Generator
+In `src/lib/problems/index.ts`:
+```typescript
+export { generateNewTypeProblem } from './new-type-generator';
 ```
 
-### 3. Update ProblemContainerView
-In `Lumi/Features/Problems/ProblemContainerView.swift`:
-```swift
-switch problem.problemType {
-case .newType:
-    NewTypeProblemView(problem: problem, onAnswer: onAnswer)
-// ...
-}
+Update `src/lib/problems/problem-service.ts`:
+```typescript
+import { generateNewTypeProblem } from './new-type-generator';
+
+// In the generators map:
+private generators = new Map<ProblemType, (d: DifficultyLevel) => Problem>([
+  ['counting', generateCountingProblem],
+  // ...
+  ['newType', generateNewTypeProblem],
+]);
 ```
 
-### 4. Add Problems to JSON
-In `Lumi/Resources/Content/Math/problems_pt-BR.json`:
-```json
-{
-  "id": "new_d1_001",
-  "type": "newType",
-  "difficulty": 1,
-  "visual": { ... },
-  "prompt": { "ptBR": "...", "en": "..." },
-  "correctAnswer": { ... },
-  "answerChoices": [ ... ]
-}
+### 4. Update Adventure View (if new visual type)
+In `src/routes/adventure/+page.svelte`, add handling for new visual type:
+```svelte
+{:else if currentProblem.visual.type === 'newVisual'}
+  <div class="new-visual">
+    <!-- Render your visual here -->
+  </div>
+{/if}
 ```
 
 ---
 
 ## Adding a New UI Component
 
-Create in `Lumi/Design/Components/NewComponent.swift`:
-```swift
-import SwiftUI
+Create in `src/lib/components/NewComponent.svelte`:
+```svelte
+<script lang="ts">
+  /**
+   * NewComponent
+   *
+   * Brief description of the component.
+   */
 
-struct NewComponent: View {
-    let title: String
-    var style: Style = .default
+  interface Props {
+    title: string;
+    variant?: 'primary' | 'secondary';
+    disabled?: boolean;
+    onclick?: () => void;
+  }
 
-    var body: some View {
-        // Use LumiColors, LumiTypography, LumiSpacing
-        // Ensure minimum 44pt touch targets
-    }
-}
+  let {
+    title,
+    variant = 'primary',
+    disabled = false,
+    onclick,
+  }: Props = $props();
+</script>
 
-#Preview {
-    NewComponent(title: "Example")
-        .padding()
-        .background(LumiColors.background)
-}
+<button
+  class="new-component {variant}"
+  {disabled}
+  {onclick}
+>
+  {title}
+</button>
+
+<style>
+  .new-component {
+    /* Use CSS variables from design system */
+    min-height: var(--touch-standard);
+    padding: var(--spacing-md) var(--spacing-lg);
+
+    border: none;
+    border-radius: var(--radius-lg);
+
+    font-family: var(--font-family);
+    font-size: var(--font-size-button-medium);
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+  }
+
+  .new-component.primary {
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+  }
+
+  .new-component.secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text-on-primary);
+  }
+
+  .new-component:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+
+  .new-component:disabled {
+    background-color: var(--color-disabled);
+    cursor: not-allowed;
+  }
+</style>
 ```
 
-### Checklist
-- [ ] Uses `LumiColors` for all colors
-- [ ] Uses `LumiTypography` for fonts
-- [ ] Uses `LumiSpacing` for spacing
-- [ ] Touch target ≥ 44pt (prefer 60pt)
-- [ ] Includes `#Preview`
+Export from `src/lib/components/index.ts`:
+```typescript
+export { default as NewComponent } from './NewComponent.svelte';
+```
+
+### Component Checklist
+- [ ] Uses CSS variables for colors (`var(--color-*)`)
+- [ ] Uses CSS variables for spacing (`var(--spacing-*)`)
+- [ ] Uses CSS variables for typography (`var(--font-*)`)
+- [ ] Touch target >= 44px (prefer 60px)
+- [ ] Uses Svelte 5 runes (`$props()`, `$state()`)
 - [ ] Animations are gentle (0.15-0.3s)
 
 ---
 
-## Adding a New Screen
+## Adding a New Screen/Route
 
-```swift
-import SwiftUI
-import SwiftData
+Create `src/routes/newscreen/+page.svelte`:
+```svelte
+<script lang="ts">
+  /**
+   * New Screen
+   *
+   * Brief description.
+   */
 
-struct NewScreenView: View {
-    @Binding var navigationPath: NavigationPath
-    @Environment(\.modelContext) private var modelContext
+  import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
+  import { LumiButton } from '$lib/components';
 
-    var body: some View {
-        ZStack {
-            LumiColors.background.ignoresSafeArea()
-            VStack(spacing: LumiSpacing.xl) {
-                // Content
-            }
-            .padding(.horizontal, LumiSpacing.screenHorizontal)
-        }
-    }
-}
+  // State
+  let isLoading = $state(true);
+
+  onMount(() => {
+    loadData();
+  });
+
+  function loadData() {
+    // Load from localStorage if needed
+    isLoading = false;
+  }
+
+  function navigateHome() {
+    goto('/');
+  }
+</script>
+
+<svelte:head>
+  <title>Page Title - Lumi</title>
+</svelte:head>
+
+<main class="screen">
+  {#if isLoading}
+    <p>Carregando...</p>
+  {:else}
+    <h1 class="title">Page Title</h1>
+
+    <div class="content">
+      <!-- Screen content -->
+    </div>
+
+    <LumiButton onclick={navigateHome}>
+      Voltar
+    </LumiButton>
+  {/if}
+</main>
+
+<style>
+  .screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-screen-horizontal);
+    gap: var(--spacing-xl);
+  }
+
+  .title {
+    font-size: var(--font-size-heading-large);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .content {
+    /* Content styles */
+  }
+</style>
 ```
-
-Then add destination case in `ContentView.swift`.
 
 ---
 
-## Adding Visual Objects
+## Adding Visual Objects (Emojis)
 
-1. Add image to `Lumi/Assets.xcassets/Objects/{name}.imageset/`
-2. Reference in JSON: `{ "object": "newObjectName", "count": 3 }`
-3. Update `CountableObject.swift` if special rendering needed
+In `src/lib/problems/visual-objects.ts`:
+```typescript
+export const visualObjects = [
+  // Existing objects...
+  'newEmoji',  // Add new emoji
+];
+```
+
+Then reference in problem generators:
+```typescript
+const objects = getRandomObjects(1);  // Gets random object from list
+```
+
+---
+
+## Adding a New Service
+
+Create `src/lib/services/new-service.ts`:
+```typescript
+/**
+ * New Service
+ *
+ * Brief description of what it does.
+ */
+
+export class NewService {
+  private state: SomeState;
+
+  constructor() {
+    this.state = initialState;
+  }
+
+  /**
+   * Load state from localStorage
+   */
+  loadState(data: SomeState): void {
+    this.state = data;
+  }
+
+  /**
+   * Get state for persistence
+   */
+  getState(): SomeState {
+    return this.state;
+  }
+
+  /**
+   * Main functionality
+   */
+  doSomething(): void {
+    // Implementation
+  }
+}
+
+// Singleton instance
+export const newService = new NewService();
+```
+
+Export from `src/lib/services/index.ts`:
+```typescript
+export { newService, NewService } from './new-service';
+```
 
 ---
 

@@ -1,156 +1,199 @@
 ---
 name: design-system
-description: Lumi design system reference for colors, typography, spacing, and components. Use when styling UI, creating components, working with LumiColors, LumiTypography, LumiSpacing, or asking about the design tokens.
+description: Lumi design system reference for colors, typography, spacing, and components. Use when styling UI, creating components, working with CSS variables, or asking about the design tokens.
 ---
 
 # Lumi Design System Reference
 
+## Using Design Tokens
+
+All design tokens are available as CSS variables in `src/app.css`. Use them in component styles:
+
+```css
+.button {
+  background-color: var(--color-primary);
+  padding: var(--spacing-md);
+  font-size: var(--font-size-button-large);
+  border-radius: var(--radius-lg);
+}
+```
+
 ## Color Palette
 
 ### Primary Colors
-| Token | RGB | Usage |
-|-------|-----|-------|
-| `LumiColors.primary` | (0.96, 0.62, 0.55) | Warm coral - primary actions |
-| `LumiColors.secondary` | (0.55, 0.78, 0.94) | Soft sky blue - secondary accent |
-| `LumiColors.success` | (0.60, 0.85, 0.75) | Gentle mint - success states |
-| `LumiColors.accent` | (0.78, 0.70, 0.92) | Soft lavender - highlights |
-
-### Background Colors
-| Token | Usage |
-|-------|-------|
-| `LumiColors.background` | Warm cream - main background |
-| `LumiColors.cardBackground` | Slightly darker cream - cards |
-| `LumiColors.contentBackground` | White - content areas |
-
-### Text Colors
-| Token | Usage |
-|-------|-------|
-| `LumiColors.textPrimary` | Soft dark brown - primary text |
-| `LumiColors.textSecondary` | Medium brown - secondary text |
-| `LumiColors.textTertiary` | Light brown - placeholder |
+| CSS Variable | Value | Usage |
+|--------------|-------|-------|
+| `--color-primary` | #F59E8C | Coral - main actions |
+| `--color-primary-hover` | #E88A76 | Hover state |
+| `--color-primary-light` | #FBD4CC | Light backgrounds |
+| `--color-secondary` | #8CC7F0 | Sky blue - secondary |
+| `--color-secondary-hover` | #6BB5E8 | Hover state |
+| `--color-secondary-light` | #C5E3F7 | Light backgrounds |
 
 ### Feedback Colors
-| Token | Usage |
-|-------|-------|
-| `LumiColors.correct` | Gentle green - correct answers |
-| `LumiColors.tryAgain` | Soft orange - try again (NOT red) |
+| CSS Variable | Value | Usage |
+|--------------|-------|-------|
+| `--color-success` | #99D9BF | Mint - correct answers |
+| `--color-success-dark` | #7CC9A8 | Text on success bg |
+| `--color-try-again` | #FFCDB2 | Soft peach - incorrect (NOT red!) |
+| `--color-try-again-dark` | #E5A588 | Text on try-again bg |
 
-### Pattern Colors
-For pattern problems:
-- `LumiColors.circleRed`
-- `LumiColors.circleBlue`
-- `LumiColors.circleGreen`
-- `LumiColors.circleYellow`
-- `LumiColors.circlePurple`
+### Background Colors
+| CSS Variable | Value | Usage |
+|--------------|-------|-------|
+| `--color-background` | #FCF8F0 | Warm cream - main bg |
+| `--color-surface` | #FFFFFF | Cards, elevated surfaces |
+| `--color-surface-hover` | #F7F3EB | Hover state |
+
+### Text Colors
+| CSS Variable | Value | Usage |
+|--------------|-------|-------|
+| `--color-text-primary` | #4A4A4A | Main text |
+| `--color-text-secondary` | #7A7A7A | Secondary text |
+| `--color-text-muted` | #A0A0A0 | Placeholder/disabled |
+| `--color-text-on-primary` | #FFFFFF | Text on primary buttons |
+
+### Other
+| CSS Variable | Value | Usage |
+|--------------|-------|-------|
+| `--color-border` | #E8E4DC | Borders |
+| `--color-disabled` | #D4D0C8 | Disabled elements |
 
 ## Typography
 
-| Token | Usage |
-|-------|-------|
-| `.displayLarge` | Main greetings, celebration text |
-| `.displayMedium` | Large headings |
-| `.headingLarge` | Section headers |
-| `.headingMedium` | Subsection headers |
-| `.bodyLarge` | Important body text |
-| `.bodyMedium` | Regular body text |
-| `.buttonLarge` | Primary button text |
-| `.buttonMedium` | Secondary button text |
-| `.numberLarge` | Large numbers (answers) |
-| `.numberMedium` | Medium numbers |
+### Font Sizes
+| CSS Variable | Value | Usage |
+|--------------|-------|-------|
+| `--font-size-display-large` | 3rem | Celebrations |
+| `--font-size-number-large` | 3.5rem | Big numbers |
+| `--font-size-number-medium` | 2.25rem | Answer choices |
+| `--font-size-heading-large` | 2rem | Page titles |
+| `--font-size-heading-medium` | 1.5rem | Section headers |
+| `--font-size-body-large` | 1.25rem | Important text |
+| `--font-size-body-medium` | 1rem | Regular text |
+| `--font-size-button-large` | 1.5rem | Primary buttons |
+| `--font-size-button-medium` | 1.125rem | Secondary buttons |
 
-Usage:
-```swift
-Text("Olá!")
-    .font(LumiTypography.displayLarge)
-    .foregroundStyle(LumiColors.textPrimary)
+### Font Family
+```css
+--font-family: "SF Pro Rounded", "Nunito", system-ui, sans-serif;
 ```
 
 ## Spacing
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `.xs` | 4pt | Tight spacing |
-| `.sm` | 8pt | Small gaps |
-| `.md` | 16pt | Standard spacing |
-| `.lg` | 24pt | Large gaps |
-| `.xl` | 32pt | Section spacing |
-| `.xxl` | 48pt | Major sections |
+| CSS Variable | Value | Usage |
+|--------------|-------|-------|
+| `--spacing-xs` | 0.25rem | 4px - tight |
+| `--spacing-sm` | 0.5rem | 8px - small |
+| `--spacing-md` | 1rem | 16px - standard |
+| `--spacing-lg` | 1.5rem | 24px - large |
+| `--spacing-xl` | 2rem | 32px - sections |
+| `--spacing-2xl` | 3rem | 48px - major |
+| `--spacing-screen-horizontal` | 1.5rem | Screen padding |
 
-### Special Spacing
-| Token | Value | Usage |
-|-------|-------|-------|
-| `.screenHorizontal` | 24pt | Screen edge padding |
-| `.minTouchTarget` | 44pt | Minimum tap area |
-| `.largeTouchTarget` | 60pt | Preferred tap area for kids |
-| `.radiusMedium` | 12pt | Standard corner radius |
-| `.radiusLarge` | 20pt | Large corner radius |
+## Touch Targets
+
+| CSS Variable | Value | Usage |
+|--------------|-------|-------|
+| `--touch-minimum` | 2.75rem | 44px - minimum |
+| `--touch-standard` | 3.75rem | 60px - preferred |
+| `--touch-large` | 5rem | 80px - large buttons |
+| `--touch-choice-button` | 5rem | Answer choices |
+
+## Border Radius
+
+| CSS Variable | Value |
+|--------------|-------|
+| `--radius-sm` | 0.5rem |
+| `--radius-md` | 0.75rem |
+| `--radius-lg` | 1rem |
+| `--radius-xl` | 1.5rem |
+| `--radius-full` | 9999px |
+
+## Shadows
+
+| CSS Variable | Usage |
+|--------------|-------|
+| `--shadow-sm` | Subtle elevation |
+| `--shadow-md` | Standard cards |
+| `--shadow-lg` | Prominent elements |
+
+## Transitions
+
+| CSS Variable | Value |
+|--------------|-------|
+| `--transition-fast` | 150ms ease |
+| `--transition-normal` | 250ms ease |
 
 ## Components
 
 ### LumiButton
-```swift
-LumiButton("Começar Aventura", style: .primary) { }
-LumiButton("Mais uma aventura", style: .secondary) { }
-LumiButton("Tchau por agora!", style: .ghost) { }
+```svelte
+<LumiButton variant="primary" onclick={handleClick}>
+  Button Text
+</LumiButton>
 ```
+Variants: `primary`, `secondary`, `ghost`
+Sizes: `medium`, `large` (default)
 
 ### ChoiceButton
-```swift
-ChoiceButton(
-    content: "5",
-    isSelected: selectedAnswer == 5,
-    isCorrect: showResult ? (answer == 5) : nil
-) {
-    selectedAnswer = 5
-}
+```svelte
+<ChoiceButton state="default" onclick={handleSelect}>
+  5
+</ChoiceButton>
+```
+States: `default`, `selected`, `correct`, `incorrect`
+
+### ProgressDots
+```svelte
+<ProgressDots total={5} current={2} completed={2} />
 ```
 
 ### CountableObject
-```swift
-CountableObject(
-    objectType: "apple",
-    isTapped: tappedIndices.contains(index),
-    index: index
-) {
-    tappedIndices.insert(index)
-}
+```svelte
+<CountableObject objectId="apple" count={5} maxPerRow={5} />
 ```
 
-### ProgressDots
-```swift
-ProgressDots(total: 5, completed: completedCount, current: currentIndex)
+### PatternCircle
+```svelte
+<PatternCircle colorId="circle_red" size="large" />
 ```
+Sizes: `small`, `medium`, `large`
 
-## Animations
-
-```swift
-.scaleEffect(isPressed ? 0.96 : 1.0)
-.animation(.easeInOut(duration: 0.15), value: isPressed)
+### SpeakerButton
+```svelte
+<SpeakerButton text="Quantas maçãs?" lang="pt-BR" />
 ```
 
 ## Layout Guidelines
 
 ### Screen Structure
-```swift
-var body: some View {
-    ZStack {
-        LumiColors.background.ignoresSafeArea()
-        VStack(spacing: LumiSpacing.xl) {
-            // Content
-        }
-        .padding(.horizontal, LumiSpacing.screenHorizontal)
-    }
-}
+```svelte
+<main class="screen">
+  <!-- Content -->
+</main>
+
+<style>
+  .screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-screen-horizontal);
+    gap: var(--spacing-xl);
+  }
+</style>
 ```
 
 ### Touch Targets
-Always minimum 44pt, prefer 60pt:
-```swift
-.frame(minWidth: LumiSpacing.largeTouchTarget, minHeight: LumiSpacing.largeTouchTarget)
+Always ensure interactive elements have adequate touch targets:
+```css
+.interactive {
+  min-height: var(--touch-standard);  /* 60px minimum */
+  min-width: var(--touch-standard);
+}
 ```
 
-### Adaptive Layout
-```swift
-@Environment(\.horizontalSizeClass) var sizeClass
-let columns = sizeClass == .compact ? 3 : 5
-```
+### Animation Guidelines
+- Use gentle transitions (150-300ms)
+- Scale effect on press: `transform: scale(0.96)`
+- Avoid flashy or hyperactive animations

@@ -1,6 +1,6 @@
 ---
 name: commands
-description: Build commands, file locations, and development workflow for Lumi. Use when building, testing, running xcodebuild, or asking about project structure and file locations.
+description: Build commands, file locations, and development workflow for Lumi. Use when building, testing, running npm commands, or asking about project structure and file locations.
 ---
 
 # Common Development Commands
@@ -8,87 +8,112 @@ description: Build commands, file locations, and development workflow for Lumi. 
 ## Build & Run
 
 ```bash
-# Quick build check (fast, no simulator needed)
-xcodebuild build -project Lumi.xcodeproj -scheme Lumi \
-  -destination generic/platform=iOS \
-  CODE_SIGNING_ALLOWED=NO -quiet
-
-# Run unit tests (slower, requires simulator)
-xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
-  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
-  -only-testing:LumiTests
-
-# Clean build folder
-xcodebuild -project Lumi.xcodeproj -scheme Lumi clean
-
-# Open in Xcode
-open Lumi.xcodeproj
+npm install        # Install dependencies
+npm run dev        # Start dev server (http://localhost:5173)
+npm run build      # Production build
+npm run preview    # Preview production build
 ```
 
-**Prefer the quick build check** for verifying code compiles. Only run full tests when specifically needed or before delivering work.
-
-## SwiftLint (if installed)
+## Code Quality
 
 ```bash
-swiftlint
-swiftlint --fix
+npm run check      # Type checking with svelte-check
+npm run check:watch  # Type checking in watch mode
+```
+
+## Testing
+
+```bash
+npm run test       # Run tests in watch mode
+npm run test:run   # Run tests once (for CI)
 ```
 
 ## Key File Locations
 
 | What | Path |
 |------|------|
-| Xcode project | `Lumi.xcodeproj` |
-| App entry | `Lumi/LumiApp.swift` |
-| Problem JSON | `Lumi/Resources/Content/Math/problems_pt-BR.json` |
-| Assets | `Lumi/Assets.xcassets/` |
-| SwiftData models | `Lumi/Core/Models/` |
-| Services | `Lumi/Core/Services/` |
-| Design system | `Lumi/Design/Theme/` |
-| Components | `Lumi/Design/Components/` |
-| Feature views | `Lumi/Features/` |
+| App entry | `src/app.html` |
+| Global styles | `src/app.css` |
+| Layout | `src/routes/+layout.svelte` |
+| Home page | `src/routes/+page.svelte` |
+| Adventure | `src/routes/adventure/+page.svelte` |
+| Completion | `src/routes/complete/+page.svelte` |
+| Parents | `src/routes/parents/+page.svelte` |
 
-## SwiftData
+## Source Structure
 
-### Models
-- `Child.swift` - Child profile
-- `Session.swift` - Adventure sessions
-- `DailyAdventureCount.swift` - Daily tracking
-
-### Container Setup (LumiApp.swift)
-```swift
-.modelContainer(for: [Child.self, Session.self, DailyAdventureCount.self])
+```
+src/
+├── lib/
+│   ├── components/     # UI components
+│   │   ├── LumiButton.svelte
+│   │   ├── ChoiceButton.svelte
+│   │   ├── ProgressDots.svelte
+│   │   ├── CountableObject.svelte
+│   │   ├── PatternCircle.svelte
+│   │   └── SpeakerButton.svelte
+│   ├── problems/       # Problem generation
+│   │   ├── counting-generator.ts
+│   │   ├── addition-generator.ts
+│   │   ├── subtraction-generator.ts
+│   │   ├── comparison-generator.ts
+│   │   ├── pattern-generator.ts
+│   │   ├── problem-service.ts
+│   │   └── visual-objects.ts
+│   ├── services/       # App services
+│   │   ├── difficulty-manager.ts
+│   │   ├── adventure-limit.ts
+│   │   └── speech.ts
+│   ├── theme/          # Design tokens
+│   │   ├── colors.ts
+│   │   ├── typography.ts
+│   │   ├── spacing.ts
+│   │   └── animations.ts
+│   └── types/          # TypeScript types
+│       ├── problem.ts
+│       └── session.ts
+└── routes/             # SvelteKit pages
 ```
 
+## Data Storage
+
+All data is stored in `localStorage`:
+
+| Key | Purpose |
+|-----|---------|
+| `lumi-progress` | Difficulty progress per problem type |
+| `lumi-seen` | Seen problem signatures (deduplication) |
+| `lumi-limits` | Daily adventure limits |
+| `lumi-auto-voice` | Voice auto-play setting |
+
 ### Reset Data
-Delete app from simulator to clear SwiftData storage.
 
-## Problem ID Format
-
-- Counting: `count_d{difficulty}_{index}`
-- Addition: `add_d{difficulty}_{index}`
-- Subtraction: `sub_d{difficulty}_{index}`
-- Comparison: `comp_d{difficulty}_{index}`
-- Patterns: `pat_d{difficulty}_{index}`
-
-## Previews
-
-All UI components include `#Preview` macros:
-```swift
-#Preview("Component Name") {
-    SomeComponent()
-        .padding()
-        .background(LumiColors.background)
-}
+Clear localStorage in browser DevTools, or:
+```javascript
+localStorage.clear();
 ```
 
 ## Localization
 
 Primary: Portuguese (Brazil) - `pt-BR`
 
-```swift
-LocalizedString(
-    ptBR: "Texto em português",
-    en: "English text"
-)
+```typescript
+interface LocalizedString {
+  ptBR: string;
+  en: string;
+}
+
+// Usage
+const prompt: LocalizedString = {
+  ptBR: 'Quantas maçãs?',
+  en: 'How many apples?',
+};
 ```
+
+## Environment
+
+- **Framework**: SvelteKit with Svelte 5
+- **Language**: TypeScript
+- **Build tool**: Vite
+- **Testing**: Vitest
+- **Styling**: Scoped CSS with CSS variables

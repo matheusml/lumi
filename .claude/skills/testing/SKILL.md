@@ -5,38 +5,20 @@ description: Testing requirements and workflow for Lumi. Use when writing tests,
 
 # Testing in Lumi
 
-## Quick Build Check (Preferred)
-
-Use this first to verify code compiles - it's fast and doesn't need a simulator:
+## Quick Reference
 
 ```bash
-xcodebuild build -project Lumi.xcodeproj -scheme Lumi \
-  -destination generic/platform=iOS \
-  CODE_SIGNING_ALLOWED=NO -quiet
-```
-
-## Running Tests
-
-Only run full tests when specifically needed (e.g., before delivering work, or when tests are relevant to changes):
-
-```bash
-# Run all unit tests (slower, requires simulator)
-xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
-  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
-  -only-testing:LumiTests
-
-# Run a specific test class
-xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
-  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
-  -only-testing:LumiTests/DifficultyManagerTests
+npm run check      # Type checking (fast, run first)
+npm run test       # Run tests in watch mode
+npm run test:run   # Run tests once (CI mode)
 ```
 
 ## Before Delivering Work
 
-**Run quick build check first, then tests if needed.** If tests fail:
-1. Fix the failing tests
-2. Run again to confirm all pass
-3. Only then mark work as complete
+1. Run type check: `npm run check`
+2. Run tests: `npm run test:run`
+3. Fix any failures and run again
+4. Only mark work complete when all pass
 
 ## When to Update Tests
 
@@ -46,103 +28,81 @@ xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
 | Fix bug | Add test that reproduces bug, then fix |
 | Change behavior | Update existing tests to match |
 | Remove code | Remove related tests |
-| Refactor | Tests should still pass (no changes needed) |
+| Refactor | Tests should still pass |
 
 ## Writing Tests
 
-### Test Class Template (for @Observable services)
+### File Location
 
-```swift
-import XCTest
-import SwiftData
-@testable import Lumi
-
-@MainActor
-final class NewServiceTests: XCTestCase {
-    var service: NewService!
-    var modelContainer: ModelContainer!
-    var modelContext: ModelContext!
-
-    override func setUp() {
-        super.setUp()
-        let schema = Schema([Child.self, Session.self, ActivityProgress.self, DailyAdventureCount.self])
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        modelContainer = try! ModelContainer(for: schema, configurations: config)
-        modelContext = ModelContext(modelContainer)
-
-        service = NewService()
-        service.configure(with: modelContext)
-    }
-
-    override func tearDown() {
-        service = nil
-        modelContext = nil
-        modelContainer = nil
-        super.tearDown()
-    }
-
-    func testSomething() {
-        // Arrange
-        // Act
-        // Assert
-        XCTAssertEqual(...)
-    }
-}
+Tests go next to source files with `.test.ts` suffix:
+```
+src/lib/services/
+├── difficulty-manager.ts
+└── difficulty-manager.test.ts
 ```
 
-### Test Class Template (for Codable models)
+### Basic Test Structure
 
-```swift
-import XCTest
-@testable import Lumi
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest';
+import { DifficultyManager } from './difficulty-manager';
 
-final class NewModelTests: XCTestCase {
+describe('DifficultyManager', () => {
+  let manager: DifficultyManager;
 
-    func testDecoding() throws {
-        let json = """
-        {"field": "value"}
-        """
-        let data = json.data(using: .utf8)!
-        let model = try JSONDecoder().decode(NewModel.self, from: data)
+  beforeEach(() => {
+    manager = new DifficultyManager();
+  });
 
-        XCTAssertEqual(model.field, "value")
-    }
-}
+  it('starts at minimum difficulty', () => {
+    expect(manager.getDifficulty('counting')).toBe(1);
+  });
+
+  it('increases difficulty after 3 correct', () => {
+    manager.recordAnswer(true, 'counting');
+    manager.recordAnswer(true, 'counting');
+    manager.recordAnswer(true, 'counting');
+    expect(manager.getDifficulty('counting')).toBe(2);
+  });
+});
 ```
 
-## Key Patterns
+### Testing with Mocks
 
-- **Use `@MainActor`** for test classes that use `@Observable` services
-- **Use in-memory SwiftData**: `ModelConfiguration(isStoredInMemoryOnly: true)`
-- **Use `setUp()` / `tearDown()`** (not `setUpWithError` variants)
-- **Test file naming**: `{ClassName}Tests.swift`
-- **Test method naming**: `test{WhatIsBeingTested}()`
+```typescript
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+describe('Service with time', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('resets on new day', () => {
+    // Advance time by 24 hours
+    vi.advanceTimersByTime(24 * 60 * 60 * 1000);
+    // Test behavior
+  });
+});
+```
+
+## Common Matchers
+
+```typescript
+expect(value).toBe(expected);           // Strict equality
+expect(value).toEqual(expected);        // Deep equality
+expect(value).toBeTruthy();
+expect(value).toBeGreaterThan(3);
+expect(array).toContain(item);
+expect(array).toHaveLength(3);
+expect(() => fn()).toThrow();
+```
 
 ## What to Test
 
-### Services
-- Initial state
-- State changes after actions
-- Boundary conditions (min/max values)
-- Error cases
-
-### Models (Codable)
-- JSON decoding
-- JSON encoding
-- Computed properties
-- Edge cases (nil values, empty arrays)
-
-### SwiftData Models
-- Creation with default values
-- Creation with custom values
-- Relationships between models
-- Computed properties
-
-## Debugging Failed Tests
-
-```bash
-# See detailed output
-xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
-  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
-  -only-testing:LumiTests 2>&1 | grep -E "(passed|failed|error)"
-```
+- **Services**: Initial state, state changes, boundaries
+- **Generators**: Valid output, difficulty scaling, answer correctness
+- **Utilities**: Input/output, edge cases
