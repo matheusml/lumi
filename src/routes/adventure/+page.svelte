@@ -198,11 +198,27 @@
 <main class="adventure">
 	{#if currentProblem}
 		<header class="header">
+			<button class="home-button" onclick={() => goto('/')} aria-label="Voltar para início">
+				<svg
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+					<polyline points="9 22 9 12 15 12 15 22" />
+				</svg>
+			</button>
 			<ProgressDots
 				total={PROBLEMS_PER_ADVENTURE}
 				current={currentIndex}
 				completed={completedCount}
 			/>
+			<div class="header-spacer"></div>
 		</header>
 
 		<div class="problem-area">
@@ -328,7 +344,43 @@
 
 	.header {
 		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.home-button {
+		display: flex;
+		align-items: center;
 		justify-content: center;
+
+		width: var(--touch-standard);
+		height: var(--touch-standard);
+
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius-full);
+		background-color: var(--color-surface);
+
+		color: var(--color-text-secondary);
+		cursor: pointer;
+
+		transition:
+			transform var(--transition-fast),
+			background-color var(--transition-fast),
+			border-color var(--transition-fast),
+			color var(--transition-fast);
+	}
+
+	.home-button:hover {
+		border-color: var(--color-secondary);
+		color: var(--color-secondary);
+	}
+
+	.home-button:active {
+		transform: scale(0.96);
+	}
+
+	.header-spacer {
+		width: var(--touch-standard);
 	}
 
 	.problem-area {
