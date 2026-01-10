@@ -4,8 +4,7 @@
  * Manages problem generation across all types with deduplication and history management.
  */
 
-import type { Problem, ProblemType, DifficultyLevel, AdventureCategory } from '$lib/types'
-import { MATH_PROBLEM_TYPES, GRAMMAR_PROBLEM_TYPES } from '$lib/types'
+import type { Problem, ProblemType, DifficultyLevel } from '$lib/types'
 import type { ProblemGenerator } from './generator'
 import { CountingProblemGenerator } from './counting-generator'
 import { AdditionProblemGenerator } from './addition-generator'

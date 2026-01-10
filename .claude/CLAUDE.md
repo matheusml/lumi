@@ -77,8 +77,12 @@ npm run check    # Type checking
 npm run test     # Run tests
 ```
 
-## Testing (REQUIRED)
+## Quality Checks (REQUIRED)
 
-- **Always run tests before delivering work**
-- **Update tests when changing code** (add for features, update for changes, remove for deletions)
-- Run `npm run test` for watch mode, `npm run test:run` for single run
+**Before delivering work, always run:**
+
+1. `npm run test:run` - Tests must pass
+2. `npm run check` - TypeScript must pass
+3. `npm run lint` - Linting must pass
+
+**Update tests when changing code** (add for features, update for changes, remove for deletions)

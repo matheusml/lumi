@@ -40,13 +40,14 @@ export class InitialLetterGenerator implements ProblemGenerator {
 				return wordBank.filter((w) =>
 					vowels.some((v) => v.uppercase === w.word[0].toUpperCase())
 				)
-			case 2:
+			case 2: {
 				// Words starting with vowels or common consonants
 				const validLetters = [
 					...vowels.map((v) => v.uppercase),
 					...commonConsonants.map((c) => c.uppercase)
 				]
 				return wordBank.filter((w) => validLetters.includes(w.word[0].toUpperCase()))
+			}
 			case 3:
 			case 4:
 				// All words
