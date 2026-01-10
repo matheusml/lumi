@@ -1,194 +1,137 @@
-# Lumi
+# Lumi 🌟
 
-An educational iOS app for children ages 4-7, focused on making learning math fun and healthy.
+An anti-addictive educational math app for children ages 4-7.
 
 ## Philosophy
 
-Lumi is intentionally **anti-addictive**. Unlike most children's apps that use dark patterns to maximize screen time, Lumi:
+Most children's educational apps use dark patterns—points, streaks, leaderboards, notifications—to maximize screen time. Lumi is the opposite: **we respect children's wellbeing** while teaching math effectively.
 
-- Has **no** stars, coins, or virtual currencies
-- Has **no** streaks or "come back tomorrow" mechanics
-- Has **no** leaderboards or social comparison
-- Has **no** timed challenges that create stress
-- Sends **no** notifications asking kids to return
-- Uses **calm, gentle animations** instead of flashy dopamine hits
+### What We Don't Do
 
-Instead, Lumi uses "adventures" with clear beginnings and endings, respects daily limits, and warmly encourages children to go play elsewhere when they're done.
+- ❌ No points, coins, gems, or virtual currencies
+- ❌ No streaks or "don't break your streak" pressure
+- ❌ No leaderboards or social comparison
+- ❌ No timed challenges that create stress
+- ❌ No notifications asking kids to return
+- ❌ No flashy, hyperactive animations
+- ❌ No variable reward schedules
+
+### What We Do
+
+- ✅ Discrete adventures (5 problems each)
+- ✅ Respect daily limits (default: 3 adventures/day)
+- ✅ Celebrate completion, not speed or scores
+- ✅ Use gentle, calm animations
+- ✅ Encourage outdoor play when limits are reached
+- ✅ Adaptive difficulty that grows with the child
 
 ## Features
 
-### Math Activities
-- **Counting** - Count objects and select the total
-- **Addition** - Visual addition with object groups
-- **Subtraction** - Objects "flying away" to teach subtraction
-- **Comparison** - "Which side has more?"
-- **Patterns** - Complete the sequence
+### Problem Types
+
+1. **Counting** - "How many apples do you see?"
+2. **Addition** - Visual addition with emoji objects
+3. **Subtraction** - Objects "flying away"
+4. **Comparison** - "Which side has more?"
+5. **Patterns** - Complete the sequence
 
 ### Adaptive Difficulty
-The app adjusts to each child's level:
-- Moves up after 3 correct answers in a row
-- Moves down after 2 incorrect answers
-- 4 difficulty levels per activity
 
-### Daily Limits
-- Default: 3 adventures per day (configurable by parents)
-- Each adventure = 5 problems
-- When done, the app encourages outdoor play
+Each problem type has 4 difficulty levels. The system:
+- Moves **UP** after 3 consecutive correct answers
+- Moves **DOWN** after 2 consecutive incorrect answers
+- Tracks progress independently per activity type
 
 ### Parent Zone
-- Protected by a gesture too complex for young children (hold 3 corners for 2 seconds)
-- View progress and accuracy
-- Adjust daily limits
+
+Protected by a simple math problem (multiplication), parents can:
+- View today's adventure count
+- See progress per activity type (level + accuracy)
+- Adjust daily limits (1-10 or unlimited)
 - Reset today's count if needed
 
-## Technical Details
+## Tech Stack
 
-### Requirements
-- iOS 17.0+
-- Xcode 15.0+
-- Swift 5.9+
-
-### Tech Stack
-- **SwiftUI** - Declarative UI framework
-- **SwiftData** - Local data persistence
-- **No external dependencies** - Fully self-contained
-
-### Architecture
-```
-Lumi/
-├── LumiApp.swift              # App entry point
-├── ContentView.swift          # Root navigation
-├── Features/
-│   ├── Home/                  # Home screen
-│   ├── Adventure/             # Adventure flow
-│   ├── Problems/              # Problem type views
-│   ├── Feedback/              # Answer feedback
-│   └── ParentZone/            # Parent dashboard
-├── Core/
-│   ├── Models/                # Data models
-│   ├── Services/              # Business logic
-│   └── Extensions/
-├── Design/
-│   ├── Theme/                 # Colors, Typography, Spacing
-│   ├── Components/            # Reusable UI
-│   └── Animations/
-└── Resources/
-    └── Content/Math/          # Problem definitions (JSON)
-```
-
-### Data Models
-
-**SwiftData (persisted locally):**
-- `Child` - Child profile with settings
-- `Session` - Completed adventure sessions
-- `DailyAdventureCount` - Daily usage tracking
-
-**Codable (loaded from JSON):**
-- `Problem` - Problem definitions
-- `ProblemBank` - Collection of problems
+- **Framework**: [SvelteKit](https://kit.svelte.dev/) with TypeScript
+- **Styling**: CSS custom properties (design tokens)
+- **Storage**: localStorage (fully offline, no accounts)
+- **Speech**: Web Speech API for voice prompts
 
 ## Getting Started
 
-### Clone and Open
 ```bash
-git clone <repository-url>
-cd lumi
-open Lumi.xcodeproj
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-### Build and Run
-1. Select a simulator (iPhone or iPad)
-2. Press ⌘R to build and run
+## Project Structure
 
-### Run Tests
-```bash
-xcodebuild test -project Lumi.xcodeproj -scheme Lumi \
-  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
-  -only-testing:LumiTests
+```
+src/
+├── lib/
+│   ├── components/     # UI components (LumiButton, ChoiceButton, etc.)
+│   ├── problems/       # Problem generators and service
+│   ├── services/       # Difficulty manager, speech, limits
+│   ├── theme/          # Design system tokens
+│   └── types/          # TypeScript types
+├── routes/
+│   ├── +page.svelte    # Home screen
+│   ├── adventure/      # Learning experience
+│   ├── complete/       # Completion celebration
+│   └── parents/        # Parent dashboard
+└── app.css             # Global styles
 ```
 
 ## Design System
 
-Lumi uses a soft, friendly color palette designed for young children:
-
 ### Colors
-- **Primary**: Warm coral (`#F59E8C`)
-- **Secondary**: Soft sky blue (`#8CC7F0`)
-- **Success**: Gentle mint (`#99D9BF`)
-- **Background**: Warm cream (`#FCF8F0`)
 
-### Typography
-- Large, rounded fonts
-- High contrast for readability
-- Consistent sizing across the app
+| Token | Value | Use |
+|-------|-------|-----|
+| `--color-primary` | #F59E8C | Main actions (coral) |
+| `--color-secondary` | #8CC7F0 | Secondary actions (sky blue) |
+| `--color-success` | #99D9BF | Correct answers (mint) |
+| `--color-try-again` | #FFCDB2 | Incorrect (soft peach, not red!) |
+| `--color-background` | #FCF8F0 | Warm cream background |
 
 ### Touch Targets
-- Minimum 44pt (Apple guideline)
-- Preferred 60pt for young children
-- Extra padding around interactive elements
 
-## Localization
-
-- **Primary**: Portuguese (Brazil) - `pt-BR`
-- **Secondary**: English - `en`
-
-All user-facing strings use the `LocalizedString` struct for easy localization.
-
-## Adding Content
-
-### Adding Problems
-Edit `Lumi/Resources/Content/Math/problems_pt-BR.json`:
-
-```json
-{
-  "id": "count_d1_005",
-  "type": "counting",
-  "difficulty": 1,
-  "visual": {
-    "type": "objects",
-    "elements": [{ "object": "star", "count": 4 }]
-  },
-  "prompt": {
-    "ptBR": "Quantas estrelas você vê?",
-    "en": "How many stars do you see?"
-  },
-  "correctAnswer": { "number": 4 },
-  "answerChoices": [
-    { "number": 3 },
-    { "number": 4 },
-    { "number": 5 },
-    { "number": 6 }
-  ]
-}
-```
-
-### Adding Visual Objects
-1. Add image to `Assets.xcassets/Objects/`
-2. Reference by name in problem JSON (e.g., `"object": "butterfly"`)
-3. Update `CountableObject` if special rendering needed
+Minimum 44px, prefer 60-80px for children's fingers.
 
 ## Contributing
 
-When contributing, please:
+We welcome contributions! Please read our guidelines:
 
-1. Follow the anti-addiction principles
-2. Use the design system (LumiColors, LumiTypography, LumiSpacing)
-3. Ensure touch targets are large enough for children
-4. Test on both iPhone and iPad
-5. Add Portuguese strings for all user-facing text
-6. Include `#Preview` macros for UI components
+1. **Respect the philosophy** - No addictive mechanics
+2. **Keep it calm** - Gentle animations, no flashy effects
+3. **Think of the children** - Large touch targets, simple language
+4. **Test on devices** - Works on tablets, phones, Chromebooks
 
-## Testing Checklist
+### Ideas for Contribution
 
-- [ ] Touch targets large enough (44pt minimum)
-- [ ] Daily limit enforcement works
-- [ ] Parent gate blocks children
-- [ ] Portuguese strings display correctly
-- [ ] Works fully offline
-- [ ] Adapts to iPhone and iPad
-- [ ] Animations are gentle, not jarring
-- [ ] No engagement hooks or dark patterns
+- [ ] New problem types (shapes, time, money)
+- [ ] Additional languages
+- [ ] Improved accessibility (screen readers)
+- [ ] PWA support for offline use
+- [ ] More visual objects and themes
 
 ## License
 
-Private project - All rights reserved.
+MIT License - Use it freely, fork it, improve it!
+
+## Credits
+
+Built with love for children's healthy development.
+
+---
+
+*"Learning should be joyful, not addictive."*
