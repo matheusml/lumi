@@ -54,11 +54,11 @@
 	}
 
 	.letter-display.large {
-		width: 8rem;
-		height: 8rem;
+		width: clamp(5rem, 20vw, 8rem);
+		height: clamp(5rem, 20vw, 8rem);
 	}
 
 	.letter-display.large .letter {
-		font-size: 4.5rem;
+		font-size: clamp(2.5rem, 12vw, 4.5rem);
 	}
 </style>

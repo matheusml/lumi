@@ -109,17 +109,18 @@ export class AlphabetOrderGenerator implements ProblemGenerator {
 
 		// Generate answer choices (correct + 3 nearby letters)
 		const correctIndex = startIndex + missingPos
-		const nearbyIndices = [
-			correctIndex - 2,
-			correctIndex - 1,
-			correctIndex + 1,
-			correctIndex + 2
-		].filter((i) => i >= 0 && i < 26 && i !== correctIndex)
 
-		const otherLetters = nearbyIndices
+		// Collect nearby indices, expanding range if needed to get at least 3
+		const otherIndices: number[] = []
+		for (let distance = 1; otherIndices.length < 3 && distance <= 25; distance++) {
+			if (correctIndex - distance >= 0) otherIndices.push(correctIndex - distance)
+			if (correctIndex + distance < 26) otherIndices.push(correctIndex + distance)
+		}
+
+		const otherLetters = otherIndices
+			.slice(0, 3)
 			.map((i) => getLetterAtIndex(i))
 			.filter((l): l is LetterInfo => l !== undefined)
-			.slice(0, 3)
 
 		const choices: AnswerValue[] = shuffle([correctLetter, ...otherLetters]).map((l) => ({
 			type: 'letter' as const,

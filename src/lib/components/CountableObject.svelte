@@ -49,7 +49,7 @@
 	}
 
 	.object {
-		font-size: 2.5rem;
+		font-size: clamp(1.75rem, 5vw, 2.5rem);
 		line-height: 1;
 		animation: scaleIn 0.3s ease-out backwards;
 	}

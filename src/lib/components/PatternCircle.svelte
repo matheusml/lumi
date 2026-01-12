@@ -38,20 +38,20 @@
 		justify-content: center;
 	}
 
-	/* Sizes */
+	/* Sizes - responsive for mobile */
 	.pattern-circle.small {
-		width: 2rem;
-		height: 2rem;
+		width: clamp(1.5rem, 5vw, 2rem);
+		height: clamp(1.5rem, 5vw, 2rem);
 	}
 
 	.pattern-circle.medium {
-		width: 3rem;
-		height: 3rem;
+		width: clamp(2rem, 6vw, 3rem);
+		height: clamp(2rem, 6vw, 3rem);
 	}
 
 	.pattern-circle.large {
-		width: 4rem;
-		height: 4rem;
+		width: clamp(2.5rem, 8vw, 4rem);
+		height: clamp(2.5rem, 8vw, 4rem);
 	}
 
 	/* Unknown state */

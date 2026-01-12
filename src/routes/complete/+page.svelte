@@ -67,7 +67,7 @@
 	}
 
 	.emoji {
-		font-size: 5rem;
+		font-size: clamp(3rem, 12vw, 5rem);
 		animation: gentlePulse 2s ease-in-out infinite;
 	}
 

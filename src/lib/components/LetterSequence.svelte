@@ -35,8 +35,8 @@
 	}
 
 	.letter-box {
-		width: 3.5rem;
-		height: 3.5rem;
+		width: clamp(2.5rem, 12vw, 3.5rem);
+		height: clamp(2.5rem, 12vw, 3.5rem);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -54,13 +54,13 @@
 
 	.letter {
 		font-family: var(--font-family);
-		font-size: 1.75rem;
+		font-size: clamp(1.25rem, 5vw, 1.75rem);
 		font-weight: 700;
 		color: var(--color-text-primary);
 	}
 
 	.question-mark {
-		font-size: 1.75rem;
+		font-size: clamp(1.25rem, 5vw, 1.75rem);
 		font-weight: 700;
 		color: var(--color-primary);
 	}

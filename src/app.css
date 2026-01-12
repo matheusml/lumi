@@ -193,6 +193,19 @@ html {
 	}
 }
 
+/* Mobile breakpoints */
+@media (max-width: 480px) {
+	:root {
+		--font-size-display-large: 2rem;
+		--font-size-display-medium: 1.75rem;
+		--font-size-number-large: 2.5rem;
+		--font-size-number-medium: 1.75rem;
+		--font-size-heading-large: 1.5rem;
+		--spacing-lg: 1rem;
+		--spacing-xl: 1.5rem;
+	}
+}
+
 /* Utility classes */
 .visually-hidden {
 	position: absolute;

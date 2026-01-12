@@ -50,7 +50,7 @@
 	}
 
 	.emoji {
-		font-size: 4rem;
+		font-size: clamp(2.5rem, 10vw, 4rem);
 	}
 
 	.word {
@@ -60,7 +60,7 @@
 
 	.letter {
 		font-family: var(--font-family);
-		font-size: 2.5rem;
+		font-size: clamp(1.75rem, 6vw, 2.5rem);
 		font-weight: 700;
 		color: var(--color-text-primary);
 		text-transform: uppercase;
@@ -68,8 +68,8 @@
 
 	.letter.missing {
 		display: inline-block;
-		width: 1.5rem;
-		height: 2.5rem;
+		width: clamp(1rem, 4vw, 1.5rem);
+		height: clamp(1.75rem, 6vw, 2.5rem);
 		border-bottom: 4px solid var(--color-primary);
 		margin: 0 0.1rem;
 	}

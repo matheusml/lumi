@@ -497,7 +497,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 150px;
+		min-height: 120px;
+		max-width: 100%;
+		overflow: hidden;
 	}
 
 	.equation {
@@ -516,14 +518,18 @@
 		display: flex;
 		align-items: center;
 		gap: var(--spacing-lg);
+		max-width: 100%;
 	}
 
 	.comparison-side {
-		padding: var(--spacing-lg);
+		padding: var(--spacing-md);
 		border: 3px solid var(--color-border);
 		border-radius: var(--radius-xl);
 		background-color: var(--color-surface);
 		cursor: pointer;
+		flex: 1;
+		min-width: 0;
+		max-width: 45%;
 		transition:
 			transform var(--transition-fast),
 			border-color var(--transition-fast),
@@ -566,12 +572,17 @@
 	.pattern {
 		display: flex;
 		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
 		gap: var(--spacing-sm);
+		max-width: 100%;
 	}
 
 	.prompt-row {
 		display: flex;
 		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
 		gap: var(--spacing-md);
 	}
 
