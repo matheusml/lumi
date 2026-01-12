@@ -57,10 +57,12 @@
 		box-shadow: var(--shadow-md);
 	}
 
-	/* Hover state */
-	.choice-button.default:hover:not(:disabled) {
-		border-color: var(--color-primary);
-		transform: scale(1.02);
+	/* Hover state - only on devices that support hover */
+	@media (hover: hover) {
+		.choice-button.default:hover:not(:disabled) {
+			border-color: var(--color-primary);
+			transform: scale(1.02);
+		}
 	}
 
 	/* Selected state */
