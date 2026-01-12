@@ -39,6 +39,8 @@
 		patterns: { difficulty: 1, accuracy: 0 },
 		// Logic
 		'odd-one-out': { difficulty: 1, accuracy: 0 },
+		matching: { difficulty: 1, accuracy: 0 },
+		sequence: { difficulty: 1, accuracy: 0 },
 		// Grammar
 		'letter-recognition': { difficulty: 1, accuracy: 0 },
 		'alphabet-order': { difficulty: 1, accuracy: 0 },
@@ -133,6 +135,8 @@
 			'patterns',
 			// Logic
 			'odd-one-out',
+			'matching',
+			'sequence',
 			// Grammar
 			'letter-recognition',
 			'alphabet-order',
@@ -176,6 +180,8 @@
 		patterns: 'Padrões',
 		// Logic
 		'odd-one-out': 'Qual é Diferente',
+		matching: 'Combinações',
+		sequence: 'Sequências',
 		// Grammar
 		'letter-recognition': 'Letras',
 		'alphabet-order': 'Alfabeto',

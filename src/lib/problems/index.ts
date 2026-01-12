@@ -19,6 +19,8 @@ export { PatternProblemGenerator } from './pattern-generator'
 
 // Logic generators
 export { OddOneOutGenerator } from './logic-generator'
+export { MatchingProblemGenerator } from './matching-generator'
+export { SequenceProblemGenerator } from './sequence-generator'
 
 // Grammar generators
 export {

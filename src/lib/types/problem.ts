@@ -8,7 +8,7 @@
 export type MathProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison' | 'patterns'
 
 /** Logic problem types */
-export type LogicProblemType = 'odd-one-out'
+export type LogicProblemType = 'odd-one-out' | 'matching' | 'sequence'
 
 /** Grammar problem types */
 export type GrammarProblemType =
@@ -41,7 +41,7 @@ export const GRAMMAR_PROBLEM_TYPES: GrammarProblemType[] = [
 ]
 
 /** All logic problem types */
-export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = ['odd-one-out']
+export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = ['odd-one-out', 'matching', 'sequence']
 
 /** Difficulty levels (1-4) */
 export type DifficultyLevel = 1 | 2 | 3 | 4
@@ -70,6 +70,8 @@ export interface ProblemVisual {
 		| 'word'
 		| 'letter-sequence'
 		| 'logic-group'
+		| 'logic-matching'
+		| 'logic-sequence'
 	elements: VisualElement[]
 	operator?: '+' | '-' // For equations
 	// Grammar-specific fields
@@ -78,6 +80,7 @@ export interface ProblemVisual {
 	letterCase?: 'upper' | 'lower' // For letter display
 	// Logic-specific fields
 	categoryHint?: string // Hint about what the group has in common (e.g., "frutas")
+	sourceObject?: string // For matching: the object to match
 }
 
 /** Answer value - can be number, letter, object selection, or pattern */

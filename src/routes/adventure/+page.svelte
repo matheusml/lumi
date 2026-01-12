@@ -416,12 +416,36 @@
 							</button>
 						{/each}
 					</div>
+				{:else if currentProblem.visual.type === 'logic-matching'}
+					<div class="logic-matching">
+						<div class="matching-source">
+							<span class="matching-source-emoji">{currentProblem.visual.sourceObject}</span>
+							<span class="matching-arrow">→</span>
+							<span class="matching-question">?</span>
+						</div>
+					</div>
+				{:else if currentProblem.visual.type === 'logic-sequence'}
+					<div class="logic-sequence">
+						{#each currentProblem.visual.elements as element}
+							{#if element.object === 'unknown'}
+								<div class="sequence-unknown">?</div>
+							{:else}
+								<span class="sequence-emoji">{element.object}</span>
+							{/if}
+							{#if element.object !== 'unknown'}
+								<span class="sequence-arrow">→</span>
+							{/if}
+						{/each}
+					</div>
 				{/if}
 			</div>
 
 			<!-- Answer choices (not for comparison or logic-group which have inline selection) -->
 			{#if currentProblem.type !== 'comparison' && currentProblem.visual.type !== 'logic-group'}
-				<div class="choices">
+				<div
+					class="choices"
+					class:emoji-choices={currentProblem.answerChoices[0]?.type === 'object'}
+				>
 					{#each currentProblem.answerChoices as choice}
 						<ChoiceButton
 							state={getAnswerState(choice)}
@@ -434,6 +458,8 @@
 								<PatternCircle colorId={choice.value[0]} size="small" />
 							{:else if choice.type === 'letter'}
 								{choice.value}
+							{:else if choice.type === 'object'}
+								<span class="choice-emoji">{choice.value}</span>
 							{/if}
 						</ChoiceButton>
 					{/each}
@@ -647,6 +673,84 @@
 
 	.logic-emoji {
 		font-size: 48px;
+	}
+
+	/* Matching visual */
+	.logic-matching {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-lg);
+	}
+
+	.matching-source {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-lg);
+	}
+
+	.matching-source-emoji {
+		font-size: 64px;
+	}
+
+	.matching-arrow {
+		font-size: 36px;
+		color: var(--color-text-muted);
+	}
+
+	.matching-question {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80px;
+		height: 80px;
+		border: 3px dashed var(--color-border);
+		border-radius: var(--radius-xl);
+		font-size: 36px;
+		font-weight: 700;
+		color: var(--color-text-muted);
+	}
+
+	/* Sequence visual */
+	.logic-sequence {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.sequence-emoji {
+		font-size: 48px;
+	}
+
+	.sequence-arrow {
+		font-size: 24px;
+		color: var(--color-text-muted);
+	}
+
+	.sequence-unknown {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 60px;
+		border: 3px dashed var(--color-border);
+		border-radius: var(--radius-lg);
+		font-size: 28px;
+		font-weight: 700;
+		color: var(--color-text-muted);
+	}
+
+	/* Emoji choices styling */
+	.emoji-choices {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-md);
+	}
+
+	.choice-emoji {
+		font-size: 32px;
 	}
 
 	.prompt-row {
