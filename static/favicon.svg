@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Main face circle -->
+  <circle cx="32" cy="32" r="30" fill="#F59E8C"/>
+
+  <!-- Left cheek -->
+  <ellipse cx="14" cy="38" rx="6" ry="4" fill="#FFCDB2" opacity="0.7"/>
+
+  <!-- Right cheek -->
+  <ellipse cx="50" cy="38" rx="6" ry="4" fill="#FFCDB2" opacity="0.7"/>
+
+  <!-- Left eye -->
+  <circle cx="22" cy="28" r="3.5" fill="#4A4A4A"/>
+
+  <!-- Right eye -->
+  <circle cx="42" cy="28" r="3.5" fill="#4A4A4A"/>
+
+  <!-- Smile -->
+  <path d="M 22 40 Q 32 50 42 40" stroke="#4A4A4A" stroke-width="3" stroke-linecap="round" fill="none"/>
+</svg>
