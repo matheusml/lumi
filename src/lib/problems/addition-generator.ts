@@ -85,7 +85,9 @@ export class AdditionProblemGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: `${a} + ${b} = ?`,
-				en: `${a} + ${b} = ?`
+				en: `${a} + ${b} = ?`,
+				de: `${a} + ${b} = ?`,
+				fr: `${a} + ${b} = ?`
 			},
 			correctAnswer: { type: 'number', value: sum },
 			answerChoices: generateNumberChoices(sum)

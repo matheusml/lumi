@@ -50,6 +50,8 @@ export type DifficultyLevel = 1 | 2 | 3 | 4
 export interface LocalizedString {
 	ptBR: string
 	en: string
+	de: string
+	fr: string
 }
 
 /** Visual element representing countable objects */

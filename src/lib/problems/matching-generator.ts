@@ -240,7 +240,9 @@ export class MatchingProblemGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: 'O que combina?',
-				en: 'What goes together?'
+				en: 'What goes together?',
+				de: 'Was passt zusammen?',
+				fr: "Qu'est-ce qui va ensemble?"
 			},
 			correctAnswer: { type: 'object', value: pair.match.emoji },
 			answerChoices: choices

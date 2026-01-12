@@ -98,7 +98,9 @@ export class LetterRecognitionGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: 'Qual é a letra?',
-				en: 'What letter is this?'
+				en: 'What letter is this?',
+				de: 'Welcher Buchstabe ist das?',
+				fr: 'Quelle est cette lettre?'
 			},
 			correctAnswer: { type: 'letter', value: letterInfo.uppercase },
 			answerChoices: choices

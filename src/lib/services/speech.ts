@@ -6,7 +6,7 @@
  */
 
 export interface SpeechOptions {
-	lang?: 'pt-BR' | 'en-US'
+	lang?: 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
 	rate?: number
 	pitch?: number
 }
@@ -64,6 +64,18 @@ class SpeechService {
 				.replace(/\+/g, ' mais ')
 				.replace(/-/g, ' menos ')
 				.replace(/=/g, ' igual a ')
+				.replace(/\?/g, '')
+		} else if (lang.startsWith('de')) {
+			return text
+				.replace(/\+/g, ' plus ')
+				.replace(/-/g, ' minus ')
+				.replace(/=/g, ' gleich ')
+				.replace(/\?/g, '')
+		} else if (lang.startsWith('fr')) {
+			return text
+				.replace(/\+/g, ' plus ')
+				.replace(/-/g, ' moins ')
+				.replace(/=/g, ' égale ')
 				.replace(/\?/g, '')
 		} else {
 			return text

@@ -7,12 +7,18 @@
 	 */
 
 	import { goto } from '$app/navigation'
-	import { onMount } from 'svelte'
+	import { onMount, onDestroy } from 'svelte'
 	import { LumiButton } from '$lib/components'
 	import { difficultyManager, adventureLimitService, speechService } from '$lib/services'
+	import { getTranslations, getSpeechLanguage, subscribe } from '$lib/i18n'
+	import type { Translations } from '$lib/i18n'
 	import type { ProblemType } from '$lib/types'
 	import type { VoiceInfo } from '$lib/services/speech'
 	import { DEFAULT_DAILY_LIMIT, MAX_DAILY_LIMIT, MIN_DAILY_LIMIT } from '$lib/types'
+
+	// i18n state
+	let t = $state<Translations>(getTranslations())
+	let unsubscribe: (() => void) | null = null
 
 	// Gate state
 	let isUnlocked = $state(false)
@@ -49,15 +55,22 @@
 	})
 
 	onMount(() => {
+		unsubscribe = subscribe(() => {
+			t = getTranslations()
+		})
 		generateGateQuestion()
 		loadState()
 		loadVoices()
 	})
 
+	onDestroy(() => {
+		unsubscribe?.()
+	})
+
 	function loadVoices() {
 		// Voices may load asynchronously, so we try multiple times
 		const tryLoadVoices = () => {
-			const voices = speechService.getVoicesForLanguage('pt-BR')
+			const voices = speechService.getVoicesForLanguage(getSpeechLanguage())
 			if (voices.length > 0) {
 				availableVoices = voices
 				selectedVoiceName = speechService.getSelectedVoiceName()
@@ -78,7 +91,16 @@
 	}
 
 	function testVoice() {
-		speechService.speak('Olá! Eu sou a Lumi, sua amiga de aprendizado.', { lang: 'pt-BR' })
+		const testMessages: Record<string, string> = {
+			'pt-BR': 'Olá! Eu sou a Lumi, sua amiga de aprendizado.',
+			'en-US': "Hello! I'm Lumi, your learning friend.",
+			'de-DE': 'Hallo! Ich bin Lumi, dein Lernfreund.',
+			'fr-FR': "Bonjour! Je suis Lumi, ton ami d'apprentissage."
+		}
+		const lang = getSpeechLanguage()
+		speechService.speak(testMessages[lang] || testMessages['en-US'], {
+			lang: lang as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
+		})
 	}
 
 	function generateGateQuestion() {
@@ -171,35 +193,38 @@
 		goto('/')
 	}
 
-	const activityNames: Record<ProblemType, string> = {
-		// Math
-		counting: 'Contagem',
-		addition: 'Adição',
-		subtraction: 'Subtração',
-		comparison: 'Comparação',
-		patterns: 'Padrões',
-		// Logic
-		'odd-one-out': 'Qual é Diferente',
-		matching: 'Combinações',
-		sequence: 'Sequências',
-		// Grammar
-		'letter-recognition': 'Letras',
-		'alphabet-order': 'Alfabeto',
-		'initial-letter': 'Letra Inicial',
-		'word-completion': 'Completar Palavras'
+	function getActivityName(type: ProblemType): string {
+		const names: Record<ProblemType, string> = {
+			// Math
+			counting: t.parents.counting,
+			addition: t.parents.addition,
+			subtraction: t.parents.subtraction,
+			comparison: t.parents.comparison,
+			patterns: t.parents.patterns,
+			// Logic
+			'odd-one-out': t.parents.oddOneOut,
+			matching: t.parents.matching,
+			sequence: t.parents.sequence,
+			// Grammar
+			'letter-recognition': t.parents.letterRecognition,
+			'alphabet-order': t.parents.alphabetOrder,
+			'initial-letter': t.parents.initialLetter,
+			'word-completion': t.parents.wordCompletion
+		}
+		return names[type]
 	}
 </script>
 
 <svelte:head>
-	<title>Área dos Pais - Lumi</title>
+	<title>{t.parents.title} - {t.home.title}</title>
 </svelte:head>
 
 <main class="parents">
 	{#if !isUnlocked}
 		<!-- Gate -->
 		<div class="gate">
-			<h1 class="gate-title">Área dos Pais</h1>
-			<p class="gate-description">Resolva o problema para entrar:</p>
+			<h1 class="gate-title">{t.parents.title}</h1>
+			<p class="gate-description">{t.parents.gateDescription}</p>
 			<p class="gate-question">
 				{gateQuestion.a} × {gateQuestion.b} = ?
 			</p>
@@ -208,49 +233,49 @@
 				bind:value={gateAnswer}
 				class="gate-input"
 				class:error={gateError}
-				placeholder="Resposta"
+				placeholder={t.parents.answer}
 				onkeydown={(e) => e.key === 'Enter' && checkGate()}
 			/>
 			{#if gateError}
-				<p class="gate-error">Resposta incorreta. Tente novamente.</p>
+				<p class="gate-error">{t.parents.wrongAnswer}</p>
 			{/if}
 			<div class="gate-actions">
-				<LumiButton onclick={checkGate} variant="primary">Entrar</LumiButton>
-				<LumiButton onclick={goHome} variant="ghost">Voltar</LumiButton>
+				<LumiButton onclick={checkGate} variant="primary">{t.parents.enter}</LumiButton>
+				<LumiButton onclick={goHome} variant="ghost">{t.parents.back}</LumiButton>
 			</div>
 		</div>
 	{:else}
 		<!-- Dashboard -->
 		<header class="header">
-			<h1 class="title">Área dos Pais</h1>
-			<button class="back-button" onclick={goHome}>← Voltar</button>
+			<h1 class="title">{t.parents.title}</h1>
+			<button class="back-button" onclick={goHome}>← {t.parents.back}</button>
 		</header>
 
 		<section class="section">
-			<h2 class="section-title">Hoje</h2>
+			<h2 class="section-title">{t.parents.today}</h2>
 			<div class="card">
 				<p class="stat">
 					<span class="stat-value">{todayCount}</span>
-					<span class="stat-label">aventuras completadas</span>
+					<span class="stat-label">{t.parents.adventuresCompleted}</span>
 				</p>
 				{#if todayCount > 0}
-					<button class="text-button" onclick={resetTodayCount}> Resetar contagem de hoje </button>
+					<button class="text-button" onclick={resetTodayCount}>{t.parents.resetToday}</button>
 				{/if}
 			</div>
 		</section>
 
 		<section class="section">
-			<h2 class="section-title">Progresso por Atividade</h2>
+			<h2 class="section-title">{t.parents.progressByActivity}</h2>
 			<div class="progress-grid">
 				{#each Object.entries(activityProgress) as [type, data]}
 					<div class="progress-card">
-						<h3 class="progress-title">{activityNames[type as ProblemType]}</h3>
+						<h3 class="progress-title">{getActivityName(type as ProblemType)}</h3>
 						<div class="progress-stats">
 							<span class="progress-stat">
-								Nível: <strong>{data.difficulty}</strong>/4
+								{t.parents.level}: <strong>{data.difficulty}</strong>/4
 							</span>
 							<span class="progress-stat">
-								Precisão: <strong>{data.accuracy}%</strong>
+								{t.parents.accuracy}: <strong>{data.accuracy}%</strong>
 							</span>
 						</div>
 					</div>
@@ -259,18 +284,18 @@
 		</section>
 
 		<section class="section">
-			<h2 class="section-title">Configurações</h2>
+			<h2 class="section-title">{t.parents.settings}</h2>
 			<div class="card">
 				<div class="setting">
 					<label class="setting-label">
 						<input type="checkbox" bind:checked={limitEnabled} onchange={saveSettings} />
-						Limite diário ativado
+						{t.parents.dailyLimitEnabled}
 					</label>
 				</div>
 				{#if limitEnabled}
 					<div class="setting">
 						<label class="setting-label">
-							Aventuras por dia:
+							{t.parents.adventuresPerDay}:
 							<input
 								type="number"
 								bind:value={dailyLimit}
@@ -286,15 +311,15 @@
 
 			{#if availableVoices.length > 0}
 				<div class="card">
-					<h3 class="card-title">Voz</h3>
-					<p class="card-description">Escolha a voz para as instruções faladas.</p>
+					<h3 class="card-title">{t.parents.voice}</h3>
+					<p class="card-description">{t.parents.voiceDescription}</p>
 					<div class="setting">
 						<select
 							class="voice-select"
 							value={selectedVoiceName ?? ''}
 							onchange={handleVoiceChange}
 						>
-							<option value="">Automático (melhor disponível)</option>
+							<option value="">{t.parents.automatic}</option>
 							{#each availableVoices as voice}
 								<option value={voice.name}>
 									{voice.name}{voice.isCloud ? ' ★' : ''}
@@ -302,7 +327,7 @@
 							{/each}
 						</select>
 					</div>
-					<button class="text-button" onclick={testVoice}> ▶ Testar voz </button>
+					<button class="text-button" onclick={testVoice}>▶ {t.parents.testVoice}</button>
 				</div>
 			{/if}
 		</section>

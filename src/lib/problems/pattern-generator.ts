@@ -117,7 +117,9 @@ export class PatternProblemGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: 'O que vem depois?',
-				en: 'What comes next?'
+				en: 'What comes next?',
+				de: 'Was kommt als nächstes?',
+				fr: 'Que vient ensuite?'
 			},
 			correctAnswer: { type: 'pattern', value: [answerColor] },
 			answerChoices: choices

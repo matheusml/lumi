@@ -139,7 +139,9 @@ export class AlphabetOrderGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: 'O que vem depois?',
-				en: 'What comes next?'
+				en: 'What comes next?',
+				de: 'Was kommt als nächstes?',
+				fr: 'Que vient ensuite?'
 			},
 			correctAnswer: { type: 'letter', value: correctLetter.uppercase },
 			answerChoices: choices

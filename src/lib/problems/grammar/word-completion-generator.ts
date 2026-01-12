@@ -130,7 +130,9 @@ export class WordCompletionGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: 'Complete a palavra',
-				en: 'Complete the word'
+				en: 'Complete the word',
+				de: 'Vervollständige das Wort',
+				fr: 'Complète le mot'
 			},
 			correctAnswer: { type: 'letter', value: correctLetter },
 			answerChoices: choices

@@ -9,7 +9,7 @@
 
 	interface Props {
 		text: string
-		lang?: 'pt-BR' | 'en-US'
+		lang?: 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
 	}
 
 	let { text, lang = 'pt-BR' }: Props = $props()
