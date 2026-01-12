@@ -105,7 +105,9 @@ export class InitialLetterGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: `Com qual letra começa "${wordInfo.namePtBR}"?`,
-				en: `What letter does "${wordInfo.nameEn}" start with?`
+				en: `What letter does "${wordInfo.nameEn}" start with?`,
+				de: `Mit welchem Buchstaben beginnt "${wordInfo.nameDe || wordInfo.nameEn}"?`,
+				fr: `Par quelle lettre commence "${wordInfo.nameFr || wordInfo.nameEn}"?`
 			},
 			correctAnswer: { type: 'letter', value: correctLetter },
 			answerChoices: choices

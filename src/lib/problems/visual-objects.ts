@@ -9,6 +9,8 @@ export interface VisualObjectInfo {
 	emoji: string
 	namePtBR: string
 	nameEn: string
+	nameDe: string
+	nameFr: string
 	singularPtBR: string
 	quantifierPtBR: string // "Quantos" (masc) or "Quantas" (fem)
 }
@@ -19,6 +21,8 @@ export const visualObjects: VisualObjectInfo[] = [
 		emoji: '🍎',
 		namePtBR: 'maçãs',
 		nameEn: 'apples',
+		nameDe: 'Äpfel',
+		nameFr: 'pommes',
 		singularPtBR: 'maçã',
 		quantifierPtBR: 'Quantas'
 	},
@@ -27,6 +31,8 @@ export const visualObjects: VisualObjectInfo[] = [
 		emoji: '⭐',
 		namePtBR: 'estrelas',
 		nameEn: 'stars',
+		nameDe: 'Sterne',
+		nameFr: 'étoiles',
 		singularPtBR: 'estrela',
 		quantifierPtBR: 'Quantas'
 	},
@@ -35,6 +41,8 @@ export const visualObjects: VisualObjectInfo[] = [
 		emoji: '🐦',
 		namePtBR: 'pássaros',
 		nameEn: 'birds',
+		nameDe: 'Vögel',
+		nameFr: 'oiseaux',
 		singularPtBR: 'pássaro',
 		quantifierPtBR: 'Quantos'
 	},
@@ -43,6 +51,8 @@ export const visualObjects: VisualObjectInfo[] = [
 		emoji: '🍌',
 		namePtBR: 'bananas',
 		nameEn: 'bananas',
+		nameDe: 'Bananen',
+		nameFr: 'bananes',
 		singularPtBR: 'banana',
 		quantifierPtBR: 'Quantas'
 	},
@@ -51,6 +61,8 @@ export const visualObjects: VisualObjectInfo[] = [
 		emoji: '🌸',
 		namePtBR: 'flores',
 		nameEn: 'flowers',
+		nameDe: 'Blumen',
+		nameFr: 'fleurs',
 		singularPtBR: 'flor',
 		quantifierPtBR: 'Quantas'
 	},
@@ -59,6 +71,8 @@ export const visualObjects: VisualObjectInfo[] = [
 		emoji: '❤️',
 		namePtBR: 'corações',
 		nameEn: 'hearts',
+		nameDe: 'Herzen',
+		nameFr: 'coeurs',
 		singularPtBR: 'coração',
 		quantifierPtBR: 'Quantos'
 	},
@@ -67,6 +81,8 @@ export const visualObjects: VisualObjectInfo[] = [
 		emoji: '🦋',
 		namePtBR: 'borboletas',
 		nameEn: 'butterflies',
+		nameDe: 'Schmetterlinge',
+		nameFr: 'papillons',
 		singularPtBR: 'borboleta',
 		quantifierPtBR: 'Quantas'
 	},
@@ -75,6 +91,8 @@ export const visualObjects: VisualObjectInfo[] = [
 		emoji: '🐟',
 		namePtBR: 'peixes',
 		nameEn: 'fish',
+		nameDe: 'Fische',
+		nameFr: 'poissons',
 		singularPtBR: 'peixe',
 		quantifierPtBR: 'Quantos'
 	}

@@ -21,6 +21,8 @@
 	} from '$lib/components'
 	import { problemService } from '$lib/problems'
 	import { difficultyManager, adventureLimitService, speechService } from '$lib/services'
+	import { getTranslations, localize, getSpeechLanguage, subscribe } from '$lib/i18n'
+	import type { Translations } from '$lib/i18n'
 	import type {
 		Problem,
 		AnswerValue,
@@ -39,6 +41,10 @@
 	const adventureType = $derived(
 		($page.url.searchParams.get('type') as AdventureCategory) || 'math'
 	)
+
+	// i18n state
+	let t = $state<Translations>(getTranslations())
+	let unsubscribe: (() => void) | null = null
 
 	// Adventure state
 	let problems: Problem[] = $state([])
@@ -60,12 +66,18 @@
 	const isLastProblem = $derived(currentIndex === problems.length - 1)
 
 	onMount(() => {
+		// Subscribe to language changes
+		unsubscribe = subscribe(() => {
+			t = getTranslations()
+		})
 		// Load state and generate problems
 		loadState()
 		generateProblems()
 	})
 
 	onDestroy(() => {
+		// Clean up subscription
+		unsubscribe?.()
 		// Clean up auto-progress timeout
 		if (autoProgressTimeout) {
 			clearTimeout(autoProgressTimeout)
@@ -146,7 +158,9 @@
 			const autoVoice = localStorage.getItem('lumi-auto-voice') === 'true'
 			if (autoVoice) {
 				setTimeout(() => {
-					speechService.speak(problems[0].prompt.ptBR, { lang: 'pt-BR' })
+					speechService.speak(localize(problems[0].prompt), {
+						lang: getSpeechLanguage() as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
+					})
 				}, 500)
 			}
 		}
@@ -236,7 +250,9 @@
 			const autoVoice = localStorage.getItem('lumi-auto-voice') === 'true'
 			if (autoVoice && problems[currentIndex]) {
 				setTimeout(() => {
-					speechService.speak(problems[currentIndex].prompt.ptBR, { lang: 'pt-BR' })
+					speechService.speak(localize(problems[currentIndex].prompt), {
+						lang: getSpeechLanguage() as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
+					})
 				}, 300)
 			}
 		}
@@ -287,13 +303,13 @@
 </script>
 
 <svelte:head>
-	<title>Aventura - Lumi</title>
+	<title>{t.home.title}</title>
 </svelte:head>
 
 <main class="adventure">
 	{#if currentProblem}
 		<header class="header">
-			<button class="home-button" onclick={() => goto('/')} aria-label="Voltar para início">
+			<button class="home-button" onclick={() => goto('/')} aria-label={t.adventure.backToHome}>
 				<svg
 					width="24"
 					height="24"
@@ -319,8 +335,8 @@
 		<div class="problem-area">
 			<!-- Prompt with speaker button -->
 			<div class="prompt-row">
-				<h2 class="prompt">{currentProblem.prompt.ptBR}</h2>
-				<SpeakerButton text={currentProblem.prompt.ptBR} lang="pt-BR" />
+				<h2 class="prompt">{localize(currentProblem.prompt)}</h2>
+				<SpeakerButton text={localize(currentProblem.prompt)} lang={getSpeechLanguage()} />
 			</div>
 
 			<!-- Visual display -->
@@ -360,7 +376,7 @@
 								maxPerRow={4}
 							/>
 						</button>
-						<span class="vs">ou</span>
+						<span class="vs">{t.common.or}</span>
 						<button
 							class="comparison-side"
 							class:selected={selectedAnswer?.type === 'side' && selectedAnswer.value === 'right'}
@@ -471,18 +487,18 @@
 		{#if hasAnswered}
 			<div class="feedback" class:correct={isCorrect}>
 				<p class="feedback-text">
-					{isCorrect ? 'Muito bem! 🎉' : 'Tente novamente da próxima vez! 💪'}
+					{isCorrect ? `${t.adventure.correct} 🎉` : `${t.adventure.tryAgain} 💪`}
 				</p>
 				{#if !isCorrect}
 					<LumiButton onclick={nextProblem} variant="secondary">
-						{isLastProblem ? 'Terminar' : 'Próximo'}
+						{isLastProblem ? t.common.finish : t.common.next}
 					</LumiButton>
 				{/if}
 			</div>
 		{/if}
 	{:else}
 		<div class="loading">
-			<p>Preparando aventura...</p>
+			<p>{t.adventure.preparing}</p>
 		</div>
 	{/if}
 </main>

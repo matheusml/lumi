@@ -6,11 +6,26 @@
 	 */
 
 	import { goto } from '$app/navigation'
+	import { onMount, onDestroy } from 'svelte'
 	import { LumiButton, Icon, LumiMascot } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
+	import { getTranslations, subscribe } from '$lib/i18n'
+	import type { Translations } from '$lib/i18n'
 
 	let canStart = $state(true)
 	let remaining = $state(3)
+	let t = $state<Translations>(getTranslations())
+	let unsubscribe: (() => void) | null = null
+
+	onMount(() => {
+		unsubscribe = subscribe(() => {
+			t = getTranslations()
+		})
+	})
+
+	onDestroy(() => {
+		unsubscribe?.()
+	})
 
 	$effect(() => {
 		// Load state from localStorage
@@ -52,38 +67,38 @@
 </script>
 
 <svelte:head>
-	<title>Lumi - Educação que respeita a criança</title>
+	<title>{t.home.title} - {t.home.tagline}</title>
 </svelte:head>
 
 <main class="home">
 	<div class="content">
 		<div class="logo">
 			<LumiMascot size={72} />
-			<h1 class="logo-text">Lumi</h1>
+			<h1 class="logo-text">{t.home.title}</h1>
 		</div>
 
-		<p class="headline">Educação que respeita a criança</p>
+		<p class="headline">{t.home.tagline}</p>
 
 		<div class="philosophy-cards">
 			<div class="philosophy-card dont">
-				<h3 class="philosophy-title">O que NÃO fazemos</h3>
+				<h3 class="philosophy-title">{t.home.whatWeDont}</h3>
 				<ul class="philosophy-list">
-					<li>Sem anúncios</li>
-					<li>Sem pontos ou recompensas</li>
-					<li>Sem notificações</li>
-					<li>Sem pressão de tempo</li>
-					<li>Sem comparações</li>
+					<li>{t.home.dontList.noAds}</li>
+					<li>{t.home.dontList.noPoints}</li>
+					<li>{t.home.dontList.noNotifications}</li>
+					<li>{t.home.dontList.noPressure}</li>
+					<li>{t.home.dontList.noComparisons}</li>
 				</ul>
 			</div>
 
 			<div class="philosophy-card do">
-				<h3 class="philosophy-title">O que fazemos</h3>
+				<h3 class="philosophy-title">{t.home.whatWeDo}</h3>
 				<ul class="philosophy-list">
-					<li>Limite diário (configurável)</li>
-					<li>100% privado e seguro</li>
-					<li>Animações calmas</li>
-					<li>Aprender brincando</li>
-					<li>Dificuldade ajustada automaticamente</li>
+					<li>{t.home.doList.dailyLimit}</li>
+					<li>{t.home.doList.private}</li>
+					<li>{t.home.doList.calmAnimations}</li>
+					<li>{t.home.doList.playfulLearning}</li>
+					<li>{t.home.doList.adaptiveDifficulty}</li>
 				</ul>
 			</div>
 		</div>
@@ -92,34 +107,35 @@
 			<div class="action-area">
 				<div class="adventure-buttons">
 					<LumiButton onclick={startMathAdventure} size="large"
-						><Icon name="math" size={28} /> Matemática</LumiButton
+						><Icon name="math" size={28} /> {t.home.math}</LumiButton
 					>
 					<LumiButton onclick={startGrammarAdventure} size="large" variant="secondary"
-						><Icon name="book" size={28} /> Gramática</LumiButton
+						><Icon name="book" size={28} /> {t.home.grammar}</LumiButton
 					>
 					<LumiButton onclick={startLogicAdventure} size="large" variant="tertiary"
-						><Icon name="puzzle" size={28} /> Lógica</LumiButton
+						><Icon name="puzzle" size={28} /> {t.home.logic}</LumiButton
 					>
 				</div>
 
 				{#if remaining !== Infinity}
 					<p class="remaining">
 						{remaining}
-						{remaining === 1 ? 'aventura restante' : 'aventuras restantes'} hoje
+						{remaining === 1 ? t.home.adventureRemaining : t.home.adventuresRemaining}
 					</p>
 				{/if}
 			</div>
 		{:else}
 			<div class="limit-reached">
-				<p class="limit-message">Você completou todas as aventuras de hoje! 🎉</p>
-				<p class="encouragement">Que tal brincar lá fora ou ler um livro?</p>
+				<p class="limit-message">{t.home.limitReached} 🎉</p>
+				<p class="encouragement">{t.home.encourageOutdoor}</p>
 			</div>
 		{/if}
 	</div>
 
 	<footer class="footer">
 		<button class="parent-link" onclick={openParentZone}>
-			<Icon name="settings" size={16} /> Área dos Pais
+			<Icon name="settings" size={16} />
+			{t.home.parentZone}
 		</button>
 	</footer>
 </main>

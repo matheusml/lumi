@@ -101,7 +101,9 @@ export class ComparisonProblemGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: 'Qual lado tem mais?',
-				en: 'Which side has more?'
+				en: 'Which side has more?',
+				de: 'Welche Seite hat mehr?',
+				fr: 'Quel côté en a le plus?'
 			},
 			correctAnswer: { type: 'side', value: correctSide },
 			answerChoices

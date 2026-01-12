@@ -11,6 +11,8 @@ export interface WordInfo {
 	syllables: string[]
 	namePtBR: string
 	nameEn: string
+	nameDe?: string // Falls back to English
+	nameFr?: string // Falls back to English
 }
 
 /** Word bank organized by starting letter */

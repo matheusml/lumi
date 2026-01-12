@@ -65,7 +65,9 @@ export class CountingProblemGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: `${object.quantifierPtBR} ${object.namePtBR} você vê?`,
-				en: `How many ${object.nameEn} do you see?`
+				en: `How many ${object.nameEn} do you see?`,
+				de: `Wie viele ${object.nameDe} siehst du?`,
+				fr: `Combien de ${object.nameFr} vois-tu?`
 			},
 			correctAnswer: { type: 'number', value: count },
 			answerChoices: generateNumberChoices(count)

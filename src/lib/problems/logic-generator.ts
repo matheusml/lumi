@@ -288,7 +288,9 @@ export class OddOneOutGenerator implements ProblemGenerator {
 			},
 			prompt: {
 				ptBR: 'Qual não é do mesmo grupo?',
-				en: "Which one doesn't belong?"
+				en: "Which one doesn't belong?",
+				de: 'Was gehört nicht dazu?',
+				fr: 'Lequel ne fait pas partie du groupe?'
 			},
 			correctAnswer: { type: 'object', value: oddObject.emoji },
 			answerChoices: choices

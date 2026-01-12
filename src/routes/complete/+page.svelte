@@ -7,10 +7,26 @@
 
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
+	import { onMount, onDestroy } from 'svelte'
 	import { LumiButton } from '$lib/components'
+	import { getTranslations, subscribe } from '$lib/i18n'
+	import type { Translations } from '$lib/i18n'
 
 	const correct = $derived(parseInt($page.url.searchParams.get('correct') ?? '0'))
 	const total = $derived(parseInt($page.url.searchParams.get('total') ?? '5'))
+
+	let t = $state<Translations>(getTranslations())
+	let unsubscribe: (() => void) | null = null
+
+	onMount(() => {
+		unsubscribe = subscribe(() => {
+			t = getTranslations()
+		})
+	})
+
+	onDestroy(() => {
+		unsubscribe?.()
+	})
 
 	function goHome() {
 		goto('/')
@@ -18,31 +34,35 @@
 </script>
 
 <svelte:head>
-	<title>Parabéns! - Lumi</title>
+	<title>{t.complete.title} - {t.home.title}</title>
 </svelte:head>
 
 <main class="complete">
 	<div class="celebration">
 		<span class="emoji">🎉</span>
-		<h1 class="title">Parabéns!</h1>
-		<p class="message">Você completou a aventura!</p>
+		<h1 class="title">{t.complete.congratulations}</h1>
+		<p class="message">{t.complete.message}</p>
 	</div>
 
 	<div class="summary">
 		<p class="summary-text">
-			Você acertou {correct} de {total} problemas
+			{t.complete.youGot}
+			{correct}
+			{t.complete.of}
+			{total}
+			{t.complete.problems}
 		</p>
 		{#if correct === total}
-			<p class="encouragement">Incrível! Você acertou todos! ⭐</p>
+			<p class="encouragement">{t.complete.perfect} ⭐</p>
 		{:else if correct >= total * 0.6}
-			<p class="encouragement">Muito bom! Continue assim! 💪</p>
+			<p class="encouragement">{t.complete.great} 💪</p>
 		{:else}
-			<p class="encouragement">Bom trabalho! A prática leva à perfeição! 🌟</p>
+			<p class="encouragement">{t.complete.goodJob} 🌟</p>
 		{/if}
 	</div>
 
 	<div class="actions">
-		<LumiButton onclick={goHome}>Voltar ao Início</LumiButton>
+		<LumiButton onclick={goHome}>{t.complete.backToStart}</LumiButton>
 	</div>
 </main>
 
