@@ -40,6 +40,12 @@
 		}
 	}
 
+	function startLogicAdventure() {
+		if (canStart) {
+			goto('/adventure?type=logic')
+		}
+	}
+
 	function openParentZone() {
 		goto('/parents')
 	}
@@ -90,6 +96,9 @@
 					>
 					<LumiButton onclick={startGrammarAdventure} size="large" variant="secondary"
 						><Icon name="book" size={28} /> Gramática</LumiButton
+					>
+					<LumiButton onclick={startLogicAdventure} size="large" variant="tertiary"
+						><Icon name="puzzle" size={28} /> Lógica</LumiButton
 					>
 				</div>
 

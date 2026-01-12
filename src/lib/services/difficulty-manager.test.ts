@@ -257,6 +257,31 @@ describe('DifficultyManager', () => {
 					consecutiveCorrect: 0,
 					consecutiveIncorrect: 0
 				},
+				// Logic
+				'odd-one-out': {
+					activityType: 'odd-one-out' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
+				},
+				matching: {
+					activityType: 'matching' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
+				},
+				sequence: {
+					activityType: 'sequence' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
+				},
 				// Grammar
 				'letter-recognition': {
 					activityType: 'letter-recognition' as const,

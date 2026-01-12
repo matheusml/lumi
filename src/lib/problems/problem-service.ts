@@ -11,6 +11,9 @@ import { AdditionProblemGenerator } from './addition-generator'
 import { SubtractionProblemGenerator } from './subtraction-generator'
 import { ComparisonProblemGenerator } from './comparison-generator'
 import { PatternProblemGenerator } from './pattern-generator'
+import { OddOneOutGenerator } from './logic-generator'
+import { MatchingProblemGenerator } from './matching-generator'
+import { SequenceProblemGenerator } from './sequence-generator'
 import {
 	LetterRecognitionGenerator,
 	AlphabetOrderGenerator,
@@ -35,6 +38,10 @@ export class ProblemService {
 			subtraction: new SubtractionProblemGenerator(),
 			comparison: new ComparisonProblemGenerator(),
 			patterns: new PatternProblemGenerator(),
+			// Logic generators
+			'odd-one-out': new OddOneOutGenerator(),
+			matching: new MatchingProblemGenerator(),
+			sequence: new SequenceProblemGenerator(),
 			// Grammar generators
 			'letter-recognition': new LetterRecognitionGenerator(),
 			'alphabet-order': new AlphabetOrderGenerator(),

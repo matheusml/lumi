@@ -28,7 +28,12 @@
 		ProblemResult,
 		AdventureCategory
 	} from '$lib/types'
-	import { PROBLEMS_PER_ADVENTURE, MATH_PROBLEM_TYPES, GRAMMAR_PROBLEM_TYPES } from '$lib/types'
+	import {
+		PROBLEMS_PER_ADVENTURE,
+		MATH_PROBLEM_TYPES,
+		GRAMMAR_PROBLEM_TYPES,
+		LOGIC_PROBLEM_TYPES
+	} from '$lib/types'
 
 	// Adventure type from URL
 	const adventureType = $derived(
@@ -97,7 +102,12 @@
 		const difficulties = difficultyManager.getAllDifficulties()
 
 		// Get appropriate problem types for this adventure
-		const problemTypes = adventureType === 'grammar' ? GRAMMAR_PROBLEM_TYPES : MATH_PROBLEM_TYPES
+		const problemTypes =
+			adventureType === 'grammar'
+				? GRAMMAR_PROBLEM_TYPES
+				: adventureType === 'logic'
+					? LOGIC_PROBLEM_TYPES
+					: MATH_PROBLEM_TYPES
 		const problemTypesSet = new Set<string>(problemTypes)
 		const filteredDifficulties = new Map(
 			[...difficulties].filter(([type]) => problemTypesSet.has(type))
@@ -258,6 +268,7 @@
 			return JSON.stringify(a.value) === JSON.stringify(b.value)
 		}
 		if (a.type === 'letter' && b.type === 'letter') return a.value === b.value
+		if (a.type === 'object' && b.type === 'object') return a.value === b.value
 		return false
 	}
 
@@ -266,6 +277,7 @@
 		if (answer.type === 'side') return `side-${answer.value}`
 		if (answer.type === 'pattern') return `pattern-${answer.value.join('-')}`
 		if (answer.type === 'letter') return `letter-${answer.value}`
+		if (answer.type === 'object') return `object-${answer.value}`
 		return 'unknown'
 	}
 
@@ -388,12 +400,52 @@
 						letters={currentProblem.visual.elements.map((e) => e.object)}
 						unknownIndex={currentProblem.visual.elements.findIndex((e) => e.object === '?')}
 					/>
+				{:else if currentProblem.visual.type === 'logic-group'}
+					<div class="logic-group">
+						{#each currentProblem.visual.elements as element}
+							<button
+								class="logic-item"
+								class:correct={getAnswerState({ type: 'object', value: element.object }) ===
+									'correct'}
+								class:incorrect={getAnswerState({ type: 'object', value: element.object }) ===
+									'incorrect'}
+								onclick={() => selectAnswer({ type: 'object', value: element.object })}
+								disabled={hasAnswered}
+							>
+								<span class="logic-emoji">{element.object}</span>
+							</button>
+						{/each}
+					</div>
+				{:else if currentProblem.visual.type === 'logic-matching'}
+					<div class="logic-matching">
+						<div class="matching-source">
+							<span class="matching-source-emoji">{currentProblem.visual.sourceObject}</span>
+							<span class="matching-arrow">→</span>
+							<span class="matching-question">?</span>
+						</div>
+					</div>
+				{:else if currentProblem.visual.type === 'logic-sequence'}
+					<div class="logic-sequence">
+						{#each currentProblem.visual.elements as element}
+							{#if element.object === 'unknown'}
+								<div class="sequence-unknown">?</div>
+							{:else}
+								<span class="sequence-emoji">{element.object}</span>
+							{/if}
+							{#if element.object !== 'unknown'}
+								<span class="sequence-arrow">→</span>
+							{/if}
+						{/each}
+					</div>
 				{/if}
 			</div>
 
-			<!-- Answer choices (not for comparison) -->
-			{#if currentProblem.type !== 'comparison'}
-				<div class="choices">
+			<!-- Answer choices (not for comparison or logic-group which have inline selection) -->
+			{#if currentProblem.type !== 'comparison' && currentProblem.visual.type !== 'logic-group'}
+				<div
+					class="choices"
+					class:emoji-choices={currentProblem.answerChoices[0]?.type === 'object'}
+				>
 					{#each currentProblem.answerChoices as choice}
 						<ChoiceButton
 							state={getAnswerState(choice)}
@@ -406,6 +458,8 @@
 								<PatternCircle colorId={choice.value[0]} size="small" />
 							{:else if choice.type === 'letter'}
 								{choice.value}
+							{:else if choice.type === 'object'}
+								<span class="choice-emoji">{choice.value}</span>
 							{/if}
 						</ChoiceButton>
 					{/each}
@@ -576,6 +630,136 @@
 		flex-wrap: wrap;
 		gap: var(--spacing-sm);
 		max-width: 100%;
+	}
+
+	.logic-group {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-lg);
+	}
+
+	.logic-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		width: 100px;
+		height: 100px;
+
+		border: 3px solid var(--color-border);
+		border-radius: var(--radius-xl);
+		background-color: var(--color-surface);
+
+		cursor: pointer;
+		transition:
+			transform var(--transition-fast),
+			border-color var(--transition-fast),
+			background-color var(--transition-fast);
+	}
+
+	.logic-item:hover:not(:disabled) {
+		border-color: var(--color-primary);
+		transform: scale(1.05);
+	}
+
+	.logic-item:active:not(:disabled) {
+		transform: scale(0.98);
+	}
+
+	.logic-item.correct {
+		border-color: var(--color-success-dark);
+		background-color: var(--color-success);
+	}
+
+	.logic-item.incorrect {
+		border-color: var(--color-try-again-dark);
+		background-color: var(--color-try-again);
+	}
+
+	.logic-item:disabled {
+		cursor: default;
+	}
+
+	.logic-emoji {
+		font-size: 48px;
+	}
+
+	/* Matching visual */
+	.logic-matching {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-lg);
+	}
+
+	.matching-source {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-lg);
+	}
+
+	.matching-source-emoji {
+		font-size: 64px;
+	}
+
+	.matching-arrow {
+		font-size: 36px;
+		color: var(--color-text-muted);
+	}
+
+	.matching-question {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80px;
+		height: 80px;
+		border: 3px dashed var(--color-border);
+		border-radius: var(--radius-xl);
+		font-size: 36px;
+		font-weight: 700;
+		color: var(--color-text-muted);
+	}
+
+	/* Sequence visual */
+	.logic-sequence {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.sequence-emoji {
+		font-size: 48px;
+	}
+
+	.sequence-arrow {
+		font-size: 24px;
+		color: var(--color-text-muted);
+	}
+
+	.sequence-unknown {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 60px;
+		border: 3px dashed var(--color-border);
+		border-radius: var(--radius-lg);
+		font-size: 28px;
+		font-weight: 700;
+		color: var(--color-text-muted);
+	}
+
+	/* Emoji choices styling */
+	.emoji-choices {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-md);
+	}
+
+	.choice-emoji {
+		font-size: 32px;
 	}
 
 	.prompt-row {
