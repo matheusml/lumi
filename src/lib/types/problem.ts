@@ -40,7 +40,12 @@ export const GRAMMAR_PROBLEM_TYPES: GrammarProblemType[] = [
 ]
 
 /** All logic problem types */
-export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = ['odd-one-out', 'matching', 'sequence', 'patterns']
+export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = [
+	'odd-one-out',
+	'matching',
+	'sequence',
+	'patterns'
+]
 
 /** Difficulty levels (1-4) */
 export type DifficultyLevel = 1 | 2 | 3 | 4

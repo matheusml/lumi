@@ -8,13 +8,16 @@
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { onMount, onDestroy } from 'svelte'
-	import { LumiButton } from '$lib/components'
+	import { LumiButton, Icon } from '$lib/components'
+	import { adventureLimitService } from '$lib/services'
 	import { getTranslations, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
 
 	const correct = $derived(parseInt($page.url.searchParams.get('correct') ?? '0'))
 	const total = $derived(parseInt($page.url.searchParams.get('total') ?? '5'))
 
+	let canStart = $state(true)
+	let remaining = $state(3)
 	let t = $state<Translations>(getTranslations())
 	let unsubscribe: (() => void) | null = null
 
@@ -28,8 +31,37 @@
 		unsubscribe?.()
 	})
 
-	function goHome() {
-		goto('/')
+	$effect(() => {
+		if (typeof window !== 'undefined') {
+			const stored = localStorage.getItem('lumi-limits')
+			if (stored) {
+				try {
+					adventureLimitService.loadState(JSON.parse(stored))
+				} catch {
+					// Ignore parse errors
+				}
+			}
+			canStart = adventureLimitService.canStartAdventure()
+			remaining = adventureLimitService.getRemainingAdventures()
+		}
+	})
+
+	function startMathAdventure() {
+		if (canStart) {
+			goto('/adventure?type=math')
+		}
+	}
+
+	function startGrammarAdventure() {
+		if (canStart) {
+			goto('/adventure?type=grammar')
+		}
+	}
+
+	function startLogicAdventure() {
+		if (canStart) {
+			goto('/adventure?type=logic')
+		}
 	}
 </script>
 
@@ -61,9 +93,38 @@
 		{/if}
 	</div>
 
-	<div class="actions">
-		<LumiButton onclick={goHome}>{t.complete.backToStart}</LumiButton>
-	</div>
+	{#if canStart}
+		<div class="action-area">
+			<p class="choose-next">{t.complete.chooseNext}</p>
+
+			<div class="adventure-buttons">
+				<LumiButton onclick={startMathAdventure} size="large">
+					<Icon name="math" size={28} />
+					{t.home.math}
+				</LumiButton>
+				<LumiButton onclick={startGrammarAdventure} size="large" variant="secondary">
+					<Icon name="book" size={28} />
+					{t.home.grammar}
+				</LumiButton>
+				<LumiButton onclick={startLogicAdventure} size="large" variant="tertiary">
+					<Icon name="puzzle" size={28} />
+					{t.home.logic}
+				</LumiButton>
+			</div>
+
+			{#if remaining !== Infinity}
+				<p class="remaining">
+					{remaining}
+					{remaining === 1 ? t.home.adventureRemaining : t.home.adventuresRemaining}
+				</p>
+			{/if}
+		</div>
+	{:else}
+		<div class="limit-reached">
+			<p class="limit-message">{t.home.limitReached} 🎉</p>
+			<p class="outdoor-message">{t.home.encourageOutdoor}</p>
+		</div>
+	{/if}
 </main>
 
 <style>
@@ -127,8 +188,55 @@
 		margin: 0;
 	}
 
-	.actions {
-		margin-top: var(--spacing-lg);
+	.action-area {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-md);
+		width: 100%;
+		max-width: 400px;
+	}
+
+	.choose-next {
+		font-size: var(--font-size-body-large);
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.adventure-buttons {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		width: 100%;
+	}
+
+	.remaining {
+		font-size: var(--font-size-body-medium);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.limit-reached {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-md);
+		padding: var(--spacing-lg);
+		background-color: var(--color-surface);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-md);
+	}
+
+	.limit-message {
+		font-size: var(--font-size-body-large);
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.outdoor-message {
+		font-size: var(--font-size-body-medium);
+		color: var(--color-text-secondary);
+		margin: 0;
 	}
 
 	@keyframes scaleIn {

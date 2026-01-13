@@ -58,7 +58,8 @@ export const ptBR: Translations = {
 		perfect: 'Incrível! Você acertou todos!',
 		great: 'Muito bom! Continue assim!',
 		goodJob: 'Bom trabalho! A prática leva à perfeição!',
-		backToStart: 'Voltar ao Início'
+		backToStart: 'Voltar ao Início',
+		chooseNext: 'Escolha sua próxima aventura'
 	},
 	parents: {
 		title: 'Área dos Pais',

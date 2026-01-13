@@ -58,7 +58,8 @@ export const fr: Translations = {
 		perfect: 'Incroyable ! Tu as tout réussi !',
 		great: 'Très bien ! Continue comme ça !',
 		goodJob: "Bon travail ! C'est en pratiquant qu'on progresse !",
-		backToStart: "Retour à l'accueil"
+		backToStart: "Retour à l'accueil",
+		chooseNext: 'Choisis ta prochaine aventure'
 	},
 	parents: {
 		title: 'Espace Parents',

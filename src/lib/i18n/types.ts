@@ -73,6 +73,7 @@ export interface Translations {
 		great: string
 		goodJob: string
 		backToStart: string
+		chooseNext: string
 	}
 	parents: {
 		title: string
