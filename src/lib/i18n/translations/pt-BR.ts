@@ -65,7 +65,9 @@ export const ptBR: Translations = {
 		great: 'Muito bom! Continue assim!',
 		goodJob: 'Bom trabalho! A prática leva à perfeição!',
 		backToStart: 'Voltar ao Início',
-		chooseNext: 'Escolha sua próxima aventura'
+		chooseNext: 'Escolha sua próxima aventura',
+		continueIfYouWant: 'Quer continuar aprendendo? Tente outra!',
+		orTakeABreak: 'Ou faça uma pausa e brinque lá fora!'
 	},
 	parents: {
 		title: 'Área dos Pais',
@@ -103,6 +105,7 @@ export const ptBR: Translations = {
 		oddOneOut: 'Qual é Diferente',
 		matching: 'Combinações',
 		sequence: 'Sequências',
+		sorting: 'Classificação',
 		letterRecognition: 'Letras',
 		alphabetOrder: 'Alfabeto',
 		initialLetter: 'Letra Inicial',

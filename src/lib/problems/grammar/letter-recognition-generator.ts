@@ -103,7 +103,13 @@ export class LetterRecognitionGenerator implements ProblemGenerator {
 				fr: 'Quelle est cette lettre?'
 			},
 			correctAnswer: { type: 'letter', value: letterInfo.uppercase },
-			answerChoices: choices
+			answerChoices: choices,
+			hint: {
+				ptBR: 'Olhe bem para o formato da letra. Já viu ela em alguma palavra?',
+				en: 'Look closely at the shape. Have you seen this letter in any words?',
+				de: 'Schau dir die Form genau an. Hast du diesen Buchstaben in Wörtern gesehen?',
+				fr: 'Regarde bien la forme. As-tu vu cette lettre dans des mots?'
+			}
 		}
 	}
 }

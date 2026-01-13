@@ -8,7 +8,7 @@
 export type MathProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison'
 
 /** Logic problem types */
-export type LogicProblemType = 'odd-one-out' | 'matching' | 'sequence' | 'patterns'
+export type LogicProblemType = 'odd-one-out' | 'matching' | 'sequence' | 'patterns' | 'sorting'
 
 /** Grammar problem types */
 export type GrammarProblemType =
@@ -44,7 +44,8 @@ export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = [
 	'odd-one-out',
 	'matching',
 	'sequence',
-	'patterns'
+	'patterns',
+	'sorting'
 ]
 
 /** Difficulty levels (1-4) */
@@ -109,6 +110,9 @@ export interface Problem {
 
 	correctAnswer: AnswerValue
 	answerChoices: AnswerValue[]
+
+	/** Educational hint shown when the child answers incorrectly (scaffolding) */
+	hint?: LocalizedString
 }
 
 /** Result of answering a problem */

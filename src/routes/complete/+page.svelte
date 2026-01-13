@@ -76,7 +76,12 @@
 
 	{#if canStart}
 		<div class="action-area">
-			<p class="choose-next">{t.complete.chooseNext}</p>
+			{#if correct === total}
+				<p class="choose-next">{t.complete.continueIfYouWant}</p>
+				<p class="break-option">{t.complete.orTakeABreak}</p>
+			{:else}
+				<p class="choose-next">{t.complete.chooseNext}</p>
+			{/if}
 
 			<AdventureTiles {canStart} />
 
@@ -168,6 +173,13 @@
 	.choose-next {
 		font-size: var(--font-size-body-large);
 		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.break-option {
+		font-size: var(--font-size-body-medium);
+		color: var(--color-text-muted);
+		font-style: italic;
 		margin: 0;
 	}
 

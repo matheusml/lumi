@@ -70,7 +70,13 @@ export class CountingProblemGenerator implements ProblemGenerator {
 				fr: `Combien de ${object.nameFr} vois-tu?`
 			},
 			correctAnswer: { type: 'number', value: count },
-			answerChoices: generateNumberChoices(count)
+			answerChoices: generateNumberChoices(count),
+			hint: {
+				ptBR: `Tente contar cada ${object.namePtBR.replace(/s$/, '')} devagar, um por um.`,
+				en: `Try counting each ${object.nameEn.replace(/s$/, '')} slowly, one by one.`,
+				de: `Zähle jede/n ${object.nameDe} langsam, eins nach dem anderen.`,
+				fr: `Essaie de compter chaque ${object.nameFr.replace(/s$/, '')} lentement, un par un.`
+			}
 		}
 	}
 }

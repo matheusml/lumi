@@ -106,7 +106,13 @@ export class ComparisonProblemGenerator implements ProblemGenerator {
 				fr: 'Quel côté en a le plus?'
 			},
 			correctAnswer: { type: 'side', value: correctSide },
-			answerChoices
+			answerChoices,
+			hint: {
+				ptBR: 'Conte cada lado devagar e compare os números.',
+				en: 'Count each side slowly and compare the numbers.',
+				de: 'Zähle jede Seite langsam und vergleiche die Zahlen.',
+				fr: 'Compte chaque côté lentement et compare les nombres.'
+			}
 		}
 	}
 }

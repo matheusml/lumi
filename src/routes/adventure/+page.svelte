@@ -489,6 +489,9 @@
 				<p class="feedback-text">
 					{isCorrect ? `${t.adventure.correct} 🎉` : `${t.adventure.tryAgain} 💪`}
 				</p>
+				{#if !isCorrect && currentProblem.hint}
+					<p class="hint-text">{localize(currentProblem.hint)}</p>
+				{/if}
 				{#if !isCorrect}
 					<LumiButton onclick={nextProblem} variant="secondary">
 						{isLastProblem ? t.common.finish : t.common.next}
@@ -824,6 +827,14 @@
 		font-weight: 600;
 		color: var(--color-text-primary);
 		margin: 0;
+	}
+
+	.hint-text {
+		font-size: var(--font-size-body);
+		color: var(--color-text-secondary);
+		margin: 0;
+		text-align: center;
+		font-style: italic;
 	}
 
 	.loading {

@@ -79,6 +79,8 @@ export interface Translations {
 		goodJob: string
 		backToStart: string
 		chooseNext: string
+		continueIfYouWant: string
+		orTakeABreak: string
 	}
 	parents: {
 		title: string
@@ -116,6 +118,7 @@ export interface Translations {
 		oddOneOut: string
 		matching: string
 		sequence: string
+		sorting: string
 		letterRecognition: string
 		alphabetOrder: string
 		initialLetter: string

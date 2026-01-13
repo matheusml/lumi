@@ -65,7 +65,9 @@ export const fr: Translations = {
 		great: 'Très bien ! Continue comme ça !',
 		goodJob: "Bon travail ! C'est en pratiquant qu'on progresse !",
 		backToStart: "Retour à l'accueil",
-		chooseNext: 'Choisis ta prochaine aventure'
+		chooseNext: 'Choisis ta prochaine aventure',
+		continueIfYouWant: 'Tu veux continuer à apprendre ? Essaie une autre !',
+		orTakeABreak: 'Ou fais une pause et joue dehors !'
 	},
 	parents: {
 		title: 'Espace Parents',
@@ -103,6 +105,7 @@ export const fr: Translations = {
 		oddOneOut: "L'intrus",
 		matching: 'Associations',
 		sequence: 'Séquences',
+		sorting: 'Classement',
 		letterRecognition: 'Lettres',
 		alphabetOrder: 'Alphabet',
 		initialLetter: 'Lettre initiale',

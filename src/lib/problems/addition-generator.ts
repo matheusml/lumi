@@ -90,7 +90,13 @@ export class AdditionProblemGenerator implements ProblemGenerator {
 				fr: `${a} + ${b} = ?`
 			},
 			correctAnswer: { type: 'number', value: sum },
-			answerChoices: generateNumberChoices(sum)
+			answerChoices: generateNumberChoices(sum),
+			hint: {
+				ptBR: `Conte ${a}, depois conte mais ${b} a partir daí.`,
+				en: `Count ${a}, then count ${b} more from there.`,
+				de: `Zähle ${a}, dann zähle ${b} weiter.`,
+				fr: `Compte ${a}, puis compte ${b} de plus.`
+			}
 		}
 	}
 }

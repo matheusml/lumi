@@ -91,7 +91,13 @@ export class SubtractionProblemGenerator implements ProblemGenerator {
 				fr: `${a} - ${b} = ?`
 			},
 			correctAnswer: { type: 'number', value: result },
-			answerChoices: generateNumberChoices(result)
+			answerChoices: generateNumberChoices(result),
+			hint: {
+				ptBR: `Comece com ${a} e tire ${b}. Quantos sobram?`,
+				en: `Start with ${a} and take away ${b}. How many are left?`,
+				de: `Beginne mit ${a} und nimm ${b} weg. Wie viele bleiben übrig?`,
+				fr: `Commence avec ${a} et enlève ${b}. Combien en reste-t-il?`
+			}
 		}
 	}
 }

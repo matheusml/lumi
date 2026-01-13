@@ -41,6 +41,7 @@
 			'odd-one-out': t.parents.oddOneOut,
 			matching: t.parents.matching,
 			sequence: t.parents.sequence,
+			sorting: t.parents.sorting,
 			'letter-recognition': t.parents.letterRecognition,
 			'alphabet-order': t.parents.alphabetOrder,
 			'initial-letter': t.parents.initialLetter,

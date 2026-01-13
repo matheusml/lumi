@@ -293,7 +293,13 @@ export class OddOneOutGenerator implements ProblemGenerator {
 				fr: 'Lequel ne fait pas partie du groupe?'
 			},
 			correctAnswer: { type: 'object', value: oddObject.emoji },
-			answerChoices: choices
+			answerChoices: choices,
+			hint: {
+				ptBR: `Três deles são ${category.namePtBR}. Qual é diferente?`,
+				en: `Three of them are ${category.nameEn}. Which one is different?`,
+				de: `Drei davon sind ${category.nameEn}. Welches ist anders?`,
+				fr: `Trois d'entre eux sont des ${category.nameEn}. Lequel est différent?`
+			}
 		}
 	}
 }

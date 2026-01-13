@@ -245,7 +245,13 @@ export class MatchingProblemGenerator implements ProblemGenerator {
 				fr: "Qu'est-ce qui va ensemble?"
 			},
 			correctAnswer: { type: 'object', value: pair.match.emoji },
-			answerChoices: choices
+			answerChoices: choices,
+			hint: {
+				ptBR: `Pense: o que o ${pair.source.namePtBR} precisa ou usa?`,
+				en: `Think: what does this need or use?`,
+				de: 'Denk nach: Was braucht oder benutzt das?',
+				fr: 'Réfléchis: de quoi cela a-t-il besoin?'
+			}
 		}
 	}
 }

@@ -65,7 +65,9 @@ export const en: Translations = {
 		great: 'Great job! Keep it up!',
 		goodJob: 'Good work! Practice makes perfect!',
 		backToStart: 'Back to Start',
-		chooseNext: 'Choose your next adventure'
+		chooseNext: 'Choose your next adventure',
+		continueIfYouWant: 'Want to keep learning? Try another!',
+		orTakeABreak: 'Or take a break and play outside!'
 	},
 	parents: {
 		title: 'Parent Zone',
@@ -103,6 +105,7 @@ export const en: Translations = {
 		oddOneOut: 'Odd One Out',
 		matching: 'Matching',
 		sequence: 'Sequences',
+		sorting: 'Sorting',
 		letterRecognition: 'Letters',
 		alphabetOrder: 'Alphabet',
 		initialLetter: 'Initial Letter',

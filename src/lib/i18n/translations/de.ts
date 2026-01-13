@@ -65,7 +65,9 @@ export const de: Translations = {
 		great: 'Sehr gut! Weiter so!',
 		goodJob: 'Gute Arbeit! Übung macht den Meister!',
 		backToStart: 'Zurück zum Start',
-		chooseNext: 'Wähle dein nächstes Abenteuer'
+		chooseNext: 'Wähle dein nächstes Abenteuer',
+		continueIfYouWant: 'Möchtest du weiterlernen? Probier noch eins!',
+		orTakeABreak: 'Oder mach eine Pause und spiel draußen!'
 	},
 	parents: {
 		title: 'Elternbereich',
@@ -103,6 +105,7 @@ export const de: Translations = {
 		oddOneOut: 'Was passt nicht',
 		matching: 'Zuordnen',
 		sequence: 'Reihenfolgen',
+		sorting: 'Sortieren',
 		letterRecognition: 'Buchstaben',
 		alphabetOrder: 'Alphabet',
 		initialLetter: 'Anfangsbuchstabe',

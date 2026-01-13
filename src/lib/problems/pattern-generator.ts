@@ -122,7 +122,13 @@ export class PatternProblemGenerator implements ProblemGenerator {
 				fr: 'Que vient ensuite?'
 			},
 			correctAnswer: { type: 'pattern', value: [answerColor] },
-			answerChoices: choices
+			answerChoices: choices,
+			hint: {
+				ptBR: 'Olhe para as cores que se repetem. Qual é o padrão?',
+				en: 'Look at the colors that repeat. What is the pattern?',
+				de: 'Schau dir die Farben an, die sich wiederholen. Was ist das Muster?',
+				fr: 'Regarde les couleurs qui se répètent. Quel est le motif?'
+			}
 		}
 	}
 }
