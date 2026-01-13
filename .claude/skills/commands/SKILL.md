@@ -96,18 +96,19 @@ localStorage.clear()
 
 ## Localization
 
-Primary: Portuguese (Brazil) - `pt-BR`
+Primary: English - `en`
+Supported: `pt-BR`, `de`, `fr`
 
 ```typescript
 interface LocalizedString {
-	ptBR: string
 	en: string
+	ptBR: string
 }
 
 // Usage
 const prompt: LocalizedString = {
-	ptBR: 'Quantas maçãs?',
-	en: 'How many apples?'
+	en: 'How many apples?',
+	ptBR: 'Quantas maçãs?'
 }
 ```
 

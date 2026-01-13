@@ -18,15 +18,15 @@ export interface VoiceInfo {
 }
 
 const DEFAULT_OPTIONS: Required<SpeechOptions> = {
-	lang: 'pt-BR',
+	lang: 'en-US',
 	rate: 0.8, // Slower for children (0.1 to 10, 1 is normal)
 	pitch: 1.1 // Slightly higher for friendliness (0 to 2)
 }
 
 const VOICE_STORAGE_KEY = 'lumi-voice-name'
 
-// Known high-quality voice names for Portuguese
-const PREFERRED_VOICE_KEYWORDS = ['google', 'luciana', 'microsoft online', 'natural']
+// Known high-quality voice names
+const PREFERRED_VOICE_KEYWORDS = ['google', 'samantha', 'microsoft online', 'natural']
 
 class SpeechService {
 	private synth: SpeechSynthesis | null = null
@@ -89,7 +89,7 @@ class SpeechService {
 	/**
 	 * Get all available voices for a language
 	 */
-	getVoicesForLanguage(lang: string = 'pt-BR'): VoiceInfo[] {
+	getVoicesForLanguage(lang: string = 'en-US'): VoiceInfo[] {
 		if (!this.synth) return []
 
 		const langPrefix = lang.split('-')[0]

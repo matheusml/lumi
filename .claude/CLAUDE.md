@@ -1,6 +1,6 @@
 # Lumi - Educational App for Children
 
-Web educational app for kids. Learning-focused MVP. Portuguese (Brazil) primary language.
+Web educational app for kids. Learning-focused MVP. English primary language (supports pt-BR, de, fr).
 
 **Tech**: SvelteKit, TypeScript, Svelte 5 | **Storage**: localStorage (fully offline)
 

@@ -174,7 +174,7 @@ Sizes: `small`, `medium`, `large`
 ### SpeakerButton
 
 ```svelte
-<SpeakerButton text="Quantas maçãs?" lang="pt-BR" />
+<SpeakerButton text="How many apples?" lang="en-US" />
 ```
 
 ## Layout Guidelines

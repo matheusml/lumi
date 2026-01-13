@@ -12,7 +12,7 @@
 		lang?: 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
 	}
 
-	let { text, lang = 'pt-BR' }: Props = $props()
+	let { text, lang = 'en-US' }: Props = $props()
 
 	let isSpeaking = $state(false)
 
@@ -38,7 +38,7 @@
 	class="speaker-button"
 	class:speaking={isSpeaking}
 	onclick={handleClick}
-	aria-label={isSpeaking ? 'Parar' : 'Ouvir'}
+	aria-label={isSpeaking ? 'Stop' : 'Listen'}
 >
 	<svg
 		width="24"

@@ -27,14 +27,6 @@ Most children's educational apps use dark patterns—points, streaks, leaderboar
 
 ## Features
 
-### Problem Types
-
-1. **Counting** - "How many apples do you see?"
-2. **Addition** - Visual addition with emoji objects
-3. **Subtraction** - Objects "flying away"
-4. **Comparison** - "Which side has more?"
-5. **Patterns** - Complete the sequence
-
 ### Adaptive Difficulty
 
 Each problem type has 4 difficulty levels. The system:
@@ -45,7 +37,7 @@ Each problem type has 4 difficulty levels. The system:
 
 ### Parent Zone
 
-Protected by a simple math problem (multiplication), parents can:
+Parents can:
 
 - View today's adventure count
 - See progress per activity type (level + accuracy)
@@ -75,40 +67,6 @@ npm run build
 npm run preview
 ```
 
-## Project Structure
-
-```
-src/
-├── lib/
-│   ├── components/     # UI components (LumiButton, ChoiceButton, etc.)
-│   ├── problems/       # Problem generators and service
-│   ├── services/       # Difficulty manager, speech, limits
-│   ├── theme/          # Design system tokens
-│   └── types/          # TypeScript types
-├── routes/
-│   ├── +page.svelte    # Home screen
-│   ├── adventure/      # Learning experience
-│   ├── complete/       # Completion celebration
-│   └── parents/        # Parent dashboard
-└── app.css             # Global styles
-```
-
-## Design System
-
-### Colors
-
-| Token                | Value   | Use                              |
-| -------------------- | ------- | -------------------------------- |
-| `--color-primary`    | #F59E8C | Main actions (coral)             |
-| `--color-secondary`  | #8CC7F0 | Secondary actions (sky blue)     |
-| `--color-success`    | #99D9BF | Correct answers (mint)           |
-| `--color-try-again`  | #FFCDB2 | Incorrect (soft peach, not red!) |
-| `--color-background` | #FCF8F0 | Warm cream background            |
-
-### Touch Targets
-
-Minimum 44px, prefer 60-80px for children's fingers.
-
 ## Contributing
 
 We welcome contributions! Please read our guidelines:
@@ -125,15 +83,4 @@ We welcome contributions! Please read our guidelines:
 - [ ] Improved accessibility (screen readers)
 - [ ] PWA support for offline use
 - [ ] More visual objects and themes
-
-## License
-
-MIT License - Use it freely, fork it, improve it!
-
-## Credits
-
-Built with love for children's healthy development.
-
----
-
-_"Learning should be joyful, not addictive."_
+- [ ] Bug fixes

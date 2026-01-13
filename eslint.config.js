@@ -71,5 +71,13 @@ export default [
 				...globals.node
 			}
 		}
+	},
+	{
+		files: ['**/service-worker.ts'],
+		languageOptions: {
+			globals: {
+				...globals.serviceworker
+			}
+		}
 	}
 ]

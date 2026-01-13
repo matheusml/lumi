@@ -67,7 +67,7 @@ describe('SpeechService', () => {
 	describe('speak', () => {
 		it('should create utterance and speak', async () => {
 			const { speechService } = await import('./speech')
-			speechService.speak('Olá mundo')
+			speechService.speak('Hello world')
 
 			expect(mockCancel).toHaveBeenCalled()
 			expect(mockUtterance).toHaveBeenCalled()
@@ -137,15 +137,15 @@ describe('SpeechService', () => {
 			expect(voices[1].name).toBe('Voice PT2')
 		})
 
-		it('should use default language pt-BR when no arg provided', async () => {
+		it('should use default language en-US when no arg provided', async () => {
 			mockGetVoices.mockReturnValue([
-				{ name: 'Voice PT', lang: 'pt-BR', localService: true }
+				{ name: 'Voice EN', lang: 'en-US', localService: true }
 			] as unknown as SpeechSynthesisVoice[])
 
 			const { speechService } = await import('./speech')
-			const voices = speechService.getVoicesForLanguage() // Uses default pt-BR
+			const voices = speechService.getVoicesForLanguage() // Uses default en-US
 			expect(voices.length).toBe(1)
-			expect(voices[0].lang).toBe('pt-BR')
+			expect(voices[0].lang).toBe('en-US')
 		})
 	})
 

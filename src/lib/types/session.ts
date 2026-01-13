@@ -40,7 +40,7 @@ export interface Child {
 
 	// Settings
 	dailyAdventureLimit: number // Default: 3
-	preferredLanguage: 'pt-BR' | 'en'
+	preferredLanguage: 'en' | 'pt-BR'
 	autoVoiceOverEnabled: boolean
 
 	// Progress
@@ -53,7 +53,7 @@ export interface Child {
 
 /** User preferences stored in localStorage */
 export interface UserPreferences {
-	language: 'pt-BR' | 'en'
+	language: 'en' | 'pt-BR'
 	autoVoiceOver: boolean
 	dailyLimit: number
 	soundEnabled: boolean
@@ -82,7 +82,7 @@ export function createDefaultActivityProgress(
 }
 
 /** Create default child profile */
-export function createDefaultChild(name: string = 'Crianca'): Child {
+export function createDefaultChild(name: string = 'Child'): Child {
 	const problemTypes: ProblemType[] = [
 		// Math
 		'counting',
@@ -102,7 +102,7 @@ export function createDefaultChild(name: string = 'Crianca'): Child {
 		name,
 		createdAt: new Date(),
 		dailyAdventureLimit: DEFAULT_DAILY_LIMIT,
-		preferredLanguage: 'pt-BR',
+		preferredLanguage: 'en',
 		autoVoiceOverEnabled: true,
 		activityProgress: Object.fromEntries(
 			problemTypes.map((type) => [type, createDefaultActivityProgress(type)])
