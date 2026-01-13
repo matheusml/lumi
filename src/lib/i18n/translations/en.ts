@@ -16,23 +16,28 @@ export const en: Translations = {
 	},
 	home: {
 		title: 'Lumi',
-		tagline: 'Education that respects children',
+		tagline: 'An anti-addictive educational app for children.',
+		philosophy:
+			"Most children's educational apps use dark patterns—points, streaks, leaderboards, notifications—to maximize screen time. Lumi is the opposite: we respect children's wellbeing while making learning effective.",
 		whatWeDont: "What we DON'T do",
 		whatWeDo: 'What we do',
 		dontList: {
-			noAds: 'No ads',
-			noPoints: 'No points or rewards',
-			noNotifications: 'No notifications',
-			noPressure: 'No time pressure',
-			noComparisons: 'No comparisons'
+			noPoints: 'No points, coins, or rewards',
+			noStreaks: 'No streaks or streak pressure',
+			noLeaderboards: 'No leaderboards or comparisons',
+			noTimedChallenges: 'No timed challenges',
+			noNotifications: 'No notifications asking to return',
+			noFlashyAnimations: 'No flashy, hyperactive animations'
 		},
 		doList: {
-			dailyLimit: 'Daily limit (configurable)',
-			private: '100% private and secure',
-			calmAnimations: 'Calm animations',
-			playfulLearning: 'Learning through play',
-			adaptiveDifficulty: 'Automatically adjusted difficulty'
+			shortAdventures: 'Short adventures (5 problems)',
+			dailyLimits: 'Daily limits respected',
+			celebrateCompletion: 'Celebrates completion, not speed',
+			calmAnimations: 'Gentle, calm animations',
+			encourageOutdoor: 'Encourages outdoor play',
+			adaptiveDifficulty: 'Adaptive difficulty'
 		},
+		openSource: 'Open Source',
 		math: 'Math',
 		grammar: 'Grammar',
 		logic: 'Logic',
@@ -40,7 +45,7 @@ export const en: Translations = {
 		adventureRemaining: 'adventure remaining today',
 		limitReached: 'You completed all adventures for today!',
 		encourageOutdoor: 'How about playing outside or reading a book?',
-		parentZone: 'Parent Zone'
+		parentZone: 'Parents'
 	},
 	adventure: {
 		backToHome: 'Back to home',

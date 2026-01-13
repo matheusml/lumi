@@ -5,10 +5,9 @@
 	 * Celebrates completion without emphasizing scores.
 	 */
 
-	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { onMount, onDestroy } from 'svelte'
-	import { LumiButton, Icon } from '$lib/components'
+	import { AdventureTiles } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
 	import { getTranslations, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
@@ -45,24 +44,6 @@
 			remaining = adventureLimitService.getRemainingAdventures()
 		}
 	})
-
-	function startMathAdventure() {
-		if (canStart) {
-			goto('/adventure?type=math')
-		}
-	}
-
-	function startGrammarAdventure() {
-		if (canStart) {
-			goto('/adventure?type=grammar')
-		}
-	}
-
-	function startLogicAdventure() {
-		if (canStart) {
-			goto('/adventure?type=logic')
-		}
-	}
 </script>
 
 <svelte:head>
@@ -97,20 +78,7 @@
 		<div class="action-area">
 			<p class="choose-next">{t.complete.chooseNext}</p>
 
-			<div class="adventure-buttons">
-				<LumiButton onclick={startMathAdventure} size="large">
-					<Icon name="math" size={28} />
-					{t.home.math}
-				</LumiButton>
-				<LumiButton onclick={startGrammarAdventure} size="large" variant="secondary">
-					<Icon name="book" size={28} />
-					{t.home.grammar}
-				</LumiButton>
-				<LumiButton onclick={startLogicAdventure} size="large" variant="tertiary">
-					<Icon name="puzzle" size={28} />
-					{t.home.logic}
-				</LumiButton>
-			</div>
+			<AdventureTiles {canStart} />
 
 			{#if remaining !== Infinity}
 				<p class="remaining">
@@ -201,13 +169,6 @@
 		font-size: var(--font-size-body-large);
 		color: var(--color-text-secondary);
 		margin: 0;
-	}
-
-	.adventure-buttons {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-sm);
-		width: 100%;
 	}
 
 	.remaining {

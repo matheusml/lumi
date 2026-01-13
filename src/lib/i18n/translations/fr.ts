@@ -16,23 +16,28 @@ export const fr: Translations = {
 	},
 	home: {
 		title: 'Lumi',
-		tagline: "L'éducation qui respecte les enfants",
+		tagline: 'Une application éducative anti-addictive pour les enfants.',
+		philosophy:
+			"La plupart des applications éducatives pour enfants utilisent des dark patterns—points, séries, classements, notifications—pour maximiser le temps d'écran. Lumi est l'opposé : nous respectons le bien-être des enfants tout en rendant l'apprentissage efficace.",
 		whatWeDont: 'Ce que nous NE faisons PAS',
 		whatWeDo: 'Ce que nous faisons',
 		dontList: {
-			noAds: 'Pas de publicités',
-			noPoints: 'Pas de points ni de récompenses',
-			noNotifications: 'Pas de notifications',
-			noPressure: 'Pas de pression de temps',
-			noComparisons: 'Pas de comparaisons'
+			noPoints: 'Pas de points, pièces ou récompenses',
+			noStreaks: 'Pas de séries ou de pression de série',
+			noLeaderboards: 'Pas de classements ni de comparaisons',
+			noTimedChallenges: 'Pas de défis chronométrés',
+			noNotifications: 'Pas de notifications de retour',
+			noFlashyAnimations: "Pas d'animations tape-à-l'œil"
 		},
 		doList: {
-			dailyLimit: 'Limite quotidienne (configurable)',
-			private: '100% privé et sécurisé',
-			calmAnimations: 'Animations calmes',
-			playfulLearning: 'Apprendre en jouant',
-			adaptiveDifficulty: 'Difficulté ajustée automatiquement'
+			shortAdventures: 'Aventures courtes (5 problèmes)',
+			dailyLimits: 'Limites quotidiennes respectées',
+			celebrateCompletion: "Célèbre l'achèvement, pas la vitesse",
+			calmAnimations: 'Animations douces et calmes',
+			encourageOutdoor: 'Encourage à jouer dehors',
+			adaptiveDifficulty: 'Difficulté adaptative'
 		},
+		openSource: 'Open Source',
 		math: 'Maths',
 		grammar: 'Grammaire',
 		logic: 'Logique',
@@ -40,7 +45,7 @@ export const fr: Translations = {
 		adventureRemaining: "aventure restante aujourd'hui",
 		limitReached: "Tu as terminé toutes les aventures d'aujourd'hui !",
 		encourageOutdoor: 'Et si tu jouais dehors ou lisais un livre ?',
-		parentZone: 'Espace Parents'
+		parentZone: 'Parents'
 	},
 	adventure: {
 		backToHome: "Retour à l'accueil",

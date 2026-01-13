@@ -16,23 +16,28 @@ export const de: Translations = {
 	},
 	home: {
 		title: 'Lumi',
-		tagline: 'Bildung, die Kinder respektiert',
+		tagline: 'Eine suchtfreie Lern-App für Kinder.',
+		philosophy:
+			'Die meisten Lern-Apps für Kinder nutzen dunkle Muster—Punkte, Serien, Ranglisten, Benachrichtigungen—um die Bildschirmzeit zu maximieren. Lumi ist das Gegenteil: Wir respektieren das Wohlbefinden der Kinder und machen das Lernen effektiv.',
 		whatWeDont: 'Was wir NICHT tun',
 		whatWeDo: 'Was wir tun',
 		dontList: {
-			noAds: 'Keine Werbung',
-			noPoints: 'Keine Punkte oder Belohnungen',
-			noNotifications: 'Keine Benachrichtigungen',
-			noPressure: 'Kein Zeitdruck',
-			noComparisons: 'Keine Vergleiche'
+			noPoints: 'Keine Punkte, Münzen oder Belohnungen',
+			noStreaks: 'Keine Serien oder Seriendruck',
+			noLeaderboards: 'Keine Ranglisten oder Vergleiche',
+			noTimedChallenges: 'Keine zeitgesteuerten Herausforderungen',
+			noNotifications: 'Keine Rückkehr-Benachrichtigungen',
+			noFlashyAnimations: 'Keine grellen Animationen'
 		},
 		doList: {
-			dailyLimit: 'Tägliches Limit (einstellbar)',
-			private: '100% privat und sicher',
-			calmAnimations: 'Ruhige Animationen',
-			playfulLearning: 'Spielend lernen',
-			adaptiveDifficulty: 'Automatisch angepasste Schwierigkeit'
+			shortAdventures: 'Kurze Abenteuer (5 Aufgaben)',
+			dailyLimits: 'Tägliche Limits respektiert',
+			celebrateCompletion: 'Feiert Abschluss, nicht Geschwindigkeit',
+			calmAnimations: 'Sanfte, ruhige Animationen',
+			encourageOutdoor: 'Ermutigt zum Spielen draußen',
+			adaptiveDifficulty: 'Adaptive Schwierigkeit'
 		},
+		openSource: 'Open Source',
 		math: 'Mathe',
 		grammar: 'Grammatik',
 		logic: 'Logik',
@@ -40,7 +45,7 @@ export const de: Translations = {
 		adventureRemaining: 'Abenteuer heute übrig',
 		limitReached: 'Du hast alle Abenteuer für heute abgeschlossen!',
 		encourageOutdoor: 'Wie wäre es mit Spielen draußen oder einem Buch?',
-		parentZone: 'Elternbereich'
+		parentZone: 'Eltern'
 	},
 	adventure: {
 		backToHome: 'Zurück zur Startseite',

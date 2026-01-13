@@ -31,22 +31,26 @@ export interface Translations {
 	home: {
 		title: string
 		tagline: string
+		philosophy: string
 		whatWeDont: string
 		whatWeDo: string
 		dontList: {
-			noAds: string
 			noPoints: string
+			noStreaks: string
+			noLeaderboards: string
+			noTimedChallenges: string
 			noNotifications: string
-			noPressure: string
-			noComparisons: string
+			noFlashyAnimations: string
 		}
 		doList: {
-			dailyLimit: string
-			private: string
+			shortAdventures: string
+			dailyLimits: string
+			celebrateCompletion: string
 			calmAnimations: string
-			playfulLearning: string
+			encourageOutdoor: string
 			adaptiveDifficulty: string
 		}
+		openSource: string
 		math: string
 		grammar: string
 		logic: string

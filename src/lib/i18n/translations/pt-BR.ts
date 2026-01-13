@@ -16,23 +16,28 @@ export const ptBR: Translations = {
 	},
 	home: {
 		title: 'Lumi',
-		tagline: 'Educação que respeita a criança',
+		tagline: 'Um app educacional anti-viciante para crianças.',
+		philosophy:
+			'A maioria dos apps educacionais infantis usa padrões obscuros—pontos, sequências, rankings, notificações—para maximizar o tempo de tela. Lumi é o oposto: respeitamos o bem-estar das crianças enquanto tornamos o aprendizado eficaz.',
 		whatWeDont: 'O que NÃO fazemos',
 		whatWeDo: 'O que fazemos',
 		dontList: {
-			noAds: 'Sem anúncios',
-			noPoints: 'Sem pontos ou recompensas',
-			noNotifications: 'Sem notificações',
-			noPressure: 'Sem pressão de tempo',
-			noComparisons: 'Sem comparações'
+			noPoints: 'Sem pontos, moedas ou recompensas',
+			noStreaks: 'Sem sequências ou pressão de sequência',
+			noLeaderboards: 'Sem rankings ou comparações',
+			noTimedChallenges: 'Sem desafios cronometrados',
+			noNotifications: 'Sem notificações pedindo para voltar',
+			noFlashyAnimations: 'Sem animações chamativas'
 		},
 		doList: {
-			dailyLimit: 'Limite diário (configurável)',
-			private: '100% privado e seguro',
-			calmAnimations: 'Animações calmas',
-			playfulLearning: 'Aprender brincando',
-			adaptiveDifficulty: 'Dificuldade ajustada automaticamente'
+			shortAdventures: 'Aventuras curtas (5 problemas)',
+			dailyLimits: 'Limites diários respeitados',
+			celebrateCompletion: 'Celebra conclusão, não velocidade',
+			calmAnimations: 'Animações suaves e calmas',
+			encourageOutdoor: 'Incentiva brincar ao ar livre',
+			adaptiveDifficulty: 'Dificuldade adaptativa'
 		},
+		openSource: 'Código Aberto',
 		math: 'Matemática',
 		grammar: 'Gramática',
 		logic: 'Lógica',
@@ -40,7 +45,7 @@ export const ptBR: Translations = {
 		adventureRemaining: 'aventura restante hoje',
 		limitReached: 'Você completou todas as aventuras de hoje!',
 		encourageOutdoor: 'Que tal brincar lá fora ou ler um livro?',
-		parentZone: 'Área dos Pais'
+		parentZone: 'Pais'
 	},
 	adventure: {
 		backToHome: 'Voltar para início',
