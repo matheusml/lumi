@@ -25,9 +25,17 @@ export class DifficultyManager {
 	/**
 	 * Set the default starting difficulty for new problem types.
 	 * Used by age service to adjust difficulty based on child's age.
+	 * Also updates existing problem types that haven't been played yet.
 	 */
 	setDefaultStartingDifficulty(difficulty: DifficultyLevel): void {
 		this.defaultStartingDifficulty = difficulty
+
+		// Update all problem types that haven't been played yet
+		for (const progress of this.progress.values()) {
+			if (progress.problemsAttempted === 0) {
+				progress.currentDifficulty = difficulty
+			}
+		}
 	}
 
 	/**
