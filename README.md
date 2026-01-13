@@ -1,6 +1,12 @@
-# Lumi 🌟
+<p align="center">
+  <img src="static/icon-512.png" alt="Lumi Logo" width="120" height="120">
+</p>
 
-An anti-addictive educational app for children ages 4-7.
+<h1 align="center">Lumi 🌟</h1>
+
+<p align="center">
+  An anti-addictive educational app for children ages 4-7.
+</p>
 
 ## Philosophy
 
