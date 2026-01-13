@@ -9,7 +9,8 @@
 
 import type { Problem, DifficultyLevel, AnswerValue } from '$lib/types'
 import type { ProblemGenerator, GeneratorResult } from '../generator'
-import { getWordsForCompletionDifficulty, portugueseAlphabet, type WordInfo } from '../grammar-data'
+import { wordBank, portugueseAlphabet, getLocalizedWord, type WordInfo } from '../grammar-data'
+import { getLanguage } from '$lib/i18n'
 
 /** Shuffle helper */
 function shuffle<T>(array: T[]): T[] {
@@ -58,15 +59,38 @@ export class WordCompletionGenerator implements ProblemGenerator {
 		}
 	}
 
+	/**
+	 * Get words filtered by localized word length for difficulty
+	 */
+	private getWordsForDifficulty(difficulty: DifficultyLevel): WordInfo[] {
+		const lang = getLanguage()
+		return wordBank.filter((w) => {
+			const localizedWord = getLocalizedWord(w, lang)
+			const len = localizedWord.length
+			switch (difficulty) {
+				case 1:
+					return len <= 4
+				case 2:
+					return len >= 4 && len <= 5
+				case 3:
+					return len >= 5 && len <= 6
+				case 4:
+					return len >= 6
+			}
+		})
+	}
+
 	generate(difficulty: DifficultyLevel, excluding: Set<string>): GeneratorResult | null {
-		const words = getWordsForCompletionDifficulty(difficulty)
+		const words = this.getWordsForDifficulty(difficulty)
 		const config = this.getConfig(difficulty)
+		const lang = getLanguage()
 
 		for (const wordInfo of shuffle(words)) {
-			const positions = this.getMissingPositions(wordInfo.word, config)
+			const localizedWord = getLocalizedWord(wordInfo, lang)
+			const positions = this.getMissingPositions(localizedWord, config)
 
 			for (const missingIndex of shuffle(positions)) {
-				const signature = this.makeSignature(difficulty, wordInfo.word, missingIndex)
+				const signature = this.makeSignature(difficulty, localizedWord, missingIndex)
 
 				if (!excluding.has(signature)) {
 					const problem = this.createProblem(wordInfo, missingIndex, difficulty)
@@ -79,14 +103,16 @@ export class WordCompletionGenerator implements ProblemGenerator {
 	}
 
 	allPossibleSignatures(difficulty: DifficultyLevel): string[] {
-		const words = getWordsForCompletionDifficulty(difficulty)
+		const words = this.getWordsForDifficulty(difficulty)
 		const config = this.getConfig(difficulty)
+		const lang = getLanguage()
 		const signatures: string[] = []
 
 		for (const wordInfo of words) {
-			const positions = this.getMissingPositions(wordInfo.word, config)
+			const localizedWord = getLocalizedWord(wordInfo, lang)
+			const positions = this.getMissingPositions(localizedWord, config)
 			for (const missingIndex of positions) {
-				signatures.push(this.makeSignature(difficulty, wordInfo.word, missingIndex))
+				signatures.push(this.makeSignature(difficulty, localizedWord, missingIndex))
 			}
 		}
 
@@ -102,7 +128,9 @@ export class WordCompletionGenerator implements ProblemGenerator {
 		missingIndex: number,
 		difficulty: DifficultyLevel
 	): Problem {
-		const correctLetter = wordInfo.word[missingIndex].toUpperCase()
+		const lang = getLanguage()
+		const localizedWord = getLocalizedWord(wordInfo, lang)
+		const correctLetter = localizedWord[missingIndex].toUpperCase()
 
 		// Get other letters for wrong choices
 		const otherLetters = portugueseAlphabet
@@ -121,11 +149,11 @@ export class WordCompletionGenerator implements ProblemGenerator {
 			id: crypto.randomUUID(),
 			type: 'word-completion',
 			difficulty,
-			signature: this.makeSignature(difficulty, wordInfo.word, missingIndex),
+			signature: this.makeSignature(difficulty, localizedWord, missingIndex),
 			visual: {
 				type: 'word',
 				elements: [{ object: wordInfo.emoji, count: 1 }],
-				displayText: wordInfo.word,
+				displayText: localizedWord,
 				missingIndex
 			},
 			prompt: {

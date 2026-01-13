@@ -14,8 +14,10 @@ import {
 	vowels,
 	commonConsonants,
 	portugueseAlphabet,
+	getLocalizedWord,
 	type WordInfo
 } from '../grammar-data'
+import { getLanguage } from '$lib/i18n'
 
 /** Shuffle helper */
 function shuffle<T>(array: T[]): T[] {
@@ -31,20 +33,27 @@ export class InitialLetterGenerator implements ProblemGenerator {
 	readonly problemType = 'initial-letter' as const
 
 	/**
-	 * Get words appropriate for each difficulty level
+	 * Get words appropriate for each difficulty level (filtered by localized word's first letter)
 	 */
 	private getWordsForDifficulty(difficulty: DifficultyLevel): WordInfo[] {
+		const lang = getLanguage()
 		switch (difficulty) {
 			case 1:
 				// Words starting with vowels only
-				return wordBank.filter((w) => vowels.some((v) => v.uppercase === w.word[0].toUpperCase()))
+				return wordBank.filter((w) => {
+					const localizedWord = getLocalizedWord(w, lang)
+					return vowels.some((v) => v.uppercase === localizedWord[0].toUpperCase())
+				})
 			case 2: {
 				// Words starting with vowels or common consonants
 				const validLetters = [
 					...vowels.map((v) => v.uppercase),
 					...commonConsonants.map((c) => c.uppercase)
 				]
-				return wordBank.filter((w) => validLetters.includes(w.word[0].toUpperCase()))
+				return wordBank.filter((w) => {
+					const localizedWord = getLocalizedWord(w, lang)
+					return validLetters.includes(localizedWord[0].toUpperCase())
+				})
 			}
 			case 3:
 			case 4:
@@ -55,9 +64,11 @@ export class InitialLetterGenerator implements ProblemGenerator {
 
 	generate(difficulty: DifficultyLevel, excluding: Set<string>): GeneratorResult | null {
 		const words = this.getWordsForDifficulty(difficulty)
+		const lang = getLanguage()
 
 		for (const word of shuffle(words)) {
-			const signature = this.makeSignature(difficulty, word.word)
+			const localizedWord = getLocalizedWord(word, lang)
+			const signature = this.makeSignature(difficulty, localizedWord)
 
 			if (!excluding.has(signature)) {
 				const problem = this.createProblem(word, difficulty)
@@ -70,7 +81,8 @@ export class InitialLetterGenerator implements ProblemGenerator {
 
 	allPossibleSignatures(difficulty: DifficultyLevel): string[] {
 		const words = this.getWordsForDifficulty(difficulty)
-		return words.map((w) => this.makeSignature(difficulty, w.word))
+		const lang = getLanguage()
+		return words.map((w) => this.makeSignature(difficulty, getLocalizedWord(w, lang)))
 	}
 
 	private makeSignature(difficulty: DifficultyLevel, word: string): string {
@@ -78,7 +90,9 @@ export class InitialLetterGenerator implements ProblemGenerator {
 	}
 
 	private createProblem(wordInfo: WordInfo, difficulty: DifficultyLevel): Problem {
-		const correctLetter = wordInfo.word[0].toUpperCase()
+		const lang = getLanguage()
+		const localizedWord = getLocalizedWord(wordInfo, lang)
+		const correctLetter = localizedWord[0].toUpperCase()
 
 		// Get other letters for wrong choices
 		const otherLetters = portugueseAlphabet
@@ -97,11 +111,11 @@ export class InitialLetterGenerator implements ProblemGenerator {
 			id: crypto.randomUUID(),
 			type: 'initial-letter',
 			difficulty,
-			signature: this.makeSignature(difficulty, wordInfo.word),
+			signature: this.makeSignature(difficulty, localizedWord),
 			visual: {
 				type: 'word',
 				elements: [{ object: wordInfo.emoji, count: 1 }],
-				displayText: wordInfo.word
+				displayText: localizedWord
 			},
 			prompt: {
 				ptBR: `Com qual letra começa "${wordInfo.namePtBR}"?`,

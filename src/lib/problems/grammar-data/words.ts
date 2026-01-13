@@ -4,6 +4,8 @@
  * Words with syllable breakdowns, emojis, and translations.
  */
 
+import type { SupportedLanguage } from '$lib/i18n'
+
 /** Information about a word */
 export interface WordInfo {
 	word: string
@@ -13,6 +15,14 @@ export interface WordInfo {
 	nameEn: string
 	nameDe?: string // Falls back to English
 	nameFr?: string // Falls back to English
+}
+
+/** Get the localized word for a given language */
+export function getLocalizedWord(wordInfo: WordInfo, lang: SupportedLanguage): string {
+	if (lang === 'pt-BR') return wordInfo.word
+	if (lang === 'de') return wordInfo.nameDe || wordInfo.nameEn
+	if (lang === 'fr') return wordInfo.nameFr || wordInfo.nameEn
+	return wordInfo.nameEn
 }
 
 /** Word bank organized by starting letter */

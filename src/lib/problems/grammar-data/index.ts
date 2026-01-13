@@ -23,5 +23,6 @@ export {
 	getWordsBySyllableCount,
 	getWordsForSyllableDifficulty,
 	getWordsForCompletionDifficulty,
-	getRandomWord
+	getRandomWord,
+	getLocalizedWord
 } from './words'
