@@ -61,12 +61,17 @@ export const fr: Translations = {
 		enter: 'Entrer',
 		back: 'Retour',
 		wrongAnswer: 'Réponse incorrecte. Réessayez.',
+		// Tabs
+		configTab: 'Paramètres',
+		analyticsTab: 'Statistiques',
+		// Analytics
 		today: "Aujourd'hui",
 		adventuresCompleted: 'aventures terminées',
 		resetToday: "Réinitialiser le compteur d'aujourd'hui",
 		progressByActivity: 'Progrès par activité',
 		level: 'Niveau',
 		accuracy: 'Précision',
+		// Settings
 		settings: 'Paramètres',
 		dailyLimitEnabled: 'Limite quotidienne activée',
 		adventuresPerDay: 'Aventures par jour',
@@ -74,6 +79,8 @@ export const fr: Translations = {
 		voiceDescription: 'Choisissez la voix pour les instructions parlées.',
 		automatic: 'Automatique (meilleure disponible)',
 		testVoice: 'Tester la voix',
+		autoPlayVoice: 'Lecture automatique',
+		autoPlayDescription: 'Lire les problèmes automatiquement à haute voix.',
 		// Activity names
 		counting: 'Compter',
 		addition: 'Addition',

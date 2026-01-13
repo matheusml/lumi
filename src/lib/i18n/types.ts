@@ -75,12 +75,17 @@ export interface Translations {
 		enter: string
 		back: string
 		wrongAnswer: string
+		// Tabs
+		configTab: string
+		analyticsTab: string
+		// Analytics
 		today: string
 		adventuresCompleted: string
 		resetToday: string
 		progressByActivity: string
 		level: string
 		accuracy: string
+		// Settings
 		settings: string
 		dailyLimitEnabled: string
 		adventuresPerDay: string
@@ -88,6 +93,8 @@ export interface Translations {
 		voiceDescription: string
 		automatic: string
 		testVoice: string
+		autoPlayVoice: string
+		autoPlayDescription: string
 		// Activity names
 		counting: string
 		addition: string
