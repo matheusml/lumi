@@ -19,3 +19,6 @@ export { default as LetterSequence } from './LetterSequence.svelte'
 // Landing page components
 export { default as Icon } from './Icons.svelte'
 export { default as LumiMascot } from './LumiMascot.svelte'
+
+// Settings components
+export { default as AgePicker } from './AgePicker.svelte'

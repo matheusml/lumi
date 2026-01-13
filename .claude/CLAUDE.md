@@ -54,6 +54,16 @@ src/
 
 **Touch targets**: Minimum 44px, prefer 60-80px for children's fingers
 
+## Responsive Design (REQUIRED)
+
+All UI must be **mobile-first** and fully responsive:
+
+- Write mobile styles as the default, use `min-width` media queries for larger screens
+- Test layouts at common breakpoints: 320px, 768px, 1024px
+- Ensure touch targets remain accessible on all screen sizes
+- Use relative units (rem, %, vh/vw) over fixed pixels where appropriate
+- Flexbox/Grid layouts should adapt naturally to available space
+
 ## Key Patterns
 
 **Components**: Svelte 5 with runes (`$state`, `$derived`, `$effect`)

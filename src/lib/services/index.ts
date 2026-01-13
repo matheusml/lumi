@@ -16,3 +16,15 @@ export {
 export { AdventureLimitService, adventureLimitService, type DailyCount } from './adventure-limit'
 
 export { speechService, type SpeechOptions } from './speech'
+
+export {
+	AgeService,
+	ageService,
+	initAge,
+	type ChildAge,
+	DEFAULT_AGE,
+	MIN_AGE,
+	MAX_AGE,
+	VALID_AGES,
+	AGE_DIFFICULTY_MAP
+} from './age-service'

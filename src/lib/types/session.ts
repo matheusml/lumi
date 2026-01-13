@@ -67,10 +67,13 @@ export const MAX_DAILY_LIMIT = 10
 export const MIN_DAILY_LIMIT = 1
 
 /** Create default activity progress */
-export function createDefaultActivityProgress(activityType: ProblemType): ActivityProgress {
+export function createDefaultActivityProgress(
+	activityType: ProblemType,
+	startingDifficulty: DifficultyLevel = 1
+): ActivityProgress {
 	return {
 		activityType,
-		currentDifficulty: 1,
+		currentDifficulty: startingDifficulty,
 		problemsAttempted: 0,
 		problemsCorrect: 0,
 		consecutiveCorrect: 0,

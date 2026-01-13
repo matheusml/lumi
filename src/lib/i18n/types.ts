@@ -15,6 +15,12 @@ export interface LanguageInfo {
 
 /** Translation keys organized by page/section */
 export interface Translations {
+	agePicker: {
+		label: string
+		ariaLabel: string
+		years: string
+		yearsOld: string
+	}
 	common: {
 		back: string
 		next: string

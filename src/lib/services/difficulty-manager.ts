@@ -16,9 +16,25 @@ export const INCORRECT_TO_LEVEL_DOWN = 2
 
 export class DifficultyManager {
 	private progress: Map<ProblemType, ActivityProgress> = new Map()
+	private defaultStartingDifficulty: DifficultyLevel = MIN_DIFFICULTY
 
 	constructor() {
 		this.initializeProgress()
+	}
+
+	/**
+	 * Set the default starting difficulty for new problem types.
+	 * Used by age service to adjust difficulty based on child's age.
+	 */
+	setDefaultStartingDifficulty(difficulty: DifficultyLevel): void {
+		this.defaultStartingDifficulty = difficulty
+	}
+
+	/**
+	 * Get the current default starting difficulty
+	 */
+	getDefaultStartingDifficulty(): DifficultyLevel {
+		return this.defaultStartingDifficulty
 	}
 
 	private initializeProgress(): void {
@@ -36,7 +52,7 @@ export class DifficultyManager {
 			'word-completion'
 		]
 		for (const type of types) {
-			this.progress.set(type, createDefaultActivityProgress(type))
+			this.progress.set(type, createDefaultActivityProgress(type, this.defaultStartingDifficulty))
 		}
 	}
 
@@ -82,7 +98,10 @@ export class DifficultyManager {
 	 * Get progress for an activity type
 	 */
 	getProgress(activityType: ProblemType): ActivityProgress {
-		return this.progress.get(activityType) ?? createDefaultActivityProgress(activityType)
+		return (
+			this.progress.get(activityType) ??
+			createDefaultActivityProgress(activityType, this.defaultStartingDifficulty)
+		)
 	}
 
 	/**
@@ -90,10 +109,10 @@ export class DifficultyManager {
 	 * @returns The new difficulty level
 	 */
 	recordAnswer(correct: boolean, activityType: ProblemType): DifficultyLevel {
-		const progress = this.progress.get(activityType)
+		let progress = this.progress.get(activityType)
 		if (!progress) {
-			this.progress.set(activityType, createDefaultActivityProgress(activityType))
-			return MIN_DIFFICULTY
+			progress = createDefaultActivityProgress(activityType, this.defaultStartingDifficulty)
+			this.progress.set(activityType, progress)
 		}
 
 		// Update attempt counts
@@ -135,7 +154,10 @@ export class DifficultyManager {
 	 * Reset progress for a specific activity type
 	 */
 	resetProgress(activityType: ProblemType): void {
-		this.progress.set(activityType, createDefaultActivityProgress(activityType))
+		this.progress.set(
+			activityType,
+			createDefaultActivityProgress(activityType, this.defaultStartingDifficulty)
+		)
 	}
 
 	/**

@@ -1,6 +1,12 @@
 import type { Translations } from '../types'
 
 export const de: Translations = {
+	agePicker: {
+		label: 'Alter',
+		ariaLabel: 'Alter auswählen',
+		years: 'J.',
+		yearsOld: 'Jahre'
+	},
 	common: {
 		back: 'Zurück',
 		next: 'Weiter',

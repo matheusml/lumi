@@ -1,6 +1,12 @@
 import type { Translations } from '../types'
 
 export const ptBR: Translations = {
+	agePicker: {
+		label: 'Idade',
+		ariaLabel: 'Selecionar idade',
+		years: 'anos',
+		yearsOld: 'anos'
+	},
 	common: {
 		back: 'Voltar',
 		next: 'Próximo',
