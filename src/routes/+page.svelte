@@ -183,10 +183,10 @@
 		margin: 0;
 	}
 
-	/* Philosophy cards - side by side */
+	/* Philosophy cards - mobile-first: single column default */
 	.philosophy-cards {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr;
 		gap: var(--spacing-sm);
 		width: 100%;
 	}
@@ -324,10 +324,10 @@
 		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 	}
 
-	/* Mobile: stack cards vertically */
-	@media (max-width: 400px) {
+	/* Larger screens: side-by-side cards */
+	@media (min-width: 480px) {
 		.philosophy-cards {
-			grid-template-columns: 1fr;
+			grid-template-columns: 1fr 1fr;
 		}
 	}
 </style>

@@ -46,8 +46,8 @@
 
 	.pickers-container {
 		position: absolute;
-		top: var(--spacing-md);
-		right: var(--spacing-md);
+		top: var(--spacing-sm);
+		right: var(--spacing-sm);
 		z-index: 50;
 		display: flex;
 		flex-direction: column;
@@ -55,11 +55,11 @@
 		gap: var(--spacing-xs);
 	}
 
-	/* Responsive: tighter spacing on mobile */
-	@media (max-width: 480px) {
+	/* Larger screens: more breathing room */
+	@media (min-width: 480px) {
 		.pickers-container {
-			top: var(--spacing-sm);
-			right: var(--spacing-sm);
+			top: var(--spacing-md);
+			right: var(--spacing-md);
 		}
 	}
 </style>

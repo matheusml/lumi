@@ -34,23 +34,23 @@
 		color: var(--color-primary);
 	}
 
-	/* Sizes */
+	/* Sizes - fluid with clamp() */
 	.letter-display.small {
-		width: 4rem;
-		height: 4rem;
+		width: clamp(3rem, 12vw, 4rem);
+		height: clamp(3rem, 12vw, 4rem);
 	}
 
 	.letter-display.small .letter {
-		font-size: 2rem;
+		font-size: clamp(1.5rem, 8vw, 2rem);
 	}
 
 	.letter-display.medium {
-		width: 6rem;
-		height: 6rem;
+		width: clamp(4rem, 15vw, 6rem);
+		height: clamp(4rem, 15vw, 6rem);
 	}
 
 	.letter-display.medium .letter {
-		font-size: 3rem;
+		font-size: clamp(2rem, 10vw, 3rem);
 	}
 
 	.letter-display.large {

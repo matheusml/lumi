@@ -239,7 +239,7 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: var(--spacing-md) var(--spacing-screen-horizontal);
+		padding: var(--spacing-sm) var(--spacing-md);
 		gap: var(--spacing-lg);
 		max-width: 800px;
 		margin: 0 auto;
@@ -250,9 +250,10 @@
 		flex: 1;
 	}
 
-	@media (max-width: 480px) {
+	/* Larger screens: more padding */
+	@media (min-width: 480px) {
 		.parents {
-			padding: var(--spacing-sm) var(--spacing-md);
+			padding: var(--spacing-md) var(--spacing-screen-horizontal);
 		}
 	}
 </style>

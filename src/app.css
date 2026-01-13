@@ -46,12 +46,13 @@
 	--font-family: 'Nunito', system-ui, -apple-system, sans-serif;
 	--font-family-mono: 'JetBrains Mono', monospace;
 
-	--font-size-display-large: 3rem;
-	--font-size-display-medium: 2.5rem;
-	--font-size-number-large: 3.5rem;
-	--font-size-number-medium: 2.25rem;
+	/* Mobile-first: smaller defaults, enhanced at 480px+ */
+	--font-size-display-large: 2rem;
+	--font-size-display-medium: 1.75rem;
+	--font-size-number-large: 2.5rem;
+	--font-size-number-medium: 1.75rem;
 	--font-size-number-small: 1.75rem;
-	--font-size-heading-large: 2rem;
+	--font-size-heading-large: 1.5rem;
 	--font-size-heading-medium: 1.5rem;
 	--font-size-heading-small: 1.25rem;
 	--font-size-body-large: 1.25rem;
@@ -60,12 +61,12 @@
 	--font-size-button-large: 1.5rem;
 	--font-size-button-medium: 1.125rem;
 
-	/* Spacing */
+	/* Spacing - Mobile-first defaults */
 	--spacing-xs: 0.25rem;
 	--spacing-sm: 0.5rem;
 	--spacing-md: 1rem;
-	--spacing-lg: 1.5rem;
-	--spacing-xl: 2rem;
+	--spacing-lg: 1rem;
+	--spacing-xl: 1.5rem;
 	--spacing-2xl: 3rem;
 	--spacing-3xl: 4rem;
 
@@ -193,16 +194,16 @@ html {
 	}
 }
 
-/* Mobile breakpoints */
-@media (max-width: 480px) {
+/* Larger screen enhancements */
+@media (min-width: 480px) {
 	:root {
-		--font-size-display-large: 2rem;
-		--font-size-display-medium: 1.75rem;
-		--font-size-number-large: 2.5rem;
-		--font-size-number-medium: 1.75rem;
-		--font-size-heading-large: 1.5rem;
-		--spacing-lg: 1rem;
-		--spacing-xl: 1.5rem;
+		--font-size-display-large: 3rem;
+		--font-size-display-medium: 2.5rem;
+		--font-size-number-large: 3.5rem;
+		--font-size-number-medium: 2.25rem;
+		--font-size-heading-large: 2rem;
+		--spacing-lg: 1.5rem;
+		--spacing-xl: 2rem;
 	}
 }
 
