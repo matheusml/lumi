@@ -38,6 +38,7 @@ export const ptBR: Translations = {
 			adaptiveDifficulty: 'Dificuldade adaptativa'
 		},
 		openSource: 'Código Aberto',
+		startAdventure: 'Comece uma aventura',
 		math: 'Matemática',
 		grammar: 'Gramática',
 		logic: 'Lógica',

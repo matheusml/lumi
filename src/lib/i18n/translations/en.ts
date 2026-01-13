@@ -38,6 +38,7 @@ export const en: Translations = {
 			adaptiveDifficulty: 'Adaptive difficulty'
 		},
 		openSource: 'Open Source',
+		startAdventure: 'Start an adventure',
 		math: 'Math',
 		grammar: 'Grammar',
 		logic: 'Logic',

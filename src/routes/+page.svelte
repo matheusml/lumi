@@ -55,7 +55,7 @@
 <main class="home">
 	<div class="content">
 		<div class="logo">
-			<LumiMascot size={72} />
+			<LumiMascot size={48} />
 			<h1 class="logo-text">{t.home.title}</h1>
 		</div>
 
@@ -91,6 +91,7 @@
 
 		{#if canStart}
 			<div class="action-area">
+				<h2 class="action-heading">{t.home.startAdventure}</h2>
 				<AdventureTiles {canStart} />
 
 				{#if remaining !== Infinity}
@@ -132,8 +133,7 @@
 		flex-direction: column;
 		align-items: center;
 		padding: var(--spacing-screen-horizontal);
-		padding-top: var(--spacing-xl);
-		text-align: center;
+		padding-top: var(--spacing-lg);
 		overflow-y: auto;
 	}
 
@@ -141,15 +141,15 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		gap: var(--spacing-lg);
+		align-items: stretch;
+		gap: var(--spacing-md);
 		max-width: 500px;
 		width: 100%;
 	}
 
 	.logo {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		align-items: center;
 		gap: var(--spacing-sm);
 	}
@@ -243,9 +243,17 @@
 	.action-area {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		gap: var(--spacing-md);
+		align-items: stretch;
+		gap: var(--spacing-sm);
 		width: 100%;
+		margin-top: var(--spacing-sm);
+	}
+
+	.action-heading {
+		font-size: var(--font-size-heading-small);
+		font-weight: 600;
+		color: var(--color-text-primary);
+		margin: 0;
 	}
 
 	.remaining {

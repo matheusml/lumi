@@ -51,6 +51,7 @@ export interface Translations {
 			adaptiveDifficulty: string
 		}
 		openSource: string
+		startAdventure: string
 		math: string
 		grammar: string
 		logic: string
