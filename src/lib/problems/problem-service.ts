@@ -37,11 +37,11 @@ export class ProblemService {
 			addition: new AdditionProblemGenerator(),
 			subtraction: new SubtractionProblemGenerator(),
 			comparison: new ComparisonProblemGenerator(),
-			patterns: new PatternProblemGenerator(),
 			// Logic generators
 			'odd-one-out': new OddOneOutGenerator(),
 			matching: new MatchingProblemGenerator(),
 			sequence: new SequenceProblemGenerator(),
+			patterns: new PatternProblemGenerator(),
 			// Grammar generators
 			'letter-recognition': new LetterRecognitionGenerator(),
 			'alphabet-order': new AlphabetOrderGenerator(),
@@ -100,7 +100,7 @@ export class ProblemService {
 		difficulties: Map<ProblemType, DifficultyLevel>
 	): Problem[] {
 		const problems: Problem[] = []
-		const types: ProblemType[] = ['counting', 'addition', 'subtraction', 'comparison', 'patterns']
+		const types: ProblemType[] = ['counting', 'addition', 'subtraction', 'comparison']
 
 		// Shuffle types for variety
 		const shuffledTypes = shuffle(types)

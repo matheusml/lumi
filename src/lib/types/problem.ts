@@ -5,10 +5,10 @@
  */
 
 /** Math problem types */
-export type MathProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison' | 'patterns'
+export type MathProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison'
 
 /** Logic problem types */
-export type LogicProblemType = 'odd-one-out' | 'matching' | 'sequence'
+export type LogicProblemType = 'odd-one-out' | 'matching' | 'sequence' | 'patterns'
 
 /** Grammar problem types */
 export type GrammarProblemType =
@@ -28,8 +28,7 @@ export const MATH_PROBLEM_TYPES: MathProblemType[] = [
 	'counting',
 	'addition',
 	'subtraction',
-	'comparison',
-	'patterns'
+	'comparison'
 ]
 
 /** All grammar problem types */
@@ -41,7 +40,7 @@ export const GRAMMAR_PROBLEM_TYPES: GrammarProblemType[] = [
 ]
 
 /** All logic problem types */
-export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = ['odd-one-out', 'matching', 'sequence']
+export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = ['odd-one-out', 'matching', 'sequence', 'patterns']
 
 /** Difficulty levels (1-4) */
 export type DifficultyLevel = 1 | 2 | 3 | 4
