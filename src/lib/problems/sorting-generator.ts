@@ -98,33 +98,33 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			]
 		},
 		{
-			id: 'sports',
-			namePtBR: 'Esportes',
-			nameEn: 'Sports',
-			nameDe: 'Sport',
-			nameFr: 'Sports',
-			emoji: '⚽',
+			id: 'toys',
+			namePtBR: 'Brinquedos',
+			nameEn: 'Toys',
+			nameDe: 'Spielzeug',
+			nameFr: 'Jouets',
+			emoji: '🧸',
 			members: [
-				{ id: 'soccer', emoji: '⚽' },
-				{ id: 'basketball', emoji: '🏀' },
-				{ id: 'tennis', emoji: '🎾' },
-				{ id: 'volleyball', emoji: '🏐' },
-				{ id: 'baseball', emoji: '⚾' }
+				{ id: 'teddy', emoji: '🧸' },
+				{ id: 'ball', emoji: '🏐' },
+				{ id: 'kite', emoji: '🪁' },
+				{ id: 'blocks', emoji: '🧱' },
+				{ id: 'doll', emoji: '🪆' }
 			]
 		},
 		{
-			id: 'weather',
-			namePtBR: 'Clima',
-			nameEn: 'Weather',
-			nameDe: 'Wetter',
-			nameFr: 'Météo',
-			emoji: '☀️',
+			id: 'nature',
+			namePtBR: 'Natureza',
+			nameEn: 'Nature',
+			nameDe: 'Natur',
+			nameFr: 'Nature',
+			emoji: '🌳',
 			members: [
-				{ id: 'sun', emoji: '☀️' },
-				{ id: 'cloud', emoji: '☁️' },
-				{ id: 'rain', emoji: '🌧️' },
-				{ id: 'snow', emoji: '❄️' },
-				{ id: 'rainbow', emoji: '🌈' }
+				{ id: 'tree', emoji: '🌳' },
+				{ id: 'flower', emoji: '🌸' },
+				{ id: 'leaf', emoji: '🍃' },
+				{ id: 'mushroom', emoji: '🍄' },
+				{ id: 'sun', emoji: '☀️' }
 			]
 		}
 	],
@@ -202,7 +202,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 				{ id: 'hammer', emoji: '🔨' },
 				{ id: 'wrench', emoji: '🔧' },
 				{ id: 'screwdriver', emoji: '🪛' },
-				{ id: 'scissors', emoji: '✂️' },
+				{ id: 'axe', emoji: '🪓' },
 				{ id: 'saw', emoji: '🪚' }
 			]
 		},
