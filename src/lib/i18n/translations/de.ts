@@ -52,7 +52,8 @@ export const de: Translations = {
 		backToHome: 'Zurück zur Startseite',
 		preparing: 'Abenteuer wird vorbereitet...',
 		correct: 'Super gemacht!',
-		tryAgain: 'Versuch es beim nächsten Mal nochmal!'
+		tryAgain: 'Fast!',
+		tryAgainButton: 'Nochmal versuchen'
 	},
 	complete: {
 		title: 'Herzlichen Glückwunsch!',

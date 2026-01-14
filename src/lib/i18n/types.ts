@@ -66,6 +66,7 @@ export interface Translations {
 		preparing: string
 		correct: string
 		tryAgain: string
+		tryAgainButton: string
 	}
 	complete: {
 		title: string

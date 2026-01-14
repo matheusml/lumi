@@ -52,7 +52,8 @@ export const ptBR: Translations = {
 		backToHome: 'Voltar para início',
 		preparing: 'Preparando aventura...',
 		correct: 'Muito bem!',
-		tryAgain: 'Tente novamente da próxima vez!'
+		tryAgain: 'Quase lá!',
+		tryAgainButton: 'Tentar de Novo'
 	},
 	complete: {
 		title: 'Parabéns!',

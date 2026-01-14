@@ -52,7 +52,8 @@ export const fr: Translations = {
 		backToHome: "Retour à l'accueil",
 		preparing: "Préparation de l'aventure...",
 		correct: 'Très bien !',
-		tryAgain: 'Essaie encore la prochaine fois !'
+		tryAgain: 'Presque !',
+		tryAgainButton: 'Réessayer'
 	},
 	complete: {
 		title: 'Félicitations !',

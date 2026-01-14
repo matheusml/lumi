@@ -52,7 +52,8 @@ export const en: Translations = {
 		backToHome: 'Back to home',
 		preparing: 'Preparing adventure...',
 		correct: 'Well done!',
-		tryAgain: 'Try again next time!'
+		tryAgain: 'Not quite!',
+		tryAgainButton: 'Try Again'
 	},
 	complete: {
 		title: 'Congratulations!',

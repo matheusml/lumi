@@ -221,6 +221,14 @@
 		}
 	}
 
+	function retryProblem() {
+		// Reset answer state so they can try the same problem again
+		selectedAnswer = null
+		answerStates = new Map()
+		hasAnswered = false
+		isCorrect = false
+	}
+
 	function nextProblem() {
 		// Clear any pending auto-progress timeout
 		if (autoProgressTimeout) {
@@ -490,11 +498,14 @@
 					{isCorrect ? `${t.adventure.correct} 🎉` : `${t.adventure.tryAgain} 💪`}
 				</p>
 				{#if !isCorrect && currentProblem.hint}
-					<p class="hint-text">{localize(currentProblem.hint)}</p>
+					<div class="hint-row">
+						<p class="hint-text">{localize(currentProblem.hint)}</p>
+						<SpeakerButton text={localize(currentProblem.hint)} lang={getSpeechLanguage()} />
+					</div>
 				{/if}
 				{#if !isCorrect}
-					<LumiButton onclick={nextProblem} variant="secondary">
-						{isLastProblem ? t.common.finish : t.common.next}
+					<LumiButton onclick={retryProblem} variant="primary">
+						{t.adventure.tryAgainButton}
 					</LumiButton>
 				{/if}
 			</div>
@@ -827,6 +838,13 @@
 		font-weight: 600;
 		color: var(--color-text-primary);
 		margin: 0;
+	}
+
+	.hint-row {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-sm);
 	}
 
 	.hint-text {
