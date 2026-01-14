@@ -1,0 +1,68 @@
+<script lang="ts">
+	/**
+	 * PatternCircle
+	 *
+	 * Colored circle for pattern problems.
+	 */
+
+	import { patternColors } from '$lib/problems'
+
+	interface Props {
+		colorId: string
+		size?: 'small' | 'medium' | 'large'
+		isUnknown?: boolean
+	}
+
+	let { colorId, size = 'medium', isUnknown = false }: Props = $props()
+
+	const color = $derived(patternColors.find((c) => c.id === colorId)?.color ?? '#888888')
+</script>
+
+<div
+	class="pattern-circle {size}"
+	class:unknown={isUnknown}
+	style:background-color={isUnknown ? 'transparent' : color}
+	role="img"
+	aria-label={isUnknown ? 'Unknown' : colorId}
+>
+	{#if isUnknown}
+		<span class="question-mark">?</span>
+	{/if}
+</div>
+
+<style>
+	.pattern-circle {
+		border-radius: var(--radius-full);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* Sizes - responsive for mobile */
+	.pattern-circle.small {
+		width: clamp(1.5rem, 5vw, 2rem);
+		height: clamp(1.5rem, 5vw, 2rem);
+	}
+
+	.pattern-circle.medium {
+		width: clamp(2rem, 6vw, 3rem);
+		height: clamp(2rem, 6vw, 3rem);
+	}
+
+	.pattern-circle.large {
+		width: clamp(2.5rem, 8vw, 4rem);
+		height: clamp(2.5rem, 8vw, 4rem);
+	}
+
+	/* Unknown state */
+	.pattern-circle.unknown {
+		border: 3px dashed var(--color-border);
+		background-color: var(--color-surface);
+	}
+
+	.question-mark {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: var(--color-text-muted);
+	}
+</style>

@@ -1,0 +1,43 @@
+{
+	"name": "Lumi - Learning for Kids",
+	"short_name": "Lumi",
+	"description": "Educational math app for children ages 4-7",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#FCF8F0",
+	"theme_color": "#F59E8C",
+	"icons": [
+		{
+			"src": "/icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-maskable-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/screenshot-mobile.png",
+			"sizes": "540x720",
+			"type": "image/png",
+			"form_factor": "narrow",
+			"label": "Lumi home screen"
+		},
+		{
+			"src": "/screenshot-desktop.png",
+			"sizes": "1280x720",
+			"type": "image/png",
+			"form_factor": "wide",
+			"label": "Lumi fullscreen"
+		}
+	]
+}
