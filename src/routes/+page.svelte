@@ -92,7 +92,7 @@
 		{#if canStart}
 			<div class="action-area">
 				<h2 class="action-heading">{t.home.startAdventure}</h2>
-				<AdventureTiles {canStart} />
+				<AdventureTiles {canStart} {t} />
 
 				{#if remaining !== Infinity}
 					<p class="remaining">

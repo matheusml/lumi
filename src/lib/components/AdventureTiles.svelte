@@ -8,15 +8,14 @@
 
 	import { goto } from '$app/navigation'
 	import { Icon } from '$lib/components'
-	import { getTranslations } from '$lib/i18n'
+	import type { Translations } from '$lib/i18n'
 
 	interface Props {
 		canStart?: boolean
+		t: Translations
 	}
 
-	let { canStart = true }: Props = $props()
-
-	const t = $derived(getTranslations())
+	let { canStart = true, t }: Props = $props()
 
 	function startMathAdventure() {
 		if (canStart) {

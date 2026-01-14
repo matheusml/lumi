@@ -83,7 +83,7 @@
 				<p class="choose-next">{t.complete.chooseNext}</p>
 			{/if}
 
-			<AdventureTiles {canStart} />
+			<AdventureTiles {canStart} {t} />
 
 			{#if remaining !== Infinity}
 				<p class="remaining">
