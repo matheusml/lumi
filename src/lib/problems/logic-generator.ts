@@ -46,15 +46,15 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			]
 		},
 		{
-			id: 'animals',
-			namePtBR: 'animais',
-			nameEn: 'animals',
+			id: 'body-parts',
+			namePtBR: 'partes do corpo',
+			nameEn: 'body parts',
 			members: [
-				{ id: 'dog', emoji: '🐕', namePtBR: 'cachorro', nameEn: 'dog' },
-				{ id: 'cat', emoji: '🐱', namePtBR: 'gato', nameEn: 'cat' },
-				{ id: 'bird', emoji: '🐦', namePtBR: 'pássaro', nameEn: 'bird' },
-				{ id: 'fish', emoji: '🐟', namePtBR: 'peixe', nameEn: 'fish' },
-				{ id: 'rabbit', emoji: '🐰', namePtBR: 'coelho', nameEn: 'rabbit' }
+				{ id: 'hand', emoji: '👋', namePtBR: 'mão', nameEn: 'hand' },
+				{ id: 'foot', emoji: '🦶', namePtBR: 'pé', nameEn: 'foot' },
+				{ id: 'eye', emoji: '👁️', namePtBR: 'olho', nameEn: 'eye' },
+				{ id: 'nose', emoji: '👃', namePtBR: 'nariz', nameEn: 'nose' },
+				{ id: 'ear', emoji: '👂', namePtBR: 'orelha', nameEn: 'ear' }
 			]
 		},
 		{
