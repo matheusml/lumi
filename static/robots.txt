@@ -5,7 +5,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://lumi.education/sitemap.xml
+Sitemap: https://playlumi.app/sitemap.xml
 
 # Crawl-delay suggestion (be gentle with our servers)
 Crawl-delay: 1

@@ -15,7 +15,7 @@
 		noindex?: boolean
 	}
 
-	const SITE_URL = 'https://lumi.education'
+	const SITE_URL = 'https://playlumi.app'
 	const SITE_NAME = 'Lumi'
 	const DEFAULT_IMAGE = '/icon-512.png'
 

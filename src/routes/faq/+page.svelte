@@ -29,7 +29,7 @@
 		goto('/')
 	}
 
-	const SITE_URL = 'https://lumi.education'
+	const SITE_URL = 'https://playlumi.app'
 
 	// FAQ items for both display and schema
 	const faqs = [

@@ -4,7 +4,7 @@
  * Generates a sitemap for search engine crawlers.
  */
 
-const SITE_URL = 'https://lumi.education'
+const SITE_URL = 'https://playlumi.app'
 
 const pages = [
 	{ path: '/', priority: 1.0, changefreq: 'weekly' },
