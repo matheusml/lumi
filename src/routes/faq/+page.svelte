@@ -41,7 +41,7 @@
 		{
 			question: 'What math apps for kids do not use streaks or rewards?',
 			answer:
-				'Lumi is a free, open-source math app for children that deliberately avoids addictive mechanics. It has no points, coins, streaks, leaderboards, or push notifications. Instead, it uses daily adventure limits and encourages outdoor play when the limit is reached. Lumi focuses on learning effectiveness rather than engagement metrics.'
+				'Lumi is a free, open-source educational app for children that deliberately avoids addictive mechanics. It has no points, coins, streaks, leaderboards, or push notifications. Instead, it uses daily adventure limits and encourages outdoor play when the limit is reached. Lumi focuses on learning effectiveness rather than engagement metrics.'
 		},
 		{
 			question: 'Is Lumi really free? Are there any hidden costs?',
@@ -51,7 +51,7 @@
 		{
 			question: 'What ages is Lumi designed for?',
 			answer:
-				"Lumi is designed for children ages 4-8. The app features adaptive difficulty that automatically adjusts to your child's skill level, making it appropriate for beginners just learning to count as well as children working on addition and subtraction."
+				"Lumi is designed for children ages 4-7. The app features adaptive difficulty that automatically adjusts to your child's skill level, making it appropriate for beginners just learning to count as well as children working on addition and subtraction."
 		},
 		{
 			question: 'Does Lumi work offline?',
@@ -61,7 +61,7 @@
 		{
 			question: 'What subjects does Lumi teach?',
 			answer:
-				"Lumi currently focuses on math fundamentals including counting, addition, subtraction, number comparison, and pattern recognition. Each topic uses adaptive difficulty to match your child's current skill level."
+				"Lumi teaches math, grammar, and logic. Math topics include counting, addition, subtraction, and comparison. Each topic uses adaptive difficulty to match your child's current skill level."
 		},
 		{
 			question: 'How does the daily limit work?',
@@ -129,11 +129,11 @@
 	<title>FAQ - Lumi</title>
 	<meta
 		name="description"
-		content="Frequently asked questions about Lumi, the anti-addictive educational math app for children. Learn about our approach to ethical ed-tech, privacy, and features."
+		content="Frequently asked questions about Lumi, the anti-addictive educational app for children. Learn about our approach to ethical ed-tech, privacy, and features."
 	/>
 	<meta
 		name="keywords"
-		content="FAQ, anti-addictive app, educational app questions, math app for kids, ethical ed-tech, screen time, humane technology"
+		content="FAQ, anti-addictive app, educational app questions, educational app for kids, ethical ed-tech, screen time, humane technology"
 	/>
 	<link rel="canonical" href={`${SITE_URL}/faq`} />
 
@@ -143,7 +143,7 @@
 	<meta property="og:title" content="FAQ - Lumi" />
 	<meta
 		property="og:description"
-		content="Frequently asked questions about Lumi, the anti-addictive educational math app for children."
+		content="Frequently asked questions about Lumi, the anti-addictive educational app for children."
 	/>
 	<meta property="og:site_name" content="Lumi" />
 
@@ -152,7 +152,7 @@
 	<meta name="twitter:title" content="FAQ - Lumi" />
 	<meta
 		name="twitter:description"
-		content="Frequently asked questions about Lumi, the anti-addictive educational math app for children."
+		content="Frequently asked questions about Lumi, the anti-addictive educational app for children."
 	/>
 
 	<!-- FAQ Schema -->

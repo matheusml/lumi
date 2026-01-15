@@ -51,7 +51,7 @@
 		applicationCategory: 'EducationalApplication',
 		operatingSystem: 'Web',
 		description:
-			'Lumi is a free, open-source, anti-addictive educational math app for children. Unlike other apps, Lumi respects screen time with daily limits, no points or streaks, and encourages outdoor play.',
+			'Lumi is a free, open-source, anti-addictive educational app for children. Unlike other apps, Lumi respects screen time with daily limits, no points or streaks, and encourages outdoor play.',
 		url: SITE_URL,
 		offers: {
 			'@type': 'Offer',
@@ -68,7 +68,7 @@
 			name: 'Lumi'
 		},
 		keywords:
-			'educational app, math app for kids, anti-addictive, screen time, ethical ed-tech, children learning, no ads, open source'
+			'educational app for kids, anti-addictive, screen time, ethical ed-tech, children learning, no ads, open source'
 	}
 
 	const jsonLdOrg = JSON.stringify(organizationSchema)
@@ -86,7 +86,7 @@
 	<meta name="description" content={description} />
 	<meta
 		name="keywords"
-		content="educational app, math app for kids, anti-addictive, screen time conscious, ethical ed-tech, children learning, no ads, open source, humane technology"
+		content="educational app for kids, anti-addictive, screen time conscious, ethical ed-tech, children learning, no ads, open source, humane technology"
 	/>
 	<meta name="author" content="Lumi" />
 

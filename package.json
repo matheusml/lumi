@@ -1,7 +1,7 @@
 {
 	"name": "lumi-web",
 	"version": "0.1.0",
-	"description": "Anti-addictive educational math app for children ages 4-7",
+	"description": "Anti-addictive educational app for children",
 	"private": false,
 	"scripts": {
 		"dev": "vite dev",

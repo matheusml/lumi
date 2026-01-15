@@ -97,3 +97,5 @@ npm run test     # Run tests
 4. `npm run format` - Apply Prettier formatting
 
 **Update tests when changing code** (add for features, update for changes, remove for deletions)
+
+**Update FAQ when adding features**: Check if `src/routes/faq/+page.svelte` needs updates to reflect new functionality

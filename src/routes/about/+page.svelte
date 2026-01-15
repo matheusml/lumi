@@ -32,7 +32,7 @@
 
 <SEO
 	title="About Lumi"
-	description="Lumi is a free, open-source, anti-addictive educational math app for children. Learn about our mission to create ethical ed-tech that respects screen time and children's wellbeing."
+	description="Lumi is a free, open-source, anti-addictive educational app for children. Learn about our mission to create ethical ed-tech that respects screen time and children's wellbeing."
 	path="/about"
 />
 
@@ -54,14 +54,14 @@
 			<section class="section">
 				<h2>What is Lumi?</h2>
 				<p>
-					<strong>Lumi is a free, open-source educational math app for children aged 4-8</strong>
+					<strong>Lumi is a free, open-source educational app for children</strong>
 					that takes a radically different approach to learning apps. While most educational apps use
 					addictive design patterns to maximize screen time, Lumi is built with one core principle:
 					<em>respect children's wellbeing</em>.
 				</p>
 				<p>
-					Lumi teaches math concepts including counting, addition, subtraction, comparison, and
-					patterns through short, focused learning sessions called "adventures." Each adventure
+					Lumi teaches math, grammar, and logic through short, focused learning sessions called
+					"adventures." Each adventure
 					contains just 5 problems and adapts to your child's skill level automatically.
 				</p>
 			</section>
@@ -150,9 +150,9 @@
 				<h2>Features</h2>
 				<ul>
 					<li>
-						<strong>Math Learning:</strong> Counting, addition, subtraction, comparison, patterns
+						<strong>Learning Topics:</strong> Math, grammar, and logic exercises
 					</li>
-					<li><strong>Age-Appropriate:</strong> Content designed for children ages 4-8</li>
+					<li><strong>Age-Appropriate:</strong> Content designed for young children</li>
 					<li><strong>Multiple Languages:</strong> English, Portuguese, German, and French</li>
 					<li><strong>Voice Support:</strong> Problems can be read aloud using text-to-speech</li>
 					<li><strong>Offline First:</strong> Works without internet, all data stays on device</li>

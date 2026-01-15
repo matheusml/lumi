@@ -50,7 +50,7 @@
 
 <SEO
 	title="Lumi - Anti-addictive educational app for children"
-	description="Lumi is a free, open-source educational math app for children ages 4-8. No points, streaks, or addictive mechanics. Respects screen time with daily limits and encourages outdoor play."
+	description="Lumi is a free, open-source educational app for children. No points, streaks, or addictive mechanics. Respects screen time with daily limits and encourages outdoor play."
 	path="/"
 />
 
