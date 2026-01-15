@@ -602,9 +602,9 @@
 
 	.comparison-side {
 		padding: var(--spacing-md);
-		border: 3px solid var(--color-border);
+		border: 3px solid transparent;
 		border-radius: var(--radius-xl);
-		background-color: var(--color-surface);
+		background-color: transparent;
 		cursor: pointer;
 		flex: 1;
 		min-width: 0;
