@@ -14,6 +14,7 @@
 		ProgressDots,
 		SpeakerButton,
 		CountableObject,
+		AnimatedEquation,
 		PatternCircle,
 		LetterDisplay,
 		WordDisplay,
@@ -359,19 +360,12 @@
 						count={currentProblem.visual.elements[0].count}
 					/>
 				{:else if currentProblem.visual.type === 'equation'}
-					<div class="equation">
-						<CountableObject
-							objectId={currentProblem.visual.elements[0].object}
-							count={currentProblem.visual.elements[0].count}
-							maxPerRow={4}
-						/>
-						<span class="operator">{currentProblem.visual.operator}</span>
-						<CountableObject
-							objectId={currentProblem.visual.elements[1].object}
-							count={currentProblem.visual.elements[1].count}
-							maxPerRow={4}
-						/>
-					</div>
+					<AnimatedEquation
+						objectId={currentProblem.visual.elements[0].object}
+						operandA={currentProblem.visual.elements[0].count}
+						operandB={currentProblem.visual.elements[1].count}
+						operator={currentProblem.visual.operator ?? '+'}
+					/>
 				{:else if currentProblem.visual.type === 'comparison'}
 					<div class="comparison">
 						<button
@@ -588,18 +582,6 @@
 		min-height: 120px;
 		max-width: 100%;
 		overflow: hidden;
-	}
-
-	.equation {
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-lg);
-	}
-
-	.operator {
-		font-size: var(--font-size-number-large);
-		font-weight: 700;
-		color: var(--color-text-primary);
 	}
 
 	.comparison {

@@ -9,6 +9,7 @@ export { default as ChoiceButton } from './ChoiceButton.svelte'
 export { default as ProgressDots } from './ProgressDots.svelte'
 export { default as SpeakerButton } from './SpeakerButton.svelte'
 export { default as CountableObject } from './CountableObject.svelte'
+export { default as AnimatedEquation } from './AnimatedEquation.svelte'
 export { default as PatternCircle } from './PatternCircle.svelte'
 
 // Grammar components
