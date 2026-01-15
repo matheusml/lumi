@@ -1,9 +1,15 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { ComparisonProblemGenerator } from './comparison-generator'
+import { ageService } from '$lib/services'
 import type { DifficultyLevel } from '$lib/types'
 
 describe('ComparisonProblemGenerator', () => {
 	const generator = new ComparisonProblemGenerator()
+
+	// Reset age to default before each test to ensure consistent behavior
+	beforeEach(() => {
+		ageService.setAge(5)
+	})
 
 	describe('problemType', () => {
 		it('should be comparison', () => {
@@ -141,6 +147,61 @@ describe('ComparisonProblemGenerator', () => {
 			for (const sig of signatures) {
 				expect(sig).toMatch(/^comparison:d2:\d+v\d+$/)
 			}
+		})
+	})
+
+	describe('age-adaptive ranges', () => {
+		it('should cap at max 5 for age 3 at all difficulty levels', () => {
+			ageService.setAge(3)
+
+			// All difficulty levels should cap at 5 for age 3
+			for (const difficulty of [1, 2, 3, 4] as const) {
+				for (let i = 0; i < 10; i++) {
+					const result = generator.generate(difficulty, new Set())
+					const problem = result!.problem
+					const leftCount = problem.visual.elements[0].count
+					const rightCount = problem.visual.elements[1].count
+
+					expect(leftCount).toBeGreaterThanOrEqual(1)
+					expect(leftCount).toBeLessThanOrEqual(5)
+					expect(rightCount).toBeGreaterThanOrEqual(1)
+					expect(rightCount).toBeLessThanOrEqual(5)
+				}
+			}
+		})
+
+		it('should cap at max 10 for age 4 at all difficulty levels', () => {
+			ageService.setAge(4)
+
+			// All difficulty levels should cap at 10 for age 4
+			for (const difficulty of [1, 2, 3, 4] as const) {
+				for (let i = 0; i < 10; i++) {
+					const result = generator.generate(difficulty, new Set())
+					const problem = result!.problem
+					const leftCount = problem.visual.elements[0].count
+					const rightCount = problem.visual.elements[1].count
+
+					expect(leftCount).toBeGreaterThanOrEqual(1)
+					expect(leftCount).toBeLessThanOrEqual(10)
+					expect(rightCount).toBeGreaterThanOrEqual(1)
+					expect(rightCount).toBeLessThanOrEqual(10)
+				}
+			}
+		})
+
+		it('should use standard larger ranges for ages 5+ at higher difficulties', () => {
+			ageService.setAge(5)
+			// Difficulty 2 should use range [1, 15] for older children
+			let foundHigherThan10 = false
+			for (let i = 0; i < 50; i++) {
+				const result = generator.generate(2, new Set())
+				const problem = result!.problem
+				const leftCount = problem.visual.elements[0].count
+				const rightCount = problem.visual.elements[1].count
+
+				if (leftCount > 10 || rightCount > 10) foundHigherThan10 = true
+			}
+			expect(foundHigherThan10).toBe(true)
 		})
 	})
 })

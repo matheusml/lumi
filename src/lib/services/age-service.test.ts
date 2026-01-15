@@ -6,6 +6,7 @@ import {
 	MAX_AGE,
 	VALID_AGES,
 	AGE_DIFFICULTY_MAP,
+	AGE_PROBLEM_TYPES,
 	type ChildAge
 } from './age-service'
 
@@ -172,6 +173,117 @@ describe('AgeService', () => {
 		it('should handle undefined data', () => {
 			service.loadState({ age: undefined })
 			expect(service.getAge()).toBe(DEFAULT_AGE)
+		})
+	})
+
+	describe('getProblemTypesForAge', () => {
+		it('should exclude addition and subtraction for ages 3-4 in math', () => {
+			service.setAge(3)
+			const mathTypes = service.getProblemTypesForAge('math')
+			expect(mathTypes).toContain('counting')
+			expect(mathTypes).toContain('comparison')
+			expect(mathTypes).not.toContain('addition')
+			expect(mathTypes).not.toContain('subtraction')
+
+			service.setAge(4)
+			const mathTypes4 = service.getProblemTypesForAge('math')
+			expect(mathTypes4).not.toContain('addition')
+			expect(mathTypes4).not.toContain('subtraction')
+		})
+
+		it('should include addition for age 5+', () => {
+			service.setAge(5)
+			const mathTypes = service.getProblemTypesForAge('math')
+			expect(mathTypes).toContain('addition')
+			expect(mathTypes).not.toContain('subtraction')
+		})
+
+		it('should include all math operations for ages 6-7', () => {
+			service.setAge(6)
+			const mathTypes = service.getProblemTypesForAge('math')
+			expect(mathTypes).toContain('counting')
+			expect(mathTypes).toContain('addition')
+			expect(mathTypes).toContain('subtraction')
+			expect(mathTypes).toContain('comparison')
+
+			service.setAge(7)
+			const mathTypes7 = service.getProblemTypesForAge('math')
+			expect(mathTypes7).toContain('subtraction')
+		})
+
+		it('should have matching for all ages', () => {
+			for (const age of VALID_AGES) {
+				service.setAge(age)
+				const logicTypes = service.getProblemTypesForAge('logic')
+				expect(logicTypes).toContain('matching')
+			}
+		})
+
+		it('should have limited logic types for age 3', () => {
+			service.setAge(3)
+			const logicTypes = service.getProblemTypesForAge('logic')
+			expect(logicTypes).toContain('matching')
+			expect(logicTypes).not.toContain('patterns') // Too abstract
+			expect(logicTypes).not.toContain('odd-one-out')
+			expect(logicTypes).not.toContain('sorting')
+			expect(logicTypes).not.toContain('sequence')
+		})
+
+		it('should add odd-one-out for age 4', () => {
+			service.setAge(4)
+			const logicTypes = service.getProblemTypesForAge('logic')
+			expect(logicTypes).toContain('matching')
+			expect(logicTypes).toContain('odd-one-out')
+			expect(logicTypes).not.toContain('patterns')
+		})
+
+		it('should have full logic types for ages 5+', () => {
+			service.setAge(5)
+			const logicTypes = service.getProblemTypesForAge('logic')
+			expect(logicTypes).toContain('matching')
+			expect(logicTypes).toContain('patterns')
+			expect(logicTypes).toContain('odd-one-out')
+			expect(logicTypes).toContain('sorting')
+			expect(logicTypes).toContain('sequence')
+		})
+
+		it('should have limited grammar types for ages 3-4', () => {
+			service.setAge(3)
+			const grammarTypes = service.getProblemTypesForAge('grammar')
+			expect(grammarTypes).toContain('letter-recognition')
+			expect(grammarTypes).not.toContain('alphabet-order')
+			expect(grammarTypes).not.toContain('initial-letter')
+			expect(grammarTypes).not.toContain('word-completion')
+		})
+
+		it('should progressively add grammar types with age', () => {
+			service.setAge(5)
+			expect(service.getProblemTypesForAge('grammar')).toContain('alphabet-order')
+
+			service.setAge(6)
+			expect(service.getProblemTypesForAge('grammar')).toContain('initial-letter')
+
+			service.setAge(7)
+			expect(service.getProblemTypesForAge('grammar')).toContain('word-completion')
+		})
+	})
+
+	describe('AGE_PROBLEM_TYPES', () => {
+		it('should have entries for all valid ages', () => {
+			for (const age of VALID_AGES) {
+				expect(AGE_PROBLEM_TYPES[age]).toBeDefined()
+				expect(AGE_PROBLEM_TYPES[age].math).toBeDefined()
+				expect(AGE_PROBLEM_TYPES[age].grammar).toBeDefined()
+				expect(AGE_PROBLEM_TYPES[age].logic).toBeDefined()
+			}
+		})
+
+		it('should have at least one problem type per category for all ages', () => {
+			for (const age of VALID_AGES) {
+				expect(AGE_PROBLEM_TYPES[age].math.length).toBeGreaterThan(0)
+				expect(AGE_PROBLEM_TYPES[age].grammar.length).toBeGreaterThan(0)
+				expect(AGE_PROBLEM_TYPES[age].logic.length).toBeGreaterThan(0)
+			}
 		})
 	})
 })

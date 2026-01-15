@@ -26,5 +26,6 @@ export {
 	MIN_AGE,
 	MAX_AGE,
 	VALID_AGES,
-	AGE_DIFFICULTY_MAP
+	AGE_DIFFICULTY_MAP,
+	AGE_PROBLEM_TYPES
 } from './age-service'

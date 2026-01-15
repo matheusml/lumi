@@ -3,26 +3,66 @@
  *
  * Generates comparison problems: "Which side has more?"
  * Signature format: comparison:d{difficulty}:{left}v{right}
+ *
+ * Age-adaptive: For ages 3-4 at difficulty 1, uses smaller numbers with larger differences
  */
 
 import type { Problem, DifficultyLevel, AnswerValue } from '$lib/types'
 import type { ProblemGenerator, GeneratorResult } from './generator'
 import { getRandomObjectFrom, shuffle } from './visual-objects'
+import { ageService } from '$lib/services'
 
 export class ComparisonProblemGenerator implements ProblemGenerator {
 	readonly problemType = 'comparison' as const
 
-	/** Range of values and minimum difference for each difficulty level */
+	/**
+	 * Range of values and minimum difference for each difficulty level
+	 * Age-adaptive with hard caps:
+	 * - Age 3: Max 5 (all levels)
+	 * - Age 4: Max 10 (all levels)
+	 * - Age 5+: Standard ranges
+	 */
 	private params(difficulty: DifficultyLevel): { range: [number, number]; minDiff: number } {
+		const age = ageService.getAge()
+
+		// Age 3: Hard cap at 5
+		if (age === 3) {
+			switch (difficulty) {
+				case 1:
+					return { range: [1, 4], minDiff: 2 }
+				case 2:
+					return { range: [1, 5], minDiff: 2 }
+				case 3:
+					return { range: [1, 5], minDiff: 2 }
+				case 4:
+					return { range: [1, 5], minDiff: 1 }
+			}
+		}
+
+		// Age 4: Hard cap at 10
+		if (age === 4) {
+			switch (difficulty) {
+				case 1:
+					return { range: [1, 5], minDiff: 3 }
+				case 2:
+					return { range: [1, 7], minDiff: 2 }
+				case 3:
+					return { range: [1, 10], minDiff: 2 }
+				case 4:
+					return { range: [1, 10], minDiff: 1 }
+			}
+		}
+
+		// Ages 5+: Standard ranges
 		switch (difficulty) {
 			case 1:
-				return { range: [1, 10], minDiff: 4 } // Large obvious differences
+				return { range: [1, 10], minDiff: 4 }
 			case 2:
-				return { range: [1, 15], minDiff: 3 } // Medium differences
+				return { range: [1, 15], minDiff: 3 }
 			case 3:
-				return { range: [1, 20], minDiff: 2 } // Smaller differences
+				return { range: [1, 20], minDiff: 2 }
 			case 4:
-				return { range: [1, 20], minDiff: 1 } // Can be very close
+				return { range: [1, 20], minDiff: 1 }
 		}
 	}
 

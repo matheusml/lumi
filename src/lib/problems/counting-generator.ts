@@ -3,18 +3,58 @@
  *
  * Generates counting problems: "How many [objects] do you see?"
  * Signature format: counting:d{difficulty}:{count}
+ *
+ * Age-adaptive: For ages 3-4 at difficulty 1, uses smaller numbers (1-3)
  */
 
 import type { Problem, DifficultyLevel } from '$lib/types'
 import type { ProblemGenerator, GeneratorResult } from './generator'
 import { generateNumberChoices } from './generator'
 import { getRandomObject, shuffle } from './visual-objects'
+import { ageService } from '$lib/services'
 
 export class CountingProblemGenerator implements ProblemGenerator {
 	readonly problemType = 'counting' as const
 
-	/** Range of counts for each difficulty level */
+	/**
+	 * Range of counts for each difficulty level
+	 * Age-adaptive with hard caps:
+	 * - Age 3: Max 5 (all levels)
+	 * - Age 4: Max 10 (all levels)
+	 * - Age 5+: Standard ranges
+	 */
 	private countRange(difficulty: DifficultyLevel): [number, number] {
+		const age = ageService.getAge()
+
+		// Age 3: Hard cap at 5
+		if (age === 3) {
+			switch (difficulty) {
+				case 1:
+					return [1, 3]
+				case 2:
+					return [1, 4]
+				case 3:
+					return [1, 5]
+				case 4:
+					return [1, 5]
+			}
+		}
+
+		// Age 4: Hard cap at 10
+		if (age === 4) {
+			switch (difficulty) {
+				case 1:
+					return [1, 5]
+				case 2:
+					return [1, 7]
+				case 3:
+					return [1, 10]
+				case 4:
+					return [1, 10]
+			}
+		}
+
+		// Ages 5+: Standard ranges
 		switch (difficulty) {
 			case 1:
 				return [1, 5]

@@ -3,9 +3,16 @@
  *
  * Manages the child's age setting and provides age-based starting difficulty.
  * Ages 3-7 map to different starting difficulties for problem types.
+ * Also provides age-appropriate problem type filtering.
  */
 
-import type { DifficultyLevel } from '$lib/types'
+import type {
+	DifficultyLevel,
+	MathProblemType,
+	GrammarProblemType,
+	LogicProblemType,
+	AdventureCategory
+} from '$lib/types'
 
 export type ChildAge = 3 | 4 | 5 | 6 | 7
 
@@ -28,6 +35,46 @@ export const AGE_DIFFICULTY_MAP: Record<ChildAge, DifficultyLevel> = {
 	5: 2,
 	6: 2,
 	7: 3
+}
+
+/**
+ * Maps child age to appropriate problem types for each adventure category.
+ * - Ages 3-4: Focus on counting, comparison, patterns, matching (no arithmetic operations)
+ * - Ages 5+: Gradually introduce addition, subtraction, and more complex problems
+ */
+export const AGE_PROBLEM_TYPES: Record<
+	ChildAge,
+	{
+		math: MathProblemType[]
+		grammar: GrammarProblemType[]
+		logic: LogicProblemType[]
+	}
+> = {
+	3: {
+		math: ['counting', 'comparison'],
+		grammar: ['letter-recognition'],
+		logic: ['matching'] // Only matching for 3yo - patterns/categories too abstract
+	},
+	4: {
+		math: ['counting', 'comparison'],
+		grammar: ['letter-recognition'],
+		logic: ['matching', 'odd-one-out'] // Add categorization for 4yo
+	},
+	5: {
+		math: ['counting', 'addition', 'comparison'],
+		grammar: ['letter-recognition', 'alphabet-order'],
+		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence']
+	},
+	6: {
+		math: ['counting', 'addition', 'subtraction', 'comparison'],
+		grammar: ['letter-recognition', 'alphabet-order', 'initial-letter'],
+		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence']
+	},
+	7: {
+		math: ['counting', 'addition', 'subtraction', 'comparison'],
+		grammar: ['letter-recognition', 'alphabet-order', 'initial-letter', 'word-completion'],
+		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence']
+	}
 }
 
 type AgeSubscriber = (age: ChildAge) => void
@@ -76,6 +123,15 @@ export class AgeService {
 	 */
 	getStartingDifficulty(): DifficultyLevel {
 		return AGE_DIFFICULTY_MAP[this.currentAge]
+	}
+
+	/**
+	 * Get age-appropriate problem types for a given adventure category
+	 */
+	getProblemTypesForAge(
+		category: AdventureCategory
+	): MathProblemType[] | GrammarProblemType[] | LogicProblemType[] {
+		return AGE_PROBLEM_TYPES[this.currentAge][category]
 	}
 
 	/**

@@ -1,9 +1,15 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { CountingProblemGenerator } from './counting-generator'
+import { ageService } from '$lib/services'
 import type { DifficultyLevel } from '$lib/types'
 
 describe('CountingProblemGenerator', () => {
 	const generator = new CountingProblemGenerator()
+
+	// Reset age to default before each test to ensure consistent behavior
+	beforeEach(() => {
+		ageService.setAge(5)
+	})
 
 	describe('problemType', () => {
 		it('should be counting', () => {
@@ -81,7 +87,54 @@ describe('CountingProblemGenerator', () => {
 		})
 	})
 
+	describe('age-adaptive ranges', () => {
+		beforeEach(() => {
+			// Reset to default age before each test
+			ageService.setAge(5)
+		})
+
+		it('should cap at max 5 for age 3 at all difficulty levels', () => {
+			ageService.setAge(3)
+
+			// All difficulty levels should cap at 5 for age 3
+			for (const difficulty of [1, 2, 3, 4] as const) {
+				for (let i = 0; i < 10; i++) {
+					const result = generator.generate(difficulty, new Set())
+					const count = (result!.problem.correctAnswer as { type: 'number'; value: number }).value
+					expect(count).toBeGreaterThanOrEqual(1)
+					expect(count).toBeLessThanOrEqual(5)
+				}
+			}
+		})
+
+		it('should cap at max 10 for age 4 at all difficulty levels', () => {
+			ageService.setAge(4)
+
+			// All difficulty levels should cap at 10 for age 4
+			for (const difficulty of [1, 2, 3, 4] as const) {
+				for (let i = 0; i < 10; i++) {
+					const result = generator.generate(difficulty, new Set())
+					const count = (result!.problem.correctAnswer as { type: 'number'; value: number }).value
+					expect(count).toBeGreaterThanOrEqual(1)
+					expect(count).toBeLessThanOrEqual(10)
+				}
+			}
+		})
+
+		it('should use standard ranges for ages 5+', () => {
+			ageService.setAge(5)
+			// Difficulty 2 should use 1-10 for older children
+			const signatures = generator.allPossibleSignatures(2)
+			expect(signatures.length).toBe(10) // 1-10
+		})
+	})
+
 	describe('allPossibleSignatures', () => {
+		beforeEach(() => {
+			// Reset to default age for consistent signature counts
+			ageService.setAge(5)
+		})
+
 		it('should return correct number of signatures for difficulty 1', () => {
 			const signatures = generator.allPossibleSignatures(1)
 			expect(signatures.length).toBe(5) // 1-5

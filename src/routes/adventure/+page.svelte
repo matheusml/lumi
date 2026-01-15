@@ -20,7 +20,12 @@
 		LetterSequence
 	} from '$lib/components'
 	import { problemService } from '$lib/problems'
-	import { difficultyManager, adventureLimitService, speechService } from '$lib/services'
+	import {
+		difficultyManager,
+		adventureLimitService,
+		speechService,
+		ageService
+	} from '$lib/services'
 	import { getTranslations, localize, getSpeechLanguage, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
 	import type {
@@ -30,12 +35,7 @@
 		ProblemResult,
 		AdventureCategory
 	} from '$lib/types'
-	import {
-		PROBLEMS_PER_ADVENTURE,
-		MATH_PROBLEM_TYPES,
-		GRAMMAR_PROBLEM_TYPES,
-		LOGIC_PROBLEM_TYPES
-	} from '$lib/types'
+	import { PROBLEMS_PER_ADVENTURE } from '$lib/types'
 
 	// Adventure type from URL
 	const adventureType = $derived(
@@ -113,13 +113,8 @@
 	function generateProblems() {
 		const difficulties = difficultyManager.getAllDifficulties()
 
-		// Get appropriate problem types for this adventure
-		const problemTypes =
-			adventureType === 'grammar'
-				? GRAMMAR_PROBLEM_TYPES
-				: adventureType === 'logic'
-					? LOGIC_PROBLEM_TYPES
-					: MATH_PROBLEM_TYPES
+		// Get age-appropriate problem types for this adventure
+		const problemTypes = ageService.getProblemTypesForAge(adventureType)
 		const problemTypesSet = new Set<string>(problemTypes)
 		const filteredDifficulties = new Map(
 			[...difficulties].filter(([type]) => problemTypesSet.has(type))
