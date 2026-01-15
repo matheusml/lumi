@@ -88,6 +88,7 @@ class SpeechService {
 
 	/**
 	 * Get all available voices for a language
+	 * Sorts exact locale matches first, then other dialects
 	 */
 	getVoicesForLanguage(lang: string = 'en-US'): VoiceInfo[] {
 		if (!this.synth) return []
@@ -97,6 +98,12 @@ class SpeechService {
 
 		return voices
 			.filter((v) => v.lang.startsWith(langPrefix))
+			.sort((a, b) => {
+				// Exact matches first
+				const aExact = a.lang === lang ? 0 : 1
+				const bExact = b.lang === lang ? 0 : 1
+				return aExact - bExact
+			})
 			.map((v) => ({
 				name: v.name,
 				lang: v.lang,
@@ -125,27 +132,21 @@ class SpeechService {
 	}
 
 	/**
-	 * Find the best voice for a language
-	 * Priority: 1) Saved preference, 2) Cloud/preferred voices, 3) Any matching voice
+	 * Find the best voice from a list of candidates
+	 * Priority: 1) Saved preference, 2) Cloud/preferred voices, 3) Any voice
 	 */
-	private findBestVoice(lang: string): SpeechSynthesisVoice | null {
-		if (!this.synth) return null
-
-		const voices = this.synth.getVoices()
-		const langPrefix = lang.split('-')[0]
-		const matchingVoices = voices.filter((v) => v.lang.startsWith(langPrefix))
-
-		if (matchingVoices.length === 0) return null
+	private findBestVoiceFromCandidates(voices: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
+		if (voices.length === 0) return null
 
 		// 1. Check for saved preference
 		const savedName = this.getSelectedVoiceName()
 		if (savedName) {
-			const savedVoice = matchingVoices.find((v) => v.name === savedName)
+			const savedVoice = voices.find((v) => v.name === savedName)
 			if (savedVoice) return savedVoice
 		}
 
 		// 2. Prefer cloud-based voices (usually higher quality)
-		const cloudVoices = matchingVoices.filter((v) => !v.localService)
+		const cloudVoices = voices.filter((v) => !v.localService)
 		if (cloudVoices.length > 0) {
 			// Check for known high-quality voices first
 			for (const keyword of PREFERRED_VOICE_KEYWORDS) {
@@ -157,12 +158,32 @@ class SpeechService {
 
 		// 3. Check local voices for known high-quality ones
 		for (const keyword of PREFERRED_VOICE_KEYWORDS) {
-			const preferred = matchingVoices.find((v) => v.name.toLowerCase().includes(keyword))
+			const preferred = voices.find((v) => v.name.toLowerCase().includes(keyword))
 			if (preferred) return preferred
 		}
 
-		// 4. Fall back to first matching voice
-		return matchingVoices[0]
+		// 4. Fall back to first voice
+		return voices[0]
+	}
+
+	/**
+	 * Find the best voice for a language
+	 * Priority: 1) Exact locale match (e.g., pt-BR), 2) Prefix match (e.g., pt-*)
+	 */
+	private findBestVoice(lang: string): SpeechSynthesisVoice | null {
+		if (!this.synth) return null
+
+		const voices = this.synth.getVoices()
+		const langPrefix = lang.split('-')[0]
+
+		// First, try exact locale match (e.g., pt-BR)
+		const exactMatches = voices.filter((v) => v.lang === lang)
+		const exactResult = this.findBestVoiceFromCandidates(exactMatches)
+		if (exactResult) return exactResult
+
+		// Fall back to prefix match (e.g., any pt-* voice)
+		const prefixMatches = voices.filter((v) => v.lang.startsWith(langPrefix) && v.lang !== lang)
+		return this.findBestVoiceFromCandidates(prefixMatches)
 	}
 
 	/**
