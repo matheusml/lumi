@@ -61,8 +61,8 @@
 				</p>
 				<p>
 					Lumi teaches math, grammar, and logic through short, focused learning sessions called
-					"adventures." Each adventure
-					contains just 5 problems and adapts to your child's skill level automatically.
+					"adventures." Each adventure contains just 5 problems and adapts to your child's skill
+					level automatically.
 				</p>
 			</section>
 
