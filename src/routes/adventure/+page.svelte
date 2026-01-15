@@ -44,7 +44,8 @@
 
 	// i18n state
 	let t = $state<Translations>(getTranslations())
-	let unsubscribe: (() => void) | null = null
+	let unsubscribeLang: (() => void) | null = null
+	let unsubscribeAge: (() => void) | null = null
 
 	// Adventure state
 	let problems: Problem[] = $state([])
@@ -67,17 +68,24 @@
 
 	onMount(() => {
 		// Subscribe to language changes
-		unsubscribe = subscribe(() => {
+		unsubscribeLang = subscribe(() => {
 			t = getTranslations()
 		})
+
+		// If age changes during adventure, go back home (problems need regeneration)
+		unsubscribeAge = ageService.subscribe(() => {
+			goto('/')
+		})
+
 		// Load state and generate problems
 		loadState()
 		generateProblems()
 	})
 
 	onDestroy(() => {
-		// Clean up subscription
-		unsubscribe?.()
+		// Clean up subscriptions
+		unsubscribeLang?.()
+		unsubscribeAge?.()
 		// Clean up auto-progress timeout
 		if (autoProgressTimeout) {
 			clearTimeout(autoProgressTimeout)

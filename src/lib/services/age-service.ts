@@ -89,6 +89,7 @@ export class AgeService {
 	loadState(data: { age?: number }): void {
 		if (data.age !== undefined && this.isValidAge(data.age)) {
 			this.currentAge = data.age as ChildAge
+			this.notifySubscribers()
 		}
 	}
 
