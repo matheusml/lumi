@@ -23,3 +23,6 @@ export { default as AdventureTiles } from './AdventureTiles.svelte'
 
 // Settings components
 export { default as AgePicker } from './AgePicker.svelte'
+
+// SEO component
+export { default as SEO } from './SEO.svelte'
