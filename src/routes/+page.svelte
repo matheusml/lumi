@@ -166,6 +166,13 @@
 		font-weight: 600;
 		color: var(--color-text-primary);
 		margin: 0;
+		padding-right: 100px; /* Avoid overlap with language/age pickers */
+	}
+
+	@media (min-width: 480px) {
+		.headline {
+			padding-right: 0; /* Pickers have more room on larger screens */
+		}
 	}
 
 	.philosophy {
