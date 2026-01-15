@@ -7,7 +7,7 @@
 
 	import { page } from '$app/stores'
 	import { onMount, onDestroy } from 'svelte'
-	import { AdventureTiles } from '$lib/components'
+	import { AdventureTiles, SEO } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
 	import { getTranslations, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
@@ -46,9 +46,12 @@
 	})
 </script>
 
-<svelte:head>
-	<title>{t.complete.title} - {t.home.title}</title>
-</svelte:head>
+<SEO
+	title="Congratulations!"
+	description="You completed a learning adventure on Lumi, the anti-addictive educational app for children."
+	path="/complete"
+	noindex={true}
+/>
 
 <main class="complete">
 	<div class="celebration">

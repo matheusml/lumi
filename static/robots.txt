@@ -1,0 +1,11 @@
+# Lumi - Anti-addictive educational app for children
+# https://github.com/matheusml/lumi
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://playlumi.app/sitemap.xml
+
+# Crawl-delay suggestion (be gentle with our servers)
+Crawl-delay: 1

@@ -7,7 +7,7 @@
 
 	import { goto } from '$app/navigation'
 	import { onMount, onDestroy } from 'svelte'
-	import { Icon, LumiMascot, AdventureTiles } from '$lib/components'
+	import { Icon, LumiMascot, AdventureTiles, SEO } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
 	import { getTranslations, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
@@ -48,9 +48,11 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{t.home.title} - {t.home.tagline}</title>
-</svelte:head>
+<SEO
+	title="Lumi - Anti-addictive educational app for children"
+	description="Lumi is a free, open-source educational app for children. No points, streaks, or addictive mechanics. Respects screen time with daily limits and encourages outdoor play."
+	path="/"
+/>
 
 <main class="home">
 	<div class="content">
@@ -109,15 +111,19 @@
 		{/if}
 
 		<footer class="footer">
-			<a
-				href="https://github.com/matheusml/lumi"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="github-link"
-			>
-				<Icon name="github" size={16} />
-				{t.home.openSource}
-			</a>
+			<div class="footer-links">
+				<a href="/about" class="footer-link">About</a>
+				<a href="/faq" class="footer-link">FAQ</a>
+				<a
+					href="https://github.com/matheusml/lumi"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="footer-link"
+				>
+					<Icon name="github" size={16} />
+					{t.home.openSource}
+				</a>
+			</div>
 			<button class="parent-link" onclick={openParentZone}>
 				<Icon name="settings" size={16} />
 				{t.home.parentZone}
@@ -300,9 +306,18 @@
 		width: 100%;
 		margin-top: auto;
 		padding-top: var(--spacing-lg);
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
 	}
 
-	.github-link,
+	.footer-links {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		flex-wrap: wrap;
+	}
+
+	.footer-link,
 	.parent-link {
 		display: inline-flex;
 		align-items: center;
@@ -324,7 +339,7 @@
 			box-shadow var(--transition-fast);
 	}
 
-	.github-link:hover,
+	.footer-link:hover,
 	.parent-link:hover {
 		color: var(--color-text-primary);
 		background-color: var(--color-surface);

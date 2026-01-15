@@ -15,13 +15,14 @@
 	import type { VoiceInfo } from '$lib/services/speech'
 	import { DEFAULT_DAILY_LIMIT } from '$lib/types'
 
+	import { SEO } from '$lib/components'
 	import ParentGate from './components/ParentGate.svelte'
 	import ParentTabs from './components/ParentTabs.svelte'
 	import ConfigTab from './components/ConfigTab.svelte'
 	import AnalyticsTab from './components/AnalyticsTab.svelte'
 
-	// i18n state
-	let t = $state<Translations>(getTranslations())
+	// i18n state (kept for subscription pattern, even though not directly used in template)
+	let _t = $state<Translations>(getTranslations())
 	let unsubscribe: (() => void) | null = null
 
 	// Gate state
@@ -63,7 +64,7 @@
 
 	onMount(() => {
 		unsubscribe = subscribe(() => {
-			t = getTranslations()
+			_t = getTranslations()
 		})
 		loadState()
 		loadVoices()
@@ -204,9 +205,12 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{t.parents.title} - {t.home.title}</title>
-</svelte:head>
+<SEO
+	title="Parent Zone"
+	description="Parent dashboard for Lumi. View your child's learning progress, set daily limits, and configure voice settings."
+	path="/parents"
+	noindex={true}
+/>
 
 <main class="parents">
 	{#if !isUnlocked}
