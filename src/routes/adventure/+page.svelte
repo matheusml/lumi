@@ -65,6 +65,7 @@
 	const currentProblem = $derived(problems[currentIndex])
 	const completedCount = $derived(results.length)
 	const isLastProblem = $derived(currentIndex === problems.length - 1)
+	const isToddlerMode = $derived(ageService.getAge() <= 4)
 
 	onMount(() => {
 		// Subscribe to language changes
@@ -317,7 +318,7 @@
 	<title>{t.home.title}</title>
 </svelte:head>
 
-<main class="adventure">
+<main class="adventure" class:toddler-mode={isToddlerMode}>
 	{#if currentProblem}
 		<header class="header">
 			<button class="home-button" onclick={() => goto('/')} aria-label={t.adventure.backToHome}>
@@ -875,5 +876,47 @@
 			transform: translateY(0);
 			opacity: 1;
 		}
+	}
+
+	/* Toddler mode: larger touch targets for ages 3-4 */
+	.adventure.toddler-mode {
+		--touch-choice-button: 6rem;
+	}
+
+	.toddler-mode .logic-item {
+		width: 120px;
+		height: 120px;
+	}
+
+	.toddler-mode .logic-emoji {
+		font-size: 56px;
+	}
+
+	.toddler-mode .choice-emoji {
+		font-size: 40px;
+	}
+
+	.toddler-mode .matching-source-emoji {
+		font-size: 80px;
+	}
+
+	.toddler-mode .matching-question {
+		width: 100px;
+		height: 100px;
+		font-size: 44px;
+	}
+
+	.toddler-mode .sequence-emoji {
+		font-size: 56px;
+	}
+
+	.toddler-mode .sequence-unknown {
+		width: 80px;
+		height: 80px;
+		font-size: 36px;
+	}
+
+	.toddler-mode .comparison-side {
+		padding: var(--spacing-lg);
 	}
 </style>

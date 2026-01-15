@@ -108,6 +108,8 @@ export const fr: Translations = {
 		matching: 'Associations',
 		sequence: 'Séquences',
 		sorting: 'Classement',
+		shapeRecognition: 'Formes',
+		colorRecognition: 'Couleurs',
 		letterRecognition: 'Lettres',
 		alphabetOrder: 'Alphabet',
 		initialLetter: 'Lettre initiale',

@@ -93,6 +93,9 @@ export class CountingProblemGenerator implements ProblemGenerator {
 
 	private createProblem(count: number, difficulty: DifficultyLevel): Problem {
 		const object = getRandomObject()
+		const age = ageService.getAge()
+		// Fewer choices for younger children (3 instead of 4)
+		const numChoices = age <= 4 ? 3 : 4
 
 		return {
 			id: crypto.randomUUID(),
@@ -110,7 +113,7 @@ export class CountingProblemGenerator implements ProblemGenerator {
 				fr: `Combien de ${object.nameFr} vois-tu?`
 			},
 			correctAnswer: { type: 'number', value: count },
-			answerChoices: generateNumberChoices(count),
+			answerChoices: generateNumberChoices(count, numChoices),
 			hint: {
 				ptBR: `Tente contar cada ${object.namePtBR.replace(/s$/, '')} devagar, um por um.`,
 				en: `Try counting each ${object.nameEn.replace(/s$/, '')} slowly, one by one.`,

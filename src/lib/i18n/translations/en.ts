@@ -108,6 +108,8 @@ export const en: Translations = {
 		matching: 'Matching',
 		sequence: 'Sequences',
 		sorting: 'Sorting',
+		shapeRecognition: 'Shapes',
+		colorRecognition: 'Colors',
 		letterRecognition: 'Letters',
 		alphabetOrder: 'Alphabet',
 		initialLetter: 'Initial Letter',

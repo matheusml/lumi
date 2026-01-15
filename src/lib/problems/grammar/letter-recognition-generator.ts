@@ -10,6 +10,7 @@
 import type { Problem, DifficultyLevel, AnswerValue } from '$lib/types'
 import type { ProblemGenerator, GeneratorResult } from '../generator'
 import { getLettersForDifficulty, type LetterInfo } from '../grammar-data'
+import { ageService } from '$lib/services'
 
 /** Shuffle helper */
 function shuffle<T>(array: T[]): T[] {
@@ -69,10 +70,13 @@ export class LetterRecognitionGenerator implements ProblemGenerator {
 	): Problem {
 		const displayLetter = letterInfo.lowercase
 		const letters = getLettersForDifficulty(difficulty)
+		const age = ageService.getAge()
+		// Fewer choices for younger children (3 instead of 4)
+		const numDistractors = age <= 4 ? 2 : 3
 
-		// Generate answer choices (4 letters including correct one)
+		// Generate answer choices
 		const otherLetters = shuffle(letters.filter((l) => l.uppercase !== letterInfo.uppercase))
-		const choiceLetters = [letterInfo, ...otherLetters.slice(0, 3)]
+		const choiceLetters = [letterInfo, ...otherLetters.slice(0, numDistractors)]
 
 		const choices: AnswerValue[] = shuffle(choiceLetters).map((l) => ({
 			type: 'letter' as const,

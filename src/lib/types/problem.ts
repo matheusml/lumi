@@ -8,7 +8,14 @@
 export type MathProblemType = 'counting' | 'addition' | 'subtraction' | 'comparison'
 
 /** Logic problem types */
-export type LogicProblemType = 'odd-one-out' | 'matching' | 'sequence' | 'patterns' | 'sorting'
+export type LogicProblemType =
+	| 'odd-one-out'
+	| 'matching'
+	| 'sequence'
+	| 'patterns'
+	| 'sorting'
+	| 'shape-recognition'
+	| 'color-recognition'
 
 /** Grammar problem types */
 export type GrammarProblemType =
@@ -45,7 +52,9 @@ export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = [
 	'matching',
 	'sequence',
 	'patterns',
-	'sorting'
+	'sorting',
+	'shape-recognition',
+	'color-recognition'
 ]
 
 /** Difficulty levels (1-4) */

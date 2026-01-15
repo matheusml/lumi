@@ -10,6 +10,7 @@
 import type { Problem, DifficultyLevel, AnswerValue } from '$lib/types'
 import type { ProblemGenerator, GeneratorResult } from './generator'
 import { shuffle } from './visual-objects'
+import { ageService } from '$lib/services'
 
 /** A matching pair definition */
 interface MatchingPair {
@@ -124,36 +125,36 @@ const matchingPairs: Record<DifficultyLevel, MatchingPair[]> = {
 		}
 	],
 	4: [
-		// More abstract relationships
+		// More pairs - still child-friendly
 		{
-			id: 'book-glasses',
-			source: { emoji: '📚', namePtBR: 'livro' },
-			match: { emoji: '👓', namePtBR: 'óculos' },
-			relationPtBR: 'lê com'
+			id: 'cow-milk',
+			source: { emoji: '🐄', namePtBR: 'vaca' },
+			match: { emoji: '🥛', namePtBR: 'leite' },
+			relationPtBR: 'dá'
 		},
 		{
-			id: 'clock-alarm',
-			source: { emoji: '⏰', namePtBR: 'relógio' },
-			match: { emoji: '🔔', namePtBR: 'alarme' },
-			relationPtBR: 'toca o'
+			id: 'chicken-egg',
+			source: { emoji: '🐔', namePtBR: 'galinha' },
+			match: { emoji: '🥚', namePtBR: 'ovo' },
+			relationPtBR: 'bota'
 		},
 		{
-			id: 'phone-charger',
-			source: { emoji: '📱', namePtBR: 'celular' },
-			match: { emoji: '🔌', namePtBR: 'carregador' },
-			relationPtBR: 'carrega com'
+			id: 'spider-web',
+			source: { emoji: '🕷️', namePtBR: 'aranha' },
+			match: { emoji: '🕸️', namePtBR: 'teia' },
+			relationPtBR: 'faz'
 		},
 		{
-			id: 'camera-photo',
-			source: { emoji: '📷', namePtBR: 'câmera' },
-			match: { emoji: '🖼️', namePtBR: 'foto' },
-			relationPtBR: 'tira'
+			id: 'baby-bottle',
+			source: { emoji: '👶', namePtBR: 'bebê' },
+			match: { emoji: '🍼', namePtBR: 'mamadeira' },
+			relationPtBR: 'usa'
 		},
 		{
-			id: 'seed-tree',
-			source: { emoji: '🌱', namePtBR: 'semente' },
-			match: { emoji: '🌳', namePtBR: 'árvore' },
-			relationPtBR: 'vira'
+			id: 'monkey-banana',
+			source: { emoji: '🐵', namePtBR: 'macaco' },
+			match: { emoji: '🍌', namePtBR: 'banana' },
+			relationPtBR: 'come'
 		}
 	]
 }
@@ -208,12 +209,16 @@ export class MatchingProblemGenerator implements ProblemGenerator {
 	}
 
 	private createProblem(pair: MatchingPair, difficulty: DifficultyLevel): Problem {
-		// Get 3 wrong answers from other pairs
+		const age = ageService.getAge()
+		// Fewer choices for younger children (3 instead of 4)
+		const numDistractors = age <= 4 ? 2 : 3
+
+		// Get wrong answers from other pairs
 		const distractors = shuffle(getDistractors(pair.id))
 			.filter((d) => d !== pair.match.emoji && d !== pair.source.emoji)
-			.slice(0, 3)
+			.slice(0, numDistractors)
 
-		// Create all 4 options
+		// Create all options (3 for young children, 4 for older)
 		const allOptions = shuffle([pair.match.emoji, ...distractors])
 
 		// Create answer choices

@@ -53,12 +53,12 @@ export const AGE_PROBLEM_TYPES: Record<
 	3: {
 		math: ['counting', 'comparison'],
 		grammar: ['letter-recognition'],
-		logic: ['matching'] // Only matching for 3yo - patterns/categories too abstract
+		logic: ['matching', 'shape-recognition', 'color-recognition'] // Simple recognition for 3yo
 	},
 	4: {
 		math: ['counting', 'comparison'],
 		grammar: ['letter-recognition'],
-		logic: ['matching', 'odd-one-out'] // Add categorization for 4yo
+		logic: ['matching', 'odd-one-out', 'shape-recognition', 'color-recognition']
 	},
 	5: {
 		math: ['counting', 'addition', 'comparison'],

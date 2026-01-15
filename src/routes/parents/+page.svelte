@@ -55,6 +55,8 @@
 		matching: { difficulty: 1, accuracy: 0 },
 		sequence: { difficulty: 1, accuracy: 0 },
 		sorting: { difficulty: 1, accuracy: 0 },
+		'shape-recognition': { difficulty: 1, accuracy: 0 },
+		'color-recognition': { difficulty: 1, accuracy: 0 },
 		// Grammar
 		'letter-recognition': { difficulty: 1, accuracy: 0 },
 		'alphabet-order': { difficulty: 1, accuracy: 0 },

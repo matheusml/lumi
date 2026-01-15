@@ -10,6 +10,7 @@
 import type { Problem, DifficultyLevel, AnswerValue } from '$lib/types'
 import type { ProblemGenerator, GeneratorResult } from './generator'
 import { shuffle } from './visual-objects'
+import { ageService } from '$lib/services'
 
 /** Category definition for logic problems */
 interface LogicCategory {
@@ -258,10 +259,14 @@ export class OddOneOutGenerator implements ProblemGenerator {
 		oddObject: LogicObject,
 		difficulty: DifficultyLevel
 	): Problem {
-		// Pick 3 random members from the category
-		const categoryMembers = shuffle(category.members).slice(0, 3)
+		const age = ageService.getAge()
+		// Fewer choices for younger children (3 instead of 4)
+		const numCategoryMembers = age <= 4 ? 2 : 3
 
-		// Create all 4 objects (3 from category + 1 odd)
+		// Pick random members from the category
+		const categoryMembers = shuffle(category.members).slice(0, numCategoryMembers)
+
+		// Create all objects (category members + 1 odd)
 		const allObjects = shuffle([...categoryMembers, oddObject])
 
 		// Create visual elements

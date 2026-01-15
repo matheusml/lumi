@@ -42,6 +42,8 @@
 			matching: t.parents.matching,
 			sequence: t.parents.sequence,
 			sorting: t.parents.sorting,
+			'shape-recognition': t.parents.shapeRecognition,
+			'color-recognition': t.parents.colorRecognition,
 			'letter-recognition': t.parents.letterRecognition,
 			'alphabet-order': t.parents.alphabetOrder,
 			'initial-letter': t.parents.initialLetter,
@@ -57,7 +59,13 @@
 		'comparison',
 		'patterns'
 	]
-	const logicActivities: ProblemType[] = ['odd-one-out', 'matching', 'sequence']
+	const logicActivities: ProblemType[] = [
+		'odd-one-out',
+		'matching',
+		'sequence',
+		'shape-recognition',
+		'color-recognition'
+	]
 	const grammarActivities: ProblemType[] = [
 		'letter-recognition',
 		'alphabet-order',

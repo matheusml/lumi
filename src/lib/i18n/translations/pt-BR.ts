@@ -108,6 +108,8 @@ export const ptBR: Translations = {
 		matching: 'Combinações',
 		sequence: 'Sequências',
 		sorting: 'Classificação',
+		shapeRecognition: 'Formas',
+		colorRecognition: 'Cores',
 		letterRecognition: 'Letras',
 		alphabetOrder: 'Alfabeto',
 		initialLetter: 'Letra Inicial',

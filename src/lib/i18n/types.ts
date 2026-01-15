@@ -121,6 +121,8 @@ export interface Translations {
 		matching: string
 		sequence: string
 		sorting: string
+		shapeRecognition: string
+		colorRecognition: string
 		letterRecognition: string
 		alphabetOrder: string
 		initialLetter: string

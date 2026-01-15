@@ -15,6 +15,8 @@ import { OddOneOutGenerator } from './logic-generator'
 import { MatchingProblemGenerator } from './matching-generator'
 import { SequenceProblemGenerator } from './sequence-generator'
 import { SortingProblemGenerator } from './sorting-generator'
+import { ShapeRecognitionGenerator } from './shape-recognition-generator'
+import { ColorRecognitionGenerator } from './color-recognition-generator'
 import {
 	LetterRecognitionGenerator,
 	AlphabetOrderGenerator,
@@ -44,6 +46,8 @@ export class ProblemService {
 			sequence: new SequenceProblemGenerator(),
 			patterns: new PatternProblemGenerator(),
 			sorting: new SortingProblemGenerator(),
+			'shape-recognition': new ShapeRecognitionGenerator(),
+			'color-recognition': new ColorRecognitionGenerator(),
 			// Grammar generators
 			'letter-recognition': new LetterRecognitionGenerator(),
 			'alphabet-order': new AlphabetOrderGenerator(),
