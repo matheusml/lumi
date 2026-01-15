@@ -587,7 +587,6 @@
 		justify-content: center;
 		min-height: 120px;
 		max-width: 100%;
-		overflow: hidden;
 	}
 
 	.equation {
