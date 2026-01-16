@@ -29,3 +29,6 @@ export {
 	AGE_DIFFICULTY_MAP,
 	AGE_PROBLEM_TYPES
 } from './age-service'
+
+// Re-export language URL helper from i18n
+export { setLanguageFromUrl } from '$lib/i18n'

@@ -8,6 +8,7 @@
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { onMount, onDestroy } from 'svelte'
+	import { localizedPath, localizedUrl } from '$lib/utils/navigation'
 	import {
 		LumiButton,
 		ChoiceButton,
@@ -76,7 +77,7 @@
 
 		// If age changes during adventure, go back home (problems need regeneration)
 		unsubscribeAge = ageService.subscribe(() => {
-			goto('/')
+			goto(localizedPath('/'))
 		})
 
 		// Load state and generate problems
@@ -245,11 +246,10 @@
 			adventureLimitService.recordAdventure()
 			saveLimits()
 			goto(
-				'/complete?' +
-					new URLSearchParams({
-						correct: results.filter((r) => r.isCorrect).length.toString(),
-						total: results.length.toString()
-					})
+				localizedUrl('/complete', {
+					correct: results.filter((r) => r.isCorrect).length.toString(),
+					total: results.length.toString()
+				})
 			)
 		} else {
 			// Move to next problem
@@ -322,7 +322,11 @@
 <main class="adventure" class:toddler-mode={isToddlerMode}>
 	{#if currentProblem}
 		<header class="header">
-			<button class="home-button" onclick={() => goto('/')} aria-label={t.adventure.backToHome}>
+			<button
+				class="home-button"
+				onclick={() => goto(localizedPath('/'))}
+				aria-label={t.adventure.backToHome}
+			>
 				<svg
 					width="24"
 					height="24"

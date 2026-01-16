@@ -39,6 +39,8 @@ export const en: Translations = {
 			freeNoAds: 'Free forever, no ads'
 		},
 		openSource: 'GitHub',
+		about: 'About',
+		faq: 'FAQ',
 		startAdventure: 'Start an adventure',
 		math: 'Math',
 		grammar: 'Grammar',

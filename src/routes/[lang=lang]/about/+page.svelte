@@ -9,8 +9,15 @@
 	import { goto } from '$app/navigation'
 	import { onMount, onDestroy } from 'svelte'
 	import { Icon, LumiMascot, SEO } from '$lib/components'
+	import { localizedPath } from '$lib/utils/navigation'
 	import { getTranslations, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
+
+	interface Props {
+		data: { lang: string }
+	}
+
+	let { data }: Props = $props()
 
 	let t = $state<Translations>(getTranslations())
 	let unsubscribe: (() => void) | null = null
@@ -26,7 +33,7 @@
 	})
 
 	function goHome() {
-		goto('/')
+		goto(localizedPath('/'))
 	}
 </script>
 
@@ -34,6 +41,7 @@
 	title="About Lumi"
 	description="Lumi is a free, open-source, anti-addictive educational app for children. Learn about our mission to create ethical ed-tech that respects screen time and children's wellbeing."
 	path="/about"
+	lang={data.lang}
 />
 
 <main class="about">

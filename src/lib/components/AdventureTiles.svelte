@@ -8,6 +8,7 @@
 
 	import { goto } from '$app/navigation'
 	import { Icon } from '$lib/components'
+	import { localizedUrl } from '$lib/utils/navigation'
 	import type { Translations } from '$lib/i18n'
 
 	interface Props {
@@ -19,19 +20,19 @@
 
 	function startMathAdventure() {
 		if (canStart) {
-			goto('/adventure?type=math')
+			goto(localizedUrl('/adventure', { type: 'math' }))
 		}
 	}
 
 	function startGrammarAdventure() {
 		if (canStart) {
-			goto('/adventure?type=grammar')
+			goto(localizedUrl('/adventure', { type: 'grammar' }))
 		}
 	}
 
 	function startLogicAdventure() {
 		if (canStart) {
-			goto('/adventure?type=logic')
+			goto(localizedUrl('/adventure', { type: 'logic' }))
 		}
 	}
 </script>
