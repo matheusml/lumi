@@ -12,6 +12,12 @@
 	import { getTranslations, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
 
+	interface Props {
+		data: { lang: string }
+	}
+
+	let { data }: Props = $props()
+
 	const correct = $derived(parseInt($page.url.searchParams.get('correct') ?? '0'))
 	const total = $derived(parseInt($page.url.searchParams.get('total') ?? '5'))
 
@@ -50,6 +56,7 @@
 	title="Congratulations!"
 	description="You completed a learning adventure on Lumi, the anti-addictive educational app for children."
 	path="/complete"
+	lang={data.lang}
 	noindex={true}
 />
 

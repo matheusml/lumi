@@ -6,7 +6,10 @@
 	 */
 
 	import { onMount, onDestroy } from 'svelte'
-	import { getLanguage, setLanguage, languages, subscribe } from './index'
+	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
+	import { getLanguage, languages, subscribe } from './index'
+	import { stripLanguagePrefix } from '$lib/utils/navigation'
 	import type { SupportedLanguage } from './types'
 
 	let isOpen = $state(false)
@@ -27,8 +30,18 @@
 	})
 
 	function selectLanguage(lang: SupportedLanguage) {
-		setLanguage(lang)
 		isOpen = false
+
+		// Get current path without language prefix
+		const currentPath = $page.url.pathname
+		const pathWithoutLang = stripLanguagePrefix(currentPath)
+
+		// Build new path with selected language
+		const newPath = `/${lang}${pathWithoutLang === '/' ? '' : pathWithoutLang}`
+
+		// Preserve query params
+		const search = $page.url.search
+		goto(newPath + search)
 	}
 
 	function toggleDropdown() {

@@ -10,6 +10,7 @@
 		title: string
 		description: string
 		path?: string
+		lang?: string
 		type?: 'website' | 'article'
 		image?: string
 		noindex?: boolean
@@ -18,17 +19,20 @@
 	const SITE_URL = 'https://playlumi.app'
 	const SITE_NAME = 'Lumi'
 	const DEFAULT_IMAGE = '/icon-512.png'
+	const SUPPORTED_LANGUAGES = ['en', 'pt-BR', 'de', 'fr', 'es']
 
 	let {
 		title,
 		description,
 		path = '',
+		lang = 'en',
 		type = 'website',
 		image = DEFAULT_IMAGE,
 		noindex = false
 	}: Props = $props()
 
-	const canonicalUrl = $derived(`${SITE_URL}${path}`)
+	// Canonical URL includes the language prefix
+	const canonicalUrl = $derived(`${SITE_URL}/${lang}${path}`)
 	const imageUrl = $derived(image.startsWith('http') ? image : `${SITE_URL}${image}`)
 	const fullTitle = $derived(path === '/' ? title : `${title} - ${SITE_NAME}`)
 
@@ -100,12 +104,11 @@
 	<!-- Canonical URL -->
 	<link rel="canonical" href={canonicalUrl} />
 
-	<!-- Language alternates -->
-	<link rel="alternate" hreflang="en" href={canonicalUrl} />
-	<link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
-	<link rel="alternate" hreflang="de" href={canonicalUrl} />
-	<link rel="alternate" hreflang="fr" href={canonicalUrl} />
-	<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+	<!-- Language alternates - each pointing to distinct language URL -->
+	{#each SUPPORTED_LANGUAGES as altLang}
+		<link rel="alternate" hreflang={altLang} href={`${SITE_URL}/${altLang}${path}`} />
+	{/each}
+	<link rel="alternate" hreflang="x-default" href={`${SITE_URL}/en${path}`} />
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content={type} />
@@ -114,10 +117,23 @@
 	<meta property="og:description" content={description} />
 	<meta property="og:image" content={imageUrl} />
 	<meta property="og:site_name" content={SITE_NAME} />
-	<meta property="og:locale" content="en_US" />
+	<meta
+		property="og:locale"
+		content={lang === 'pt-BR'
+			? 'pt_BR'
+			: lang === 'de'
+				? 'de_DE'
+				: lang === 'fr'
+					? 'fr_FR'
+					: lang === 'es'
+						? 'es_ES'
+						: 'en_US'}
+	/>
+	<meta property="og:locale:alternate" content="en_US" />
 	<meta property="og:locale:alternate" content="pt_BR" />
 	<meta property="og:locale:alternate" content="de_DE" />
 	<meta property="og:locale:alternate" content="fr_FR" />
+	<meta property="og:locale:alternate" content="es_ES" />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />

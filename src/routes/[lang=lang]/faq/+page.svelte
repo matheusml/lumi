@@ -9,8 +9,15 @@
 	import { goto } from '$app/navigation'
 	import { onMount, onDestroy } from 'svelte'
 	import { Icon, LumiMascot } from '$lib/components'
+	import { localizedPath } from '$lib/utils/navigation'
 	import { getTranslations, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
+
+	interface Props {
+		data: { lang: string }
+	}
+
+	let { data }: Props = $props()
 
 	let t = $state<Translations>(getTranslations())
 	let unsubscribe: (() => void) | null = null
@@ -26,7 +33,7 @@
 	})
 
 	function goHome() {
-		goto('/')
+		goto(localizedPath('/'))
 	}
 
 	const SITE_URL = 'https://playlumi.app'
@@ -135,11 +142,11 @@
 		name="keywords"
 		content="FAQ, anti-addictive app, educational app questions, educational app for kids, ethical ed-tech, screen time, humane technology"
 	/>
-	<link rel="canonical" href={`${SITE_URL}/faq`} />
+	<link rel="canonical" href={`${SITE_URL}/${data.lang}/faq`} />
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content={`${SITE_URL}/faq`} />
+	<meta property="og:url" content={`${SITE_URL}/${data.lang}/faq`} />
 	<meta property="og:title" content="FAQ - Lumi" />
 	<meta
 		property="og:description"

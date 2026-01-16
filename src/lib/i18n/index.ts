@@ -123,6 +123,23 @@ export function setLanguage(lang: SupportedLanguage): void {
 	notifySubscribers()
 }
 
+/** Set language from URL parameter (used by language-prefixed routes) */
+export function setLanguageFromUrl(lang: string): void {
+	if (!(lang in languages)) return
+	if (lang === currentLanguage) return
+
+	currentLanguage = lang as SupportedLanguage
+
+	if (typeof window !== 'undefined') {
+		// Sync to localStorage so it persists
+		localStorage.setItem(STORAGE_KEY, lang)
+		// Update HTML lang attribute (also done server-side via hooks)
+		document.documentElement.lang = lang
+	}
+
+	notifySubscribers()
+}
+
 /** Speech language type */
 export type SpeechLanguage = 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR' | 'es-ES'
 

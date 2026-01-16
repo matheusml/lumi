@@ -10,7 +10,14 @@
 	import { Icon, LumiMascot, AdventureTiles, SEO } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
 	import { getTranslations, subscribe } from '$lib/i18n'
+	import { localizedPath } from '$lib/utils/navigation'
 	import type { Translations } from '$lib/i18n'
+
+	interface Props {
+		data: { lang: string }
+	}
+
+	let { data }: Props = $props()
 
 	let canStart = $state(true)
 	let remaining = $state(3)
@@ -44,14 +51,15 @@
 	})
 
 	function openParentZone() {
-		goto('/parents')
+		goto(localizedPath('/parents'))
 	}
 </script>
 
 <SEO
 	title="Lumi - Anti-addictive educational app for children"
 	description="Lumi is a free, open-source educational app for children. No points, streaks, or addictive mechanics. Respects screen time with daily limits and encourages outdoor play."
-	path="/"
+	path=""
+	lang={data.lang}
 />
 
 <main class="home">
@@ -112,8 +120,8 @@
 
 		<footer class="footer">
 			<div class="footer-links">
-				<a href="/about" class="footer-link">About</a>
-				<a href="/faq" class="footer-link">FAQ</a>
+				<a href={localizedPath('/about')} class="footer-link">About</a>
+				<a href={localizedPath('/faq')} class="footer-link">FAQ</a>
 				<a
 					href="https://github.com/matheusml/lumi"
 					target="_blank"

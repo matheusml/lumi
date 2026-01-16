@@ -8,6 +8,7 @@
 
 	import { goto } from '$app/navigation'
 	import { onMount, onDestroy } from 'svelte'
+	import { localizedPath } from '$lib/utils/navigation'
 	import { difficultyManager, adventureLimitService, speechService } from '$lib/services'
 	import { getTranslations, getSpeechLanguage, subscribe } from '$lib/i18n'
 	import type { Translations } from '$lib/i18n'
@@ -20,6 +21,12 @@
 	import ParentTabs from './components/ParentTabs.svelte'
 	import ConfigTab from './components/ConfigTab.svelte'
 	import AnalyticsTab from './components/AnalyticsTab.svelte'
+
+	interface Props {
+		data: { lang: string }
+	}
+
+	let { data }: Props = $props()
 
 	// i18n state (kept for subscription pattern, even though not directly used in template)
 	let _t = $state<Translations>(getTranslations())
@@ -153,7 +160,7 @@
 	}
 
 	function goHome() {
-		goto('/')
+		goto(localizedPath('/'))
 	}
 
 	// Event handlers for components
@@ -212,6 +219,7 @@
 	title="Parent Zone"
 	description="Parent dashboard for Lumi. View your child's learning progress, set daily limits, and configure voice settings."
 	path="/parents"
+	lang={data.lang}
 	noindex={true}
 />
 

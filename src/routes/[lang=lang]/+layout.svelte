@@ -1,20 +1,30 @@
 <script lang="ts">
-	import '../app.css'
+	/**
+	 * Language Layout
+	 *
+	 * Sets the language from the URL parameter and provides app-wide UI elements.
+	 */
+
+	import '../../app.css'
 	import { onMount } from 'svelte'
-	import { initLanguage } from '$lib/i18n'
-	import { initAge, ageService } from '$lib/services/age-service'
+	import { setLanguageFromUrl, initAge, ageService } from '$lib/services'
 	import { difficultyManager } from '$lib/services/difficulty-manager'
 	import LanguagePicker from '$lib/i18n/LanguagePicker.svelte'
 	import AgePicker from '$lib/components/AgePicker.svelte'
 
 	interface Props {
+		data: { lang: string }
 		children: import('svelte').Snippet
 	}
 
-	let { children }: Props = $props()
+	let { data, children }: Props = $props()
+
+	// Set language from URL param whenever it changes
+	$effect(() => {
+		setLanguageFromUrl(data.lang)
+	})
 
 	onMount(() => {
-		initLanguage()
 		initAge()
 
 		// Set initial starting difficulty based on age
