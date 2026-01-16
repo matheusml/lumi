@@ -322,7 +322,11 @@
 <main class="adventure" class:toddler-mode={isToddlerMode}>
 	{#if currentProblem}
 		<header class="header">
-			<button class="home-button" onclick={() => goto(localizedPath('/'))} aria-label={t.adventure.backToHome}>
+			<button
+				class="home-button"
+				onclick={() => goto(localizedPath('/'))}
+				aria-label={t.adventure.backToHome}
+			>
 				<svg
 					width="24"
 					height="24"
