@@ -8,7 +8,7 @@ const STATIC_DIR = join(import.meta.dirname, '..', 'static')
 // This prevents iOS from adding a black background
 const createIconSvg = (size) => {
 	const scale = size / 512
-	const faceScale = 0.65 // Face takes up 65% of the icon
+	const faceScale = 0.9 // Face takes up 90% of the icon
 	const cx = size / 2
 	const cy = size / 2
 
@@ -75,8 +75,7 @@ async function generateIcons() {
 		{ name: 'icon-192.png', size: 192 },
 		{ name: 'icon-512.png', size: 512 },
 		{ name: 'icon-maskable-512.png', size: 512 },
-		{ name: 'apple-touch-icon.png', size: 180 },
-		{ name: 'favicon.png', size: 32 }
+		{ name: 'apple-touch-icon.png', size: 180 }
 	]
 
 	for (const { name, size } of sizes) {
