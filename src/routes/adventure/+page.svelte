@@ -599,9 +599,7 @@
 		border-radius: var(--radius-xl);
 		background-color: transparent;
 		cursor: pointer;
-		flex: 1;
-		min-width: 0;
-		max-width: 45%;
+		flex: 0 1 auto;
 		transition:
 			transform var(--transition-fast),
 			border-color var(--transition-fast),
@@ -609,7 +607,6 @@
 	}
 
 	.comparison-side:hover:not(:disabled) {
-		border-color: var(--color-primary);
 		transform: scale(1.02);
 	}
 
