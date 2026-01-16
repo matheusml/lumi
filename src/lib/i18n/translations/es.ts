@@ -2,167 +2,171 @@ import type { Translations } from '../types'
 
 export const es: Translations = {
 	about: {
-		title: 'About Lumi',
+		title: 'Sobre Lumi',
 		metaDescription:
-			"Lumi is a free, open-source, anti-addictive educational app for children. Learn about our mission to create ethical ed-tech that respects screen time and children's wellbeing.",
-		whatIsLumi: 'What is Lumi?',
-		whatIsLumiIntro: 'Lumi is a free, open-source educational app for children',
-		whatIsLumiIntroHighlight: "respect children's wellbeing",
+			'Lumi es una aplicación educativa gratuita, de código abierto y anti-adictiva para niños. Conoce nuestra misión de crear tecnología educativa ética que respeta el tiempo de pantalla y el bienestar de los niños.',
+		whatIsLumi: '¿Qué es Lumi?',
+		whatIsLumiIntro: 'Lumi es una aplicación educativa gratuita y de código abierto para niños',
+		whatIsLumiIntroHighlight: 'respetar el bienestar de los niños',
 		whatIsLumiIntroEnd:
-			'that takes a radically different approach to learning apps. While most educational apps use addictive design patterns to maximize screen time, Lumi is built with one core principle:',
+			'que adopta un enfoque radicalmente diferente a las aplicaciones de aprendizaje. Mientras que la mayoría de las aplicaciones educativas usan patrones adictivos para maximizar el tiempo de pantalla, Lumi está construido con un principio fundamental:',
 		whatIsLumiDescription:
-			'Lumi teaches math, grammar, and logic through short, focused learning sessions called "adventures." Each adventure contains just 5 problems and adapts to your child\'s skill level automatically.',
-		problemTitle: 'The Problem with Most Educational Apps',
-		problemIntro: "Most children's educational apps are designed like slot machines. They use",
-		problemDarkPatterns: 'dark patterns',
+			'Lumi enseña matemáticas, gramática y lógica a través de sesiones cortas y enfocadas de aprendizaje llamadas "aventuras". Cada aventura contiene solo 5 problemas y se adapta automáticamente al nivel de habilidad de tu hijo.',
+		problemTitle: 'El problema con la mayoría de las aplicaciones educativas',
+		problemIntro:
+			'La mayoría de las aplicaciones educativas para niños están diseñadas como máquinas tragamonedas. Usan',
+		problemDarkPatterns: 'patrones oscuros',
 		problemList: {
-			points: 'Points and virtual currencies that create artificial rewards',
-			streaks: 'Streaks that punish missing a day',
-			leaderboards: 'Leaderboards that create unhealthy competition',
-			timedChallenges: 'Timed challenges that induce stress and anxiety',
-			pushNotifications: 'Push notifications that interrupt family time',
-			flashyAnimations: 'Flashy animations designed to overstimulate'
+			points: 'Puntos y monedas virtuales que crean recompensas artificiales',
+			streaks: 'Rachas que castigan perder un día',
+			leaderboards: 'Tablas de clasificación que crean competencia dañina',
+			timedChallenges: 'Desafíos cronometrados que inducen estrés y ansiedad',
+			pushNotifications: 'Notificaciones push que interrumpen el tiempo en familia',
+			flashyAnimations: 'Animaciones llamativas diseñadas para sobreestimular'
 		},
 		problemConclusion:
-			'These techniques maximize "engagement metrics" but harm children\'s relationship with learning and screens.',
-		approachTitle: "Lumi's Anti-Addictive Approach",
-		approachIntro: 'Lumi is part of the',
-		approachHumaneTech: 'humane technology movement',
+			'Estas técnicas maximizan las "métricas de engagement" pero dañan la relación de los niños con el aprendizaje y las pantallas.',
+		approachTitle: 'El enfoque anti-adictivo de Lumi',
+		approachIntro: 'Lumi es parte del',
+		approachHumaneTech: 'movimiento de tecnología humana',
 		approachIntroEnd:
-			". We believe educational apps should support healthy development, not exploit children's attention.",
+			'. Creemos que las aplicaciones educativas deben apoyar el desarrollo saludable, no explotar la atención de los niños.',
 		principles: {
 			dailyLimits: {
-				title: 'Daily Limits',
+				title: 'Límites diarios',
 				description:
-					'Parents set a daily adventure limit (default: 3). When reached, Lumi encourages kids to play outside or read a book.'
+					'Los padres establecen un límite diario de aventuras (predeterminado: 3). Cuando se alcanza, Lumi anima a los niños a jugar afuera o leer un libro.'
 			},
 			noRewards: {
-				title: 'No Rewards',
+				title: 'Sin recompensas',
 				description:
-					'No points, coins, gems, or virtual rewards. Learning is its own reward. We celebrate completion, not scores.'
+					'Sin puntos, monedas, gemas o recompensas virtuales. El aprendizaje es su propia recompensa. Celebramos completar, no las puntuaciones.'
 			},
 			noStreaks: {
-				title: 'No Streaks',
+				title: 'Sin rachas',
 				description:
-					"Missing a day is fine. There's no punishment for taking breaks. Kids can learn at their own pace."
+					'Perder un día está bien. No hay castigo por tomar descansos. Los niños pueden aprender a su propio ritmo.'
 			},
 			calmDesign: {
-				title: 'Calm Design',
+				title: 'Diseño tranquilo',
 				description:
-					'Gentle animations, warm colors, and no overstimulating effects. Designed to be peaceful, not hyperactive.'
+					'Animaciones suaves, colores cálidos y sin efectos sobreestimulantes. Diseñado para ser pacífico, no hiperactivo.'
 			},
 			noNotifications: {
-				title: 'No Notifications',
+				title: 'Sin notificaciones',
 				description:
-					"Lumi never sends push notifications asking kids to return. When they're done, they're done."
+					'Lumi nunca envía notificaciones push pidiendo a los niños que vuelvan. Cuando terminan, terminan.'
 			},
 			adaptiveDifficulty: {
-				title: 'Adaptive Difficulty',
+				title: 'Dificultad adaptativa',
 				description:
-					"Problems automatically adjust to your child's level. Move up after success, get easier problems after struggles."
+					'Los problemas se ajustan automáticamente al nivel de tu hijo. Sube después del éxito, recibe problemas más fáciles después de dificultades.'
 			}
 		},
-		featuresTitle: 'Features',
+		featuresTitle: 'Características',
 		features: {
-			learningTopics: 'Learning Topics: Math, grammar, and logic exercises',
-			ageAppropriate: 'Age-Appropriate: Content designed for young children',
-			multipleLanguages: 'Multiple Languages: English, Portuguese, German, and French',
-			voiceSupport: 'Voice Support: Problems can be read aloud using text-to-speech',
-			offlineFirst: 'Offline First: Works without internet, all data stays on device',
-			parentDashboard: 'Parent Dashboard: View progress and adjust settings',
-			completelyFree: 'Completely Free: No ads, no in-app purchases, no subscriptions',
-			openSourceFeature: 'Open Source: Transparent code anyone can inspect and improve'
+			learningTopics: 'Temas de aprendizaje: Ejercicios de matemáticas, gramática y lógica',
+			ageAppropriate: 'Apropiado para la edad: Contenido diseñado para niños pequeños',
+			multipleLanguages: 'Múltiples idiomas: Inglés, portugués, alemán y francés',
+			voiceSupport: 'Soporte de voz: Los problemas pueden leerse en voz alta',
+			offlineFirst:
+				'Offline primero: Funciona sin internet, todos los datos quedan en el dispositivo',
+			parentDashboard: 'Panel de padres: Ver el progreso y ajustar configuraciones',
+			completelyFree: 'Completamente gratis: Sin anuncios, compras en la app ni suscripciones',
+			openSourceFeature:
+				'Código abierto: Código transparente que cualquiera puede inspeccionar y mejorar'
 		},
-		privacyTitle: 'Privacy',
-		privacyZeroData: 'zero data',
+		privacyTitle: 'Privacidad',
+		privacyZeroData: 'cero datos',
 		privacyDescription:
-			'. All progress and settings are stored locally on your device using browser storage. Nothing is ever sent to any server. There are no analytics, no tracking, no user accounts.',
-		openSourceTitle: 'Open Source',
-		openSourceFree: 'free and open source software',
+			'. Todo el progreso y configuraciones se almacenan localmente en tu dispositivo. Nada se envía nunca a ningún servidor. No hay análisis, no hay seguimiento, no hay cuentas de usuario.',
+		openSourceTitle: 'Código abierto',
+		openSourceFree: 'software libre y de código abierto',
 		openSourceDescription:
-			' released under the MIT license. You can view the source code, report issues, or contribute improvements on GitHub.',
-		viewOnGitHub: 'View on GitHub'
+			' publicado bajo la licencia MIT. Puedes ver el código fuente, reportar problemas o contribuir mejoras en GitHub.',
+		viewOnGitHub: 'Ver en GitHub'
 	},
 	faq: {
-		title: 'Frequently Asked Questions',
+		title: 'Preguntas frecuentes',
 		metaDescription:
-			'Frequently asked questions about Lumi, the anti-addictive educational app for children. Learn about our approach to ethical ed-tech, privacy, and features.',
+			'Preguntas frecuentes sobre Lumi, la aplicación educativa anti-adictiva para niños. Conoce nuestro enfoque de tecnología educativa ética, privacidad y características.',
 		subtitle:
-			'Everything you need to know about Lumi, the anti-addictive educational app for children.',
-		stillHaveQuestions: 'Still have questions?',
+			'Todo lo que necesitas saber sobre Lumi, la aplicación educativa anti-adictiva para niños.',
+		stillHaveQuestions: '¿Todavía tienes preguntas?',
 		stillHaveQuestionsDescription:
-			'Lumi is open source. You can ask questions, report issues, or suggest improvements on GitHub.',
-		askOnGitHub: 'Ask on GitHub',
+			'Lumi es código abierto. Puedes hacer preguntas, reportar problemas o sugerir mejoras en GitHub.',
+		askOnGitHub: 'Preguntar en GitHub',
 		questions: {
 			antiAddictive: {
-				question: 'What is an anti-addictive educational app?',
+				question: '¿Qué es una aplicación educativa anti-adictiva?',
 				answer:
-					"An anti-addictive educational app is designed to help children learn without using manipulative techniques that maximize screen time. Unlike most apps that use points, streaks, leaderboards, and notifications to keep users hooked, anti-addictive apps like Lumi respect children's wellbeing by setting daily limits, avoiding rewards systems, and encouraging breaks."
+					'Una aplicación educativa anti-adictiva está diseñada para ayudar a los niños a aprender sin usar técnicas manipulativas que maximizan el tiempo de pantalla. A diferencia de la mayoría de las apps que usan puntos, rachas, tablas de clasificación y notificaciones para mantener enganchados a los usuarios, las apps anti-adictivas como Lumi respetan el bienestar de los niños estableciendo límites diarios, evitando sistemas de recompensas y fomentando los descansos.'
 			},
 			noStreaksRewards: {
-				question: 'What math apps for kids do not use streaks or rewards?',
+				question: '¿Qué aplicaciones de matemáticas para niños no usan rachas o recompensas?',
 				answer:
-					'Lumi is a free, open-source educational app for children that deliberately avoids addictive mechanics. It has no points, coins, streaks, leaderboards, or push notifications. Instead, it uses daily adventure limits and encourages outdoor play when the limit is reached. Lumi focuses on learning effectiveness rather than engagement metrics.'
+					'Lumi es una aplicación educativa gratuita y de código abierto para niños que deliberadamente evita mecánicas adictivas. No tiene puntos, monedas, rachas, tablas de clasificación ni notificaciones push. En su lugar, usa límites diarios de aventuras y fomenta jugar al aire libre cuando se alcanza el límite. Lumi se enfoca en la efectividad del aprendizaje en lugar de métricas de engagement.'
 			},
 			reallyFree: {
-				question: 'Is Lumi really free? Are there any hidden costs?',
+				question: '¿Lumi es realmente gratis? ¿Hay costos ocultos?',
 				answer:
-					'Yes, Lumi is completely free with no hidden costs. There are no ads, no in-app purchases, no premium subscriptions, and no data collection to monetize. Lumi is open-source software released under the MIT license, meaning the code is publicly available and can be inspected by anyone.'
+					'Sí, Lumi es completamente gratis sin costos ocultos. No hay anuncios, compras en la app, suscripciones premium ni recolección de datos para monetizar. Lumi es software de código abierto publicado bajo la licencia MIT, lo que significa que el código está disponible públicamente y puede ser inspeccionado por cualquiera.'
 			},
 			ages: {
-				question: 'What ages is Lumi designed for?',
+				question: '¿Para qué edades está diseñado Lumi?',
 				answer:
-					"Lumi is designed for children ages 4-7. The app features adaptive difficulty that automatically adjusts to your child's skill level, making it appropriate for beginners just learning to count as well as children working on addition and subtraction."
+					'Lumi está diseñado para niños de 4 a 7 años. La app cuenta con dificultad adaptativa que se ajusta automáticamente al nivel de habilidad de tu hijo, haciéndola apropiada tanto para principiantes que están aprendiendo a contar como para niños que trabajan con suma y resta.'
 			},
 			offline: {
-				question: 'Does Lumi work offline?',
+				question: '¿Lumi funciona sin conexión?',
 				answer:
-					'Yes, Lumi works completely offline. All data is stored locally on your device using browser storage. No internet connection is required after the initial page load, and no data is ever sent to any server.'
+					'Sí, Lumi funciona completamente sin conexión. Todos los datos se almacenan localmente en tu dispositivo. No se requiere conexión a internet después de la carga inicial de la página, y ningún dato se envía nunca a ningún servidor.'
 			},
 			subjects: {
-				question: 'What subjects does Lumi teach?',
+				question: '¿Qué materias enseña Lumi?',
 				answer:
-					"Lumi teaches math, grammar, and logic. Math topics include counting, addition, subtraction, and comparison. Each topic uses adaptive difficulty to match your child's current skill level."
+					'Lumi enseña matemáticas, gramática y lógica. Los temas de matemáticas incluyen contar, suma, resta y comparación. Cada tema usa dificultad adaptativa para coincidir con el nivel actual de habilidad de tu hijo.'
 			},
 			dailyLimit: {
-				question: 'How does the daily limit work?',
+				question: '¿Cómo funciona el límite diario?',
 				answer:
-					'Parents can set a daily adventure limit in the Parent Zone (default is 3 adventures per day). Each adventure consists of 5 problems. When the daily limit is reached, Lumi displays a friendly message encouraging the child to play outside or read a book instead of continuing with more screen time.'
+					'Los padres pueden establecer un límite diario de aventuras en la Zona de Padres (el predeterminado es 3 aventuras por día). Cada aventura consiste en 5 problemas. Cuando se alcanza el límite diario, Lumi muestra un mensaje amigable animando al niño a jugar afuera o leer un libro en lugar de continuar con más tiempo de pantalla.'
 			},
 			privacy: {
-				question: "Is my child's data private?",
+				question: '¿Los datos de mi hijo son privados?',
 				answer:
-					"Absolutely. Lumi collects zero data. All progress and settings are stored only on your device's local storage. There are no user accounts, no analytics, no tracking, and nothing is ever transmitted to any server. Your child's learning data stays completely private."
+					'Absolutamente. Lumi recolecta cero datos. Todo el progreso y configuraciones se almacenan solo en el almacenamiento local de tu dispositivo. No hay cuentas de usuario, no hay análisis, no hay seguimiento, y nada se transmite nunca a ningún servidor. Los datos de aprendizaje de tu hijo permanecen completamente privados.'
 			},
 			languages: {
-				question: 'What languages does Lumi support?',
+				question: '¿Qué idiomas soporta Lumi?',
 				answer:
-					'Lumi currently supports English, Portuguese (Brazilian), German, French, and Spanish. The app automatically detects your browser language but you can manually select a different language using the language picker.'
+					'Lumi actualmente soporta inglés, portugués (brasileño), alemán, francés y español. La app detecta automáticamente el idioma de tu navegador pero puedes seleccionar manualmente un idioma diferente usando el selector de idioma.'
 			},
 			voice: {
-				question: 'Can Lumi read problems aloud?',
+				question: '¿Lumi puede leer los problemas en voz alta?',
 				answer:
-					'Yes, Lumi supports text-to-speech. You can enable auto-play voice in the Parent Zone settings, or tap the speaker button on each problem to hear it read aloud. Voice settings can be customized to use different voices available on your device.'
+					'Sí, Lumi soporta texto a voz. Puedes habilitar la reproducción automática de voz en la configuración de la Zona de Padres, o tocar el botón de altavoz en cada problema para escucharlo en voz alta. Las configuraciones de voz pueden personalizarse para usar diferentes voces disponibles en tu dispositivo.'
 			},
 			leaderboard: {
-				question: "Why doesn't Lumi have a leaderboard?",
+				question: '¿Por qué Lumi no tiene una tabla de clasificación?',
 				answer:
-					'Leaderboards create unhealthy social comparison and competition, which can cause anxiety and reduce intrinsic motivation to learn. Research shows that comparing children to their peers can be harmful to their self-esteem and relationship with learning. Lumi focuses on individual progress instead.'
+					'Las tablas de clasificación crean comparación social dañina y competencia, lo que puede causar ansiedad y reducir la motivación intrínseca para aprender. La investigación muestra que comparar a los niños con sus compañeros puede ser dañino para su autoestima y relación con el aprendizaje. Lumi se enfoca en el progreso individual.'
 			},
 			comparison: {
-				question: 'How is Lumi different from Khan Academy Kids, Duolingo, or other learning apps?',
+				question:
+					'¿En qué se diferencia Lumi de Khan Academy Kids, Duolingo u otras apps de aprendizaje?',
 				answer:
-					'While many educational apps use gamification techniques like streaks, points, and rewards to maximize engagement, Lumi takes the opposite approach. Lumi is designed around the principles of humane technology, intentionally avoiding addictive mechanics. The goal is effective learning with healthy screen time habits, not maximizing time spent in the app.'
+					'Mientras que muchas aplicaciones educativas usan técnicas de gamificación como rachas, puntos y recompensas para maximizar el engagement, Lumi toma el enfoque opuesto. Lumi está diseñado en torno a los principios de la tecnología humana, evitando intencionalmente mecánicas adictivas. El objetivo es un aprendizaje efectivo con hábitos saludables de tiempo de pantalla, no maximizar el tiempo en la app.'
 			},
 			openSource: {
-				question: 'Is Lumi open source?',
+				question: '¿Lumi es código abierto?',
 				answer:
-					'Yes, Lumi is fully open source under the MIT license. The complete source code is available on GitHub at github.com/matheusml/lumi. Anyone can inspect the code, report issues, suggest improvements, or create their own version.'
+					'Sí, Lumi es completamente código abierto bajo la licencia MIT. El código fuente completo está disponible en GitHub en github.com/matheusml/lumi. Cualquiera puede inspeccionar el código, reportar problemas, sugerir mejoras o crear su propia versión.'
 			},
 			adaptiveDifficulty: {
-				question: 'How does adaptive difficulty work?',
+				question: '¿Cómo funciona la dificultad adaptativa?',
 				answer:
-					"Lumi tracks your child's performance on each type of problem. After 3 correct answers in a row, the difficulty increases. After 2 incorrect answers, the difficulty decreases. This ensures problems are always appropriately challenging without being frustrating."
+					'Lumi rastrea el rendimiento de tu hijo en cada tipo de problema. Después de 3 respuestas correctas seguidas, la dificultad aumenta. Después de 2 respuestas incorrectas, la dificultad disminuye. Esto asegura que los problemas sean siempre apropiadamente desafiantes sin ser frustrantes.'
 			}
 		}
 	},
