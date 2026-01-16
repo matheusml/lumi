@@ -14,6 +14,7 @@
 		ProgressDots,
 		SpeakerButton,
 		CountableObject,
+		AnimatedEquation,
 		PatternCircle,
 		LetterDisplay,
 		WordDisplay,
@@ -359,19 +360,12 @@
 						count={currentProblem.visual.elements[0].count}
 					/>
 				{:else if currentProblem.visual.type === 'equation'}
-					<div class="equation">
-						<CountableObject
-							objectId={currentProblem.visual.elements[0].object}
-							count={currentProblem.visual.elements[0].count}
-							maxPerRow={4}
-						/>
-						<span class="operator">{currentProblem.visual.operator}</span>
-						<CountableObject
-							objectId={currentProblem.visual.elements[1].object}
-							count={currentProblem.visual.elements[1].count}
-							maxPerRow={4}
-						/>
-					</div>
+					<AnimatedEquation
+						objectId={currentProblem.visual.elements[0].object}
+						operandA={currentProblem.visual.elements[0].count}
+						operandB={currentProblem.visual.elements[1].count}
+						operator={currentProblem.visual.operator ?? '+'}
+					/>
 				{:else if currentProblem.visual.type === 'comparison'}
 					<div class="comparison">
 						<button
@@ -406,11 +400,12 @@
 					</div>
 				{:else if currentProblem.visual.type === 'pattern'}
 					<div class="pattern">
-						{#each currentProblem.visual.elements as element}
+						{#each currentProblem.visual.elements as element, i}
 							<PatternCircle
 								colorId={element.object}
 								isUnknown={element.object === 'unknown'}
 								size="large"
+								index={i}
 							/>
 						{/each}
 					</div>
@@ -430,7 +425,7 @@
 					/>
 				{:else if currentProblem.visual.type === 'logic-group'}
 					<div class="logic-group">
-						{#each currentProblem.visual.elements as element}
+						{#each currentProblem.visual.elements as element, i}
 							<button
 								class="logic-item"
 								class:correct={getAnswerState({ type: 'object', value: element.object }) ===
@@ -439,6 +434,7 @@
 									'incorrect'}
 								onclick={() => selectAnswer({ type: 'object', value: element.object })}
 								disabled={hasAnswered}
+								style="--delay: {i * 100}ms"
 							>
 								<span class="logic-emoji">{element.object}</span>
 							</button>
@@ -454,14 +450,14 @@
 					</div>
 				{:else if currentProblem.visual.type === 'logic-sequence'}
 					<div class="logic-sequence">
-						{#each currentProblem.visual.elements as element}
+						{#each currentProblem.visual.elements as element, i}
 							{#if element.object === 'unknown'}
-								<div class="sequence-unknown">?</div>
+								<div class="sequence-unknown" style="--delay: {i * 200}ms">?</div>
 							{:else}
-								<span class="sequence-emoji">{element.object}</span>
+								<span class="sequence-emoji" style="--delay: {i * 200}ms">{element.object}</span>
 							{/if}
 							{#if element.object !== 'unknown'}
-								<span class="sequence-arrow">→</span>
+								<span class="sequence-arrow" style="--delay: {i * 200 + 100}ms">→</span>
 							{/if}
 						{/each}
 					</div>
@@ -589,18 +585,6 @@
 		max-width: 100%;
 	}
 
-	.equation {
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-lg);
-	}
-
-	.operator {
-		font-size: var(--font-size-number-large);
-		font-weight: 700;
-		color: var(--color-text-primary);
-	}
-
 	.comparison {
 		display: flex;
 		align-items: center;
@@ -614,9 +598,7 @@
 		border-radius: var(--radius-xl);
 		background-color: transparent;
 		cursor: pointer;
-		flex: 1;
-		min-width: 0;
-		max-width: 45%;
+		flex: 0 1 auto;
 		transition:
 			transform var(--transition-fast),
 			border-color var(--transition-fast),
@@ -624,7 +606,6 @@
 	}
 
 	.comparison-side:hover:not(:disabled) {
-		border-color: var(--color-primary);
 		transform: scale(1.02);
 	}
 
@@ -689,6 +670,23 @@
 			transform var(--transition-fast),
 			border-color var(--transition-fast),
 			background-color var(--transition-fast);
+
+		animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
+		animation-delay: var(--delay, 0ms);
+	}
+
+	@keyframes popIn {
+		0% {
+			transform: scale(0);
+			opacity: 0;
+		}
+		70% {
+			transform: scale(1.1);
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
 	}
 
 	.logic-item:hover:not(:disabled) {
@@ -734,11 +732,13 @@
 
 	.matching-source-emoji {
 		font-size: 64px;
+		animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
 	}
 
 	.matching-arrow {
 		font-size: 36px;
 		color: var(--color-text-muted);
+		animation: fadeSlideIn 0.4s ease-out 0.3s backwards;
 	}
 
 	.matching-question {
@@ -747,11 +747,49 @@
 		justify-content: center;
 		width: 80px;
 		height: 80px;
-		border: 3px dashed var(--color-border);
+		border: 3px dashed var(--color-primary);
 		border-radius: var(--radius-xl);
 		font-size: 36px;
 		font-weight: 700;
-		color: var(--color-text-muted);
+		color: var(--color-primary);
+		animation:
+			fadeSlideIn 0.4s ease-out 0.5s backwards,
+			gentlePulse 2s ease-in-out 0.9s infinite;
+	}
+
+	@keyframes bounceIn {
+		0% {
+			transform: scale(0);
+			opacity: 0;
+		}
+		60% {
+			transform: scale(1.2);
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes fadeSlideIn {
+		0% {
+			transform: translateX(-10px);
+			opacity: 0;
+		}
+		100% {
+			transform: translateX(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes gentlePulse {
+		0%,
+		100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.05);
+		}
 	}
 
 	/* Sequence visual */
@@ -765,11 +803,15 @@
 
 	.sequence-emoji {
 		font-size: 48px;
+		animation: sequenceAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
+		animation-delay: var(--delay, 0ms);
 	}
 
 	.sequence-arrow {
 		font-size: 24px;
 		color: var(--color-text-muted);
+		animation: arrowSlide 0.3s ease-out backwards;
+		animation-delay: var(--delay, 0ms);
 	}
 
 	.sequence-unknown {
@@ -778,11 +820,40 @@
 		justify-content: center;
 		width: 60px;
 		height: 60px;
-		border: 3px dashed var(--color-border);
+		border: 3px dashed var(--color-primary);
 		border-radius: var(--radius-lg);
 		font-size: 28px;
 		font-weight: 700;
-		color: var(--color-text-muted);
+		color: var(--color-primary);
+		animation:
+			sequenceAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+			gentlePulse 2s ease-in-out infinite;
+		animation-delay: var(--delay, 0ms), calc(var(--delay, 0ms) + 0.5s);
+	}
+
+	@keyframes sequenceAppear {
+		0% {
+			transform: scale(0) rotate(-10deg);
+			opacity: 0;
+		}
+		70% {
+			transform: scale(1.15) rotate(0deg);
+		}
+		100% {
+			transform: scale(1) rotate(0deg);
+			opacity: 1;
+		}
+	}
+
+	@keyframes arrowSlide {
+		0% {
+			transform: translateX(-10px);
+			opacity: 0;
+		}
+		100% {
+			transform: translateX(0);
+			opacity: 1;
+		}
 	}
 
 	/* Emoji choices styling */
