@@ -13,6 +13,56 @@ import { fr } from './translations/fr'
 const STORAGE_KEY = 'lumi-language'
 const DEFAULT_LANGUAGE: SupportedLanguage = 'en'
 
+/** Detect browser language (can be called during module init) */
+function detectBrowserLanguage(): SupportedLanguage {
+	if (typeof navigator === 'undefined') return DEFAULT_LANGUAGE
+
+	const browserLang = navigator.language || navigator.languages?.[0]
+	if (!browserLang) return DEFAULT_LANGUAGE
+
+	// Normalize to lowercase for comparison
+	const normalizedBrowserLang = browserLang.toLowerCase()
+
+	// Check for exact match first (e.g., 'pt-br' matches 'pt-BR')
+	const exactMatch = (Object.keys(languages) as SupportedLanguage[]).find(
+		(lang) => lang.toLowerCase() === normalizedBrowserLang
+	)
+	if (exactMatch) return exactMatch
+
+	// Check for language prefix match (e.g., 'de-DE' matches 'de', 'pt' matches 'pt-BR')
+	const prefix = browserLang.split('-')[0].toLowerCase()
+
+	// First try to find exact prefix match (e.g., 'de' for German)
+	const prefixMatch = (Object.keys(languages) as SupportedLanguage[]).find(
+		(lang) => lang.toLowerCase() === prefix
+	)
+	if (prefixMatch) return prefixMatch
+
+	// Then try to find a language that starts with the prefix (e.g., 'pt' matches 'pt-BR')
+	const startsWithMatch = (Object.keys(languages) as SupportedLanguage[]).find((lang) =>
+		lang.toLowerCase().startsWith(prefix)
+	)
+	if (startsWithMatch) return startsWithMatch
+
+	return DEFAULT_LANGUAGE
+}
+
+/** Get initial language synchronously (for module init) */
+function getInitialLanguage(): SupportedLanguage {
+	if (typeof window === 'undefined') return DEFAULT_LANGUAGE
+
+	try {
+		const stored = localStorage.getItem(STORAGE_KEY)
+		if (stored && stored in languages) {
+			return stored as SupportedLanguage
+		}
+	} catch {
+		// localStorage might not be available
+	}
+
+	return detectBrowserLanguage()
+}
+
 /** Language metadata */
 export const languages: Record<SupportedLanguage, LanguageInfo> = {
 	'pt-BR': { code: 'pt-BR', name: 'Português', flag: '🇧🇷', speechLang: 'pt-BR' },
@@ -29,8 +79,8 @@ const translations: Record<SupportedLanguage, Translations> = {
 	fr
 }
 
-/** Current language - module state */
-let currentLanguage: SupportedLanguage = DEFAULT_LANGUAGE
+/** Current language - module state (initialized synchronously for correct SSR/hydration) */
+let currentLanguage: SupportedLanguage = getInitialLanguage()
 
 /** Subscribers for language changes */
 const subscribers: Set<(lang: SupportedLanguage) => void> = new Set()
@@ -78,36 +128,19 @@ export function getSpeechLanguage(): SpeechLanguage {
 	return languages[currentLanguage].speechLang as SpeechLanguage
 }
 
-/** Detect browser language */
-function detectBrowserLanguage(): SupportedLanguage {
-	if (typeof navigator === 'undefined') return DEFAULT_LANGUAGE
-
-	const browserLang = navigator.language || navigator.languages?.[0]
-	if (!browserLang) return DEFAULT_LANGUAGE
-
-	// Check for exact match first
-	if (browserLang in languages) {
-		return browserLang as SupportedLanguage
-	}
-
-	// Check for language prefix match (e.g., 'pt' matches 'pt-BR')
-	const prefix = browserLang.split('-')[0]
-	const match = Object.keys(languages).find((lang) => lang.startsWith(prefix)) as
-		| SupportedLanguage
-		| undefined
-
-	return match || DEFAULT_LANGUAGE
-}
-
 /** Initialize language (call once on app start) */
 export function initLanguage(): void {
 	if (typeof window === 'undefined') return
 
-	const stored = localStorage.getItem(STORAGE_KEY) as SupportedLanguage | null
-	if (stored && stored in languages) {
-		currentLanguage = stored
-	} else {
-		currentLanguage = detectBrowserLanguage()
+	// Language was already detected synchronously during module init via getInitialLanguage()
+	// Here we just need to:
+	// 1. Persist to localStorage if not already stored
+	// 2. Update the HTML lang attribute
+	// 3. Notify subscribers
+
+	const stored = localStorage.getItem(STORAGE_KEY)
+	if (!stored || !(stored in languages)) {
+		// Persist the detected language
 		localStorage.setItem(STORAGE_KEY, currentLanguage)
 	}
 
