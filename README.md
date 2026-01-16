@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="static/icon-512.png" alt="Lumi Logo" width="120" height="120">
+  <img src="static/readme-icon.png" alt="Lumi Logo" width="120" height="120">
 </p>
 
 <h3 align="center">Lumi</h3>
