@@ -133,7 +133,7 @@ export class ShapeRecognitionGenerator implements ProblemGenerator {
 				en: `Find the ${targetShape.name.en}!`,
 				de: `Finde ${targetShape.name.de === 'Kreis' || targetShape.name.de === 'Stern' ? 'den' : targetShape.name.de === 'Herz' || targetShape.name.de === 'Quadrat' || targetShape.name.de === 'Dreieck' ? 'das' : 'die'} ${targetShape.name.de}!`,
 				fr: `Trouve le ${targetShape.name.fr}!`,
-				es: `¡Encuentra el ${targetShape.name.es}!`
+				es: `¡Encuentra ${targetShape.name.es === 'estrella' ? 'la' : 'el'} ${targetShape.name.es}!`
 			},
 			correctAnswer: { type: 'object', value: targetShape.emoji },
 			answerChoices: choices,
