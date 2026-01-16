@@ -18,8 +18,11 @@ describe('visualObjects', () => {
 			expect(obj.emoji).toBeDefined()
 			expect(obj.namePtBR).toBeDefined()
 			expect(obj.nameEn).toBeDefined()
+			expect(obj.nameEs).toBeDefined()
 			expect(obj.singularPtBR).toBeDefined()
+			expect(obj.singularEs).toBeDefined()
 			expect(obj.quantifierPtBR).toBeDefined()
+			expect(obj.quantifierEs).toBeDefined()
 		}
 	})
 

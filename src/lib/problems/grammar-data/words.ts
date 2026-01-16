@@ -15,6 +15,7 @@ export interface WordInfo {
 	nameEn: string
 	nameDe?: string // Falls back to English
 	nameFr?: string // Falls back to English
+	nameEs?: string // Falls back to English
 }
 
 /** Get the localized word for a given language */
@@ -22,6 +23,7 @@ export function getLocalizedWord(wordInfo: WordInfo, lang: SupportedLanguage): s
 	if (lang === 'pt-BR') return wordInfo.word
 	if (lang === 'de') return wordInfo.nameDe || wordInfo.nameEn
 	if (lang === 'fr') return wordInfo.nameFr || wordInfo.nameEn
+	if (lang === 'es') return wordInfo.nameEs || wordInfo.nameEn
 	return wordInfo.nameEn
 }
 

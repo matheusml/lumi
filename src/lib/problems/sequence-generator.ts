@@ -139,7 +139,8 @@ export class SequenceProblemGenerator implements ProblemGenerator {
 				ptBR: 'O que vem depois?',
 				en: 'What comes next?',
 				de: 'Was kommt als nächstes?',
-				fr: 'Que vient ensuite?'
+				fr: 'Que vient ensuite?',
+				es: '¿Qué viene después?'
 			},
 			correctAnswer: { type: 'object', value: answer },
 			answerChoices: choices,
@@ -147,7 +148,8 @@ export class SequenceProblemGenerator implements ProblemGenerator {
 				ptBR: 'Pense na ordem natural das coisas. O que acontece depois?',
 				en: 'Think about the natural order. What happens next?',
 				de: 'Denk an die natürliche Reihenfolge. Was passiert danach?',
-				fr: "Pense à l'ordre naturel. Que se passe-t-il ensuite?"
+				fr: "Pense à l'ordre naturel. Que se passe-t-il ensuite?",
+				es: 'Piensa en el orden natural. ¿Qué pasa después?'
 			}
 		}
 	}

@@ -295,7 +295,8 @@ export class OddOneOutGenerator implements ProblemGenerator {
 				ptBR: 'Qual não é do mesmo grupo?',
 				en: "Which one doesn't belong?",
 				de: 'Was gehört nicht dazu?',
-				fr: 'Lequel ne fait pas partie du groupe?'
+				fr: 'Lequel ne fait pas partie du groupe?',
+				es: '¿Cuál no pertenece al grupo?'
 			},
 			correctAnswer: { type: 'object', value: oddObject.emoji },
 			answerChoices: choices,
@@ -303,7 +304,8 @@ export class OddOneOutGenerator implements ProblemGenerator {
 				ptBR: `Três deles são ${category.namePtBR}. Qual é diferente?`,
 				en: `Three of them are ${category.nameEn}. Which one is different?`,
 				de: `Drei davon sind ${category.nameEn}. Welches ist anders?`,
-				fr: `Trois d'entre eux sont des ${category.nameEn}. Lequel est différent?`
+				fr: `Trois d'entre eux sont des ${category.nameEn}. Lequel est différent?`,
+				es: `Tres de ellos son ${category.nameEn}. ¿Cuál es diferente?`
 			}
 		}
 	}

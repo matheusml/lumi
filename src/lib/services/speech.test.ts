@@ -88,6 +88,13 @@ describe('SpeechService', () => {
 			expect(mockUtterance).toHaveBeenCalledWith('2  plus  3  equals  ')
 		})
 
+		it('should preprocess Spanish text', async () => {
+			const { speechService } = await import('./speech')
+			speechService.speak('2 + 3 = ?', { lang: 'es-ES' })
+
+			expect(mockUtterance).toHaveBeenCalledWith('2  más  3  igual a  ')
+		})
+
 		it('should use custom rate and pitch options', async () => {
 			const { speechService } = await import('./speech')
 			speechService.speak('teste', { rate: 0.5, pitch: 1.5 })

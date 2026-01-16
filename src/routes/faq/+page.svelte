@@ -76,7 +76,7 @@
 		{
 			question: 'What languages does Lumi support?',
 			answer:
-				'Lumi currently supports English, Portuguese (Brazilian), German, and French. The app automatically detects your browser language but you can manually select a different language using the language picker.'
+				'Lumi currently supports English, Portuguese (Brazilian), German, French, and Spanish. The app automatically detects your browser language but you can manually select a different language using the language picker.'
 		},
 		{
 			question: 'Can Lumi read problems aloud?',

@@ -143,7 +143,8 @@ export class ComparisonProblemGenerator implements ProblemGenerator {
 				ptBR: 'Qual lado tem mais?',
 				en: 'Which side has more?',
 				de: 'Welche Seite hat mehr?',
-				fr: 'Quel côté en a le plus?'
+				fr: 'Quel côté en a le plus?',
+				es: '¿Qué lado tiene más?'
 			},
 			correctAnswer: { type: 'side', value: correctSide },
 			answerChoices,
@@ -151,7 +152,8 @@ export class ComparisonProblemGenerator implements ProblemGenerator {
 				ptBR: 'Conte cada lado devagar e compare os números.',
 				en: 'Count each side slowly and compare the numbers.',
 				de: 'Zähle jede Seite langsam und vergleiche die Zahlen.',
-				fr: 'Compte chaque côté lentement et compare les nombres.'
+				fr: 'Compte chaque côté lentement et compare les nombres.',
+				es: 'Cuenta cada lado despacio y compara los números.'
 			}
 		}
 	}

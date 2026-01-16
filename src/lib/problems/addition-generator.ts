@@ -87,7 +87,8 @@ export class AdditionProblemGenerator implements ProblemGenerator {
 				ptBR: `${a} + ${b} = ?`,
 				en: `${a} + ${b} = ?`,
 				de: `${a} + ${b} = ?`,
-				fr: `${a} + ${b} = ?`
+				fr: `${a} + ${b} = ?`,
+				es: `${a} + ${b} = ?`
 			},
 			correctAnswer: { type: 'number', value: sum },
 			answerChoices: generateNumberChoices(sum),
@@ -95,7 +96,8 @@ export class AdditionProblemGenerator implements ProblemGenerator {
 				ptBR: `Conte ${a}, depois conte mais ${b} a partir daí.`,
 				en: `Count ${a}, then count ${b} more from there.`,
 				de: `Zähle ${a}, dann zähle ${b} weiter.`,
-				fr: `Compte ${a}, puis compte ${b} de plus.`
+				fr: `Compte ${a}, puis compte ${b} de plus.`,
+				es: `Cuenta ${a}, luego cuenta ${b} más desde ahí.`
 			}
 		}
 	}
