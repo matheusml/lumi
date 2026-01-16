@@ -19,8 +19,8 @@
 
 	let { data, children }: Props = $props()
 
-	// Set language from URL param whenever it changes
-	$effect(() => {
+	// Set language from URL param whenever it changes (use $effect.pre to run before children render)
+	$effect.pre(() => {
 		setLanguageFromUrl(data.lang)
 	})
 
