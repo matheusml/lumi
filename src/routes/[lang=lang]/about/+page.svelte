@@ -37,12 +37,7 @@
 	}
 </script>
 
-<SEO
-	title="About Lumi"
-	description="Lumi is a free, open-source, anti-addictive educational app for children. Learn about our mission to create ethical ed-tech that respects screen time and children's wellbeing."
-	path="/about"
-	lang={data.lang}
-/>
+<SEO title={t.about.title} description={t.about.metaDescription} path="/about" lang={data.lang} />
 
 <main class="about">
 	<div class="content">
@@ -54,136 +49,120 @@
 		<header class="header">
 			<div class="logo">
 				<LumiMascot size={48} />
-				<h1>About Lumi</h1>
+				<h1>{t.about.title}</h1>
 			</div>
 		</header>
 
 		<article class="article">
 			<section class="section">
-				<h2>What is Lumi?</h2>
+				<h2>{t.about.whatIsLumi}</h2>
 				<p>
-					<strong>Lumi is a free, open-source educational app for children</strong>
-					that takes a radically different approach to learning apps. While most educational apps use
-					addictive design patterns to maximize screen time, Lumi is built with one core principle:
-					<em>respect children's wellbeing</em>.
+					<strong>{t.about.whatIsLumiIntro}</strong>
+					{t.about.whatIsLumiIntroEnd}
+					<em>{t.about.whatIsLumiIntroHighlight}</em>.
 				</p>
 				<p>
-					Lumi teaches math, grammar, and logic through short, focused learning sessions called
-					"adventures." Each adventure contains just 5 problems and adapts to your child's skill
-					level automatically.
+					{t.about.whatIsLumiDescription}
 				</p>
 			</section>
 
 			<section class="section">
-				<h2>The Problem with Most Educational Apps</h2>
+				<h2>{t.about.problemTitle}</h2>
 				<p>
-					Most children's educational apps are designed like slot machines. They use <strong
-						>dark patterns</strong
-					>
+					{t.about.problemIntro}
+					<strong>{t.about.problemDarkPatterns}</strong>
 					borrowed from social media and gambling to keep kids hooked:
 				</p>
 				<ul>
-					<li><strong>Points and virtual currencies</strong> that create artificial rewards</li>
-					<li><strong>Streaks</strong> that punish missing a day</li>
-					<li><strong>Leaderboards</strong> that create unhealthy competition</li>
-					<li><strong>Timed challenges</strong> that induce stress and anxiety</li>
-					<li><strong>Push notifications</strong> that interrupt family time</li>
-					<li><strong>Flashy animations</strong> designed to overstimulate</li>
+					<li><strong>{t.about.problemList.points}</strong></li>
+					<li><strong>{t.about.problemList.streaks}</strong></li>
+					<li><strong>{t.about.problemList.leaderboards}</strong></li>
+					<li><strong>{t.about.problemList.timedChallenges}</strong></li>
+					<li><strong>{t.about.problemList.pushNotifications}</strong></li>
+					<li><strong>{t.about.problemList.flashyAnimations}</strong></li>
 				</ul>
 				<p>
-					These techniques maximize "engagement metrics" but harm children's relationship with
-					learning and screens.
+					{t.about.problemConclusion}
 				</p>
 			</section>
 
 			<section class="section">
-				<h2>Lumi's Anti-Addictive Approach</h2>
+				<h2>{t.about.approachTitle}</h2>
 				<p>
-					Lumi is part of the <strong>humane technology movement</strong>. We believe educational
-					apps should support healthy development, not exploit children's attention.
+					{t.about.approachIntro}
+					<strong>{t.about.approachHumaneTech}</strong>{t.about.approachIntroEnd}
 				</p>
 
 				<div class="principles">
 					<div class="principle">
-						<h3>Daily Limits</h3>
+						<h3>{t.about.principles.dailyLimits.title}</h3>
 						<p>
-							Parents set a daily adventure limit (default: 3). When reached, Lumi encourages kids
-							to play outside or read a book.
+							{t.about.principles.dailyLimits.description}
 						</p>
 					</div>
 
 					<div class="principle">
-						<h3>No Rewards</h3>
+						<h3>{t.about.principles.noRewards.title}</h3>
 						<p>
-							No points, coins, gems, or virtual rewards. Learning is its own reward. We celebrate
-							completion, not scores.
+							{t.about.principles.noRewards.description}
 						</p>
 					</div>
 
 					<div class="principle">
-						<h3>No Streaks</h3>
+						<h3>{t.about.principles.noStreaks.title}</h3>
 						<p>
-							Missing a day is fine. There's no punishment for taking breaks. Kids can learn at
-							their own pace.
+							{t.about.principles.noStreaks.description}
 						</p>
 					</div>
 
 					<div class="principle">
-						<h3>Calm Design</h3>
+						<h3>{t.about.principles.calmDesign.title}</h3>
 						<p>
-							Gentle animations, warm colors, and no overstimulating effects. Designed to be
-							peaceful, not hyperactive.
+							{t.about.principles.calmDesign.description}
 						</p>
 					</div>
 
 					<div class="principle">
-						<h3>No Notifications</h3>
+						<h3>{t.about.principles.noNotifications.title}</h3>
 						<p>
-							Lumi never sends push notifications asking kids to return. When they're done, they're
-							done.
+							{t.about.principles.noNotifications.description}
 						</p>
 					</div>
 
 					<div class="principle">
-						<h3>Adaptive Difficulty</h3>
+						<h3>{t.about.principles.adaptiveDifficulty.title}</h3>
 						<p>
-							Problems automatically adjust to your child's level. Move up after success, get easier
-							problems after struggles.
+							{t.about.principles.adaptiveDifficulty.description}
 						</p>
 					</div>
 				</div>
 			</section>
 
 			<section class="section">
-				<h2>Features</h2>
+				<h2>{t.about.featuresTitle}</h2>
 				<ul>
-					<li>
-						<strong>Learning Topics:</strong> Math, grammar, and logic exercises
-					</li>
-					<li><strong>Age-Appropriate:</strong> Content designed for young children</li>
-					<li><strong>Multiple Languages:</strong> English, Portuguese, German, and French</li>
-					<li><strong>Voice Support:</strong> Problems can be read aloud using text-to-speech</li>
-					<li><strong>Offline First:</strong> Works without internet, all data stays on device</li>
-					<li><strong>Parent Dashboard:</strong> View progress and adjust settings</li>
-					<li><strong>Completely Free:</strong> No ads, no in-app purchases, no subscriptions</li>
-					<li><strong>Open Source:</strong> Transparent code anyone can inspect and improve</li>
+					<li>{t.about.features.learningTopics}</li>
+					<li>{t.about.features.ageAppropriate}</li>
+					<li>{t.about.features.multipleLanguages}</li>
+					<li>{t.about.features.voiceSupport}</li>
+					<li>{t.about.features.offlineFirst}</li>
+					<li>{t.about.features.parentDashboard}</li>
+					<li>{t.about.features.completelyFree}</li>
+					<li>{t.about.features.openSourceFeature}</li>
 				</ul>
 			</section>
 
 			<section class="section">
-				<h2>Privacy</h2>
+				<h2>{t.about.privacyTitle}</h2>
 				<p>
-					Lumi collects <strong>zero data</strong>. All progress and settings are stored locally on
-					your device using browser storage. Nothing is ever sent to any server. There are no
-					analytics, no tracking, no user accounts.
+					Lumi collects <strong>{t.about.privacyZeroData}</strong>{t.about.privacyDescription}
 				</p>
 			</section>
 
 			<section class="section">
-				<h2>Open Source</h2>
+				<h2>{t.about.openSourceTitle}</h2>
 				<p>
-					Lumi is <strong>free and open source software</strong> released under the MIT license. You can
-					view the source code, report issues, or contribute improvements on GitHub.
+					Lumi is <strong>{t.about.openSourceFree}</strong>{t.about.openSourceDescription}
 				</p>
 				<a
 					href="https://github.com/matheusml/lumi"
@@ -192,7 +171,7 @@
 					class="github-link"
 				>
 					<Icon name="github" size={20} />
-					View on GitHub
+					{t.about.viewOnGitHub}
 				</a>
 			</section>
 		</article>

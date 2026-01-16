@@ -15,6 +15,87 @@ export interface LanguageInfo {
 
 /** Translation keys organized by page/section */
 export interface Translations {
+	about: {
+		title: string
+		metaDescription: string
+		// Section: What is Lumi?
+		whatIsLumi: string
+		whatIsLumiIntro: string
+		whatIsLumiIntroHighlight: string
+		whatIsLumiIntroEnd: string
+		whatIsLumiDescription: string
+		// Section: The Problem
+		problemTitle: string
+		problemIntro: string
+		problemDarkPatterns: string
+		problemList: {
+			points: string
+			streaks: string
+			leaderboards: string
+			timedChallenges: string
+			pushNotifications: string
+			flashyAnimations: string
+		}
+		problemConclusion: string
+		// Section: Anti-Addictive Approach
+		approachTitle: string
+		approachIntro: string
+		approachHumaneTech: string
+		approachIntroEnd: string
+		principles: {
+			dailyLimits: { title: string; description: string }
+			noRewards: { title: string; description: string }
+			noStreaks: { title: string; description: string }
+			calmDesign: { title: string; description: string }
+			noNotifications: { title: string; description: string }
+			adaptiveDifficulty: { title: string; description: string }
+		}
+		// Section: Features
+		featuresTitle: string
+		features: {
+			learningTopics: string
+			ageAppropriate: string
+			multipleLanguages: string
+			voiceSupport: string
+			offlineFirst: string
+			parentDashboard: string
+			completelyFree: string
+			openSourceFeature: string
+		}
+		// Section: Privacy
+		privacyTitle: string
+		privacyDescription: string
+		privacyZeroData: string
+		// Section: Open Source
+		openSourceTitle: string
+		openSourceDescription: string
+		openSourceFree: string
+		viewOnGitHub: string
+	}
+	faq: {
+		title: string
+		metaDescription: string
+		subtitle: string
+		stillHaveQuestions: string
+		stillHaveQuestionsDescription: string
+		askOnGitHub: string
+		questions: {
+			antiAddictive: { question: string; answer: string }
+			noStreaksRewards: { question: string; answer: string }
+			reallyFree: { question: string; answer: string }
+			ages: { question: string; answer: string }
+			offline: { question: string; answer: string }
+			subjects: { question: string; answer: string }
+			dailyLimit: { question: string; answer: string }
+			privacy: { question: string; answer: string }
+			languages: { question: string; answer: string }
+			voice: { question: string; answer: string }
+			leaderboard: { question: string; answer: string }
+			comparison: { question: string; answer: string }
+			openSource: { question: string; answer: string }
+			adaptiveDifficulty: { question: string; answer: string }
+		}
+	}
 	agePicker: {
 		label: string
 		ariaLabel: string
