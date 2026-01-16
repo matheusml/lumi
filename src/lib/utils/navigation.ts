@@ -56,8 +56,13 @@ export function localizedUrl(path: string, params?: Record<string, string>): str
 export function stripLanguagePrefix(pathname: string): string {
 	const match = pathname.match(LANGUAGE_PATTERN)
 	if (match) {
-		const stripped = pathname.slice(match[0].length - 1) // Keep the trailing /
-		return stripped || '/'
+		// match[0] is the full match including the trailing / or end of string
+		// e.g., '/en/' or '/en' or '/pt-BR/about' -> '/pt-BR/'
+		const langPrefix = match[0]
+		// If it ends with /, keep the rest starting from /
+		// If it ends at string end (no /), the rest is just /
+		const rest = pathname.slice(langPrefix.length)
+		return rest ? `/${rest}` : '/'
 	}
 	return pathname
 }
