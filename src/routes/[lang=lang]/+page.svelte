@@ -10,7 +10,6 @@
 	import { Icon, LumiMascot, AdventureTiles, SEO } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
 	import { getTranslations, subscribe } from '$lib/i18n'
-	import { localizedPath } from '$lib/utils/navigation'
 	import type { Translations } from '$lib/i18n'
 
 	interface Props {
@@ -51,7 +50,7 @@
 	})
 
 	function openParentZone() {
-		goto(localizedPath('/parents'))
+		goto(`/${data.lang}/parents`)
 	}
 </script>
 
@@ -120,8 +119,8 @@
 
 		<footer class="footer">
 			<div class="footer-links">
-				<a href={localizedPath('/about')} class="footer-link">{t.home.about}</a>
-				<a href={localizedPath('/faq')} class="footer-link">{t.home.faq}</a>
+				<a href={`/${data.lang}/about`} class="footer-link">{t.home.about}</a>
+				<a href={`/${data.lang}/faq`} class="footer-link">{t.home.faq}</a>
 				<a
 					href="https://github.com/matheusml/lumi"
 					target="_blank"
