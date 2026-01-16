@@ -110,7 +110,8 @@ export class CountingProblemGenerator implements ProblemGenerator {
 				ptBR: `${object.quantifierPtBR} ${object.namePtBR} você vê?`,
 				en: `How many ${object.nameEn} do you see?`,
 				de: `Wie viele ${object.nameDe} siehst du?`,
-				fr: `Combien de ${object.nameFr} vois-tu?`
+				fr: `Combien de ${object.nameFr} vois-tu?`,
+				es: `${object.quantifierEs} ${object.nameEs} ves?`
 			},
 			correctAnswer: { type: 'number', value: count },
 			answerChoices: generateNumberChoices(count, numChoices),
@@ -118,7 +119,8 @@ export class CountingProblemGenerator implements ProblemGenerator {
 				ptBR: `Tente contar cada ${object.namePtBR.replace(/s$/, '')} devagar, um por um.`,
 				en: `Try counting each ${object.nameEn.replace(/s$/, '')} slowly, one by one.`,
 				de: `Zähle jede/n ${object.nameDe} langsam, eins nach dem anderen.`,
-				fr: `Essaie de compter chaque ${object.nameFr.replace(/s$/, '')} lentement, un par un.`
+				fr: `Essaie de compter chaque ${object.nameFr.replace(/s$/, '')} lentement, un par un.`,
+				es: `Intenta contar cada ${object.singularEs} despacio, uno por uno.`
 			}
 		}
 	}

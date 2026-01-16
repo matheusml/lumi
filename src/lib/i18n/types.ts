@@ -3,7 +3,7 @@
  */
 
 /** Supported language codes */
-export type SupportedLanguage = 'pt-BR' | 'en' | 'de' | 'fr'
+export type SupportedLanguage = 'pt-BR' | 'en' | 'de' | 'fr' | 'es'
 
 /** Language metadata */
 export interface LanguageInfo {

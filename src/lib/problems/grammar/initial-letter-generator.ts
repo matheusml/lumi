@@ -121,7 +121,8 @@ export class InitialLetterGenerator implements ProblemGenerator {
 				ptBR: `Com qual letra começa "${wordInfo.namePtBR}"?`,
 				en: `What letter does "${wordInfo.nameEn}" start with?`,
 				de: `Mit welchem Buchstaben beginnt "${wordInfo.nameDe || wordInfo.nameEn}"?`,
-				fr: `Par quelle lettre commence "${wordInfo.nameFr || wordInfo.nameEn}"?`
+				fr: `Par quelle lettre commence "${wordInfo.nameFr || wordInfo.nameEn}"?`,
+				es: `¿Con qué letra empieza "${wordInfo.nameEs || wordInfo.nameEn}"?`
 			},
 			correctAnswer: { type: 'letter', value: correctLetter },
 			answerChoices: choices,
@@ -129,7 +130,8 @@ export class InitialLetterGenerator implements ProblemGenerator {
 				ptBR: 'Olhe para a primeira letra da palavra. Qual é?',
 				en: 'Look at the first letter of the word. What is it?',
 				de: 'Schau dir den ersten Buchstaben des Wortes an. Welcher ist es?',
-				fr: 'Regarde la première lettre du mot. Quelle est-elle?'
+				fr: 'Regarde la première lettre du mot. Quelle est-elle?',
+				es: 'Mira la primera letra de la palabra. ¿Cuál es?'
 			}
 		}
 	}

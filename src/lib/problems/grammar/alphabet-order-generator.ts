@@ -141,7 +141,8 @@ export class AlphabetOrderGenerator implements ProblemGenerator {
 				ptBR: 'O que vem depois?',
 				en: 'What comes next?',
 				de: 'Was kommt als nächstes?',
-				fr: 'Que vient ensuite?'
+				fr: 'Que vient ensuite?',
+				es: '¿Qué viene después?'
 			},
 			correctAnswer: { type: 'letter', value: correctLetter.uppercase },
 			answerChoices: choices,
@@ -149,7 +150,8 @@ export class AlphabetOrderGenerator implements ProblemGenerator {
 				ptBR: 'Cante o alfabeto: A, B, C, D... Qual letra está faltando?',
 				en: 'Sing the alphabet: A, B, C, D... Which letter is missing?',
 				de: 'Singe das Alphabet: A, B, C, D... Welcher Buchstabe fehlt?',
-				fr: "Chante l'alphabet: A, B, C, D... Quelle lettre manque?"
+				fr: "Chante l'alphabet: A, B, C, D... Quelle lettre manque?",
+				es: 'Canta el abecedario: A, B, C, D... ¿Qué letra falta?'
 			}
 		}
 	}

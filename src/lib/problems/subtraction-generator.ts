@@ -88,7 +88,8 @@ export class SubtractionProblemGenerator implements ProblemGenerator {
 				ptBR: `${a} - ${b} = ?`,
 				en: `${a} - ${b} = ?`,
 				de: `${a} - ${b} = ?`,
-				fr: `${a} - ${b} = ?`
+				fr: `${a} - ${b} = ?`,
+				es: `${a} - ${b} = ?`
 			},
 			correctAnswer: { type: 'number', value: result },
 			answerChoices: generateNumberChoices(result),
@@ -96,7 +97,8 @@ export class SubtractionProblemGenerator implements ProblemGenerator {
 				ptBR: `Comece com ${a} e tire ${b}. Quantos sobram?`,
 				en: `Start with ${a} and take away ${b}. How many are left?`,
 				de: `Beginne mit ${a} und nimm ${b} weg. Wie viele bleiben übrig?`,
-				fr: `Commence avec ${a} et enlève ${b}. Combien en reste-t-il?`
+				fr: `Commence avec ${a} et enlève ${b}. Combien en reste-t-il?`,
+				es: `Empieza con ${a} y quita ${b}. ¿Cuántos quedan?`
 			}
 		}
 	}

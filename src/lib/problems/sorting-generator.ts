@@ -19,6 +19,7 @@ interface SortingCategory {
 	nameEn: string
 	nameDe: string
 	nameFr: string
+	nameEs: string
 	emoji: string // Representative emoji for the category
 	members: SortingObject[]
 }
@@ -41,6 +42,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Fruits',
 			nameDe: 'Obst',
 			nameFr: 'Fruits',
+			nameEs: 'Frutas',
 			emoji: '🍎',
 			members: [
 				{ id: 'apple', emoji: '🍎' },
@@ -56,6 +58,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Animals',
 			nameDe: 'Tiere',
 			nameFr: 'Animaux',
+			nameEs: 'Animales',
 			emoji: '🐕',
 			members: [
 				{ id: 'dog', emoji: '🐕' },
@@ -71,6 +74,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Vehicles',
 			nameDe: 'Fahrzeuge',
 			nameFr: 'Véhicules',
+			nameEs: 'Vehículos',
 			emoji: '🚗',
 			members: [
 				{ id: 'car', emoji: '🚗' },
@@ -88,6 +92,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Food',
 			nameDe: 'Essen',
 			nameFr: 'Nourriture',
+			nameEs: 'Comida',
 			emoji: '🍕',
 			members: [
 				{ id: 'pizza', emoji: '🍕' },
@@ -103,6 +108,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Toys',
 			nameDe: 'Spielzeug',
 			nameFr: 'Jouets',
+			nameEs: 'Juguetes',
 			emoji: '🧸',
 			members: [
 				{ id: 'teddy', emoji: '🧸' },
@@ -118,6 +124,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Nature',
 			nameDe: 'Natur',
 			nameFr: 'Nature',
+			nameEs: 'Naturaleza',
 			emoji: '🌳',
 			members: [
 				{ id: 'tree', emoji: '🌳' },
@@ -135,6 +142,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Sea Animals',
 			nameDe: 'Meerestiere',
 			nameFr: 'Animaux Marins',
+			nameEs: 'Animales Marinos',
 			emoji: '🐟',
 			members: [
 				{ id: 'fish', emoji: '🐟' },
@@ -150,6 +158,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Insects',
 			nameDe: 'Insekten',
 			nameFr: 'Insectes',
+			nameEs: 'Insectos',
 			emoji: '🦋',
 			members: [
 				{ id: 'butterfly', emoji: '🦋' },
@@ -165,6 +174,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Clothes',
 			nameDe: 'Kleidung',
 			nameFr: 'Vêtements',
+			nameEs: 'Ropa',
 			emoji: '👕',
 			members: [
 				{ id: 'shirt', emoji: '👕' },
@@ -182,6 +192,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Instruments',
 			nameDe: 'Instrumente',
 			nameFr: 'Instruments',
+			nameEs: 'Instrumentos',
 			emoji: '🎸',
 			members: [
 				{ id: 'guitar', emoji: '🎸' },
@@ -197,6 +208,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'Tools',
 			nameDe: 'Werkzeuge',
 			nameFr: 'Outils',
+			nameEs: 'Herramientas',
 			emoji: '🔨',
 			members: [
 				{ id: 'hammer', emoji: '🔨' },
@@ -212,6 +224,7 @@ const categories: Record<DifficultyLevel, SortingCategory[]> = {
 			nameEn: 'School',
 			nameDe: 'Schule',
 			nameFr: 'École',
+			nameEs: 'Escuela',
 			emoji: '📚',
 			members: [
 				{ id: 'book', emoji: '📚' },
@@ -299,7 +312,8 @@ export class SortingProblemGenerator implements ProblemGenerator {
 				ptBR: 'Onde isso pertence?',
 				en: 'Where does this belong?',
 				de: 'Wohin gehört das?',
-				fr: 'Où cela appartient-il?'
+				fr: 'Où cela appartient-il?',
+				es: '¿Dónde pertenece esto?'
 			},
 			correctAnswer: { type: 'object', value: correctCategory.emoji },
 			answerChoices: choices,
@@ -307,7 +321,8 @@ export class SortingProblemGenerator implements ProblemGenerator {
 				ptBR: `Pense: isso é um tipo de ${correctCategory.namePtBR.toLowerCase()}?`,
 				en: `Think: is this a type of ${correctCategory.nameEn.toLowerCase()}?`,
 				de: `Denk nach: Ist das eine Art von ${correctCategory.nameDe}?`,
-				fr: `Réfléchis: est-ce un type de ${correctCategory.nameFr.toLowerCase()}?`
+				fr: `Réfléchis: est-ce un type de ${correctCategory.nameFr.toLowerCase()}?`,
+				es: `Piensa: ¿es esto un tipo de ${correctCategory.nameEs.toLowerCase()}?`
 			}
 		}
 	}

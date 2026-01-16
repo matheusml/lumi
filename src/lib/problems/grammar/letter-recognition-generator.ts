@@ -98,7 +98,8 @@ export class LetterRecognitionGenerator implements ProblemGenerator {
 				ptBR: 'Qual é a letra?',
 				en: 'What letter is this?',
 				de: 'Welcher Buchstabe ist das?',
-				fr: 'Quelle est cette lettre?'
+				fr: 'Quelle est cette lettre?',
+				es: '¿Qué letra es esta?'
 			},
 			correctAnswer: { type: 'letter', value: letterInfo.uppercase },
 			answerChoices: choices,
@@ -106,7 +107,8 @@ export class LetterRecognitionGenerator implements ProblemGenerator {
 				ptBR: 'Olhe bem para o formato da letra. Já viu ela em alguma palavra?',
 				en: 'Look closely at the shape. Have you seen this letter in any words?',
 				de: 'Schau dir die Form genau an. Hast du diesen Buchstaben in Wörtern gesehen?',
-				fr: 'Regarde bien la forme. As-tu vu cette lettre dans des mots?'
+				fr: 'Regarde bien la forme. As-tu vu cette lettre dans des mots?',
+				es: 'Mira bien la forma. ¿Has visto esta letra en alguna palabra?'
 			}
 		}
 	}

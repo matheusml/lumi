@@ -6,7 +6,7 @@
  */
 
 export interface SpeechOptions {
-	lang?: 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
+	lang?: 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR' | 'es-ES'
 	rate?: number
 	pitch?: number
 }
@@ -76,6 +76,12 @@ class SpeechService {
 				.replace(/\+/g, ' plus ')
 				.replace(/-/g, ' moins ')
 				.replace(/=/g, ' égale ')
+				.replace(/\?/g, '')
+		} else if (lang.startsWith('es')) {
+			return text
+				.replace(/\+/g, ' más ')
+				.replace(/-/g, ' menos ')
+				.replace(/=/g, ' igual a ')
 				.replace(/\?/g, '')
 		} else {
 			return text

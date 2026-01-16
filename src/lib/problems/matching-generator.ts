@@ -247,7 +247,8 @@ export class MatchingProblemGenerator implements ProblemGenerator {
 				ptBR: 'O que combina?',
 				en: 'What goes together?',
 				de: 'Was passt zusammen?',
-				fr: "Qu'est-ce qui va ensemble?"
+				fr: "Qu'est-ce qui va ensemble?",
+				es: '¿Qué va junto?'
 			},
 			correctAnswer: { type: 'object', value: pair.match.emoji },
 			answerChoices: choices,
@@ -255,7 +256,8 @@ export class MatchingProblemGenerator implements ProblemGenerator {
 				ptBR: `Pense: o que o ${pair.source.namePtBR} precisa ou usa?`,
 				en: `Think: what does this need or use?`,
 				de: 'Denk nach: Was braucht oder benutzt das?',
-				fr: 'Réfléchis: de quoi cela a-t-il besoin?'
+				fr: 'Réfléchis: de quoi cela a-t-il besoin?',
+				es: 'Piensa: ¿qué necesita o usa esto?'
 			}
 		}
 	}

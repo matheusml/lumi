@@ -66,6 +66,7 @@ export interface LocalizedString {
 	en: string
 	de: string
 	fr: string
+	es: string
 }
 
 /** Visual element representing countable objects */

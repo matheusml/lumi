@@ -22,32 +22,32 @@ const COLORS: Color[] = [
 	{
 		id: 'red',
 		emoji: '🍎',
-		name: { en: 'red', ptBR: 'vermelho', de: 'rot', fr: 'rouge' }
+		name: { en: 'red', ptBR: 'vermelho', de: 'rot', fr: 'rouge', es: 'rojo' }
 	},
 	{
 		id: 'yellow',
 		emoji: '🍌',
-		name: { en: 'yellow', ptBR: 'amarelo', de: 'gelb', fr: 'jaune' }
+		name: { en: 'yellow', ptBR: 'amarelo', de: 'gelb', fr: 'jaune', es: 'amarillo' }
 	},
 	{
 		id: 'green',
 		emoji: '🥒',
-		name: { en: 'green', ptBR: 'verde', de: 'grün', fr: 'vert' }
+		name: { en: 'green', ptBR: 'verde', de: 'grün', fr: 'vert', es: 'verde' }
 	},
 	{
 		id: 'blue',
 		emoji: '🫐',
-		name: { en: 'blue', ptBR: 'azul', de: 'blau', fr: 'bleu' }
+		name: { en: 'blue', ptBR: 'azul', de: 'blau', fr: 'bleu', es: 'azul' }
 	},
 	{
 		id: 'orange',
 		emoji: '🍊',
-		name: { en: 'orange', ptBR: 'laranja', de: 'orange', fr: 'orange' }
+		name: { en: 'orange', ptBR: 'laranja', de: 'orange', fr: 'orange', es: 'naranja' }
 	},
 	{
 		id: 'purple',
 		emoji: '🍇',
-		name: { en: 'purple', ptBR: 'roxo', de: 'lila', fr: 'violet' }
+		name: { en: 'purple', ptBR: 'roxo', de: 'lila', fr: 'violet', es: 'morado' }
 	}
 ]
 
@@ -132,7 +132,8 @@ export class ColorRecognitionGenerator implements ProblemGenerator {
 				ptBR: `Encontre algo ${targetColor.name.ptBR}!`,
 				en: `Find something ${targetColor.name.en}!`,
 				de: `Finde etwas ${targetColor.name.de === 'rot' || targetColor.name.de === 'gelb' || targetColor.name.de === 'grün' || targetColor.name.de === 'blau' || targetColor.name.de === 'orange' || targetColor.name.de === 'lila' ? targetColor.name.de + 'es' : targetColor.name.de}!`,
-				fr: `Trouve quelque chose de ${targetColor.name.fr}!`
+				fr: `Trouve quelque chose de ${targetColor.name.fr}!`,
+				es: `¡Encuentra algo ${targetColor.name.es}!`
 			},
 			correctAnswer: { type: 'object', value: targetColor.emoji },
 			answerChoices: choices,
@@ -140,7 +141,8 @@ export class ColorRecognitionGenerator implements ProblemGenerator {
 				ptBR: `Olhe bem as cores!`,
 				en: `Look at the colors!`,
 				de: `Schau dir die Farben an!`,
-				fr: `Regarde bien les couleurs!`
+				fr: `Regarde bien les couleurs!`,
+				es: `¡Mira bien los colores!`
 			}
 		}
 	}

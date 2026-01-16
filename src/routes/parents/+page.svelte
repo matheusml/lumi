@@ -185,11 +185,12 @@
 			'pt-BR': 'Olá! Eu sou a Lumi, sua amiga de aprendizado.',
 			'en-US': "Hello! I'm Lumi, your learning friend.",
 			'de-DE': 'Hallo! Ich bin Lumi, dein Lernfreund.',
-			'fr-FR': "Bonjour! Je suis Lumi, ton ami d'apprentissage."
+			'fr-FR': "Bonjour! Je suis Lumi, ton ami d'apprentissage.",
+			'es-ES': '¡Hola! Soy Lumi, tu amiga de aprendizaje.'
 		}
 		const lang = getSpeechLanguage()
 		speechService.speak(testMessages[lang] || testMessages['en-US'], {
-			lang: lang as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
+			lang: lang as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR' | 'es-ES'
 		})
 	}
 

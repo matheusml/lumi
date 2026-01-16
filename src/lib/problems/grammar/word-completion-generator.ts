@@ -160,7 +160,8 @@ export class WordCompletionGenerator implements ProblemGenerator {
 				ptBR: 'Complete a palavra',
 				en: 'Complete the word',
 				de: 'Vervollständige das Wort',
-				fr: 'Complète le mot'
+				fr: 'Complète le mot',
+				es: 'Completa la palabra'
 			},
 			correctAnswer: { type: 'letter', value: correctLetter },
 			answerChoices: choices,
@@ -168,7 +169,8 @@ export class WordCompletionGenerator implements ProblemGenerator {
 				ptBR: 'Diga a palavra em voz alta. Que som está faltando?',
 				en: 'Say the word out loud. What sound is missing?',
 				de: 'Sag das Wort laut. Welcher Laut fehlt?',
-				fr: 'Dis le mot à voix haute. Quel son manque?'
+				fr: 'Dis le mot à voix haute. Quel son manque?',
+				es: 'Di la palabra en voz alta. ¿Qué sonido falta?'
 			}
 		}
 	}

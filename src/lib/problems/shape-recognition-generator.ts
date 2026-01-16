@@ -22,32 +22,32 @@ const SHAPES: Shape[] = [
 	{
 		id: 'circle',
 		emoji: '🔵',
-		name: { en: 'circle', ptBR: 'círculo', de: 'Kreis', fr: 'cercle' }
+		name: { en: 'circle', ptBR: 'círculo', de: 'Kreis', fr: 'cercle', es: 'círculo' }
 	},
 	{
 		id: 'square',
 		emoji: '🟧',
-		name: { en: 'square', ptBR: 'quadrado', de: 'Quadrat', fr: 'carré' }
+		name: { en: 'square', ptBR: 'quadrado', de: 'Quadrat', fr: 'carré', es: 'cuadrado' }
 	},
 	{
 		id: 'triangle',
 		emoji: '🔺',
-		name: { en: 'triangle', ptBR: 'triângulo', de: 'Dreieck', fr: 'triangle' }
+		name: { en: 'triangle', ptBR: 'triângulo', de: 'Dreieck', fr: 'triangle', es: 'triángulo' }
 	},
 	{
 		id: 'star',
 		emoji: '⭐',
-		name: { en: 'star', ptBR: 'estrela', de: 'Stern', fr: 'étoile' }
+		name: { en: 'star', ptBR: 'estrela', de: 'Stern', fr: 'étoile', es: 'estrella' }
 	},
 	{
 		id: 'heart',
 		emoji: '❤️',
-		name: { en: 'heart', ptBR: 'coração', de: 'Herz', fr: 'cœur' }
+		name: { en: 'heart', ptBR: 'coração', de: 'Herz', fr: 'cœur', es: 'corazón' }
 	},
 	{
 		id: 'diamond',
 		emoji: '🔷',
-		name: { en: 'diamond', ptBR: 'losango', de: 'Raute', fr: 'losange' }
+		name: { en: 'diamond', ptBR: 'losango', de: 'Raute', fr: 'losange', es: 'rombo' }
 	}
 ]
 
@@ -132,7 +132,8 @@ export class ShapeRecognitionGenerator implements ProblemGenerator {
 				ptBR: `Encontre o ${targetShape.name.ptBR}!`,
 				en: `Find the ${targetShape.name.en}!`,
 				de: `Finde ${targetShape.name.de === 'Kreis' || targetShape.name.de === 'Stern' ? 'den' : targetShape.name.de === 'Herz' || targetShape.name.de === 'Quadrat' || targetShape.name.de === 'Dreieck' ? 'das' : 'die'} ${targetShape.name.de}!`,
-				fr: `Trouve le ${targetShape.name.fr}!`
+				fr: `Trouve le ${targetShape.name.fr}!`,
+				es: `¡Encuentra el ${targetShape.name.es}!`
 			},
 			correctAnswer: { type: 'object', value: targetShape.emoji },
 			answerChoices: choices,
@@ -140,7 +141,8 @@ export class ShapeRecognitionGenerator implements ProblemGenerator {
 				ptBR: `Olhe bem para cada forma!`,
 				en: `Look carefully at each shape!`,
 				de: `Schau dir jede Form genau an!`,
-				fr: `Regarde bien chaque forme!`
+				fr: `Regarde bien chaque forme!`,
+				es: `¡Mira bien cada forma!`
 			}
 		}
 	}

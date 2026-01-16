@@ -164,7 +164,7 @@
 			if (autoVoice) {
 				setTimeout(() => {
 					speechService.speak(localize(problems[0].prompt), {
-						lang: getSpeechLanguage() as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
+						lang: getSpeechLanguage() as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR' | 'es-ES'
 					})
 				}, 500)
 			}
@@ -264,7 +264,7 @@
 			if (autoVoice && problems[currentIndex]) {
 				setTimeout(() => {
 					speechService.speak(localize(problems[currentIndex].prompt), {
-						lang: getSpeechLanguage() as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
+						lang: getSpeechLanguage() as 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR' | 'es-ES'
 					})
 				}, 300)
 			}

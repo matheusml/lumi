@@ -9,6 +9,7 @@ import { ptBR } from './translations/pt-BR'
 import { en } from './translations/en'
 import { de } from './translations/de'
 import { fr } from './translations/fr'
+import { es } from './translations/es'
 
 const STORAGE_KEY = 'lumi-language'
 const DEFAULT_LANGUAGE: SupportedLanguage = 'en'
@@ -68,7 +69,8 @@ export const languages: Record<SupportedLanguage, LanguageInfo> = {
 	'pt-BR': { code: 'pt-BR', name: 'Português', flag: '🇧🇷', speechLang: 'pt-BR' },
 	en: { code: 'en', name: 'English', flag: '🇺🇸', speechLang: 'en-US' },
 	de: { code: 'de', name: 'Deutsch', flag: '🇩🇪', speechLang: 'de-DE' },
-	fr: { code: 'fr', name: 'Français', flag: '🇫🇷', speechLang: 'fr-FR' }
+	fr: { code: 'fr', name: 'Français', flag: '🇫🇷', speechLang: 'fr-FR' },
+	es: { code: 'es', name: 'Español', flag: '🇪🇸', speechLang: 'es-ES' }
 }
 
 /** All translations */
@@ -76,7 +78,8 @@ const translations: Record<SupportedLanguage, Translations> = {
 	'pt-BR': ptBR,
 	en,
 	de,
-	fr
+	fr,
+	es
 }
 
 /** Current language - module state (initialized synchronously for correct SSR/hydration) */
@@ -121,7 +124,7 @@ export function setLanguage(lang: SupportedLanguage): void {
 }
 
 /** Speech language type */
-export type SpeechLanguage = 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR'
+export type SpeechLanguage = 'pt-BR' | 'en-US' | 'de-DE' | 'fr-FR' | 'es-ES'
 
 /** Get speech language code for current language */
 export function getSpeechLanguage(): SpeechLanguage {
@@ -150,10 +153,17 @@ export function initLanguage(): void {
 }
 
 /** Helper to get localized string from LocalizedString type */
-export function localize(str: { ptBR: string; en: string; de: string; fr: string }): string {
+export function localize(str: {
+	ptBR: string
+	en: string
+	de: string
+	fr: string
+	es: string
+}): string {
 	if (currentLanguage === 'pt-BR') return str.ptBR
 	if (currentLanguage === 'de') return str.de
 	if (currentLanguage === 'fr') return str.fr
+	if (currentLanguage === 'es') return str.es
 	return str.en
 }
 

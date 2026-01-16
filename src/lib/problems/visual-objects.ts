@@ -11,8 +11,11 @@ export interface VisualObjectInfo {
 	nameEn: string
 	nameDe: string
 	nameFr: string
+	nameEs: string
 	singularPtBR: string
+	singularEs: string
 	quantifierPtBR: string // "Quantos" (masc) or "Quantas" (fem)
+	quantifierEs: string // "Cuántos" (masc) or "Cuántas" (fem)
 }
 
 export const visualObjects: VisualObjectInfo[] = [
@@ -23,8 +26,11 @@ export const visualObjects: VisualObjectInfo[] = [
 		nameEn: 'apples',
 		nameDe: 'Äpfel',
 		nameFr: 'pommes',
+		nameEs: 'manzanas',
 		singularPtBR: 'maçã',
-		quantifierPtBR: 'Quantas'
+		singularEs: 'manzana',
+		quantifierPtBR: 'Quantas',
+		quantifierEs: 'Cuántas'
 	},
 	{
 		id: 'star',
@@ -33,8 +39,11 @@ export const visualObjects: VisualObjectInfo[] = [
 		nameEn: 'stars',
 		nameDe: 'Sterne',
 		nameFr: 'étoiles',
+		nameEs: 'estrellas',
 		singularPtBR: 'estrela',
-		quantifierPtBR: 'Quantas'
+		singularEs: 'estrella',
+		quantifierPtBR: 'Quantas',
+		quantifierEs: 'Cuántas'
 	},
 	{
 		id: 'bird',
@@ -43,8 +52,11 @@ export const visualObjects: VisualObjectInfo[] = [
 		nameEn: 'birds',
 		nameDe: 'Vögel',
 		nameFr: 'oiseaux',
+		nameEs: 'pájaros',
 		singularPtBR: 'pássaro',
-		quantifierPtBR: 'Quantos'
+		singularEs: 'pájaro',
+		quantifierPtBR: 'Quantos',
+		quantifierEs: 'Cuántos'
 	},
 	{
 		id: 'banana',
@@ -53,8 +65,11 @@ export const visualObjects: VisualObjectInfo[] = [
 		nameEn: 'bananas',
 		nameDe: 'Bananen',
 		nameFr: 'bananes',
+		nameEs: 'plátanos',
 		singularPtBR: 'banana',
-		quantifierPtBR: 'Quantas'
+		singularEs: 'plátano',
+		quantifierPtBR: 'Quantas',
+		quantifierEs: 'Cuántos'
 	},
 	{
 		id: 'flower',
@@ -63,8 +78,11 @@ export const visualObjects: VisualObjectInfo[] = [
 		nameEn: 'flowers',
 		nameDe: 'Blumen',
 		nameFr: 'fleurs',
+		nameEs: 'flores',
 		singularPtBR: 'flor',
-		quantifierPtBR: 'Quantas'
+		singularEs: 'flor',
+		quantifierPtBR: 'Quantas',
+		quantifierEs: 'Cuántas'
 	},
 	{
 		id: 'heart',
@@ -73,8 +91,11 @@ export const visualObjects: VisualObjectInfo[] = [
 		nameEn: 'hearts',
 		nameDe: 'Herzen',
 		nameFr: 'coeurs',
+		nameEs: 'corazones',
 		singularPtBR: 'coração',
-		quantifierPtBR: 'Quantos'
+		singularEs: 'corazón',
+		quantifierPtBR: 'Quantos',
+		quantifierEs: 'Cuántos'
 	},
 	{
 		id: 'butterfly',
@@ -83,8 +104,11 @@ export const visualObjects: VisualObjectInfo[] = [
 		nameEn: 'butterflies',
 		nameDe: 'Schmetterlinge',
 		nameFr: 'papillons',
+		nameEs: 'mariposas',
 		singularPtBR: 'borboleta',
-		quantifierPtBR: 'Quantas'
+		singularEs: 'mariposa',
+		quantifierPtBR: 'Quantas',
+		quantifierEs: 'Cuántas'
 	},
 	{
 		id: 'fish',
@@ -93,8 +117,11 @@ export const visualObjects: VisualObjectInfo[] = [
 		nameEn: 'fish',
 		nameDe: 'Fische',
 		nameFr: 'poissons',
+		nameEs: 'peces',
 		singularPtBR: 'peixe',
-		quantifierPtBR: 'Quantos'
+		singularEs: 'pez',
+		quantifierPtBR: 'Quantos',
+		quantifierEs: 'Cuántos'
 	}
 ]
 
