@@ -37,7 +37,9 @@
 			"Bash(sort:*)",
 			"Bash(uniq:*)",
 
-			"Bash(gh:*)"
+			"Bash(gh:*)",
+
+			"mcp__playwright__*"
 		]
 	}
 }
