@@ -8,7 +8,7 @@ const STATIC_DIR = join(import.meta.dirname, '..', 'static')
 // This prevents iOS from adding a black background
 const createIconSvg = (size) => {
 	const scale = size / 512
-	const faceScale = 0.9 // Face takes up 90% of the icon
+	const faceScale = 1.4 // Face features sized to match original circular icon
 	const cx = size / 2
 	const cy = size / 2
 
