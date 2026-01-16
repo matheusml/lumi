@@ -120,8 +120,8 @@
 
 		<footer class="footer">
 			<div class="footer-links">
-				<a href={localizedPath('/about')} class="footer-link">About</a>
-				<a href={localizedPath('/faq')} class="footer-link">FAQ</a>
+				<a href={localizedPath('/about')} class="footer-link">{t.home.about}</a>
+				<a href={localizedPath('/faq')} class="footer-link">{t.home.faq}</a>
 				<a
 					href="https://github.com/matheusml/lumi"
 					target="_blank"

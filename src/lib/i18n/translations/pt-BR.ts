@@ -39,6 +39,8 @@ export const ptBR: Translations = {
 			freeNoAds: 'Grátis para sempre, sem anúncios'
 		},
 		openSource: 'GitHub',
+		about: 'Sobre',
+		faq: 'FAQ',
 		startAdventure: 'Comece uma aventura',
 		math: 'Matemática',
 		grammar: 'Gramática',

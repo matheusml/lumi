@@ -52,6 +52,8 @@ export interface Translations {
 			freeNoAds: string
 		}
 		openSource: string
+		about: string
+		faq: string
 		startAdventure: string
 		math: string
 		grammar: string
