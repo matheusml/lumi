@@ -68,7 +68,11 @@
 		'letter-recognition': { difficulty: 1, accuracy: 0 },
 		'alphabet-order': { difficulty: 1, accuracy: 0 },
 		'initial-letter': { difficulty: 1, accuracy: 0 },
-		'word-completion': { difficulty: 1, accuracy: 0 }
+		'word-completion': { difficulty: 1, accuracy: 0 },
+		// Social-emotional
+		'emotion-recognition': { difficulty: 1, accuracy: 0 },
+		'emotion-scenario': { difficulty: 1, accuracy: 0 },
+		'kindness-choices': { difficulty: 1, accuracy: 0 }
 	})
 
 	onMount(() => {

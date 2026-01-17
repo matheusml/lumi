@@ -122,7 +122,7 @@ export const de: Translations = {
 			subjects: {
 				question: 'Welche Fächer lehrt Lumi?',
 				answer:
-					'Lumi lehrt Mathematik, Grammatik und Logik. Mathematikthemen umfassen Zählen, Addition, Subtraktion und Vergleich. Jedes Thema verwendet adaptive Schwierigkeit, um sich an das aktuelle Niveau deines Kindes anzupassen.'
+					'Lumi lehrt Mathematik, Grammatik, Logik und sozial-emotionale Fähigkeiten. Mathematikthemen umfassen Zählen, Addition, Subtraktion und Vergleich. Die sozial-emotionalen Aktivitäten helfen Kindern, Emotionen zu erkennen, Gefühle in verschiedenen Situationen zu verstehen und über Freundlichkeit zu lernen. Jedes Thema verwendet adaptive Schwierigkeit, um sich an das aktuelle Niveau deines Kindes anzupassen.'
 			},
 			dailyLimit: {
 				question: 'Wie funktioniert das tägliche Limit?',
@@ -211,6 +211,7 @@ export const de: Translations = {
 		math: 'Mathe',
 		grammar: 'Grammatik',
 		logic: 'Logik',
+		socialEmotional: 'Gefühle',
 		adventuresRemaining: 'Abenteuer heute übrig',
 		adventureRemaining: 'Abenteuer heute übrig',
 		limitReached: 'Du hast alle Abenteuer für heute abgeschlossen!',
@@ -281,6 +282,9 @@ export const de: Translations = {
 		letterRecognition: 'Buchstaben',
 		alphabetOrder: 'Alphabet',
 		initialLetter: 'Anfangsbuchstabe',
-		wordCompletion: 'Wörter ergänzen'
+		wordCompletion: 'Wörter ergänzen',
+		emotionRecognition: 'Emotionen',
+		emotionScenario: 'Szenarien',
+		kindnessChoices: 'Freundlichkeit'
 	}
 }

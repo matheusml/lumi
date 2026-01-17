@@ -126,7 +126,7 @@ export const fr: Translations = {
 			subjects: {
 				question: 'Quelles matières Lumi enseigne-t-il ?',
 				answer:
-					"Lumi enseigne les mathématiques, la grammaire et la logique. Les sujets de mathématiques incluent le comptage, l'addition, la soustraction et la comparaison. Chaque sujet utilise une difficulté adaptative pour correspondre au niveau actuel de votre enfant."
+					"Lumi enseigne les mathématiques, la grammaire, la logique et les compétences socio-émotionnelles. Les sujets de mathématiques incluent le comptage, l'addition, la soustraction et la comparaison. Les activités socio-émotionnelles aident les enfants à reconnaître les émotions, comprendre les sentiments dans différentes situations et apprendre la gentillesse. Chaque sujet utilise une difficulté adaptative pour correspondre au niveau actuel de votre enfant."
 			},
 			dailyLimit: {
 				question: 'Comment fonctionne la limite quotidienne ?',
@@ -215,6 +215,7 @@ export const fr: Translations = {
 		math: 'Maths',
 		grammar: 'Grammaire',
 		logic: 'Logique',
+		socialEmotional: 'Émotions',
 		adventuresRemaining: "aventures restantes aujourd'hui",
 		adventureRemaining: "aventure restante aujourd'hui",
 		limitReached: "Tu as terminé toutes les aventures d'aujourd'hui !",
@@ -285,6 +286,9 @@ export const fr: Translations = {
 		letterRecognition: 'Lettres',
 		alphabetOrder: 'Alphabet',
 		initialLetter: 'Lettre initiale',
-		wordCompletion: 'Compléter les mots'
+		wordCompletion: 'Compléter les mots',
+		emotionRecognition: 'Émotions',
+		emotionScenario: 'Scénarios',
+		kindnessChoices: 'Gentillesse'
 	}
 }
