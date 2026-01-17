@@ -527,8 +527,15 @@
 		display: flex;
 		flex-direction: column;
 		padding: var(--spacing-screen-horizontal);
-		padding-top: var(--spacing-lg);
+		padding-top: var(--spacing-sm);
 		gap: var(--spacing-xl);
+	}
+
+	/* On larger screens, add top padding since pickers are absolutely positioned */
+	@media (min-width: 480px) {
+		.adventure {
+			padding-top: var(--spacing-lg);
+		}
 	}
 
 	.header {

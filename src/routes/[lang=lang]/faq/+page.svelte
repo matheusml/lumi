@@ -157,8 +157,15 @@
 		flex-direction: column;
 		align-items: center;
 		padding: var(--spacing-screen-horizontal);
-		padding-top: var(--spacing-lg);
+		padding-top: var(--spacing-sm);
 		overflow-y: auto;
+	}
+
+	/* On larger screens, add top padding since pickers are absolutely positioned */
+	@media (min-width: 480px) {
+		.faq {
+			padding-top: var(--spacing-lg);
+		}
 	}
 
 	.content {

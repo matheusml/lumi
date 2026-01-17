@@ -42,7 +42,9 @@
 		<AgePicker />
 		<LanguagePicker />
 	</div>
-	{@render children()}
+	<div class="content-container">
+		{@render children()}
+	</div>
 </div>
 
 <style>
@@ -51,25 +53,39 @@
 		min-height: 100dvh;
 		display: flex;
 		flex-direction: column;
-		position: relative;
 	}
 
+	/* Mobile-first: pickers in document flow at top-right */
 	.pickers-container {
-		position: absolute;
-		top: var(--spacing-sm);
-		right: var(--spacing-sm);
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
+		gap: var(--spacing-xs);
+		padding: var(--spacing-sm);
 		z-index: 50;
+		flex-shrink: 0;
+	}
+
+	.content-container {
+		flex: 1;
 		display: flex;
 		flex-direction: column;
-		align-items: flex-end;
-		gap: var(--spacing-xs);
 	}
 
-	/* Larger screens: more breathing room */
+	/* Larger screens: absolute position for cleaner layout */
 	@media (min-width: 480px) {
+		.app-container {
+			position: relative;
+		}
+
 		.pickers-container {
+			position: absolute;
 			top: var(--spacing-md);
 			right: var(--spacing-md);
+			padding: 0;
+			flex-direction: column;
+			align-items: flex-end;
 		}
 	}
 </style>
