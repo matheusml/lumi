@@ -125,7 +125,7 @@ export const es: Translations = {
 			subjects: {
 				question: '¿Qué materias enseña Lumi?',
 				answer:
-					'Lumi enseña matemáticas, gramática y lógica. Los temas de matemáticas incluyen contar, suma, resta y comparación. Cada tema usa dificultad adaptativa para coincidir con el nivel actual de habilidad de tu hijo.'
+					'Lumi enseña matemáticas, gramática, lógica y habilidades socioemocionales. Los temas de matemáticas incluyen contar, suma, resta y comparación. Las actividades socioemocionales ayudan a los niños a reconocer emociones, entender sentimientos en diferentes situaciones y aprender sobre la amabilidad. Cada tema usa dificultad adaptativa para coincidir con el nivel actual de habilidad de tu hijo.'
 			},
 			dailyLimit: {
 				question: '¿Cómo funciona el límite diario?',
@@ -214,6 +214,7 @@ export const es: Translations = {
 		math: 'Matemáticas',
 		grammar: 'Gramática',
 		logic: 'Lógica',
+		socialEmotional: 'Emociones',
 		adventuresRemaining: 'aventuras restantes hoy',
 		adventureRemaining: 'aventura restante hoy',
 		limitReached: '¡Completaste todas las aventuras de hoy!',
@@ -284,6 +285,9 @@ export const es: Translations = {
 		letterRecognition: 'Letras',
 		alphabetOrder: 'Alfabeto',
 		initialLetter: 'Letra inicial',
-		wordCompletion: 'Completar palabras'
+		wordCompletion: 'Completar palabras',
+		emotionRecognition: 'Emociones',
+		emotionScenario: 'Escenarios',
+		kindnessChoices: 'Amabilidad'
 	}
 }

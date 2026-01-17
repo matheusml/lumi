@@ -128,7 +128,7 @@ export const en: Translations = {
 			subjects: {
 				question: 'What subjects does Lumi teach?',
 				answer:
-					"Lumi teaches math, grammar, and logic. Math topics include counting, addition, subtraction, and comparison. Each topic uses adaptive difficulty to match your child's current skill level."
+					"Lumi teaches math, grammar, logic, and social-emotional skills. Math topics include counting, addition, subtraction, and comparison. Social-emotional activities help children recognize emotions, understand feelings in different scenarios, and learn about kindness. Each topic uses adaptive difficulty to match your child's current skill level."
 			},
 			dailyLimit: {
 				question: 'How does the daily limit work?',
@@ -216,6 +216,7 @@ export const en: Translations = {
 		math: 'Math',
 		grammar: 'Grammar',
 		logic: 'Logic',
+		socialEmotional: 'Feelings',
 		adventuresRemaining: 'adventures remaining today',
 		adventureRemaining: 'adventure remaining today',
 		limitReached: 'You completed all adventures for today!',
@@ -286,6 +287,9 @@ export const en: Translations = {
 		letterRecognition: 'Letters',
 		alphabetOrder: 'Alphabet',
 		initialLetter: 'Initial Letter',
-		wordCompletion: 'Word Completion'
+		wordCompletion: 'Word Completion',
+		emotionRecognition: 'Emotions',
+		emotionScenario: 'Scenarios',
+		kindnessChoices: 'Kindness'
 	}
 }

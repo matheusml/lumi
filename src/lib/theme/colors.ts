@@ -15,6 +15,11 @@ export const colors = {
 	secondaryHover: '#6BB5E8', // Darker blue for hover
 	secondaryLight: '#C5E3F7', // Light blue for backgrounds
 
+	// Social-emotional (heart/feelings)
+	feelings: '#D4A5D9', // Soft lavender - social-emotional
+	feelingsHover: '#C490CA', // Darker lavender for hover
+	feelingsLight: '#EDD6EF', // Light lavender for backgrounds
+
 	// Feedback colors (gentle, not harsh)
 	success: '#99D9BF', // Mint green - correct answers
 	successDark: '#7CC9A8', // Darker mint for text on success bg

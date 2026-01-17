@@ -2,7 +2,7 @@
 	/**
 	 * AdventureTiles
 	 *
-	 * Reusable grid of adventure tiles for Math, Grammar, and Logic.
+	 * Reusable grid of adventure tiles for Math, Grammar, Logic, and Social-Emotional.
 	 * Used on home page and completion page.
 	 */
 
@@ -35,6 +35,12 @@
 			goto(localizedUrl('/adventure', { type: 'logic' }))
 		}
 	}
+
+	function startSocialEmotionalAdventure() {
+		if (canStart) {
+			goto(localizedUrl('/adventure', { type: 'social-emotional' }))
+		}
+	}
 </script>
 
 <div class="adventure-tiles">
@@ -50,12 +56,20 @@
 		<Icon name="puzzle" size={32} />
 		<span class="tile-label">{t.home.logic}</span>
 	</button>
+	<button
+		class="adventure-tile social-emotional"
+		onclick={startSocialEmotionalAdventure}
+		disabled={!canStart}
+	>
+		<Icon name="heart" size={32} />
+		<span class="tile-label">{t.home.socialEmotional}</span>
+	</button>
 </div>
 
 <style>
 	.adventure-tiles {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: var(--spacing-md);
 		width: 100%;
 	}
@@ -107,6 +121,11 @@
 	.adventure-tile.logic {
 		background-color: var(--color-success);
 		border-bottom-color: var(--color-success-dark);
+	}
+
+	.adventure-tile.social-emotional {
+		background-color: var(--color-feelings);
+		border-bottom-color: var(--color-feelings-hover);
 	}
 
 	.tile-label {

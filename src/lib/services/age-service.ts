@@ -11,6 +11,7 @@ import type {
 	MathProblemType,
 	GrammarProblemType,
 	LogicProblemType,
+	SocialEmotionalProblemType,
 	AdventureCategory
 } from '$lib/types'
 
@@ -48,32 +49,38 @@ export const AGE_PROBLEM_TYPES: Record<
 		math: MathProblemType[]
 		grammar: GrammarProblemType[]
 		logic: LogicProblemType[]
+		'social-emotional': SocialEmotionalProblemType[]
 	}
 > = {
 	3: {
 		math: ['counting', 'comparison'],
 		grammar: ['letter-recognition'],
-		logic: ['matching', 'shape-recognition', 'color-recognition'] // Simple recognition for 3yo
+		logic: ['matching', 'shape-recognition', 'color-recognition'], // Simple recognition for 3yo
+		'social-emotional': ['emotion-recognition'] // Start with basic emotion recognition
 	},
 	4: {
 		math: ['counting', 'comparison'],
 		grammar: ['letter-recognition'],
-		logic: ['matching', 'odd-one-out', 'shape-recognition', 'color-recognition']
+		logic: ['matching', 'odd-one-out', 'shape-recognition', 'color-recognition'],
+		'social-emotional': ['emotion-recognition', 'emotion-scenario'] // Add simple scenarios
 	},
 	5: {
 		math: ['counting', 'addition', 'comparison'],
 		grammar: ['letter-recognition', 'alphabet-order'],
-		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence']
+		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence'],
+		'social-emotional': ['emotion-recognition', 'emotion-scenario', 'kindness-choices']
 	},
 	6: {
 		math: ['counting', 'addition', 'subtraction', 'comparison'],
 		grammar: ['letter-recognition', 'alphabet-order', 'initial-letter'],
-		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence']
+		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence'],
+		'social-emotional': ['emotion-recognition', 'emotion-scenario', 'kindness-choices']
 	},
 	7: {
 		math: ['counting', 'addition', 'subtraction', 'comparison'],
 		grammar: ['letter-recognition', 'alphabet-order', 'initial-letter', 'word-completion'],
-		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence']
+		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence'],
+		'social-emotional': ['emotion-recognition', 'emotion-scenario', 'kindness-choices']
 	}
 }
 
@@ -131,7 +138,7 @@ export class AgeService {
 	 */
 	getProblemTypesForAge(
 		category: AdventureCategory
-	): MathProblemType[] | GrammarProblemType[] | LogicProblemType[] {
+	): MathProblemType[] | GrammarProblemType[] | LogicProblemType[] | SocialEmotionalProblemType[] {
 		return AGE_PROBLEM_TYPES[this.currentAge][category]
 	}
 

@@ -139,6 +139,7 @@ export interface Translations {
 		math: string
 		grammar: string
 		logic: string
+		socialEmotional: string
 		adventuresRemaining: string
 		adventureRemaining: string
 		limitReached: string
@@ -210,5 +211,8 @@ export interface Translations {
 		alphabetOrder: string
 		initialLetter: string
 		wordCompletion: string
+		emotionRecognition: string
+		emotionScenario: string
+		kindnessChoices: string
 	}
 }

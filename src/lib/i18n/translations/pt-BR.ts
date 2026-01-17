@@ -125,7 +125,7 @@ export const ptBR: Translations = {
 			subjects: {
 				question: 'Quais matérias o Lumi ensina?',
 				answer:
-					'O Lumi ensina matemática, gramática e lógica. Os tópicos de matemática incluem contagem, adição, subtração e comparação. Cada tópico usa dificuldade adaptativa para corresponder ao nível atual de habilidade do seu filho.'
+					'O Lumi ensina matemática, gramática, lógica e habilidades socioemocionais. Os tópicos de matemática incluem contagem, adição, subtração e comparação. As atividades socioemocionais ajudam as crianças a reconhecer emoções, entender sentimentos em diferentes cenários e aprender sobre gentileza. Cada tópico usa dificuldade adaptativa para corresponder ao nível atual de habilidade do seu filho.'
 			},
 			dailyLimit: {
 				question: 'Como funciona o limite diário?',
@@ -214,6 +214,7 @@ export const ptBR: Translations = {
 		math: 'Matemática',
 		grammar: 'Gramática',
 		logic: 'Lógica',
+		socialEmotional: 'Emoções',
 		adventuresRemaining: 'aventuras restantes hoje',
 		adventureRemaining: 'aventura restante hoje',
 		limitReached: 'Você completou todas as aventuras de hoje!',
@@ -284,6 +285,9 @@ export const ptBR: Translations = {
 		letterRecognition: 'Letras',
 		alphabetOrder: 'Alfabeto',
 		initialLetter: 'Letra Inicial',
-		wordCompletion: 'Completar Palavras'
+		wordCompletion: 'Completar Palavras',
+		emotionRecognition: 'Emoções',
+		emotionScenario: 'Cenários',
+		kindnessChoices: 'Gentileza'
 	}
 }
