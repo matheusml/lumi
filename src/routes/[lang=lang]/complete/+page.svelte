@@ -118,8 +118,16 @@
 		align-items: center;
 		justify-content: center;
 		padding: var(--spacing-screen-horizontal);
+		padding-top: var(--spacing-sm);
 		gap: var(--spacing-2xl);
 		text-align: center;
+	}
+
+	/* On larger screens, add top padding since pickers are absolutely positioned */
+	@media (min-width: 480px) {
+		.complete {
+			padding-top: var(--spacing-lg);
+		}
 	}
 
 	.celebration {
