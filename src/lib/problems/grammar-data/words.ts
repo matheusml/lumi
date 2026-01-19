@@ -30,68 +30,161 @@ export function getLocalizedWord(wordInfo: WordInfo, lang: SupportedLanguage): s
 /** Word bank organized by starting letter */
 export const wordBank: WordInfo[] = [
 	// A
-	{ word: 'abelha', emoji: '🐝', syllables: ['a', 'be', 'lha'], namePtBR: 'abelha', nameEn: 'bee' },
+	{
+		word: 'abelha',
+		emoji: '🐝',
+		syllables: ['a', 'be', 'lha'],
+		namePtBR: 'abelha',
+		nameEn: 'bee',
+		nameDe: 'Biene',
+		nameFr: 'abeille',
+		nameEs: 'abeja'
+	},
 	{
 		word: 'aviao',
 		emoji: '✈️',
 		syllables: ['a', 'vi', 'ao'],
 		namePtBR: 'avião',
-		nameEn: 'airplane'
+		nameEn: 'airplane',
+		nameDe: 'Flugzeug',
+		nameFr: 'avion',
+		nameEs: 'avión'
 	},
-	{ word: 'agua', emoji: '💧', syllables: ['a', 'gua'], namePtBR: 'água', nameEn: 'water' },
+	{
+		word: 'agua',
+		emoji: '💧',
+		syllables: ['a', 'gua'],
+		namePtBR: 'água',
+		nameEn: 'water',
+		nameDe: 'Wasser',
+		nameFr: 'eau',
+		nameEs: 'agua'
+	},
 	{
 		word: 'aranha',
 		emoji: '🕷️',
 		syllables: ['a', 'ra', 'nha'],
 		namePtBR: 'aranha',
-		nameEn: 'spider'
+		nameEn: 'spider',
+		nameDe: 'Spinne',
+		nameFr: 'araignée',
+		nameEs: 'araña'
 	},
 
 	// B
-	{ word: 'bola', emoji: '⚽', syllables: ['bo', 'la'], namePtBR: 'bola', nameEn: 'ball' },
+	{
+		word: 'bola',
+		emoji: '⚽',
+		syllables: ['bo', 'la'],
+		namePtBR: 'bola',
+		nameEn: 'ball',
+		nameDe: 'Ball',
+		nameFr: 'ballon',
+		nameEs: 'pelota'
+	},
 	{
 		word: 'banana',
 		emoji: '🍌',
 		syllables: ['ba', 'na', 'na'],
 		namePtBR: 'banana',
-		nameEn: 'banana'
+		nameEn: 'banana',
+		nameDe: 'Banane',
+		nameFr: 'banane',
+		nameEs: 'plátano'
 	},
-	{ word: 'barco', emoji: '⛵', syllables: ['bar', 'co'], namePtBR: 'barco', nameEn: 'boat' },
+	{
+		word: 'barco',
+		emoji: '⛵',
+		syllables: ['bar', 'co'],
+		namePtBR: 'barco',
+		nameEn: 'boat',
+		nameDe: 'Boot',
+		nameFr: 'bateau',
+		nameEs: 'barco'
+	},
 	{
 		word: 'boneca',
 		emoji: '🪆',
 		syllables: ['bo', 'ne', 'ca'],
 		namePtBR: 'boneca',
-		nameEn: 'doll'
+		nameEn: 'doll',
+		nameDe: 'Puppe',
+		nameFr: 'poupée',
+		nameEs: 'muñeca'
 	},
 
 	// C
-	{ word: 'casa', emoji: '🏠', syllables: ['ca', 'sa'], namePtBR: 'casa', nameEn: 'house' },
+	{
+		word: 'casa',
+		emoji: '🏠',
+		syllables: ['ca', 'sa'],
+		namePtBR: 'casa',
+		nameEn: 'house',
+		nameDe: 'Haus',
+		nameFr: 'maison',
+		nameEs: 'casa'
+	},
 	{
 		word: 'cachorro',
 		emoji: '🐕',
 		syllables: ['ca', 'chor', 'ro'],
 		namePtBR: 'cachorro',
-		nameEn: 'dog'
+		nameEn: 'dog',
+		nameDe: 'Hund',
+		nameFr: 'chien',
+		nameEs: 'perro'
 	},
-	{ word: 'carro', emoji: '🚗', syllables: ['car', 'ro'], namePtBR: 'carro', nameEn: 'car' },
+	{
+		word: 'carro',
+		emoji: '🚗',
+		syllables: ['car', 'ro'],
+		namePtBR: 'carro',
+		nameEn: 'car',
+		nameDe: 'Auto',
+		nameFr: 'voiture',
+		nameEs: 'coche'
+	},
 	{
 		word: 'coelho',
 		emoji: '🐰',
 		syllables: ['co', 'e', 'lho'],
 		namePtBR: 'coelho',
-		nameEn: 'rabbit'
+		nameEn: 'rabbit',
+		nameDe: 'Hase',
+		nameFr: 'lapin',
+		nameEs: 'conejo'
 	},
 
 	// D
-	{ word: 'dado', emoji: '🎲', syllables: ['da', 'do'], namePtBR: 'dado', nameEn: 'dice' },
-	{ word: 'dente', emoji: '🦷', syllables: ['den', 'te'], namePtBR: 'dente', nameEn: 'tooth' },
+	{
+		word: 'dado',
+		emoji: '🎲',
+		syllables: ['da', 'do'],
+		namePtBR: 'dado',
+		nameEn: 'dice',
+		nameDe: 'Würfel',
+		nameFr: 'dé',
+		nameEs: 'dado'
+	},
+	{
+		word: 'dente',
+		emoji: '🦷',
+		syllables: ['den', 'te'],
+		namePtBR: 'dente',
+		nameEn: 'tooth',
+		nameDe: 'Zahn',
+		nameFr: 'dent',
+		nameEs: 'diente'
+	},
 	{
 		word: 'dinossauro',
 		emoji: '🦕',
 		syllables: ['di', 'nos', 'sau', 'ro'],
 		namePtBR: 'dinossauro',
-		nameEn: 'dinosaur'
+		nameEn: 'dinosaur',
+		nameDe: 'Dinosaurier',
+		nameFr: 'dinosaure',
+		nameEs: 'dinosaurio'
 	},
 
 	// E
@@ -100,49 +193,94 @@ export const wordBank: WordInfo[] = [
 		emoji: '🐘',
 		syllables: ['e', 'le', 'fan', 'te'],
 		namePtBR: 'elefante',
-		nameEn: 'elephant'
+		nameEn: 'elephant',
+		nameDe: 'Elefant',
+		nameFr: 'éléphant',
+		nameEs: 'elefante'
 	},
 	{
 		word: 'estrela',
 		emoji: '⭐',
 		syllables: ['es', 'tre', 'la'],
 		namePtBR: 'estrela',
-		nameEn: 'star'
+		nameEn: 'star',
+		nameDe: 'Stern',
+		nameFr: 'étoile',
+		nameEs: 'estrella'
 	},
 	{
 		word: 'escola',
 		emoji: '🏫',
 		syllables: ['es', 'co', 'la'],
 		namePtBR: 'escola',
-		nameEn: 'school'
+		nameEn: 'school',
+		nameDe: 'Schule',
+		nameFr: 'école',
+		nameEs: 'escuela'
 	},
 
 	// F
-	{ word: 'flor', emoji: '🌸', syllables: ['flor'], namePtBR: 'flor', nameEn: 'flower' },
-	{ word: 'fogo', emoji: '🔥', syllables: ['fo', 'go'], namePtBR: 'fogo', nameEn: 'fire' },
+	{
+		word: 'flor',
+		emoji: '🌸',
+		syllables: ['flor'],
+		namePtBR: 'flor',
+		nameEn: 'flower',
+		nameDe: 'Blume',
+		nameFr: 'fleur',
+		nameEs: 'flor'
+	},
+	{
+		word: 'fogo',
+		emoji: '🔥',
+		syllables: ['fo', 'go'],
+		namePtBR: 'fogo',
+		nameEn: 'fire',
+		nameDe: 'Feuer',
+		nameFr: 'feu',
+		nameEs: 'fuego'
+	},
 	{
 		word: 'formiga',
 		emoji: '🐜',
 		syllables: ['for', 'mi', 'ga'],
 		namePtBR: 'formiga',
-		nameEn: 'ant'
+		nameEn: 'ant',
+		nameDe: 'Ameise',
+		nameFr: 'fourmi',
+		nameEs: 'hormiga'
 	},
 
 	// G
-	{ word: 'gato', emoji: '🐱', syllables: ['ga', 'to'], namePtBR: 'gato', nameEn: 'cat' },
+	{
+		word: 'gato',
+		emoji: '🐱',
+		syllables: ['ga', 'to'],
+		namePtBR: 'gato',
+		nameEn: 'cat',
+		nameDe: 'Katze',
+		nameFr: 'chat',
+		nameEs: 'gato'
+	},
 	{
 		word: 'girafa',
 		emoji: '🦒',
 		syllables: ['gi', 'ra', 'fa'],
 		namePtBR: 'girafa',
-		nameEn: 'giraffe'
+		nameEn: 'giraffe',
+		nameDe: 'Giraffe',
+		nameFr: 'girafe',
+		nameEs: 'jirafa'
 	},
 	{
 		word: 'galinha',
 		emoji: '🐔',
 		syllables: ['ga', 'li', 'nha'],
 		namePtBR: 'galinha',
-		nameEn: 'chicken'
+		nameEn: 'chicken',
+		nameDe: 'Huhn',
+		nameFr: 'poule',
+		nameEs: 'gallina'
 	},
 
 	// H
@@ -151,7 +289,10 @@ export const wordBank: WordInfo[] = [
 		emoji: '🦛',
 		syllables: ['hi', 'po', 'po', 'ta', 'mo'],
 		namePtBR: 'hipopótamo',
-		nameEn: 'hippo'
+		nameEn: 'hippo',
+		nameDe: 'Nilpferd',
+		nameFr: 'hippopotame',
+		nameEs: 'hipopótamo'
 	},
 
 	// I
@@ -160,9 +301,21 @@ export const wordBank: WordInfo[] = [
 		emoji: '⛪',
 		syllables: ['i', 'gre', 'ja'],
 		namePtBR: 'igreja',
-		nameEn: 'church'
+		nameEn: 'church',
+		nameDe: 'Kirche',
+		nameFr: 'église',
+		nameEs: 'iglesia'
 	},
-	{ word: 'ilha', emoji: '🏝️', syllables: ['i', 'lha'], namePtBR: 'ilha', nameEn: 'island' },
+	{
+		word: 'ilha',
+		emoji: '🏝️',
+		syllables: ['i', 'lha'],
+		namePtBR: 'ilha',
+		nameEn: 'island',
+		nameDe: 'Insel',
+		nameFr: 'île',
+		nameEs: 'isla'
+	},
 
 	// J
 	{
@@ -170,80 +323,236 @@ export const wordBank: WordInfo[] = [
 		emoji: '🐞',
 		syllables: ['jo', 'a', 'ni', 'nha'],
 		namePtBR: 'joaninha',
-		nameEn: 'ladybug'
+		nameEn: 'ladybug',
+		nameDe: 'Marienkäfer',
+		nameFr: 'coccinelle',
+		nameEs: 'mariquita'
 	},
 
 	// L
-	{ word: 'lua', emoji: '🌙', syllables: ['lu', 'a'], namePtBR: 'lua', nameEn: 'moon' },
-	{ word: 'leao', emoji: '🦁', syllables: ['le', 'ao'], namePtBR: 'leão', nameEn: 'lion' },
-	{ word: 'livro', emoji: '📖', syllables: ['li', 'vro'], namePtBR: 'livro', nameEn: 'book' },
+	{
+		word: 'lua',
+		emoji: '🌙',
+		syllables: ['lu', 'a'],
+		namePtBR: 'lua',
+		nameEn: 'moon',
+		nameDe: 'Mond',
+		nameFr: 'lune',
+		nameEs: 'luna'
+	},
+	{
+		word: 'leao',
+		emoji: '🦁',
+		syllables: ['le', 'ao'],
+		namePtBR: 'leão',
+		nameEn: 'lion',
+		nameDe: 'Löwe',
+		nameFr: 'lion',
+		nameEs: 'león'
+	},
+	{
+		word: 'livro',
+		emoji: '📖',
+		syllables: ['li', 'vro'],
+		namePtBR: 'livro',
+		nameEn: 'book',
+		nameDe: 'Buch',
+		nameFr: 'livre',
+		nameEs: 'libro'
+	},
 	{
 		word: 'laranja',
 		emoji: '🍊',
 		syllables: ['la', 'ran', 'ja'],
 		namePtBR: 'laranja',
-		nameEn: 'orange'
+		nameEn: 'orange',
+		nameDe: 'Orange',
+		nameFr: 'orange',
+		nameEs: 'naranja'
 	},
 
 	// M
-	{ word: 'maca', emoji: '🍎', syllables: ['ma', 'ca'], namePtBR: 'maçã', nameEn: 'apple' },
+	{
+		word: 'maca',
+		emoji: '🍎',
+		syllables: ['ma', 'ca'],
+		namePtBR: 'maçã',
+		nameEn: 'apple',
+		nameDe: 'Apfel',
+		nameFr: 'pomme',
+		nameEs: 'manzana'
+	},
 	{
 		word: 'macaco',
 		emoji: '🐒',
 		syllables: ['ma', 'ca', 'co'],
 		namePtBR: 'macaco',
-		nameEn: 'monkey'
+		nameEn: 'monkey',
+		nameDe: 'Affe',
+		nameFr: 'singe',
+		nameEs: 'mono'
 	},
 	{
 		word: 'melancia',
 		emoji: '🍉',
 		syllables: ['me', 'lan', 'ci', 'a'],
 		namePtBR: 'melancia',
-		nameEn: 'watermelon'
+		nameEn: 'watermelon',
+		nameDe: 'Wassermelone',
+		nameFr: 'pastèque',
+		nameEs: 'sandía'
 	},
 
 	// N
-	{ word: 'nuvem', emoji: '☁️', syllables: ['nu', 'vem'], namePtBR: 'nuvem', nameEn: 'cloud' },
-	{ word: 'navio', emoji: '🚢', syllables: ['na', 'vi', 'o'], namePtBR: 'navio', nameEn: 'ship' },
+	{
+		word: 'nuvem',
+		emoji: '☁️',
+		syllables: ['nu', 'vem'],
+		namePtBR: 'nuvem',
+		nameEn: 'cloud',
+		nameDe: 'Wolke',
+		nameFr: 'nuage',
+		nameEs: 'nube'
+	},
+	{
+		word: 'navio',
+		emoji: '🚢',
+		syllables: ['na', 'vi', 'o'],
+		namePtBR: 'navio',
+		nameEn: 'ship',
+		nameDe: 'Schiff',
+		nameFr: 'navire',
+		nameEs: 'barco'
+	},
 
 	// O
-	{ word: 'ovo', emoji: '🥚', syllables: ['o', 'vo'], namePtBR: 'ovo', nameEn: 'egg' },
-	{ word: 'olho', emoji: '👁️', syllables: ['o', 'lho'], namePtBR: 'olho', nameEn: 'eye' },
+	{
+		word: 'ovo',
+		emoji: '🥚',
+		syllables: ['o', 'vo'],
+		namePtBR: 'ovo',
+		nameEn: 'egg',
+		nameDe: 'Ei',
+		nameFr: 'œuf',
+		nameEs: 'huevo'
+	},
+	{
+		word: 'olho',
+		emoji: '👁️',
+		syllables: ['o', 'lho'],
+		namePtBR: 'olho',
+		nameEn: 'eye',
+		nameDe: 'Auge',
+		nameFr: 'œil',
+		nameEs: 'ojo'
+	},
 
 	// P
-	{ word: 'pato', emoji: '🦆', syllables: ['pa', 'to'], namePtBR: 'pato', nameEn: 'duck' },
+	{
+		word: 'pato',
+		emoji: '🦆',
+		syllables: ['pa', 'to'],
+		namePtBR: 'pato',
+		nameEn: 'duck',
+		nameDe: 'Ente',
+		nameFr: 'canard',
+		nameEs: 'pato'
+	},
 	{
 		word: 'passaro',
 		emoji: '🐦',
 		syllables: ['pas', 'sa', 'ro'],
 		namePtBR: 'pássaro',
-		nameEn: 'bird'
+		nameEn: 'bird',
+		nameDe: 'Vogel',
+		nameFr: 'oiseau',
+		nameEs: 'pájaro'
 	},
-	{ word: 'peixe', emoji: '🐟', syllables: ['pei', 'xe'], namePtBR: 'peixe', nameEn: 'fish' },
-	{ word: 'pizza', emoji: '🍕', syllables: ['piz', 'za'], namePtBR: 'pizza', nameEn: 'pizza' },
+	{
+		word: 'peixe',
+		emoji: '🐟',
+		syllables: ['pei', 'xe'],
+		namePtBR: 'peixe',
+		nameEn: 'fish',
+		nameDe: 'Fisch',
+		nameFr: 'poisson',
+		nameEs: 'pez'
+	},
+	{
+		word: 'pizza',
+		emoji: '🍕',
+		syllables: ['piz', 'za'],
+		namePtBR: 'pizza',
+		nameEn: 'pizza',
+		nameDe: 'Pizza',
+		nameFr: 'pizza',
+		nameEs: 'pizza'
+	},
 
 	// Q
-	{ word: 'queijo', emoji: '🧀', syllables: ['quei', 'jo'], namePtBR: 'queijo', nameEn: 'cheese' },
+	{
+		word: 'queijo',
+		emoji: '🧀',
+		syllables: ['quei', 'jo'],
+		namePtBR: 'queijo',
+		nameEn: 'cheese',
+		nameDe: 'Käse',
+		nameFr: 'fromage',
+		nameEs: 'queso'
+	},
 
 	// R
-	{ word: 'rato', emoji: '🐭', syllables: ['ra', 'to'], namePtBR: 'rato', nameEn: 'mouse' },
+	{
+		word: 'rato',
+		emoji: '🐭',
+		syllables: ['ra', 'to'],
+		namePtBR: 'rato',
+		nameEn: 'mouse',
+		nameDe: 'Maus',
+		nameFr: 'souris',
+		nameEs: 'ratón'
+	},
 	{
 		word: 'relogio',
 		emoji: '⏰',
 		syllables: ['re', 'lo', 'gi', 'o'],
 		namePtBR: 'relógio',
-		nameEn: 'clock'
+		nameEn: 'clock',
+		nameDe: 'Uhr',
+		nameFr: 'horloge',
+		nameEs: 'reloj'
 	},
 
 	// S
-	{ word: 'sol', emoji: '☀️', syllables: ['sol'], namePtBR: 'sol', nameEn: 'sun' },
-	{ word: 'sapo', emoji: '🐸', syllables: ['sa', 'po'], namePtBR: 'sapo', nameEn: 'frog' },
+	{
+		word: 'sol',
+		emoji: '☀️',
+		syllables: ['sol'],
+		namePtBR: 'sol',
+		nameEn: 'sun',
+		nameDe: 'Sonne',
+		nameFr: 'soleil',
+		nameEs: 'sol'
+	},
+	{
+		word: 'sapo',
+		emoji: '🐸',
+		syllables: ['sa', 'po'],
+		namePtBR: 'sapo',
+		nameEn: 'frog',
+		nameDe: 'Frosch',
+		nameFr: 'grenouille',
+		nameEs: 'rana'
+	},
 	{
 		word: 'sapato',
 		emoji: '👟',
 		syllables: ['sa', 'pa', 'to'],
 		namePtBR: 'sapato',
-		nameEn: 'shoe'
+		nameEn: 'shoe',
+		nameDe: 'Schuh',
+		nameFr: 'chaussure',
+		nameEs: 'zapato'
 	},
 
 	// T
@@ -252,36 +561,99 @@ export const wordBank: WordInfo[] = [
 		emoji: '🐢',
 		syllables: ['tar', 'ta', 'ru', 'ga'],
 		namePtBR: 'tartaruga',
-		nameEn: 'turtle'
+		nameEn: 'turtle',
+		nameDe: 'Schildkröte',
+		nameFr: 'tortue',
+		nameEs: 'tortuga'
 	},
-	{ word: 'tigre', emoji: '🐯', syllables: ['ti', 'gre'], namePtBR: 'tigre', nameEn: 'tiger' },
+	{
+		word: 'tigre',
+		emoji: '🐯',
+		syllables: ['ti', 'gre'],
+		namePtBR: 'tigre',
+		nameEn: 'tiger',
+		nameDe: 'Tiger',
+		nameFr: 'tigre',
+		nameEs: 'tigre'
+	},
 	{
 		word: 'tomate',
 		emoji: '🍅',
 		syllables: ['to', 'ma', 'te'],
 		namePtBR: 'tomate',
-		nameEn: 'tomato'
+		nameEn: 'tomato',
+		nameDe: 'Tomate',
+		nameFr: 'tomate',
+		nameEs: 'tomate'
 	},
 
 	// U
-	{ word: 'uva', emoji: '🍇', syllables: ['u', 'va'], namePtBR: 'uva', nameEn: 'grape' },
-	{ word: 'urso', emoji: '🐻', syllables: ['ur', 'so'], namePtBR: 'urso', nameEn: 'bear' },
+	{
+		word: 'uva',
+		emoji: '🍇',
+		syllables: ['u', 'va'],
+		namePtBR: 'uva',
+		nameEn: 'grape',
+		nameDe: 'Traube',
+		nameFr: 'raisin',
+		nameEs: 'uva'
+	},
+	{
+		word: 'urso',
+		emoji: '🐻',
+		syllables: ['ur', 'so'],
+		namePtBR: 'urso',
+		nameEn: 'bear',
+		nameDe: 'Bär',
+		nameFr: 'ours',
+		nameEs: 'oso'
+	},
 
 	// V
-	{ word: 'vaca', emoji: '🐄', syllables: ['va', 'ca'], namePtBR: 'vaca', nameEn: 'cow' },
+	{
+		word: 'vaca',
+		emoji: '🐄',
+		syllables: ['va', 'ca'],
+		namePtBR: 'vaca',
+		nameEn: 'cow',
+		nameDe: 'Kuh',
+		nameFr: 'vache',
+		nameEs: 'vaca'
+	},
 	{
 		word: 'violao',
 		emoji: '🎸',
 		syllables: ['vi', 'o', 'lao'],
 		namePtBR: 'violão',
-		nameEn: 'guitar'
+		nameEn: 'guitar',
+		nameDe: 'Gitarre',
+		nameFr: 'guitare',
+		nameEs: 'guitarra'
 	},
 
 	// X
-	{ word: 'xicara', emoji: '☕', syllables: ['xi', 'ca', 'ra'], namePtBR: 'xícara', nameEn: 'cup' },
+	{
+		word: 'xicara',
+		emoji: '☕',
+		syllables: ['xi', 'ca', 'ra'],
+		namePtBR: 'xícara',
+		nameEn: 'cup',
+		nameDe: 'Tasse',
+		nameFr: 'tasse',
+		nameEs: 'taza'
+	},
 
 	// Z
-	{ word: 'zebra', emoji: '🦓', syllables: ['ze', 'bra'], namePtBR: 'zebra', nameEn: 'zebra' }
+	{
+		word: 'zebra',
+		emoji: '🦓',
+		syllables: ['ze', 'bra'],
+		namePtBR: 'zebra',
+		nameEn: 'zebra',
+		nameDe: 'Zebra',
+		nameFr: 'zèbre',
+		nameEs: 'cebra'
+	}
 ]
 
 /** Get words by starting letter */
