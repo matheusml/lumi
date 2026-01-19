@@ -17,6 +17,9 @@ interface LogicCategory {
 	id: string
 	namePtBR: string
 	nameEn: string
+	nameDe: string
+	nameFr: string
+	nameEs: string
 	members: LogicObject[]
 }
 
@@ -38,6 +41,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'fruits',
 			namePtBR: 'frutas',
 			nameEn: 'fruits',
+			nameDe: 'Früchte',
+			nameFr: 'fruits',
+			nameEs: 'frutas',
 			members: [
 				{ id: 'apple', emoji: '🍎', namePtBR: 'maçã', nameEn: 'apple' },
 				{ id: 'banana', emoji: '🍌', namePtBR: 'banana', nameEn: 'banana' },
@@ -50,6 +56,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'body-parts',
 			namePtBR: 'partes do corpo',
 			nameEn: 'body parts',
+			nameDe: 'Körperteile',
+			nameFr: 'parties du corps',
+			nameEs: 'partes del cuerpo',
 			members: [
 				{ id: 'hand', emoji: '👋', namePtBR: 'mão', nameEn: 'hand' },
 				{ id: 'foot', emoji: '🦶', namePtBR: 'pé', nameEn: 'foot' },
@@ -62,6 +71,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'vehicles',
 			namePtBR: 'veículos',
 			nameEn: 'vehicles',
+			nameDe: 'Fahrzeuge',
+			nameFr: 'véhicules',
+			nameEs: 'vehículos',
 			members: [
 				{ id: 'car', emoji: '🚗', namePtBR: 'carro', nameEn: 'car' },
 				{ id: 'bus', emoji: '🚌', namePtBR: 'ônibus', nameEn: 'bus' },
@@ -76,6 +88,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'food',
 			namePtBR: 'comidas',
 			nameEn: 'food',
+			nameDe: 'Essen',
+			nameFr: 'nourriture',
+			nameEs: 'comida',
 			members: [
 				{ id: 'pizza', emoji: '🍕', namePtBR: 'pizza', nameEn: 'pizza' },
 				{ id: 'hamburger', emoji: '🍔', namePtBR: 'hambúrguer', nameEn: 'hamburger' },
@@ -88,6 +103,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'nature',
 			namePtBR: 'natureza',
 			nameEn: 'nature',
+			nameDe: 'Natur',
+			nameFr: 'nature',
+			nameEs: 'naturaleza',
 			members: [
 				{ id: 'tree', emoji: '🌳', namePtBR: 'árvore', nameEn: 'tree' },
 				{ id: 'flower', emoji: '🌸', namePtBR: 'flor', nameEn: 'flower' },
@@ -100,6 +118,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'sports',
 			namePtBR: 'esportes',
 			nameEn: 'sports',
+			nameDe: 'Sport',
+			nameFr: 'sports',
+			nameEs: 'deportes',
 			members: [
 				{ id: 'soccer', emoji: '⚽', namePtBR: 'futebol', nameEn: 'soccer' },
 				{ id: 'basketball', emoji: '🏀', namePtBR: 'basquete', nameEn: 'basketball' },
@@ -114,6 +135,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'insects',
 			namePtBR: 'insetos',
 			nameEn: 'insects',
+			nameDe: 'Insekten',
+			nameFr: 'insectes',
+			nameEs: 'insectos',
 			members: [
 				{ id: 'butterfly', emoji: '🦋', namePtBR: 'borboleta', nameEn: 'butterfly' },
 				{ id: 'bee', emoji: '🐝', namePtBR: 'abelha', nameEn: 'bee' },
@@ -126,6 +150,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'sea-animals',
 			namePtBR: 'animais do mar',
 			nameEn: 'sea animals',
+			nameDe: 'Meerestiere',
+			nameFr: 'animaux marins',
+			nameEs: 'animales marinos',
 			members: [
 				{ id: 'fish', emoji: '🐟', namePtBR: 'peixe', nameEn: 'fish' },
 				{ id: 'whale', emoji: '🐋', namePtBR: 'baleia', nameEn: 'whale' },
@@ -138,6 +165,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'clothes',
 			namePtBR: 'roupas',
 			nameEn: 'clothes',
+			nameDe: 'Kleidung',
+			nameFr: 'vêtements',
+			nameEs: 'ropa',
 			members: [
 				{ id: 'shirt', emoji: '👕', namePtBR: 'camiseta', nameEn: 'shirt' },
 				{ id: 'pants', emoji: '👖', namePtBR: 'calça', nameEn: 'pants' },
@@ -152,6 +182,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'farm-animals',
 			namePtBR: 'animais da fazenda',
 			nameEn: 'farm animals',
+			nameDe: 'Bauernhoftiere',
+			nameFr: 'animaux de la ferme',
+			nameEs: 'animales de granja',
 			members: [
 				{ id: 'cow', emoji: '🐄', namePtBR: 'vaca', nameEn: 'cow' },
 				{ id: 'pig', emoji: '🐷', namePtBR: 'porco', nameEn: 'pig' },
@@ -164,6 +197,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'wild-animals',
 			namePtBR: 'animais selvagens',
 			nameEn: 'wild animals',
+			nameDe: 'Wildtiere',
+			nameFr: 'animaux sauvages',
+			nameEs: 'animales salvajes',
 			members: [
 				{ id: 'lion', emoji: '🦁', namePtBR: 'leão', nameEn: 'lion' },
 				{ id: 'elephant', emoji: '🐘', namePtBR: 'elefante', nameEn: 'elephant' },
@@ -176,6 +212,9 @@ const categories: Record<DifficultyLevel, LogicCategory[]> = {
 			id: 'musical',
 			namePtBR: 'instrumentos musicais',
 			nameEn: 'musical instruments',
+			nameDe: 'Musikinstrumente',
+			nameFr: 'instruments de musique',
+			nameEs: 'instrumentos musicales',
 			members: [
 				{ id: 'guitar', emoji: '🎸', namePtBR: 'guitarra', nameEn: 'guitar' },
 				{ id: 'piano', emoji: '🎹', namePtBR: 'piano', nameEn: 'piano' },
@@ -303,9 +342,9 @@ export class OddOneOutGenerator implements ProblemGenerator {
 			hint: {
 				ptBR: `Três deles são ${category.namePtBR}. Qual é diferente?`,
 				en: `Three of them are ${category.nameEn}. Which one is different?`,
-				de: `Drei davon sind ${category.nameEn}. Welches ist anders?`,
-				fr: `Trois d'entre eux sont des ${category.nameEn}. Lequel est différent?`,
-				es: `Tres de ellos son ${category.nameEn}. ¿Cuál es diferente?`
+				de: `Drei davon sind ${category.nameDe}. Welches ist anders?`,
+				fr: `Trois d'entre eux sont des ${category.nameFr}. Lequel est différent?`,
+				es: `Tres de ellos son ${category.nameEs}. ¿Cuál es diferente?`
 			}
 		}
 	}
