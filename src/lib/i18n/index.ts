@@ -98,6 +98,14 @@ export function getTranslations(): Translations {
 	return translations[currentLanguage]
 }
 
+/** Get translations for a specific language */
+export function getTranslationsForLang(lang: string): Translations {
+	if (lang in languages) {
+		return translations[lang as SupportedLanguage]
+	}
+	return translations[DEFAULT_LANGUAGE]
+}
+
 /** Subscribe to language changes */
 export function subscribe(callback: (lang: SupportedLanguage) => void): () => void {
 	subscribers.add(callback)

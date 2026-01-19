@@ -7,11 +7,8 @@
 	 */
 
 	import { goto } from '$app/navigation'
-	import { onMount, onDestroy } from 'svelte'
 	import { Icon, LumiMascot, SEO } from '$lib/components'
-	import { localizedPath } from '$lib/utils/navigation'
-	import { getTranslations, subscribe } from '$lib/i18n'
-	import type { Translations } from '$lib/i18n'
+	import { getTranslationsForLang } from '$lib/i18n'
 
 	interface Props {
 		data: { lang: string }
@@ -19,21 +16,11 @@
 
 	let { data }: Props = $props()
 
-	let t = $state<Translations>(getTranslations())
-	let unsubscribe: (() => void) | null = null
-
-	onMount(() => {
-		unsubscribe = subscribe(() => {
-			t = getTranslations()
-		})
-	})
-
-	onDestroy(() => {
-		unsubscribe?.()
-	})
+	// Use $derived to reactively get translations based on the URL language
+	let t = $derived(getTranslationsForLang(data.lang))
 
 	function goHome() {
-		goto(localizedPath('/'))
+		goto(`/${data.lang}`)
 	}
 </script>
 
