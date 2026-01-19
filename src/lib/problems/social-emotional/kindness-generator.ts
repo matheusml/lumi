@@ -638,10 +638,17 @@ export class KindnessGenerator implements ProblemGenerator {
 			}
 		]
 
-		// Create answer choices using emojis
+		// Create answer choices using emojis with labels
 		const choices: AnswerValue[] = finalChoices.map((choice) => ({
 			type: 'object' as const,
-			value: choice.emoji
+			value: choice.emoji,
+			label: {
+				ptBR: choice.textPtBR,
+				en: choice.textEn,
+				de: choice.textDe,
+				fr: choice.textFr,
+				es: choice.textEs
+			}
 		}))
 
 		// Find the kind answer
@@ -664,7 +671,17 @@ export class KindnessGenerator implements ProblemGenerator {
 				fr: `${scenario.scenarioFr}. Que serait-il gentil de faire?`,
 				es: `${scenario.scenarioEs}. ¿Qué sería amable hacer?`
 			},
-			correctAnswer: { type: 'object', value: kindAnswer.emoji },
+			correctAnswer: {
+				type: 'object',
+				value: kindAnswer.emoji,
+				label: {
+					ptBR: kindAnswer.textPtBR,
+					en: kindAnswer.textEn,
+					de: kindAnswer.textDe,
+					fr: kindAnswer.textFr,
+					es: kindAnswer.textEs
+				}
+			},
 			answerChoices: choices,
 			hint: {
 				ptBR: `Pense no que faria a pessoa feliz. ${kindAnswer.textPtBR} seria gentil!`,

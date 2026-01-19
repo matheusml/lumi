@@ -48,7 +48,6 @@
 			'alphabet-order': t.parents.alphabetOrder,
 			'initial-letter': t.parents.initialLetter,
 			'word-completion': t.parents.wordCompletion,
-			'emotion-recognition': t.parents.emotionRecognition,
 			'emotion-scenario': t.parents.emotionScenario,
 			'kindness-choices': t.parents.kindnessChoices
 		}
@@ -75,11 +74,7 @@
 		'initial-letter',
 		'word-completion'
 	]
-	const socialEmotionalActivities: ProblemType[] = [
-		'emotion-recognition',
-		'emotion-scenario',
-		'kindness-choices'
-	]
+	const socialEmotionalActivities: ProblemType[] = ['emotion-scenario', 'kindness-choices']
 </script>
 
 <div class="analytics-tab">

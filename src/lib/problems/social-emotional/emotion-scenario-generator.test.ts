@@ -32,14 +32,37 @@ describe('EmotionScenarioGenerator', () => {
 			expect(problem.answerChoices.length).toBeGreaterThanOrEqual(3)
 		})
 
-		it('should have object answer choices with emotion emojis', () => {
+		it('should have object answer choices with emotion emojis and labels', () => {
 			const result = generator.generate(2, new Set())
 			const choices = result!.problem.answerChoices
 
 			for (const choice of choices) {
 				expect(choice.type).toBe('object')
-				expect((choice as { type: 'object'; value: string }).value.length).toBeGreaterThan(0)
+				const objChoice = choice as {
+					type: 'object'
+					value: string
+					label?: Record<string, string>
+				}
+				expect(objChoice.value.length).toBeGreaterThan(0)
+				expect(objChoice.label).toBeDefined()
+				expect(objChoice.label!.en).toBeDefined()
+				expect(objChoice.label!.ptBR).toBeDefined()
+				expect(objChoice.label!.de).toBeDefined()
+				expect(objChoice.label!.fr).toBeDefined()
+				expect(objChoice.label!.es).toBeDefined()
 			}
+		})
+
+		it('should have label on correct answer', () => {
+			const result = generator.generate(2, new Set())
+			const correctAnswer = result!.problem.correctAnswer as {
+				type: 'object'
+				value: string
+				label?: Record<string, string>
+			}
+
+			expect(correctAnswer.label).toBeDefined()
+			expect(correctAnswer.label!.en).toBeDefined()
 		})
 
 		it('should have 1 visual element with the scenario emoji', () => {

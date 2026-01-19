@@ -16,6 +16,11 @@ import { ageService } from '$lib/services'
 interface Emotion {
 	id: string
 	emoji: string
+	namePtBR: string
+	nameEn: string
+	nameDe: string
+	nameFr: string
+	nameEs: string
 }
 
 /** Scenario definition with the expected emotion response */
@@ -27,19 +32,88 @@ interface Scenario {
 	scenarioDe: string
 	scenarioFr: string
 	scenarioEs: string
-	correctEmotion: Emotion
+	correctEmotionId: string // Reference to emotion by id
+}
+
+/** Get emotion by id from allEmotions array */
+function getEmotionById(id: string): Emotion {
+	return allEmotions.find((e) => e.id === id)!
 }
 
 /** Available emotions for answer choices */
 const allEmotions: Emotion[] = [
-	{ id: 'happy', emoji: '😊' },
-	{ id: 'sad', emoji: '😢' },
-	{ id: 'angry', emoji: '😠' },
-	{ id: 'scared', emoji: '😨' },
-	{ id: 'surprised', emoji: '😲' },
-	{ id: 'tired', emoji: '😴' },
-	{ id: 'excited', emoji: '🤩' },
-	{ id: 'worried', emoji: '😟' }
+	{
+		id: 'happy',
+		emoji: '😊',
+		namePtBR: 'feliz',
+		nameEn: 'happy',
+		nameDe: 'glücklich',
+		nameFr: 'content',
+		nameEs: 'feliz'
+	},
+	{
+		id: 'sad',
+		emoji: '😢',
+		namePtBR: 'triste',
+		nameEn: 'sad',
+		nameDe: 'traurig',
+		nameFr: 'triste',
+		nameEs: 'triste'
+	},
+	{
+		id: 'angry',
+		emoji: '😠',
+		namePtBR: 'com raiva',
+		nameEn: 'angry',
+		nameDe: 'wütend',
+		nameFr: 'en colère',
+		nameEs: 'enfadado'
+	},
+	{
+		id: 'scared',
+		emoji: '😨',
+		namePtBR: 'com medo',
+		nameEn: 'scared',
+		nameDe: 'ängstlich',
+		nameFr: 'effrayé',
+		nameEs: 'asustado'
+	},
+	{
+		id: 'surprised',
+		emoji: '😲',
+		namePtBR: 'surpreso',
+		nameEn: 'surprised',
+		nameDe: 'überrascht',
+		nameFr: 'surpris',
+		nameEs: 'sorprendido'
+	},
+	{
+		id: 'tired',
+		emoji: '😴',
+		namePtBR: 'cansado',
+		nameEn: 'tired',
+		nameDe: 'müde',
+		nameFr: 'fatigué',
+		nameEs: 'cansado'
+	},
+	{
+		id: 'excited',
+		emoji: '🤩',
+		namePtBR: 'empolgado',
+		nameEn: 'excited',
+		nameDe: 'aufgeregt',
+		nameFr: 'excité',
+		nameEs: 'emocionado'
+	},
+	{
+		id: 'worried',
+		emoji: '😟',
+		namePtBR: 'preocupado',
+		nameEn: 'worried',
+		nameDe: 'besorgt',
+		nameFr: 'inquiet',
+		nameEs: 'preocupado'
+	}
 ]
 
 /**
@@ -59,7 +133,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du bekommst ein Geschenk',
 			scenarioFr: 'Tu reçois un cadeau',
 			scenarioEs: 'Recibes un regalo',
-			correctEmotion: { id: 'happy', emoji: '😊' }
+			correctEmotionId: 'happy'
 		},
 		{
 			id: 'ice-cream',
@@ -69,7 +143,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du bekommst ein Eis',
 			scenarioFr: 'Tu reçois une glace',
 			scenarioEs: 'Te dan un helado',
-			correctEmotion: { id: 'happy', emoji: '😊' }
+			correctEmotionId: 'happy'
 		},
 		{
 			id: 'balloon-pop',
@@ -79,7 +153,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Dein Ballon platzt',
 			scenarioFr: 'Ton ballon éclate',
 			scenarioEs: 'Tu globo se revienta',
-			correctEmotion: { id: 'sad', emoji: '😢' }
+			correctEmotionId: 'sad'
 		},
 		{
 			id: 'toy-broken',
@@ -89,7 +163,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Dein Spielzeug geht kaputt',
 			scenarioFr: 'Ton jouet se casse',
 			scenarioEs: 'Tu juguete se rompe',
-			correctEmotion: { id: 'sad', emoji: '😢' }
+			correctEmotionId: 'sad'
 		}
 	],
 	2: [
@@ -101,7 +175,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Es ist dein Geburtstag',
 			scenarioFr: "C'est ton anniversaire",
 			scenarioEs: 'Es tu cumpleaños',
-			correctEmotion: { id: 'happy', emoji: '😊' }
+			correctEmotionId: 'happy'
 		},
 		{
 			id: 'pet-dog',
@@ -111,7 +185,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du spielst mit einem Hund',
 			scenarioFr: 'Tu joues avec un chiot',
 			scenarioEs: 'Juegas con un perrito',
-			correctEmotion: { id: 'happy', emoji: '😊' }
+			correctEmotionId: 'happy'
 		},
 		{
 			id: 'thunder',
@@ -121,7 +195,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du hörst Donner',
 			scenarioFr: 'Tu entends le tonnerre',
 			scenarioEs: 'Escuchas un trueno',
-			correctEmotion: { id: 'scared', emoji: '😨' }
+			correctEmotionId: 'scared'
 		},
 		{
 			id: 'lost-toy',
@@ -131,7 +205,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du verlierst dein Spielzeug',
 			scenarioFr: 'Tu perds ton jouet',
 			scenarioEs: 'Pierdes tu juguete',
-			correctEmotion: { id: 'sad', emoji: '😢' }
+			correctEmotionId: 'sad'
 		},
 		{
 			id: 'someone-pushes',
@@ -141,7 +215,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Jemand schubst dich',
 			scenarioFr: "Quelqu'un te pousse",
 			scenarioEs: 'Alguien te empuja',
-			correctEmotion: { id: 'angry', emoji: '😠' }
+			correctEmotionId: 'angry'
 		}
 	],
 	3: [
@@ -153,7 +227,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Dein Freund kommt zum Spielen',
 			scenarioFr: 'Ton ami vient jouer',
 			scenarioEs: 'Tu amigo viene a jugar',
-			correctEmotion: { id: 'happy', emoji: '😊' }
+			correctEmotionId: 'happy'
 		},
 		{
 			id: 'surprise-visit',
@@ -163,7 +237,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Oma kommt überraschend',
 			scenarioFr: 'Mamie arrive par surprise',
 			scenarioEs: 'La abuela llega de sorpresa',
-			correctEmotion: { id: 'surprised', emoji: '😲' }
+			correctEmotionId: 'surprised'
 		},
 		{
 			id: 'dark-room',
@@ -173,7 +247,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Das Zimmer wird dunkel',
 			scenarioFr: 'La pièce devient sombre',
 			scenarioEs: 'El cuarto se oscurece',
-			correctEmotion: { id: 'scared', emoji: '😨' }
+			correctEmotionId: 'scared'
 		},
 		{
 			id: 'long-day',
@@ -183,7 +257,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Es ist Schlafenszeit nach einem langen Tag',
 			scenarioFr: "C'est l'heure de dormir après une longue journée",
 			scenarioEs: 'Es hora de dormir después de un día largo',
-			correctEmotion: { id: 'tired', emoji: '😴' }
+			correctEmotionId: 'tired'
 		},
 		{
 			id: 'no-share',
@@ -193,7 +267,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Jemand teilt nicht mit dir',
 			scenarioFr: "Quelqu'un ne veut pas partager",
 			scenarioEs: 'Alguien no quiere compartir',
-			correctEmotion: { id: 'angry', emoji: '😠' }
+			correctEmotionId: 'angry'
 		},
 		{
 			id: 'friend-sad',
@@ -203,7 +277,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Dein Freund ist traurig',
 			scenarioFr: 'Ton ami est triste',
 			scenarioEs: 'Tu amigo está triste',
-			correctEmotion: { id: 'worried', emoji: '😟' }
+			correctEmotionId: 'worried'
 		}
 	],
 	4: [
@@ -215,7 +289,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du machst das gut in der Schule',
 			scenarioFr: "Tu réussis bien à l'école",
 			scenarioEs: 'Te va bien en la escuela',
-			correctEmotion: { id: 'happy', emoji: '😊' }
+			correctEmotionId: 'happy'
 		},
 		{
 			id: 'theme-park',
@@ -225,7 +299,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du gehst in einen Freizeitpark',
 			scenarioFr: "Tu vas au parc d'attractions",
 			scenarioEs: 'Vas a un parque de diversiones',
-			correctEmotion: { id: 'excited', emoji: '🤩' }
+			correctEmotionId: 'excited'
 		},
 		{
 			id: 'pet-sick',
@@ -235,7 +309,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Dein Haustier ist krank',
 			scenarioFr: 'Ton animal est malade',
 			scenarioEs: 'Tu mascota está enferma',
-			correctEmotion: { id: 'worried', emoji: '😟' }
+			correctEmotionId: 'worried'
 		},
 		{
 			id: 'broken-promise',
@@ -245,7 +319,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Jemand bricht ein Versprechen',
 			scenarioFr: "Quelqu'un rompt une promesse",
 			scenarioEs: 'Alguien rompe una promesa',
-			correctEmotion: { id: 'sad', emoji: '😢' }
+			correctEmotionId: 'sad'
 		},
 		{
 			id: 'strange-noise',
@@ -255,7 +329,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du hörst ein seltsames Geräusch',
 			scenarioFr: 'Tu entends un bruit étrange',
 			scenarioEs: 'Escuchas un ruido extraño',
-			correctEmotion: { id: 'scared', emoji: '😨' }
+			correctEmotionId: 'scared'
 		},
 		{
 			id: 'unfair-game',
@@ -265,7 +339,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Jemand spielt nicht fair',
 			scenarioFr: "Quelqu'un ne joue pas équitablement",
 			scenarioEs: 'Alguien no juega limpio',
-			correctEmotion: { id: 'angry', emoji: '😠' }
+			correctEmotionId: 'angry'
 		},
 		{
 			id: 'surprise-cake',
@@ -275,7 +349,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du findest einen Überraschungskuchen',
 			scenarioFr: 'Tu trouves un gâteau surprise',
 			scenarioEs: 'Encuentras un pastel sorpresa',
-			correctEmotion: { id: 'surprised', emoji: '😲' }
+			correctEmotionId: 'surprised'
 		},
 		{
 			id: 'lots-of-play',
@@ -285,7 +359,7 @@ const scenarios: Record<DifficultyLevel, Scenario[]> = {
 			scenarioDe: 'Du spielst den ganzen Tag',
 			scenarioFr: 'Tu joues toute la journée',
 			scenarioEs: 'Juegas todo el día',
-			correctEmotion: { id: 'tired', emoji: '😴' }
+			correctEmotionId: 'tired'
 		}
 	]
 }
@@ -331,16 +405,20 @@ export class EmotionScenarioGenerator implements ProblemGenerator {
 		const age = ageService.getAge()
 		const availableEmotions = getEmotionsForDifficulty(difficulty)
 
+		// Get the correct emotion from the id
+		const correctEmotion = getEmotionById(scenario.correctEmotionId)
+
 		// Fewer choices for younger children
 		const numChoices = age <= 4 ? 3 : 4
 
 		// Get distractor emotions (excluding the correct one)
-		const distractors = shuffle(
-			availableEmotions.filter((e) => e.id !== scenario.correctEmotion.id)
-		).slice(0, numChoices - 1)
+		const distractors = shuffle(availableEmotions.filter((e) => e.id !== correctEmotion.id)).slice(
+			0,
+			numChoices - 1
+		)
 
 		// Combine and shuffle all choices
-		const allChoices = shuffle([scenario.correctEmotion, ...distractors])
+		const allChoices = shuffle([correctEmotion, ...distractors])
 
 		// Create visual elements (the scenario emoji)
 		const elements = [
@@ -350,10 +428,17 @@ export class EmotionScenarioGenerator implements ProblemGenerator {
 			}
 		]
 
-		// Create answer choices
+		// Create answer choices with labels
 		const choices: AnswerValue[] = allChoices.map((emotion) => ({
 			type: 'object' as const,
-			value: emotion.emoji
+			value: emotion.emoji,
+			label: {
+				ptBR: emotion.namePtBR,
+				en: emotion.nameEn,
+				de: emotion.nameDe,
+				fr: emotion.nameFr,
+				es: emotion.nameEs
+			}
 		}))
 
 		return {
@@ -373,14 +458,24 @@ export class EmotionScenarioGenerator implements ProblemGenerator {
 				fr: `${scenario.scenarioFr}. Comment te sentirais-tu?`,
 				es: `${scenario.scenarioEs}. ¿Cómo te sentirías?`
 			},
-			correctAnswer: { type: 'object', value: scenario.correctEmotion.emoji },
+			correctAnswer: {
+				type: 'object',
+				value: correctEmotion.emoji,
+				label: {
+					ptBR: correctEmotion.namePtBR,
+					en: correctEmotion.nameEn,
+					de: correctEmotion.nameDe,
+					fr: correctEmotion.nameFr,
+					es: correctEmotion.nameEs
+				}
+			},
 			answerChoices: choices,
 			hint: {
-				ptBR: `Pense em como você se sentiria. Seria ${scenario.correctEmotion.emoji}!`,
-				en: `Think about how you would feel. It would be ${scenario.correctEmotion.emoji}!`,
-				de: `Denk darüber nach, wie du dich fühlen würdest. Es wäre ${scenario.correctEmotion.emoji}!`,
-				fr: `Réfléchis à comment tu te sentirais. Ce serait ${scenario.correctEmotion.emoji}!`,
-				es: `Piensa en cómo te sentirías. ¡Sería ${scenario.correctEmotion.emoji}!`
+				ptBR: `Pense em como você se sentiria. Seria ${correctEmotion.emoji}!`,
+				en: `Think about how you would feel. It would be ${correctEmotion.emoji}!`,
+				de: `Denk darüber nach, wie du dich fühlen würdest. Es wäre ${correctEmotion.emoji}!`,
+				fr: `Réfléchis à comment tu te sentirais. Ce serait ${correctEmotion.emoji}!`,
+				es: `Piensa en cómo te sentirías. ¡Sería ${correctEmotion.emoji}!`
 			}
 		}
 	}

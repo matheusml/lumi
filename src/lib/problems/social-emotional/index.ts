@@ -4,6 +4,5 @@
  * Generators for social-emotional learning problems.
  */
 
-export { EmotionRecognitionGenerator } from './emotion-recognition-generator'
 export { EmotionScenarioGenerator } from './emotion-scenario-generator'
 export { KindnessGenerator } from './kindness-generator'

@@ -56,31 +56,31 @@ export const AGE_PROBLEM_TYPES: Record<
 		math: ['counting', 'comparison'],
 		grammar: ['letter-recognition'],
 		logic: ['matching', 'shape-recognition', 'color-recognition'], // Simple recognition for 3yo
-		'social-emotional': ['emotion-recognition'] // Start with basic emotion recognition
+		'social-emotional': ['kindness-choices'] // Simple kindness scenarios with labels
 	},
 	4: {
 		math: ['counting', 'comparison'],
 		grammar: ['letter-recognition'],
 		logic: ['matching', 'odd-one-out', 'shape-recognition', 'color-recognition'],
-		'social-emotional': ['emotion-recognition', 'emotion-scenario'] // Add simple scenarios
+		'social-emotional': ['kindness-choices', 'emotion-scenario'] // Add emotion scenarios
 	},
 	5: {
 		math: ['counting', 'addition', 'comparison'],
 		grammar: ['letter-recognition', 'alphabet-order'],
 		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence'],
-		'social-emotional': ['emotion-recognition', 'emotion-scenario', 'kindness-choices']
+		'social-emotional': ['emotion-scenario', 'kindness-choices']
 	},
 	6: {
 		math: ['counting', 'addition', 'subtraction', 'comparison'],
 		grammar: ['letter-recognition', 'alphabet-order', 'initial-letter'],
 		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence'],
-		'social-emotional': ['emotion-recognition', 'emotion-scenario', 'kindness-choices']
+		'social-emotional': ['emotion-scenario', 'kindness-choices']
 	},
 	7: {
 		math: ['counting', 'addition', 'subtraction', 'comparison'],
 		grammar: ['letter-recognition', 'alphabet-order', 'initial-letter', 'word-completion'],
 		logic: ['matching', 'patterns', 'odd-one-out', 'sorting', 'sequence'],
-		'social-emotional': ['emotion-recognition', 'emotion-scenario', 'kindness-choices']
+		'social-emotional': ['emotion-scenario', 'kindness-choices']
 	}
 }
 

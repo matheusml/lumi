@@ -25,10 +25,7 @@ export type GrammarProblemType =
 	| 'word-completion'
 
 /** Social-emotional problem types */
-export type SocialEmotionalProblemType =
-	| 'emotion-recognition'
-	| 'emotion-scenario'
-	| 'kindness-choices'
+export type SocialEmotionalProblemType = 'emotion-scenario' | 'kindness-choices'
 
 /** All available problem types */
 export type ProblemType =
@@ -69,7 +66,6 @@ export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = [
 
 /** All social-emotional problem types */
 export const SOCIAL_EMOTIONAL_PROBLEM_TYPES: SocialEmotionalProblemType[] = [
-	'emotion-recognition',
 	'emotion-scenario',
 	'kindness-choices'
 ]
@@ -106,7 +102,6 @@ export interface ProblemVisual {
 		| 'logic-group'
 		| 'logic-matching'
 		| 'logic-sequence'
-		| 'emotion'
 		| 'scenario'
 	elements: VisualElement[]
 	operator?: '+' | '-' // For equations
@@ -125,7 +120,7 @@ export type AnswerValue =
 	| { type: 'side'; value: 'left' | 'right' }
 	| { type: 'pattern'; value: string[] }
 	| { type: 'letter'; value: string }
-	| { type: 'object'; value: string } // For logic problems (emoji/object identifier)
+	| { type: 'object'; value: string; label?: LocalizedString } // For logic/social-emotional problems
 
 /** A single problem */
 export interface Problem {
