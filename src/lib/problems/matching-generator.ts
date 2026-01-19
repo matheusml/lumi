@@ -15,7 +15,7 @@ import { ageService } from '$lib/services'
 /** A matching pair definition */
 interface MatchingPair {
 	id: string
-	source: { emoji: string; namePtBR: string }
+	source: { emoji: string; namePtBR: string; articlePtBR: string }
 	match: { emoji: string; namePtBR: string }
 	relationPtBR: string // Description of relationship
 }
@@ -29,31 +29,31 @@ const matchingPairs: Record<DifficultyLevel, MatchingPair[]> = {
 		// Very obvious pairs - animals and what they eat/need
 		{
 			id: 'dog-bone',
-			source: { emoji: '🐕', namePtBR: 'cachorro' },
+			source: { emoji: '🐕', namePtBR: 'cachorro', articlePtBR: 'o' },
 			match: { emoji: '🦴', namePtBR: 'osso' },
 			relationPtBR: 'come'
 		},
 		{
 			id: 'cat-fish',
-			source: { emoji: '🐱', namePtBR: 'gato' },
+			source: { emoji: '🐱', namePtBR: 'gato', articlePtBR: 'o' },
 			match: { emoji: '🐟', namePtBR: 'peixe' },
 			relationPtBR: 'come'
 		},
 		{
 			id: 'rabbit-carrot',
-			source: { emoji: '🐰', namePtBR: 'coelho' },
+			source: { emoji: '🐰', namePtBR: 'coelho', articlePtBR: 'o' },
 			match: { emoji: '🥕', namePtBR: 'cenoura' },
 			relationPtBR: 'come'
 		},
 		{
 			id: 'bird-nest',
-			source: { emoji: '🐦', namePtBR: 'pássaro' },
+			source: { emoji: '🐦', namePtBR: 'pássaro', articlePtBR: 'o' },
 			match: { emoji: '🪺', namePtBR: 'ninho' },
 			relationPtBR: 'mora no'
 		},
 		{
 			id: 'bee-flower',
-			source: { emoji: '🐝', namePtBR: 'abelha' },
+			source: { emoji: '🐝', namePtBR: 'abelha', articlePtBR: 'a' },
 			match: { emoji: '🌸', namePtBR: 'flor' },
 			relationPtBR: 'visita'
 		}
@@ -62,31 +62,31 @@ const matchingPairs: Record<DifficultyLevel, MatchingPair[]> = {
 		// Weather and related items
 		{
 			id: 'rain-umbrella',
-			source: { emoji: '🌧️', namePtBR: 'chuva' },
+			source: { emoji: '🌧️', namePtBR: 'chuva', articlePtBR: 'a' },
 			match: { emoji: '☂️', namePtBR: 'guarda-chuva' },
 			relationPtBR: 'precisa de'
 		},
 		{
 			id: 'sun-sunglasses',
-			source: { emoji: '☀️', namePtBR: 'sol' },
+			source: { emoji: '☀️', namePtBR: 'sol', articlePtBR: 'o' },
 			match: { emoji: '😎', namePtBR: 'óculos de sol' },
 			relationPtBR: 'precisa de'
 		},
 		{
 			id: 'snow-gloves',
-			source: { emoji: '❄️', namePtBR: 'neve' },
+			source: { emoji: '❄️', namePtBR: 'neve', articlePtBR: 'a' },
 			match: { emoji: '🧤', namePtBR: 'luvas' },
 			relationPtBR: 'precisa de'
 		},
 		{
 			id: 'moon-stars',
-			source: { emoji: '🌙', namePtBR: 'lua' },
+			source: { emoji: '🌙', namePtBR: 'lua', articlePtBR: 'a' },
 			match: { emoji: '⭐', namePtBR: 'estrelas' },
 			relationPtBR: 'aparece com'
 		},
 		{
 			id: 'wind-kite',
-			source: { emoji: '💨', namePtBR: 'vento' },
+			source: { emoji: '💨', namePtBR: 'vento', articlePtBR: 'o' },
 			match: { emoji: '🪁', namePtBR: 'pipa' },
 			relationPtBR: 'faz voar'
 		}
@@ -95,31 +95,31 @@ const matchingPairs: Record<DifficultyLevel, MatchingPair[]> = {
 		// Tools and their use
 		{
 			id: 'pencil-paper',
-			source: { emoji: '✏️', namePtBR: 'lápis' },
+			source: { emoji: '✏️', namePtBR: 'lápis', articlePtBR: 'o' },
 			match: { emoji: '📄', namePtBR: 'papel' },
 			relationPtBR: 'escreve no'
 		},
 		{
 			id: 'key-lock',
-			source: { emoji: '🔑', namePtBR: 'chave' },
+			source: { emoji: '🔑', namePtBR: 'chave', articlePtBR: 'a' },
 			match: { emoji: '🔒', namePtBR: 'cadeado' },
 			relationPtBR: 'abre o'
 		},
 		{
 			id: 'brush-palette',
-			source: { emoji: '🖌️', namePtBR: 'pincel' },
+			source: { emoji: '🖌️', namePtBR: 'pincel', articlePtBR: 'o' },
 			match: { emoji: '🎨', namePtBR: 'tinta' },
 			relationPtBR: 'usa'
 		},
 		{
 			id: 'scissors-ribbon',
-			source: { emoji: '✂️', namePtBR: 'tesoura' },
+			source: { emoji: '✂️', namePtBR: 'tesoura', articlePtBR: 'a' },
 			match: { emoji: '🎀', namePtBR: 'fita' },
 			relationPtBR: 'corta'
 		},
 		{
 			id: 'hammer-nail',
-			source: { emoji: '🔨', namePtBR: 'martelo' },
+			source: { emoji: '🔨', namePtBR: 'martelo', articlePtBR: 'o' },
 			match: { emoji: '📌', namePtBR: 'prego' },
 			relationPtBR: 'bate no'
 		}
@@ -128,31 +128,31 @@ const matchingPairs: Record<DifficultyLevel, MatchingPair[]> = {
 		// More pairs - still child-friendly
 		{
 			id: 'cow-milk',
-			source: { emoji: '🐄', namePtBR: 'vaca' },
+			source: { emoji: '🐄', namePtBR: 'vaca', articlePtBR: 'a' },
 			match: { emoji: '🥛', namePtBR: 'leite' },
 			relationPtBR: 'dá'
 		},
 		{
 			id: 'chicken-egg',
-			source: { emoji: '🐔', namePtBR: 'galinha' },
+			source: { emoji: '🐔', namePtBR: 'galinha', articlePtBR: 'a' },
 			match: { emoji: '🥚', namePtBR: 'ovo' },
 			relationPtBR: 'bota'
 		},
 		{
 			id: 'spider-web',
-			source: { emoji: '🕷️', namePtBR: 'aranha' },
+			source: { emoji: '🕷️', namePtBR: 'aranha', articlePtBR: 'a' },
 			match: { emoji: '🕸️', namePtBR: 'teia' },
 			relationPtBR: 'faz'
 		},
 		{
 			id: 'baby-bottle',
-			source: { emoji: '👶', namePtBR: 'bebê' },
+			source: { emoji: '👶', namePtBR: 'bebê', articlePtBR: 'o' },
 			match: { emoji: '🍼', namePtBR: 'mamadeira' },
 			relationPtBR: 'usa'
 		},
 		{
 			id: 'monkey-banana',
-			source: { emoji: '🐵', namePtBR: 'macaco' },
+			source: { emoji: '🐵', namePtBR: 'macaco', articlePtBR: 'o' },
 			match: { emoji: '🍌', namePtBR: 'banana' },
 			relationPtBR: 'come'
 		}
@@ -253,7 +253,7 @@ export class MatchingProblemGenerator implements ProblemGenerator {
 			correctAnswer: { type: 'object', value: pair.match.emoji },
 			answerChoices: choices,
 			hint: {
-				ptBR: `Pense: o que o ${pair.source.namePtBR} precisa ou usa?`,
+				ptBR: `Pense: o que ${pair.source.articlePtBR} ${pair.source.namePtBR} precisa ou usa?`,
 				en: `Think: what does this need or use?`,
 				de: 'Denk nach: Was braucht oder benutzt das?',
 				fr: 'Réfléchis: de quoi cela a-t-il besoin?',

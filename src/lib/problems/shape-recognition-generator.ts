@@ -15,6 +15,12 @@ interface Shape {
 	id: string
 	emoji: string
 	name: LocalizedString
+	article: {
+		ptBR: string
+		es: string
+		de: string
+		fr: string
+	}
 }
 
 /** Basic shapes for young children */
@@ -22,32 +28,38 @@ const SHAPES: Shape[] = [
 	{
 		id: 'circle',
 		emoji: '🔵',
-		name: { en: 'circle', ptBR: 'círculo', de: 'Kreis', fr: 'cercle', es: 'círculo' }
+		name: { en: 'circle', ptBR: 'círculo', de: 'Kreis', fr: 'cercle', es: 'círculo' },
+		article: { ptBR: 'o', es: 'el', de: 'den', fr: 'le' }
 	},
 	{
 		id: 'square',
 		emoji: '🟧',
-		name: { en: 'square', ptBR: 'quadrado', de: 'Quadrat', fr: 'carré', es: 'cuadrado' }
+		name: { en: 'square', ptBR: 'quadrado', de: 'Quadrat', fr: 'carré', es: 'cuadrado' },
+		article: { ptBR: 'o', es: 'el', de: 'das', fr: 'le' }
 	},
 	{
 		id: 'triangle',
 		emoji: '🔺',
-		name: { en: 'triangle', ptBR: 'triângulo', de: 'Dreieck', fr: 'triangle', es: 'triángulo' }
+		name: { en: 'triangle', ptBR: 'triângulo', de: 'Dreieck', fr: 'triangle', es: 'triángulo' },
+		article: { ptBR: 'o', es: 'el', de: 'das', fr: 'le' }
 	},
 	{
 		id: 'star',
 		emoji: '⭐',
-		name: { en: 'star', ptBR: 'estrela', de: 'Stern', fr: 'étoile', es: 'estrella' }
+		name: { en: 'star', ptBR: 'estrela', de: 'Stern', fr: 'étoile', es: 'estrella' },
+		article: { ptBR: 'a', es: 'la', de: 'den', fr: "l'" }
 	},
 	{
 		id: 'heart',
 		emoji: '❤️',
-		name: { en: 'heart', ptBR: 'coração', de: 'Herz', fr: 'cœur', es: 'corazón' }
+		name: { en: 'heart', ptBR: 'coração', de: 'Herz', fr: 'cœur', es: 'corazón' },
+		article: { ptBR: 'o', es: 'el', de: 'das', fr: 'le' }
 	},
 	{
 		id: 'diamond',
 		emoji: '🔷',
-		name: { en: 'diamond', ptBR: 'losango', de: 'Raute', fr: 'losange', es: 'rombo' }
+		name: { en: 'diamond', ptBR: 'losango', de: 'Raute', fr: 'losange', es: 'rombo' },
+		article: { ptBR: 'o', es: 'el', de: 'die', fr: 'le' }
 	}
 ]
 
@@ -129,11 +141,11 @@ export class ShapeRecognitionGenerator implements ProblemGenerator {
 				elements
 			},
 			prompt: {
-				ptBR: `Encontre o ${targetShape.name.ptBR}!`,
+				ptBR: `Encontre ${targetShape.article.ptBR} ${targetShape.name.ptBR}!`,
 				en: `Find the ${targetShape.name.en}!`,
-				de: `Finde ${targetShape.name.de === 'Kreis' || targetShape.name.de === 'Stern' ? 'den' : targetShape.name.de === 'Herz' || targetShape.name.de === 'Quadrat' || targetShape.name.de === 'Dreieck' ? 'das' : 'die'} ${targetShape.name.de}!`,
-				fr: `Trouve le ${targetShape.name.fr}!`,
-				es: `¡Encuentra ${targetShape.name.es === 'estrella' ? 'la' : 'el'} ${targetShape.name.es}!`
+				de: `Finde ${targetShape.article.de} ${targetShape.name.de}!`,
+				fr: `Trouve ${targetShape.article.fr}${targetShape.article.fr === "l'" ? '' : ' '}${targetShape.name.fr}!`,
+				es: `¡Encuentra ${targetShape.article.es} ${targetShape.name.es}!`
 			},
 			correctAnswer: { type: 'object', value: targetShape.emoji },
 			answerChoices: choices,
