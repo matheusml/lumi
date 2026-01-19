@@ -2,7 +2,7 @@
 	/**
 	 * AdventureTiles
 	 *
-	 * Reusable grid of adventure tiles for Math, Grammar, and Logic.
+	 * Reusable grid of adventure tiles for Math, Grammar, Logic, and Social-Emotional.
 	 * Used on home page and completion page.
 	 */
 
@@ -35,40 +35,54 @@
 			goto(localizedUrl('/adventure', { type: 'logic' }))
 		}
 	}
+
+	function startSocialEmotionalAdventure() {
+		if (canStart) {
+			goto(localizedUrl('/adventure', { type: 'social-emotional' }))
+		}
+	}
 </script>
 
 <div class="adventure-tiles">
 	<button class="adventure-tile math" onclick={startMathAdventure} disabled={!canStart}>
-		<Icon name="math" size={32} />
+		<Icon name="math" size={24} />
 		<span class="tile-label">{t.home.math}</span>
 	</button>
 	<button class="adventure-tile grammar" onclick={startGrammarAdventure} disabled={!canStart}>
-		<Icon name="book" size={32} />
+		<Icon name="book" size={24} />
 		<span class="tile-label">{t.home.grammar}</span>
 	</button>
 	<button class="adventure-tile logic" onclick={startLogicAdventure} disabled={!canStart}>
-		<Icon name="puzzle" size={32} />
+		<Icon name="puzzle" size={24} />
 		<span class="tile-label">{t.home.logic}</span>
+	</button>
+	<button
+		class="adventure-tile social-emotional"
+		onclick={startSocialEmotionalAdventure}
+		disabled={!canStart}
+	>
+		<Icon name="heart" size={24} />
+		<span class="tile-label">{t.home.socialEmotional}</span>
 	</button>
 </div>
 
 <style>
 	.adventure-tiles {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-md);
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-sm);
 		width: 100%;
 	}
 
 	.adventure-tile {
-		aspect-ratio: 1;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: var(--spacing-sm);
+		gap: var(--spacing-xs);
+		padding: var(--spacing-md);
 		border: none;
-		border-radius: var(--radius-xl);
+		border-radius: var(--radius-lg);
 		cursor: pointer;
 		color: var(--color-text-on-primary);
 		box-shadow: var(--shadow-md);
@@ -77,11 +91,11 @@
 			box-shadow var(--transition-fast),
 			border-bottom-width var(--transition-fast);
 		/* 3D effect */
-		border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+		border-bottom: 3px solid rgba(0, 0, 0, 0.15);
 	}
 
 	.adventure-tile:active:not(:disabled) {
-		transform: translateY(2px);
+		transform: translateY(1px);
 		border-bottom-width: 2px;
 	}
 
@@ -107,6 +121,11 @@
 	.adventure-tile.logic {
 		background-color: var(--color-success);
 		border-bottom-color: var(--color-success-dark);
+	}
+
+	.adventure-tile.social-emotional {
+		background-color: var(--color-feelings);
+		border-bottom-color: var(--color-feelings-hover);
 	}
 
 	.tile-label {

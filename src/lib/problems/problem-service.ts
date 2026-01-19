@@ -23,6 +23,7 @@ import {
 	InitialLetterGenerator,
 	WordCompletionGenerator
 } from './grammar'
+import { EmotionScenarioGenerator, KindnessGenerator } from './social-emotional'
 import { shuffle } from './visual-objects'
 
 /** Saturation threshold for evicting old problems */
@@ -52,7 +53,10 @@ export class ProblemService {
 			'letter-recognition': new LetterRecognitionGenerator(),
 			'alphabet-order': new AlphabetOrderGenerator(),
 			'initial-letter': new InitialLetterGenerator(),
-			'word-completion': new WordCompletionGenerator()
+			'word-completion': new WordCompletionGenerator(),
+			// Social-emotional generators
+			'emotion-scenario': new EmotionScenarioGenerator(),
+			'kindness-choices': new KindnessGenerator()
 		}
 	}
 

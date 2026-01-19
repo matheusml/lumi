@@ -24,11 +24,18 @@ export type GrammarProblemType =
 	| 'initial-letter'
 	| 'word-completion'
 
+/** Social-emotional problem types */
+export type SocialEmotionalProblemType = 'emotion-scenario' | 'kindness-choices'
+
 /** All available problem types */
-export type ProblemType = MathProblemType | GrammarProblemType | LogicProblemType
+export type ProblemType =
+	| MathProblemType
+	| GrammarProblemType
+	| LogicProblemType
+	| SocialEmotionalProblemType
 
 /** Adventure category */
-export type AdventureCategory = 'math' | 'grammar' | 'logic'
+export type AdventureCategory = 'math' | 'grammar' | 'logic' | 'social-emotional'
 
 /** All math problem types */
 export const MATH_PROBLEM_TYPES: MathProblemType[] = [
@@ -55,6 +62,12 @@ export const LOGIC_PROBLEM_TYPES: LogicProblemType[] = [
 	'sorting',
 	'shape-recognition',
 	'color-recognition'
+]
+
+/** All social-emotional problem types */
+export const SOCIAL_EMOTIONAL_PROBLEM_TYPES: SocialEmotionalProblemType[] = [
+	'emotion-scenario',
+	'kindness-choices'
 ]
 
 /** Difficulty levels (1-4) */
@@ -89,6 +102,7 @@ export interface ProblemVisual {
 		| 'logic-group'
 		| 'logic-matching'
 		| 'logic-sequence'
+		| 'scenario'
 	elements: VisualElement[]
 	operator?: '+' | '-' // For equations
 	// Grammar-specific fields
@@ -106,7 +120,7 @@ export type AnswerValue =
 	| { type: 'side'; value: 'left' | 'right' }
 	| { type: 'pattern'; value: string[] }
 	| { type: 'letter'; value: string }
-	| { type: 'object'; value: string } // For logic problems (emoji/object identifier)
+	| { type: 'object'; value: string; label?: LocalizedString } // For logic/social-emotional problems
 
 /** A single problem */
 export interface Problem {

@@ -12,6 +12,7 @@
 	import {
 		LumiButton,
 		ChoiceButton,
+		LabeledChoiceButton,
 		ProgressDots,
 		SpeakerButton,
 		CountableObject,
@@ -465,31 +466,50 @@
 							{/if}
 						{/each}
 					</div>
+				{:else if currentProblem.visual.type === 'scenario'}
+					<div class="scenario-visual">
+						<span class="scenario-emoji">{currentProblem.visual.elements[0].object}</span>
+					</div>
 				{/if}
 			</div>
 
 			<!-- Answer choices (not for comparison or logic-group which have inline selection) -->
 			{#if currentProblem.type !== 'comparison' && currentProblem.visual.type !== 'logic-group'}
+				{@const hasLabels =
+					currentProblem.answerChoices[0]?.type === 'object' &&
+					currentProblem.answerChoices[0]?.label}
 				<div
 					class="choices"
-					class:emoji-choices={currentProblem.answerChoices[0]?.type === 'object'}
+					class:emoji-choices={currentProblem.answerChoices[0]?.type === 'object' && !hasLabels}
+					class:labeled-choices={hasLabels}
 				>
 					{#each currentProblem.answerChoices as choice}
-						<ChoiceButton
-							state={getAnswerState(choice)}
-							onclick={() => selectAnswer(choice)}
-							disabled={hasAnswered}
-						>
-							{#if choice.type === 'number'}
-								{choice.value}
-							{:else if choice.type === 'pattern'}
-								<PatternCircle colorId={choice.value[0]} size="small" />
-							{:else if choice.type === 'letter'}
-								{choice.value}
-							{:else if choice.type === 'object'}
-								<span class="choice-emoji">{choice.value}</span>
-							{/if}
-						</ChoiceButton>
+						{#if choice.type === 'object' && choice.label}
+							<LabeledChoiceButton
+								emoji={choice.value}
+								label={localize(choice.label)}
+								lang={getSpeechLanguage()}
+								state={getAnswerState(choice)}
+								onclick={() => selectAnswer(choice)}
+								disabled={hasAnswered}
+							/>
+						{:else}
+							<ChoiceButton
+								state={getAnswerState(choice)}
+								onclick={() => selectAnswer(choice)}
+								disabled={hasAnswered}
+							>
+								{#if choice.type === 'number'}
+									{choice.value}
+								{:else if choice.type === 'pattern'}
+									<PatternCircle colorId={choice.value[0]} size="small" />
+								{:else if choice.type === 'letter'}
+									{choice.value}
+								{:else if choice.type === 'object'}
+									<span class="choice-emoji">{choice.value}</span>
+								{/if}
+							</ChoiceButton>
+						{/if}
 					{/each}
 				</div>
 			{/if}
@@ -878,6 +898,27 @@
 		font-size: 32px;
 	}
 
+	/* Labeled choices styling - vertical list for better readability */
+	.labeled-choices {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		width: 100%;
+		max-width: 320px;
+	}
+
+	/* Scenario visual display */
+	.scenario-visual {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
+	}
+
+	.scenario-emoji {
+		font-size: 80px;
+	}
+
 	.prompt-row {
 		display: flex;
 		align-items: center;
@@ -999,5 +1040,9 @@
 
 	.toddler-mode .comparison-side {
 		padding: var(--spacing-lg);
+	}
+
+	.toddler-mode .scenario-emoji {
+		font-size: 96px;
 	}
 </style>

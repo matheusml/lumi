@@ -47,7 +47,9 @@
 			'letter-recognition': t.parents.letterRecognition,
 			'alphabet-order': t.parents.alphabetOrder,
 			'initial-letter': t.parents.initialLetter,
-			'word-completion': t.parents.wordCompletion
+			'word-completion': t.parents.wordCompletion,
+			'emotion-scenario': t.parents.emotionScenario,
+			'kindness-choices': t.parents.kindnessChoices
 		}
 		return names[type]
 	}
@@ -72,6 +74,7 @@
 		'initial-letter',
 		'word-completion'
 	]
+	const socialEmotionalActivities: ProblemType[] = ['emotion-scenario', 'kindness-choices']
 </script>
 
 <div class="analytics-tab">
@@ -135,6 +138,26 @@
 			<h3 class="category-title">{t.home.grammar}</h3>
 			<div class="progress-grid">
 				{#each grammarActivities as type}
+					{@const data = activityProgress[type]}
+					<div class="progress-card">
+						<h4 class="progress-title">{getActivityName(type)}</h4>
+						<div class="progress-stats">
+							<span class="progress-stat">
+								{t.parents.level}: <strong>{data.difficulty}</strong>/4
+							</span>
+							<span class="progress-stat">
+								{t.parents.accuracy}: <strong>{data.accuracy}%</strong>
+							</span>
+						</div>
+					</div>
+				{/each}
+			</div>
+		</div>
+
+		<div class="category">
+			<h3 class="category-title">{t.home.socialEmotional}</h3>
+			<div class="progress-grid">
+				{#each socialEmotionalActivities as type}
 					{@const data = activityProgress[type]}
 					<div class="progress-card">
 						<h4 class="progress-title">{getActivityName(type)}</h4>

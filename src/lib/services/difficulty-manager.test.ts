@@ -338,6 +338,23 @@ describe('DifficultyManager', () => {
 					problemsCorrect: 0,
 					consecutiveCorrect: 0,
 					consecutiveIncorrect: 0
+				},
+				// Social-emotional
+				'emotion-scenario': {
+					activityType: 'emotion-scenario' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
+				},
+				'kindness-choices': {
+					activityType: 'kindness-choices' as const,
+					currentDifficulty: 1 as const,
+					problemsAttempted: 0,
+					problemsCorrect: 0,
+					consecutiveCorrect: 0,
+					consecutiveIncorrect: 0
 				}
 			}
 
