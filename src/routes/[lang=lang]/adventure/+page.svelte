@@ -122,7 +122,7 @@
 		}
 	}
 
-	function generateProblems() {
+	async function generateProblems() {
 		const difficulties = difficultyManager.getAllDifficulties()
 
 		// Get age-appropriate problem types for this adventure
@@ -132,14 +132,14 @@
 			[...difficulties].filter(([type]) => problemTypesSet.has(type))
 		)
 
-		// Generate problems using the filtered types
+		// Generate problems using the filtered types (async for lazy-loaded generators)
 		const generatedProblems: Problem[] = []
 		const shuffledTypes = shuffle([...problemTypes])
 
 		for (let i = 0; i < PROBLEMS_PER_ADVENTURE; i++) {
 			const type = shuffledTypes[i % shuffledTypes.length]
 			const difficulty = filteredDifficulties.get(type) || 1
-			const problem = problemService.generateProblem(type, difficulty)
+			const problem = await problemService.generateProblem(type, difficulty)
 
 			if (problem) {
 				generatedProblems.push(problem)
@@ -148,7 +148,10 @@
 				for (const fallbackType of problemTypes) {
 					if (fallbackType !== type) {
 						const fallbackDifficulty = filteredDifficulties.get(fallbackType) || 1
-						const fallbackProblem = problemService.generateProblem(fallbackType, fallbackDifficulty)
+						const fallbackProblem = await problemService.generateProblem(
+							fallbackType,
+							fallbackDifficulty
+						)
 						if (fallbackProblem) {
 							generatedProblems.push(fallbackProblem)
 							break

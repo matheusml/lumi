@@ -10,38 +10,38 @@ describe('ProblemService', () => {
 	})
 
 	describe('generateProblem', () => {
-		it('should generate a counting problem', () => {
-			const problem = service.generateProblem('counting', 1)
+		it('should generate a counting problem', async () => {
+			const problem = await service.generateProblem('counting', 1)
 			expect(problem).not.toBeNull()
 			expect(problem!.type).toBe('counting')
 		})
 
-		it('should generate an addition problem', () => {
-			const problem = service.generateProblem('addition', 2)
+		it('should generate an addition problem', async () => {
+			const problem = await service.generateProblem('addition', 2)
 			expect(problem).not.toBeNull()
 			expect(problem!.type).toBe('addition')
 		})
 
-		it('should generate a subtraction problem', () => {
-			const problem = service.generateProblem('subtraction', 1)
+		it('should generate a subtraction problem', async () => {
+			const problem = await service.generateProblem('subtraction', 1)
 			expect(problem).not.toBeNull()
 			expect(problem!.type).toBe('subtraction')
 		})
 
-		it('should generate a comparison problem', () => {
-			const problem = service.generateProblem('comparison', 3)
+		it('should generate a comparison problem', async () => {
+			const problem = await service.generateProblem('comparison', 3)
 			expect(problem).not.toBeNull()
 			expect(problem!.type).toBe('comparison')
 		})
 
-		it('should generate a patterns problem', () => {
-			const problem = service.generateProblem('patterns', 2)
+		it('should generate a patterns problem', async () => {
+			const problem = await service.generateProblem('patterns', 2)
 			expect(problem).not.toBeNull()
 			expect(problem!.type).toBe('patterns')
 		})
 
-		it('should track seen signatures', () => {
-			const problem1 = service.generateProblem('counting', 1)
+		it('should track seen signatures', async () => {
+			const problem1 = await service.generateProblem('counting', 1)
 			expect(problem1).not.toBeNull()
 
 			const signatures = service.getSeenSignatures()
@@ -49,13 +49,13 @@ describe('ProblemService', () => {
 			expect(signatures.has(problem1!.signature)).toBe(true)
 		})
 
-		it('should not repeat problems immediately', () => {
+		it('should not repeat problems immediately', async () => {
 			const seenSignatures = new Set<string>()
 
 			// Generate multiple problems (using difficulty 2 which has 10 possible counting problems)
 			// to avoid hitting the saturation threshold
 			for (let i = 0; i < 5; i++) {
-				const problem = service.generateProblem('counting', 2)
+				const problem = await service.generateProblem('counting', 2)
 				expect(problem).not.toBeNull()
 				expect(seenSignatures.has(problem!.signature)).toBe(false)
 				seenSignatures.add(problem!.signature)
@@ -64,7 +64,7 @@ describe('ProblemService', () => {
 	})
 
 	describe('generateAdventureProblems', () => {
-		it('should generate the requested number of problems', () => {
+		it('should generate the requested number of problems', async () => {
 			const difficulties = new Map<ProblemType, DifficultyLevel>([
 				['counting', 1],
 				['addition', 1],
@@ -73,11 +73,11 @@ describe('ProblemService', () => {
 				['patterns', 1]
 			])
 
-			const problems = service.generateAdventureProblems(5, difficulties)
+			const problems = await service.generateAdventureProblems(5, difficulties)
 			expect(problems.length).toBe(5)
 		})
 
-		it('should generate problems of various types', () => {
+		it('should generate problems of various types', async () => {
 			const difficulties = new Map<ProblemType, DifficultyLevel>([
 				['counting', 1],
 				['addition', 1],
@@ -86,14 +86,14 @@ describe('ProblemService', () => {
 				['patterns', 1]
 			])
 
-			const problems = service.generateAdventureProblems(10, difficulties)
+			const problems = await service.generateAdventureProblems(10, difficulties)
 			const types = new Set(problems.map((p) => p.type))
 
 			// Should have variety
 			expect(types.size).toBeGreaterThan(1)
 		})
 
-		it('should use provided difficulties', () => {
+		it('should use provided difficulties', async () => {
 			const difficulties = new Map<ProblemType, DifficultyLevel>([
 				['counting', 3],
 				['addition', 2],
@@ -102,7 +102,7 @@ describe('ProblemService', () => {
 				['patterns', 2]
 			])
 
-			const problems = service.generateAdventureProblems(20, difficulties)
+			const problems = await service.generateAdventureProblems(20, difficulties)
 
 			for (const problem of problems) {
 				const expectedDifficulty = difficulties.get(problem.type)
@@ -110,9 +110,9 @@ describe('ProblemService', () => {
 			}
 		})
 
-		it('should default to difficulty 1 if not specified', () => {
+		it('should default to difficulty 1 if not specified', async () => {
 			const difficulties = new Map<ProblemType, DifficultyLevel>()
-			const problems = service.generateAdventureProblems(5, difficulties)
+			const problems = await service.generateAdventureProblems(5, difficulties)
 
 			for (const problem of problems) {
 				expect(problem.difficulty).toBe(1)
@@ -129,9 +129,9 @@ describe('ProblemService', () => {
 	})
 
 	describe('clearHistory', () => {
-		it('should clear all seen signatures', () => {
-			service.generateProblem('counting', 1)
-			service.generateProblem('addition', 1)
+		it('should clear all seen signatures', async () => {
+			await service.generateProblem('counting', 1)
+			await service.generateProblem('addition', 1)
 			expect(service.getSeenSignatures().size).toBe(2)
 
 			service.clearHistory()
@@ -156,11 +156,11 @@ describe('ProblemService', () => {
 	})
 
 	describe('saturation and eviction', () => {
-		it('should evict old problems when saturation is high', () => {
+		it('should evict old problems when saturation is high', async () => {
 			// Generate all possible counting problems at difficulty 1 (there are 5)
 			const countingProblems: string[] = []
 			for (let i = 0; i < 5; i++) {
-				const problem = service.generateProblem('counting', 1)
+				const problem = await service.generateProblem('counting', 1)
 				if (problem) {
 					countingProblems.push(problem.signature)
 				}
@@ -168,16 +168,16 @@ describe('ProblemService', () => {
 
 			// At this point all counting:d1 problems are seen
 			// When we try to generate another, it should evict old ones
-			const nextProblem = service.generateProblem('counting', 1)
+			const nextProblem = await service.generateProblem('counting', 1)
 
 			// Should still be able to generate (eviction happened)
 			expect(nextProblem).not.toBeNull()
 		})
 
-		it('should allow problems to be regenerated after eviction', () => {
+		it('should allow problems to be regenerated after eviction', async () => {
 			// Fill up counting problems
 			for (let i = 0; i < 5; i++) {
-				service.generateProblem('counting', 1)
+				await service.generateProblem('counting', 1)
 			}
 
 			// Clear and regenerate
@@ -185,7 +185,7 @@ describe('ProblemService', () => {
 
 			// Should be able to generate all again
 			for (let i = 0; i < 5; i++) {
-				const problem = service.generateProblem('counting', 1)
+				const problem = await service.generateProblem('counting', 1)
 				expect(problem).not.toBeNull()
 			}
 		})
