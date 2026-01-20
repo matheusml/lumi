@@ -2,62 +2,117 @@
  * Problem Service
  *
  * Manages problem generation across all types with deduplication and history management.
+ * Uses lazy loading for generators to improve initial bundle size and load time.
  */
 
 import type { Problem, ProblemType, DifficultyLevel } from '$lib/types'
 import type { ProblemGenerator } from './generator'
-import { CountingProblemGenerator } from './counting-generator'
-import { AdditionProblemGenerator } from './addition-generator'
-import { SubtractionProblemGenerator } from './subtraction-generator'
-import { ComparisonProblemGenerator } from './comparison-generator'
-import { PatternProblemGenerator } from './pattern-generator'
-import { OddOneOutGenerator } from './logic-generator'
-import { MatchingProblemGenerator } from './matching-generator'
-import { SequenceProblemGenerator } from './sequence-generator'
-import { SortingProblemGenerator } from './sorting-generator'
-import { ShapeRecognitionGenerator } from './shape-recognition-generator'
-import { ColorRecognitionGenerator } from './color-recognition-generator'
-import {
-	LetterRecognitionGenerator,
-	AlphabetOrderGenerator,
-	InitialLetterGenerator,
-	WordCompletionGenerator
-} from './grammar'
-import { EmotionScenarioGenerator, KindnessGenerator } from './social-emotional'
 import { shuffle } from './visual-objects'
 
 /** Saturation threshold for evicting old problems */
 const SATURATION_THRESHOLD = 0.8
 const EVICTION_RATIO = 0.5
 
+/**
+ * Generator loader functions - these use dynamic imports to lazy-load generators
+ * Only the generators actually used will be loaded, improving initial bundle size
+ */
+const generatorLoaders: Record<ProblemType, () => Promise<ProblemGenerator>> = {
+	// Math generators
+	counting: async () => {
+		const { CountingProblemGenerator } = await import('./counting-generator')
+		return new CountingProblemGenerator()
+	},
+	addition: async () => {
+		const { AdditionProblemGenerator } = await import('./addition-generator')
+		return new AdditionProblemGenerator()
+	},
+	subtraction: async () => {
+		const { SubtractionProblemGenerator } = await import('./subtraction-generator')
+		return new SubtractionProblemGenerator()
+	},
+	comparison: async () => {
+		const { ComparisonProblemGenerator } = await import('./comparison-generator')
+		return new ComparisonProblemGenerator()
+	},
+	// Logic generators
+	'odd-one-out': async () => {
+		const { OddOneOutGenerator } = await import('./logic-generator')
+		return new OddOneOutGenerator()
+	},
+	matching: async () => {
+		const { MatchingProblemGenerator } = await import('./matching-generator')
+		return new MatchingProblemGenerator()
+	},
+	sequence: async () => {
+		const { SequenceProblemGenerator } = await import('./sequence-generator')
+		return new SequenceProblemGenerator()
+	},
+	patterns: async () => {
+		const { PatternProblemGenerator } = await import('./pattern-generator')
+		return new PatternProblemGenerator()
+	},
+	sorting: async () => {
+		const { SortingProblemGenerator } = await import('./sorting-generator')
+		return new SortingProblemGenerator()
+	},
+	'shape-recognition': async () => {
+		const { ShapeRecognitionGenerator } = await import('./shape-recognition-generator')
+		return new ShapeRecognitionGenerator()
+	},
+	'color-recognition': async () => {
+		const { ColorRecognitionGenerator } = await import('./color-recognition-generator')
+		return new ColorRecognitionGenerator()
+	},
+	// Grammar generators
+	'letter-recognition': async () => {
+		const { LetterRecognitionGenerator } = await import('./grammar')
+		return new LetterRecognitionGenerator()
+	},
+	'alphabet-order': async () => {
+		const { AlphabetOrderGenerator } = await import('./grammar')
+		return new AlphabetOrderGenerator()
+	},
+	'initial-letter': async () => {
+		const { InitialLetterGenerator } = await import('./grammar')
+		return new InitialLetterGenerator()
+	},
+	'word-completion': async () => {
+		const { WordCompletionGenerator } = await import('./grammar')
+		return new WordCompletionGenerator()
+	},
+	// Social-emotional generators
+	'emotion-scenario': async () => {
+		const { EmotionScenarioGenerator } = await import('./social-emotional')
+		return new EmotionScenarioGenerator()
+	},
+	'kindness-choices': async () => {
+		const { KindnessGenerator } = await import('./social-emotional')
+		return new KindnessGenerator()
+	}
+}
+
 export class ProblemService {
-	private generators: Record<ProblemType, ProblemGenerator>
+	/** Cached generators - loaded on demand */
+	private generators: Partial<Record<ProblemType, ProblemGenerator>> = {}
 	private seenSignatures: Map<string, Date> = new Map()
 
-	constructor() {
-		this.generators = {
-			// Math generators
-			counting: new CountingProblemGenerator(),
-			addition: new AdditionProblemGenerator(),
-			subtraction: new SubtractionProblemGenerator(),
-			comparison: new ComparisonProblemGenerator(),
-			// Logic generators
-			'odd-one-out': new OddOneOutGenerator(),
-			matching: new MatchingProblemGenerator(),
-			sequence: new SequenceProblemGenerator(),
-			patterns: new PatternProblemGenerator(),
-			sorting: new SortingProblemGenerator(),
-			'shape-recognition': new ShapeRecognitionGenerator(),
-			'color-recognition': new ColorRecognitionGenerator(),
-			// Grammar generators
-			'letter-recognition': new LetterRecognitionGenerator(),
-			'alphabet-order': new AlphabetOrderGenerator(),
-			'initial-letter': new InitialLetterGenerator(),
-			'word-completion': new WordCompletionGenerator(),
-			// Social-emotional generators
-			'emotion-scenario': new EmotionScenarioGenerator(),
-			'kindness-choices': new KindnessGenerator()
+	/**
+	 * Get a generator, loading it lazily if needed
+	 */
+	private async getGenerator(type: ProblemType): Promise<ProblemGenerator | null> {
+		// Return cached generator if available
+		if (this.generators[type]) {
+			return this.generators[type]!
 		}
+
+		// Load generator on demand
+		const loader = generatorLoaders[type]
+		if (!loader) return null
+
+		const generator = await loader()
+		this.generators[type] = generator
+		return generator
 	}
 
 	/**
@@ -82,14 +137,14 @@ export class ProblemService {
 	}
 
 	/**
-	 * Generate a single problem of a specific type
+	 * Generate a single problem of a specific type (async for lazy loading)
 	 */
-	generateProblem(type: ProblemType, difficulty: DifficultyLevel): Problem | null {
-		const generator = this.generators[type]
+	async generateProblem(type: ProblemType, difficulty: DifficultyLevel): Promise<Problem | null> {
+		const generator = await this.getGenerator(type)
 		if (!generator) return null
 
 		// Check saturation and evict if needed
-		this.checkAndEvict(type, difficulty)
+		this.checkAndEvict(generator, difficulty)
 
 		const result = generator.generate(difficulty, this.getExclusionSet())
 		if (result) {
@@ -101,14 +156,14 @@ export class ProblemService {
 	}
 
 	/**
-	 * Generate a mixed set of problems for an adventure
+	 * Generate a mixed set of problems for an adventure (async for lazy loading)
 	 * @param count Number of problems to generate
 	 * @param difficulties Map of problem type to difficulty level
 	 */
-	generateAdventureProblems(
+	async generateAdventureProblems(
 		count: number,
 		difficulties: Map<ProblemType, DifficultyLevel>
-	): Problem[] {
+	): Promise<Problem[]> {
 		const problems: Problem[] = []
 		const types: ProblemType[] = ['counting', 'addition', 'subtraction', 'comparison']
 
@@ -118,7 +173,7 @@ export class ProblemService {
 		for (let i = 0; i < count; i++) {
 			const type = shuffledTypes[i % shuffledTypes.length]
 			const difficulty = difficulties.get(type) || 1
-			const problem = this.generateProblem(type, difficulty)
+			const problem = await this.generateProblem(type, difficulty)
 
 			if (problem) {
 				problems.push(problem)
@@ -127,7 +182,7 @@ export class ProblemService {
 				for (const fallbackType of types) {
 					if (fallbackType !== type) {
 						const fallbackDifficulty = difficulties.get(fallbackType) || 1
-						const fallbackProblem = this.generateProblem(fallbackType, fallbackDifficulty)
+						const fallbackProblem = await this.generateProblem(fallbackType, fallbackDifficulty)
 						if (fallbackProblem) {
 							problems.push(fallbackProblem)
 							break
@@ -143,26 +198,24 @@ export class ProblemService {
 	/**
 	 * Check saturation and evict old problems if needed
 	 */
-	private checkAndEvict(type: ProblemType, difficulty: DifficultyLevel): void {
-		const generator = this.generators[type]
-		if (!generator) return
-
+	private checkAndEvict(generator: ProblemGenerator, difficulty: DifficultyLevel): void {
 		const allSignatures = generator.allPossibleSignatures(difficulty)
 		const seenCount = allSignatures.filter((sig) => this.seenSignatures.has(sig)).length
 		const saturation = seenCount / allSignatures.length
 
 		if (saturation >= SATURATION_THRESHOLD) {
-			this.evictOldest(type, difficulty, Math.floor(seenCount * EVICTION_RATIO))
+			this.evictOldest(generator, difficulty, Math.floor(seenCount * EVICTION_RATIO))
 		}
 	}
 
 	/**
 	 * Evict the oldest seen problems of a specific type/difficulty
 	 */
-	private evictOldest(type: ProblemType, difficulty: DifficultyLevel, count: number): void {
-		const generator = this.generators[type]
-		if (!generator) return
-
+	private evictOldest(
+		generator: ProblemGenerator,
+		difficulty: DifficultyLevel,
+		count: number
+	): void {
 		const allSignatures = generator.allPossibleSignatures(difficulty)
 		const seenEntries = allSignatures
 			.filter((sig) => this.seenSignatures.has(sig))

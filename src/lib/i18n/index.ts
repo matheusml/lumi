@@ -2,17 +2,44 @@
  * i18n Language Service
  *
  * Centralized internationalization with browser detection and persistence.
+ * Uses dynamic imports to only load the required language, improving initial bundle size.
  */
 
 import type { SupportedLanguage, LanguageInfo, Translations } from './types'
-import { ptBR } from './translations/pt-BR'
+// Only import English synchronously as the default/fallback language
 import { en } from './translations/en'
-import { de } from './translations/de'
-import { fr } from './translations/fr'
-import { es } from './translations/es'
 
 const STORAGE_KEY = 'lumi-language'
 const DEFAULT_LANGUAGE: SupportedLanguage = 'en'
+
+/**
+ * Translation loaders - use dynamic imports for non-default languages
+ * This reduces initial bundle size by only loading translations when needed
+ */
+const translationLoaders: Record<SupportedLanguage, () => Promise<Translations>> = {
+	en: async () => en, // Already loaded synchronously
+	'pt-BR': async () => {
+		const { ptBR } = await import('./translations/pt-BR')
+		return ptBR
+	},
+	de: async () => {
+		const { de } = await import('./translations/de')
+		return de
+	},
+	fr: async () => {
+		const { fr } = await import('./translations/fr')
+		return fr
+	},
+	es: async () => {
+		const { es } = await import('./translations/es')
+		return es
+	}
+}
+
+/** Cache for loaded translations */
+const loadedTranslations: Partial<Record<SupportedLanguage, Translations>> = {
+	en // English is always available
+}
 
 /** Detect browser language (can be called during module init) */
 function detectBrowserLanguage(): SupportedLanguage {
@@ -73,17 +100,34 @@ export const languages: Record<SupportedLanguage, LanguageInfo> = {
 	es: { code: 'es', name: 'Español', flag: '🇪🇸', speechLang: 'es-ES' }
 }
 
-/** All translations */
-const translations: Record<SupportedLanguage, Translations> = {
-	'pt-BR': ptBR,
-	en,
-	de,
-	fr,
-	es
-}
-
 /** Current language - module state (initialized synchronously for correct SSR/hydration) */
 let currentLanguage: SupportedLanguage = getInitialLanguage()
+
+/**
+ * Load translations for a language (async, with caching)
+ */
+async function loadTranslations(lang: SupportedLanguage): Promise<Translations> {
+	// Return cached if available
+	if (loadedTranslations[lang]) {
+		return loadedTranslations[lang]!
+	}
+
+	// Load and cache
+	const translations = await translationLoaders[lang]()
+	loadedTranslations[lang] = translations
+	return translations
+}
+
+/**
+ * Preload translations for a language (call early to warm the cache)
+ */
+export function preloadTranslations(lang: SupportedLanguage): void {
+	if (!loadedTranslations[lang]) {
+		loadTranslations(lang).catch(() => {
+			// Silently fail - will use fallback
+		})
+	}
+}
 
 /** Subscribers for language changes */
 const subscribers: Set<(lang: SupportedLanguage) => void> = new Set()
@@ -93,17 +137,23 @@ export function getLanguage(): SupportedLanguage {
 	return currentLanguage
 }
 
-/** Get current translations */
+/** Get current translations (sync - returns cached or fallback to English) */
 export function getTranslations(): Translations {
-	return translations[currentLanguage]
+	return loadedTranslations[currentLanguage] || en
 }
 
-/** Get translations for a specific language */
+/** Get translations for a specific language (sync - returns cached or fallback) */
 export function getTranslationsForLang(lang: string): Translations {
 	if (lang in languages) {
-		return translations[lang as SupportedLanguage]
+		return loadedTranslations[lang as SupportedLanguage] || en
 	}
-	return translations[DEFAULT_LANGUAGE]
+	return en
+}
+
+/** Get translations async (loads if needed) */
+export async function getTranslationsAsync(lang?: SupportedLanguage): Promise<Translations> {
+	const targetLang = lang || currentLanguage
+	return loadTranslations(targetLang)
 }
 
 /** Subscribe to language changes */
@@ -119,10 +169,14 @@ function notifySubscribers() {
 	}
 }
 
-/** Set language and persist to localStorage */
-export function setLanguage(lang: SupportedLanguage): void {
+/** Set language and persist to localStorage (loads translations async) */
+export async function setLanguage(lang: SupportedLanguage): Promise<void> {
 	if (lang === currentLanguage) return
 	currentLanguage = lang
+
+	// Load translations for new language
+	await loadTranslations(lang)
+
 	if (typeof window !== 'undefined') {
 		localStorage.setItem(STORAGE_KEY, lang)
 		// Update HTML lang attribute
@@ -132,11 +186,14 @@ export function setLanguage(lang: SupportedLanguage): void {
 }
 
 /** Set language from URL parameter (used by language-prefixed routes) */
-export function setLanguageFromUrl(lang: string): void {
+export async function setLanguageFromUrl(lang: string): Promise<void> {
 	if (!(lang in languages)) return
 	if (lang === currentLanguage) return
 
 	currentLanguage = lang as SupportedLanguage
+
+	// Load translations for new language
+	await loadTranslations(lang as SupportedLanguage)
 
 	if (typeof window !== 'undefined') {
 		// Sync to localStorage so it persists
@@ -156,15 +213,19 @@ export function getSpeechLanguage(): SpeechLanguage {
 	return languages[currentLanguage].speechLang as SpeechLanguage
 }
 
-/** Initialize language (call once on app start) */
-export function initLanguage(): void {
+/** Initialize language (call once on app start) - loads translations async */
+export async function initLanguage(): Promise<void> {
 	if (typeof window === 'undefined') return
 
 	// Language was already detected synchronously during module init via getInitialLanguage()
-	// Here we just need to:
-	// 1. Persist to localStorage if not already stored
-	// 2. Update the HTML lang attribute
-	// 3. Notify subscribers
+	// Here we need to:
+	// 1. Load translations for the detected language
+	// 2. Persist to localStorage if not already stored
+	// 3. Update the HTML lang attribute
+	// 4. Notify subscribers
+
+	// Load translations for the current language (if not English, which is already loaded)
+	await loadTranslations(currentLanguage)
 
 	const stored = localStorage.getItem(STORAGE_KEY)
 	if (!stored || !(stored in languages)) {
