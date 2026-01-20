@@ -18,7 +18,8 @@ export default defineConfig({
 				'src/lib/**/*.test.ts',
 				'src/lib/types/**',
 				'src/lib/**/index.ts', // Re-export barrel files
-				'src/lib/theme/**' // Theme constants (no logic)
+				'src/lib/theme/**', // Theme constants (no logic)
+				'src/lib/i18n/translations/**' // Pure data - no logic to test
 			],
 			thresholds: {
 				lines: 80,

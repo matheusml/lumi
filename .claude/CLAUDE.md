@@ -91,10 +91,12 @@ npm run test     # Run tests
 
 **Before delivering work, always run:**
 
-1. `npm run test:run` - Tests must pass
+1. `npm run test:coverage` - Tests must pass with 80% coverage
 2. `npm run check` - TypeScript must pass
 3. `npm run lint` - Linting must pass
 4. `npm run format` - Apply Prettier formatting
+
+**Note:** Husky pre-commit hook enforces coverage check automatically before each commit.
 
 **Update tests when changing code** (add for features, update for changes, remove for deletions)
 
