@@ -60,6 +60,7 @@
 	let answerStates: Map<string, AnswerState> = $state(new Map())
 	let hasAnswered = $state(false)
 	let isCorrect = $state(false)
+	let feedbackRef: HTMLDivElement | null = $state(null)
 
 	// Auto-progress timeout (for correct answers)
 	let autoProgressTimeout: ReturnType<typeof setTimeout> | null = null
@@ -93,6 +94,13 @@
 		// Clean up auto-progress timeout
 		if (autoProgressTimeout) {
 			clearTimeout(autoProgressTimeout)
+		}
+	})
+
+	// Scroll to feedback when an incorrect answer is given (helps on mobile)
+	$effect(() => {
+		if (hasAnswered && !isCorrect && feedbackRef) {
+			feedbackRef.scrollIntoView({ behavior: 'smooth', block: 'center' })
 		}
 	})
 
@@ -520,7 +528,7 @@
 
 		<!-- Feedback and next button -->
 		{#if hasAnswered}
-			<div class="feedback" class:correct={isCorrect}>
+			<div class="feedback" class:correct={isCorrect} bind:this={feedbackRef}>
 				<p class="feedback-text">
 					{isCorrect ? `${t.adventure.correct} 🎉` : `${t.adventure.tryAgain} 💪`}
 				</p>
