@@ -62,7 +62,7 @@
 	}
 
 	.object {
-		font-size: clamp(1.75rem, 5vw, 2.5rem);
+		font-size: clamp(1.5rem, 4vw, 2.5rem);
 		line-height: 1;
 		animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
 		animation-delay: var(--delay, 0ms);

@@ -621,22 +621,41 @@
 
 	.comparison {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		gap: var(--spacing-lg);
+		gap: var(--spacing-md);
 		max-width: 100%;
+		width: 100%;
+	}
+
+	/* On wider screens, show side by side */
+	@media (min-width: 400px) {
+		.comparison {
+			flex-direction: row;
+			justify-content: center;
+			gap: var(--spacing-lg);
+			width: auto;
+		}
 	}
 
 	.comparison-side {
-		padding: var(--spacing-md);
+		padding: var(--spacing-sm);
 		border: 3px solid transparent;
 		border-radius: var(--radius-xl);
 		background-color: transparent;
 		cursor: pointer;
-		flex: 0 1 auto;
+		min-width: 0;
+		max-width: 100%;
 		transition:
 			transform var(--transition-fast),
 			border-color var(--transition-fast),
 			background-color var(--transition-fast);
+	}
+
+	@media (min-width: 400px) {
+		.comparison-side {
+			padding: var(--spacing-md);
+		}
 	}
 
 	.comparison-side:hover:not(:disabled) {
@@ -683,8 +702,9 @@
 	.logic-group {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: var(--spacing-lg);
+		gap: var(--spacing-md);
 		padding: var(--spacing-sm);
+		max-width: 100%;
 	}
 
 	.logic-item {
@@ -692,8 +712,8 @@
 		align-items: center;
 		justify-content: center;
 
-		width: 100px;
-		height: 100px;
+		width: clamp(80px, 20vw, 100px);
+		height: clamp(80px, 20vw, 100px);
 
 		border: 3px solid var(--color-border);
 		border-radius: var(--radius-xl);
@@ -747,7 +767,7 @@
 	}
 
 	.logic-emoji {
-		font-size: 48px;
+		font-size: clamp(32px, 10vw, 48px);
 	}
 
 	/* Matching visual */
@@ -765,12 +785,12 @@
 	}
 
 	.matching-source-emoji {
-		font-size: 64px;
+		font-size: clamp(48px, 15vw, 64px);
 		animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
 	}
 
 	.matching-arrow {
-		font-size: 36px;
+		font-size: clamp(24px, 8vw, 36px);
 		color: var(--color-text-muted);
 		animation: fadeSlideIn 0.4s ease-out 0.3s backwards;
 	}
@@ -779,11 +799,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 80px;
-		height: 80px;
+		width: clamp(60px, 18vw, 80px);
+		height: clamp(60px, 18vw, 80px);
 		border: 3px dashed var(--color-primary);
 		border-radius: var(--radius-xl);
-		font-size: 36px;
+		font-size: clamp(24px, 8vw, 36px);
 		font-weight: 700;
 		color: var(--color-primary);
 		animation:
@@ -836,13 +856,13 @@
 	}
 
 	.sequence-emoji {
-		font-size: 48px;
+		font-size: clamp(32px, 10vw, 48px);
 		animation: sequenceAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
 		animation-delay: var(--delay, 0ms);
 	}
 
 	.sequence-arrow {
-		font-size: 24px;
+		font-size: clamp(16px, 5vw, 24px);
 		color: var(--color-text-muted);
 		animation: arrowSlide 0.3s ease-out backwards;
 		animation-delay: var(--delay, 0ms);
@@ -852,11 +872,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 60px;
-		height: 60px;
+		width: clamp(44px, 14vw, 60px);
+		height: clamp(44px, 14vw, 60px);
 		border: 3px dashed var(--color-primary);
 		border-radius: var(--radius-lg);
-		font-size: 28px;
+		font-size: clamp(20px, 7vw, 28px);
 		font-weight: 700;
 		color: var(--color-primary);
 		animation:
@@ -919,7 +939,7 @@
 	}
 
 	.scenario-emoji {
-		font-size: 80px;
+		font-size: clamp(56px, 18vw, 80px);
 	}
 
 	.prompt-row {
@@ -1009,12 +1029,12 @@
 	}
 
 	.toddler-mode .logic-item {
-		width: 120px;
-		height: 120px;
+		width: clamp(100px, 25vw, 120px);
+		height: clamp(100px, 25vw, 120px);
 	}
 
 	.toddler-mode .logic-emoji {
-		font-size: 56px;
+		font-size: clamp(40px, 12vw, 56px);
 	}
 
 	.toddler-mode .choice-emoji {
@@ -1022,30 +1042,36 @@
 	}
 
 	.toddler-mode .matching-source-emoji {
-		font-size: 80px;
+		font-size: clamp(56px, 18vw, 80px);
 	}
 
 	.toddler-mode .matching-question {
-		width: 100px;
-		height: 100px;
-		font-size: 44px;
+		width: clamp(70px, 22vw, 100px);
+		height: clamp(70px, 22vw, 100px);
+		font-size: clamp(32px, 10vw, 44px);
 	}
 
 	.toddler-mode .sequence-emoji {
-		font-size: 56px;
+		font-size: clamp(40px, 12vw, 56px);
 	}
 
 	.toddler-mode .sequence-unknown {
-		width: 80px;
-		height: 80px;
-		font-size: 36px;
+		width: clamp(56px, 18vw, 80px);
+		height: clamp(56px, 18vw, 80px);
+		font-size: clamp(28px, 9vw, 36px);
 	}
 
 	.toddler-mode .comparison-side {
-		padding: var(--spacing-lg);
+		padding: var(--spacing-md);
+	}
+
+	@media (min-width: 400px) {
+		.toddler-mode .comparison-side {
+			padding: var(--spacing-lg);
+		}
 	}
 
 	.toddler-mode .scenario-emoji {
-		font-size: 96px;
+		font-size: clamp(64px, 20vw, 96px);
 	}
 </style>
