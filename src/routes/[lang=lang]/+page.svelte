@@ -8,7 +8,7 @@
 	import { goto } from '$app/navigation'
 	import { Icon, LumiMascot, AdventureTiles, SEO } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
-	import { getTranslationsForLang } from '$lib/i18n'
+	import { getTranslationsForLang, translationVersion } from '$lib/i18n'
 
 	interface Props {
 		data: { lang: string }
@@ -20,7 +20,11 @@
 	let remaining = $state(3)
 
 	// Use $derived to reactively get translations based on the URL language
-	let t = $derived(getTranslationsForLang(data.lang))
+	// $translationVersion triggers reactivity when translations are loaded
+	let t = $derived.by(() => {
+		$translationVersion // Track version for reactivity
+		return getTranslationsForLang(data.lang)
+	})
 
 	$effect(() => {
 		// Load state from localStorage

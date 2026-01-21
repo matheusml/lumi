@@ -5,6 +5,7 @@
  * Uses dynamic imports to only load the required language, improving initial bundle size.
  */
 
+import { writable } from 'svelte/store'
 import type { SupportedLanguage, LanguageInfo, Translations } from './types'
 // Only import English synchronously as the default/fallback language
 import { en } from './translations/en'
@@ -103,6 +104,9 @@ export const languages: Record<SupportedLanguage, LanguageInfo> = {
 /** Current language - module state (initialized synchronously for correct SSR/hydration) */
 let currentLanguage: SupportedLanguage = getInitialLanguage()
 
+/** Translation version store - increments when translations are loaded to trigger reactivity */
+export const translationVersion = writable(0)
+
 /**
  * Load translations for a language (async, with caching)
  */
@@ -115,6 +119,8 @@ async function loadTranslations(lang: SupportedLanguage): Promise<Translations> 
 	// Load and cache
 	const translations = await translationLoaders[lang]()
 	loadedTranslations[lang] = translations
+	// Increment version to trigger reactivity in components
+	translationVersion.update((v) => v + 1)
 	return translations
 }
 
@@ -188,12 +194,12 @@ export async function setLanguage(lang: SupportedLanguage): Promise<void> {
 /** Set language from URL parameter (used by language-prefixed routes) */
 export async function setLanguageFromUrl(lang: string): Promise<void> {
 	if (!(lang in languages)) return
-	if (lang === currentLanguage) return
 
-	currentLanguage = lang as SupportedLanguage
+	const langKey = lang as SupportedLanguage
+	currentLanguage = langKey
 
-	// Load translations for new language
-	await loadTranslations(lang as SupportedLanguage)
+	// Always load translations (they might not be loaded yet even if language is already set)
+	await loadTranslations(langKey)
 
 	if (typeof window !== 'undefined') {
 		// Sync to localStorage so it persists
@@ -202,6 +208,7 @@ export async function setLanguageFromUrl(lang: string): Promise<void> {
 		document.documentElement.lang = lang
 	}
 
+	// Always notify subscribers so components can re-render with loaded translations
 	notifySubscribers()
 }
 
