@@ -29,9 +29,11 @@
 <style>
 	.letter-sequence {
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--spacing-sm);
 		align-items: center;
 		justify-content: center;
+		max-width: 100%;
 	}
 
 	.letter-box {
