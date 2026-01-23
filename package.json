@@ -65,5 +65,8 @@
 		"*.{js,ts,svelte,json,css,md,html}": [
 			"prettier --write"
 		]
+	},
+	"dependencies": {
+		"@fontsource/nunito": "^5.2.7"
 	}
 }
