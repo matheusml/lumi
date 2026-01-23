@@ -213,6 +213,7 @@ export const en: Translations = {
 		about: 'About',
 		faq: 'FAQ',
 		startAdventure: 'Start an adventure',
+		startNow: 'Start Now',
 		math: 'Math',
 		grammar: 'Grammar',
 		logic: 'Logic',

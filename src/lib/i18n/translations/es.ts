@@ -211,6 +211,7 @@ export const es: Translations = {
 		about: 'Acerca de',
 		faq: 'FAQ',
 		startAdventure: 'Comenzar una aventura',
+		startNow: 'Comenzar Ahora',
 		math: 'Matemáticas',
 		grammar: 'Gramática',
 		logic: 'Lógica',

@@ -5,11 +5,13 @@
 	 * Celebrates completion without emphasizing scores.
 	 */
 
+	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { onMount, onDestroy } from 'svelte'
-	import { AdventureTiles, SEO } from '$lib/components'
+	import { LumiButton, SEO } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
 	import { getTranslations, subscribe } from '$lib/i18n'
+	import { localizedUrl, localizedPath } from '$lib/utils/navigation'
 	import type { Translations } from '$lib/i18n'
 
 	interface Props {
@@ -50,6 +52,16 @@
 			remaining = adventureLimitService.getRemainingAdventures()
 		}
 	})
+
+	function startAnotherAdventure() {
+		if (canStart) {
+			goto(localizedUrl('/adventure', { type: 'mixed' }))
+		}
+	}
+
+	function goHome() {
+		goto(localizedPath('/'))
+	}
 </script>
 
 <SEO
@@ -93,7 +105,14 @@
 				<p class="choose-next">{t.complete.chooseNext}</p>
 			{/if}
 
-			<AdventureTiles {canStart} {t} />
+			<div class="buttons">
+				<LumiButton onclick={startAnotherAdventure} variant="primary">
+					{t.home.startNow}
+				</LumiButton>
+				<LumiButton onclick={goHome} variant="secondary">
+					{t.complete.backToStart}
+				</LumiButton>
+			</div>
 
 			{#if remaining !== Infinity}
 				<p class="remaining">
@@ -106,6 +125,9 @@
 		<div class="limit-reached">
 			<p class="limit-message">{t.home.limitReached} 🎉</p>
 			<p class="outdoor-message">{t.home.encourageOutdoor}</p>
+			<LumiButton onclick={goHome} variant="secondary">
+				{t.complete.backToStart}
+			</LumiButton>
 		</div>
 	{/if}
 </main>
@@ -186,6 +208,14 @@
 		gap: var(--spacing-md);
 		width: 100%;
 		max-width: 400px;
+	}
+
+	.buttons {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		width: 100%;
+		max-width: 280px;
 	}
 
 	.choose-next {

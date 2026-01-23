@@ -208,6 +208,7 @@ export const de: Translations = {
 		about: 'Über uns',
 		faq: 'FAQ',
 		startAdventure: 'Starte ein Abenteuer',
+		startNow: 'Jetzt starten',
 		math: 'Mathe',
 		grammar: 'Grammatik',
 		logic: 'Logik',
