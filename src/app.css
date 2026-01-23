@@ -4,18 +4,16 @@
  * Design system tokens as CSS custom properties.
  */
 
-/* Self-hosted Nunito font with font-display: optional for better FCP
- * Using 'optional' prevents Flash of Unstyled Text (FOUT) by using
- * the fallback font permanently if the custom font doesn't load fast enough.
- * This improves perceived performance while still using the custom font
- * when it's cached (most visits).
+/* Self-hosted Nunito font for better performance
+ * Using 'swap' shows fallback font immediately, then swaps to Nunito once loaded.
+ * This gives good FCP while ensuring the correct font is always displayed.
  */
 
 /* Latin subset - covers English */
 @font-face {
 	font-family: 'Nunito';
 	font-style: normal;
-	font-display: optional;
+	font-display: swap;
 	font-weight: 400;
 	src: url('@fontsource/nunito/files/nunito-latin-400-normal.woff2') format('woff2');
 	unicode-range:
@@ -26,7 +24,7 @@
 @font-face {
 	font-family: 'Nunito';
 	font-style: normal;
-	font-display: optional;
+	font-display: swap;
 	font-weight: 500;
 	src: url('@fontsource/nunito/files/nunito-latin-500-normal.woff2') format('woff2');
 	unicode-range:
@@ -37,7 +35,7 @@
 @font-face {
 	font-family: 'Nunito';
 	font-style: normal;
-	font-display: optional;
+	font-display: swap;
 	font-weight: 600;
 	src: url('@fontsource/nunito/files/nunito-latin-600-normal.woff2') format('woff2');
 	unicode-range:
@@ -48,7 +46,7 @@
 @font-face {
 	font-family: 'Nunito';
 	font-style: normal;
-	font-display: optional;
+	font-display: swap;
 	font-weight: 700;
 	src: url('@fontsource/nunito/files/nunito-latin-700-normal.woff2') format('woff2');
 	unicode-range:
@@ -60,7 +58,7 @@
 @font-face {
 	font-family: 'Nunito';
 	font-style: normal;
-	font-display: optional;
+	font-display: swap;
 	font-weight: 400;
 	src: url('@fontsource/nunito/files/nunito-latin-ext-400-normal.woff2') format('woff2');
 	unicode-range:
@@ -72,7 +70,7 @@
 @font-face {
 	font-family: 'Nunito';
 	font-style: normal;
-	font-display: optional;
+	font-display: swap;
 	font-weight: 500;
 	src: url('@fontsource/nunito/files/nunito-latin-ext-500-normal.woff2') format('woff2');
 	unicode-range:
@@ -84,7 +82,7 @@
 @font-face {
 	font-family: 'Nunito';
 	font-style: normal;
-	font-display: optional;
+	font-display: swap;
 	font-weight: 600;
 	src: url('@fontsource/nunito/files/nunito-latin-ext-600-normal.woff2') format('woff2');
 	unicode-range:
@@ -96,7 +94,7 @@
 @font-face {
 	font-family: 'Nunito';
 	font-style: normal;
-	font-display: optional;
+	font-display: swap;
 	font-weight: 700;
 	src: url('@fontsource/nunito/files/nunito-latin-ext-700-normal.woff2') format('woff2');
 	unicode-range:
