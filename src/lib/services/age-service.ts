@@ -12,7 +12,8 @@ import type {
 	GrammarProblemType,
 	LogicProblemType,
 	SocialEmotionalProblemType,
-	AdventureCategory
+	AdventureCategory,
+	ProblemType
 } from '$lib/types'
 
 export type ChildAge = 3 | 4 | 5 | 6 | 7
@@ -138,7 +139,22 @@ export class AgeService {
 	 */
 	getProblemTypesForAge(
 		category: AdventureCategory
-	): MathProblemType[] | GrammarProblemType[] | LogicProblemType[] | SocialEmotionalProblemType[] {
+	):
+		| MathProblemType[]
+		| GrammarProblemType[]
+		| LogicProblemType[]
+		| SocialEmotionalProblemType[]
+		| ProblemType[] {
+		if (category === 'mixed') {
+			// Return all problem types for the current age
+			const ageTypes = AGE_PROBLEM_TYPES[this.currentAge]
+			return [
+				...ageTypes.math,
+				...ageTypes.grammar,
+				...ageTypes.logic,
+				...ageTypes['social-emotional']
+			]
+		}
 		return AGE_PROBLEM_TYPES[this.currentAge][category]
 	}
 

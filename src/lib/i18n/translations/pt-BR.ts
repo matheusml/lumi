@@ -211,6 +211,7 @@ export const ptBR: Translations = {
 		about: 'Sobre',
 		faq: 'FAQ',
 		startAdventure: 'Comece uma aventura',
+		startNow: 'Comece Agora',
 		math: 'Matemática',
 		grammar: 'Gramática',
 		logic: 'Lógica',

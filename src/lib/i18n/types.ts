@@ -136,6 +136,7 @@ export interface Translations {
 		about: string
 		faq: string
 		startAdventure: string
+		startNow: string
 		math: string
 		grammar: string
 		logic: string

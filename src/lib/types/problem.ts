@@ -35,7 +35,7 @@ export type ProblemType =
 	| SocialEmotionalProblemType
 
 /** Adventure category */
-export type AdventureCategory = 'math' | 'grammar' | 'logic' | 'social-emotional'
+export type AdventureCategory = 'math' | 'grammar' | 'logic' | 'social-emotional' | 'mixed'
 
 /** All math problem types */
 export const MATH_PROBLEM_TYPES: MathProblemType[] = [

@@ -6,9 +6,10 @@
 	 */
 
 	import { goto } from '$app/navigation'
-	import { Icon, LumiMascot, AdventureTiles, SEO } from '$lib/components'
+	import { Icon, LumiMascot, LumiButton, SEO } from '$lib/components'
 	import { adventureLimitService } from '$lib/services'
 	import { getTranslationsForLang, translationVersion } from '$lib/i18n'
+	import { localizedUrl } from '$lib/utils/navigation'
 
 	interface Props {
 		data: { lang: string }
@@ -44,6 +45,12 @@
 
 	function openParentZone() {
 		goto(`/${data.lang}/parents`)
+	}
+
+	function startAdventure() {
+		if (canStart) {
+			goto(localizedUrl('/adventure', { type: 'mixed' }))
+		}
 	}
 </script>
 
@@ -93,8 +100,9 @@
 
 		{#if canStart}
 			<div class="action-area">
-				<h2 class="action-heading">{t.home.startAdventure}</h2>
-				<AdventureTiles {canStart} {t} />
+				<LumiButton onclick={startAdventure} variant="primary" size="large">
+					{t.home.startNow}
+				</LumiButton>
 
 				{#if remaining !== Infinity}
 					<p class="remaining">
@@ -256,17 +264,10 @@
 	.action-area {
 		display: flex;
 		flex-direction: column;
-		align-items: stretch;
-		gap: var(--spacing-sm);
+		align-items: center;
+		gap: var(--spacing-md);
 		width: 100%;
-		margin-top: var(--spacing-sm);
-	}
-
-	.action-heading {
-		font-size: var(--font-size-heading-small);
-		font-weight: 600;
-		color: var(--color-text-primary);
-		margin: 0;
+		margin-top: var(--spacing-md);
 	}
 
 	.remaining {
